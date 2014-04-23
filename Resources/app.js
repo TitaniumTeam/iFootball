@@ -1,60 +1,99 @@
-/*
- * Single Window Application Template:
- * A basic starting point for your application.  Mostly a blank canvas.
- *
- * In app.js, we generally take care of a few things:
- * - Bootstrap the application with any data we need
- * - Check for dependencies like device type, platform version or network connection
- * - Require and open our top-level UI component
- *
- */
-
 //bootstrap and check dependencies
 if (Ti.version < 1.8) {
-  alert('Sorry - this application template requires Titanium Mobile SDK 1.8 or later');
+	alert('Sorry - this application template requires Titanium Mobile SDK 1.8 or later');
 }
 
-// This is a single context application with multiple windows in a stack
-(function() {
-  //render appropriate components based on the platform and form factor
-  var osname = Ti.Platform.osname,
-    version = Ti.Platform.version,
-    height = Ti.Platform.displayCaps.platformHeight,
-    width = Ti.Platform.displayCaps.platformWidth;
+//(function() {
+new (require('ui-controller/AllData'));
 
-  //considering tablets to have width over 720px and height over 600px - you can define your own
-  function checkTablet() {
-    var platform = Ti.Platform.osname;
+var Win = Ti.UI.createWindow({
+	//backgroundColor : Ti.App.Color.nauden,
+	navBarHidden : true,
+	fullscreen : true,
+	keepScreenOn : true,
+	top : 0,
+});
 
-    switch (platform) {
-      case 'ipad':
-        return true;
-      case 'android':
-        var psc = Ti.Platform.Android.physicalSizeCategory;
-        var tiAndroid = Ti.Platform.Android;
-        return psc === tiAndroid.PHYSICAL_SIZE_CATEGORY_LARGE || psc === tiAndroid.PHYSICAL_SIZE_CATEGORY_XLARGE;
-      default:
-        return Math.min(
-          Ti.Platform.displayCaps.platformHeight,
-          Ti.Platform.displayCaps.platformWidth
-        ) >= 400
-    }
-  }
+var ViewHeader = Ti.UI.createView({
+	backgroundImage : '/assets/images/icon/header.jpg',
+	width : Ti.App.WidthScreen,
+	height : Ti.App.size(120),
+	top : 0
+});
 
-  var isTablet = checkTablet();
-  console.log(isTablet);
+var ViewIconLeft = Ti.UI.createView({
+	width : Ti.App.size(120),
+	height : Ti.App.size(120),
+	left : Ti.App.size(0),
+	top : Ti.App.size(0)
+});
 
-  var Window;
-  if (isTablet) {
-    Window = require('ui/tablet/ApplicationWindow');
-  } else {
-    // Android uses platform-specific properties to create windows.
-    // All other platforms follow a similar UI pattern.
-    if (osname === 'android') {
-      Window = require('ui/handheld/android/ApplicationWindow');
-    } else {
-      Window = require('ui/handheld/ApplicationWindow');
-    }
-  }
-  new Window().open();
-})();
+var IconLeft = Ti.UI.createImageView({
+	image : '/assets/images/icon/menu.png',
+	top : Ti.App.size(35),
+	left : Ti.App.size(30),
+	right : Ti.App.size(30),
+	bottom : Ti.App.size(35)
+});
+Win.getIconLeft = function() {
+	return IconLeft;
+};
+
+var ViewIconRight = Ti.UI.createView({
+	width : Ti.App.size(120),
+	height : Ti.App.size(120),
+	right : Ti.App.size(0),
+	top : Ti.App.size(0)
+});
+
+var IconRight = Ti.UI.createImageView({
+	image : '/assets/images/icon/user.png',
+	top : Ti.App.size(30),
+	bottom : Ti.App.size(30),
+	right : Ti.App.size(35),
+	left : Ti.App.size(35)
+});
+
+Win.getIconRight = function() {
+	return IconRight;
+};
+
+var ViewLabelHeader = Ti.UI.createView({
+	height : Ti.App.size(120),
+	top : Ti.App.size(0),
+	left : Ti.App.size(120),
+	right : Ti.App.size(120)
+});
+
+var LabelHeader = Ti.UI.createLabel({
+	text : 'Đăng Nhập',
+	font : {
+		fontSize : Ti.App.size(40),
+		fontWeight : 'bold',
+		fontFamily : 'Aria'
+	},
+	color : Ti.App.Color.white,
+});
+Win.getLabelHeader = function() {
+	return LabelHeader;
+};
+
+Win.add(ViewHeader);
+
+ViewHeader.add(ViewIconLeft);
+ViewHeader.add(ViewIconRight);
+ViewHeader.add(ViewLabelHeader);
+
+ViewIconLeft.add(IconLeft);
+
+ViewIconRight.add(IconRight);
+
+ViewLabelHeader.add(LabelHeader);
+
+var NewView = new (require('ui/WindowMain'))();
+Win.add(NewView);
+
+Win.open();
+// var Window=new(require('ui/DangNhap'))();
+// Window.open();
+//})();
