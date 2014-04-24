@@ -591,7 +591,7 @@ function tao_event(sv) {
 			case 0:
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleRightWindow();
-				set_label(sv, "THÔNG TIN TÀI KHOẢN");
+				set_label(sv, "");
 				sv.ui.wdInfoUser.ui.scrollview.scrollTo(0,0);
 				sv.ui.Viewtong.add(sv.ui.wdInfoUser.ui.ViewTong);
 				break;
@@ -612,7 +612,7 @@ function tao_event(sv) {
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleLeftWindow();
 				sv.ui.wdHome.ui.ViewTong.scrollTo(0,0);
-				set_label(sv, "Bang xep hang");
+				set_label(sv, "Bảng xếp hạng");
 				sv.ui.Viewtong.add(sv.ui.wdHome.ui.ViewTong);
 				break;
 		}
