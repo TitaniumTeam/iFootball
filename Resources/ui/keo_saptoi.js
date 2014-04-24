@@ -42,17 +42,24 @@ function tao_ui(sv) {
 		backgroundColor : 'transparent'
 	});
 	sv.ui.vHeader.add(sv.ui.ngay);
-	sv.ui.lbl_hqa = Ti.UI.createView({
+	sv.ui.lbl_hqa = Ti.UI.createLabel({
 		backgroundColor : 'transparent',
+		text : 'Hôm qua',
 		backgroundSelectedColor : Ti.App.Color.superwhite,
+		color : Ti.App.Color.superwhite,
+		textAlign : 'center',
 		width : Ti.App.size(220),
-		height:Ti.App.size(80),
-		top:0
+		left : 0,
+		font : {
+			fontSize : Ti.App.size(30)
+		},
+		height:Ti.App.size(80)
 	});
-	sv.ui.vHeader.add(sv.ui.lbl_hqa);
+	sv.ui.ngay.add(sv.ui.lbl_hqa);
 
-	sv.ui.lbl_hnay = Ti.UI.createView({
+	sv.ui.lbl_hnay = Ti.UI.createLabel({
 		backgroundColor : Ti.App.Color.superwhite,
+		text : 'Hôm nay',
 		backgroundSelectedColor : Ti.App.Color.superwhite,
 		color : Ti.App.Color.nauden,
 		textAlign : 'center',
@@ -63,11 +70,11 @@ function tao_ui(sv) {
 		},
 		height:Ti.App.size(80)
 	});
-	sv.ui.vHeader.add(sv.ui.lbl_hnay);
+	sv.ui.ngay.add(sv.ui.lbl_hnay);
 
-	sv.ui.lbl_mai = Ti.UI.createView({
+	sv.ui.lbl_mai = Ti.UI.createLabel({
 		backgroundColor :'transparent',
-		text : 'Ngay mai',
+		text : 'Ngày mai',
 		backgroundSelectedColor : Ti.App.Color.superwhite,
 		color : Ti.App.Color.superwhite,
 		textAlign : 'center',
@@ -78,7 +85,7 @@ function tao_ui(sv) {
 		right:0,
 		height:Ti.App.size(80)
 	});
-	sv.ui.vHeader.add(sv.ui.lbl_mai);
+	sv.ui.ngay.add(sv.ui.lbl_mai);
 
 	sv.ui.ViewTong.add(sv.ui.vHeader);
 

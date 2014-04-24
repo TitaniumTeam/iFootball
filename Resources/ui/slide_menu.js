@@ -520,13 +520,6 @@ function tao_ui(sv) {
 	sv.ui.View1.add(sv.ui.lbl_title);
 	sv.ui.WindowHome.add(sv.ui.View1);
 	/////////////////view menu left
-	sv.ui.v = require('/ui/Home');
-	sv.ui.wdHome = new sv.ui.v();
-	sv.ui.Viewtong.add(sv.ui.wdHome.ui.ViewTong);
-	sv.ui.keo_tructiep = require('/ui/keo_ts_tructiep');
-	sv.ui.wdKeotructiep = new sv.ui.keo_tructiep();
-	sv.ui.keo_saptoi=require('/ui/keo_saptoi');
-	sv.ui.wdKeosaptoi=new sv.ui.keo_saptoi();
 	var ViewHienTai = new (require('/ui/Home'))();
 	sv.ui.Viewtong.add(ViewHienTai.ui.ViewTong);
 	////////////////view menu right
@@ -553,12 +546,10 @@ function tao_ui(sv) {
 	tao_event(sv);
 	sv.ui.drawer.addEventListener('windowDidOpen', sv.fu.evt_draw_open);
 	sv.ui.drawer.addEventListener('windowDidClose', sv.fu.evt_draw_close);
-	//
 	sv.ui.tableView_r3.addEventListener('click', sv.fu.evt_tblviewright3_click);
-	sv.ui.tableView_r.addEventListener('click', sv.fu.evt_tblviewright1_click);
 	sv.ui.tableView.addEventListener('click', sv.fu.evt_tblview_click);
-	sv.ui.tableView2.addEventListener('click', sv.fu.evt_tblview2_click);
-	//
+	sv.ui.tableView2.addEventListener('click',sv.fu.evt_tblview2_click);
+	sv.ui.tableView_r.addEventListener('click', sv.fu.evt_tblviewright1_click);
 	sv.ui.view_menu_icon.addEventListener('click', sv.fu.eventSlideleft);
 	sv.ui.view_user_icon.addEventListener('click', sv.fu.eventSlideright);
 	sv.ui.WindowHome.addEventListener('open', sv.fu.eventOpenWindow);
@@ -576,6 +567,8 @@ function removeAllEvent(sv) {
 	}
 
 	if (sv.vari.VTView = 3) {
+		var ViewHienTai = new (require('/ui/News'))();
+		ViewHienTai.removeAllEvent();
 	}
 
 	if (sv.vari.VTView = 4) {
@@ -655,9 +648,6 @@ function tao_event(sv) {
 				removeAllEvent(sv);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleRightWindow();
-				set_label(sv, "");
-				sv.ui.wdInfoUser.ui.scrollview.scrollTo(0, 0);
-				sv.ui.Viewtong.add(sv.ui.wdInfoUser.ui.ViewTong);
 				set_label(sv, "THÔNG TIN TÀI KHOẢN");
 				newView.ui.scrollview.scrollTo(0, 0);
 				sv.ui.Viewtong.add(newView.ui.ViewTong);
@@ -684,35 +674,51 @@ function tao_event(sv) {
 				removeAllEvent(sv);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleLeftWindow();
-				sv.ui.wdHome.ui.ViewTong.scrollTo(0, 0);
-				set_label(sv, "Bảng xếp hạng");
-				sv.ui.Viewtong.add(sv.ui.wdHome.ui.ViewTong);
 				newView.ui.ViewTong.scrollTo(0, 0);
 				set_label(sv, "Bang xep hang");
 				sv.ui.Viewtong.add(newView.ui.ViewTong);
 				sv.vari.VTView = 1;
 				break;
+
+			case 2:
+				var newView = new (require('/ui/News'))();
+				removeAllEvent(sv);
+				sv.ui.Viewtong.removeAllChildren();
+				sv.ui.drawer.toggleLeftWindow();
+				newView.ui.ViewTong.scrollTo(0, 0);
+				set_label(sv, "TIN TỨC");
+				sv.ui.Viewtong.add(newView.ui.ViewTong);
+				sv.vari.VTView = 3;
+				break;
 		}
 	};
-	sv.fu.evt_tblview2_click = function(e) {
+	///su kien table view 2 menu left
+	sv.fu.evt_tblview2_click=function(e){
+		Ti.API.info("isLeftWindowOpen: " + sv.ui.drawer.isLeftWindowOpen());
 		switch(e.index) {
 			case 0:
+				var newView = new (require('/ui/keo_ts_tructiep'))();
+				// removeAllEvent(sv);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleLeftWindow();
-				sv.ui.wdKeotructiep.ui.ViewTong.scrollTo(0, 0);
+				newView.ui.ViewTong.scrollTo(0, 0);
 				set_label(sv, "KÈO TRỰC TIẾP");
-				sv.ui.Viewtong.add(sv.ui.wdKeotructiep.ui.ViewTong);
+				sv.ui.Viewtong.add(newView.ui.ViewTong);
+				sv.vari.VTView = 4;
 				break;
+
 			case 1:
+				var newView = new (require('/ui/keo_saptoi'))();
+				// removeAllEvent(sv);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleLeftWindow();
-				sv.ui.wdKeosaptoi.ui.scrollview.scrollTo(0, 0);
+				newView.ui.scrollview.scrollTo(0, 0);
 				set_label(sv, "KÈO");
-				sv.ui.Viewtong.add(sv.ui.wdKeosaptoi.ui.ViewTong);
+				sv.ui.Viewtong.add(newView.ui.ViewTong);
+				sv.vari.VTView = 5;
 				break;
 		}
 	};
-
 	sv.fu.eventOpenWindow = function(e) {
 		Ti.API.info('Opened window');
 	};
@@ -725,10 +731,6 @@ function tao_event(sv) {
 	};
 	//su kien mo slide
 	sv.fu.evt_draw_open = function(e) {
-		if (sv.vari.flag_txtfield == true) {
-			sv.ui.wdTTCN.ui.TfMatKhau.blur();
-			sv.ui.wdTTCN.ui.TfTaiKhoan.blur();
-			sv.ui.wdTTCN.ui.TfEmail.blur();
 		var newView = new (require('/ui/ThongTinCaNhan'))();
 		if (sv.vari.flag_txtfield == true) {
 			newView.ui.TfMatKhau.blur();

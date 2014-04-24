@@ -91,15 +91,15 @@ function createUI(sv) {
 	}
 
 	createUI_Event(sv);
-
-	var IconLeft = Win.getIconLeft();
-	var IconRight = Win.getIconRight();
-	var LabelHeader = Win.getLabelHeader();
-	IconLeft.image = '/assets/images/icon/menu.png';
-	Win.getLabelHeader().text = 'Tin Tức';
-
-	IconLeft.addEventListener('click', sv.fu.eventClickIconLeft);
-	IconRight.addEventListener('click', sv.fu.eventClickIconRight);
+// 
+	// var IconLeft = Win.getIconLeft();
+	// var IconRight = Win.getIconRight();
+	// var LabelHeader = Win.getLabelHeader();
+	// IconLeft.image = '/assets/images/icon/menu.png';
+	// Win.getLabelHeader().text = 'Tin Tức';
+// 
+	// IconLeft.addEventListener('click', sv.fu.eventClickIconLeft);
+	// IconRight.addEventListener('click', sv.fu.eventClickIconRight);
 
 	sv.ui.ViewTong.add(sv.ui.BGHeader);
 
