@@ -11,7 +11,7 @@ module.exports = function() {
 		createUI(sv);
 	})();
 
-	return sv.ui.ViewTong;
+	return sv;
 };
 /**
  * Khởi tạo biến
@@ -40,7 +40,7 @@ function createUI(sv) {
 
 	sv.ui.ViewTong = Ti.UI.createScrollView({
 		backgroundColor : Ti.App.Color.magenta,
-		top : Ti.App.size(120),
+		top : Ti.App.size(0),
 		left : 0
 	});
 
@@ -102,21 +102,6 @@ function createUI(sv) {
 		});
 	}
 
-	createUI_Event(sv);
-
-	for (var i = 0; i < sv.vari.SoGiai; i++) {
-		sv.arr.ViewDoi[i].addEventListener('click', sv.arr.eventClickViewDoi[i]);
-	}
-
-	var IconLeft = Win.getIconLeft();
-	var IconRight = Win.getIconRight();
-	var LabelHeader = Win.getLabelHeader();
-
-	IconLeft.image = '/assets/images/icon/menu.png';
-	IconLeft.addEventListener('click', sv.fu.eventClickIconLeft);
-	IconRight.addEventListener('click', sv.fu.eventClickIconRight);
-	LabelHeader.text = 'Bảng Xếp Hạng';
-
 	for (var i = 0; i < sv.vari.SoGiai; i++) {
 		sv.arr.madoi[i] = i;
 		sv.ui.ViewTong.add(sv.arr.ViewDoi[i]);
@@ -159,45 +144,3 @@ function createUI(sv) {
 	}
 }
 
-function RemoveAllEventListener(sv) {
-	var IconLeft = Win.getIconLeft();
-	var IconRight = Win.getIconRight();
-	var LabelHeader = Win.getLabelHeader();
-
-	IconLeft.removeEventListener('click', sv.fu.eventClickIconLeft);
-	IconRight.removeEventListener('click', sv.fu.eventClickIconRight);
-	for (var i = 0; i < sv.vari.SoGiai; i++) {
-		sv.arr.ViewDoi[i].removeEventListener('click', sv.arr.eventClickViewDoi[i]);
-	}
-
-	sv.vari = null;
-	sv.arr = null;
-	sv.ui = null;
-	sv.fu = null;
-	sv.test = null;
-	sv = null;
-}
-
-function createUI_Event(sv) {
-	sv.fu = {};
-
-	for (var i = 0; i < sv.vari.SoGiai; i++) {
-		sv.arr.eventClickViewDoi[i] = function(e) {
-			var NewView = new (require('ui/BangXepHang'))();
-			Win.add(NewView);
-			Win.remove(sv.ui.ViewTong);
-			RemoveAllEventListener(sv);
-		};
-	}
-	sv.fu.eventClickIconLeft = function(e) {
-		var NewView = new (require('ui/WindowMain'))();
-		Win.add(NewView);
-		Win.remove(sv.ui.ViewTong);
-		RemoveAllEventListener(sv);
-	};
-
-	sv.fu.eventClickIconRight = function(e) {
-		alert('Click ');
-	};
-
-}
