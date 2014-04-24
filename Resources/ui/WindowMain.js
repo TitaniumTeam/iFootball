@@ -297,7 +297,10 @@ function createUI_Event(sv) {
 	};
 
 	sv.fu.eventClickIconRight = function(e) {
-		alert('Click ');
+		var newView = new (require('ui/News'))();
+		Win.add(newView);
+		Win.remove(sv.ui.ViewTong);
+		RemoveAllEventListener(sv);
 	};
 
 	sv.fu.eventClickViewDNFace = function(e) {

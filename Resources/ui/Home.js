@@ -9,6 +9,7 @@ module.exports = function() {
 	(function() {
 		createVariable(sv);
 		createUI(sv);
+		createRemove(sv);
 	})();
 
 	return sv;
@@ -102,9 +103,19 @@ function createUI(sv) {
 		});
 	}
 
+	createUI_Event(sv);
+
+	for (var i = 0; i < sv.vari.SoGiai; i++) {
+		sv.arr.ViewDoi[i].addEventListener('click', sv.arr.eventClickViewDoi[i]);
+	}
+
 	for (var i = 0; i < sv.vari.SoGiai; i++) {
 		sv.arr.madoi[i] = i;
 		sv.ui.ViewTong.add(sv.arr.ViewDoi[i]);
+		sv.ui.ViewTong.removeViewDoi = function() {
+			return sv.arr.ViewDoi[i].addEventListener('click', sv.arr.eventClickViewDoi[i]);
+			;
+		};
 
 		sv.arr.ViewDoi[i].add(sv.arr.LogoDoi[i]);
 		sv.arr.ViewDoi[i].add(sv.arr.TenNuoc[i]);
@@ -144,3 +155,22 @@ function createUI(sv) {
 	}
 }
 
+function createUI_Event(sv) {
+	sv.fu = {};
+	//sv.arr = {};
+
+	for (var i = 0; i < sv.vari.SoGiai; i++) {
+		sv.arr.eventClickViewDoi[i] = function() {
+			var newWindow = new (require('ui/BangXepHang'))();
+			newWindow.open();
+		};
+	}
+}
+
+function createRemove(sv) {
+	sv.removeAllEvent = function() {
+		for (var i = 0; i < sv.vari.SoGiai; i++) {
+			sv.arr.ViewDoi[i].removeEventListener('click', sv.arr.eventClickViewDoi[i]);
+		}
+	};
+}

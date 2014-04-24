@@ -9,6 +9,7 @@ module.exports = function() {
 	(function() {
 		createVariable(sv);
 		createUI(sv);
+		createRemove(sv);
 	})();
 
 	return sv;
@@ -25,9 +26,8 @@ function createUI(sv) {
 		// height : Ti.App.heightScreen,
 		top : 0,
 		left : 0,
-		showVerticalScrollIndicator:true
+		showVerticalScrollIndicator : true
 	});
-
 
 	//Tao view Email
 	sv.ui.ViewEmail = Ti.UI.createView({
@@ -170,7 +170,7 @@ function createUI(sv) {
 	// sv.ui.IconBack.addEventListener('click', sv.fu.eventClickIconBack);
 	// sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
 	// sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
-// 
+	//
 	// sv.ui.Window.add(sv.ui.ViewTong);
 	// sv.ui.Window.add(sv.ui.ViewHeader);
 
@@ -178,7 +178,6 @@ function createUI(sv) {
 	sv.ui.ViewTong.add(sv.ui.ViewTaiKhoan);
 	sv.ui.ViewTong.add(sv.ui.ViewMatKhau);
 	sv.ui.ViewTong.add(sv.ui.ViewXacNhan);
-
 
 	sv.ui.ViewEmail.add(sv.ui.LabelEmail);
 	sv.ui.ViewEmail.add(sv.ui.TfEmail);
@@ -222,3 +221,8 @@ function createUI_Event(sv) {
 	};
 }
 
+function createRemove(sv) {
+	sv.removeAllEvent = function() {
+		Ti.API.info('da remove xong ');
+	};
+}
