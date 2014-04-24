@@ -12,5 +12,6 @@ module.exports = function() {
 	sv.nauden = '343434';
 	sv.superwhite = 'ffffff';
 	sv.blue='3a5b9a';
+	sv.xanhnhat='cccccc';
 	return sv;
 };
