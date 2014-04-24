@@ -11,10 +11,11 @@ module.exports = function() {
 	})();
 	return sv.ui.drawer;
 };
-function tao_bien(sv){
-	sv.vari={};
-	sv.arr={};
+function tao_bien(sv) {
+	sv.vari = {};
+	sv.arr = {};
 	sv.vari.flag_txtfield = false;
+	sv.vari.VTView = 1;
 	//cac mang menu ben phai
 	sv.arr.ten_right = ['THÔNG TIN TÀI KHOẢN', 'NẠP XU', 'LỊCH SỬ'];
 	sv.arr.icon_right = ['/assets/images/icon/icon-2.png', '/assets/images/icon/icon-lichsu.png', '/assets/images/icon/icon-napxu.png'];
@@ -32,7 +33,7 @@ function tao_bien(sv){
 };
 function tao_ui(sv) {
 	sv.ui = {};
-	
+
 	///////
 	/*win right
 	*
@@ -404,7 +405,7 @@ function tao_ui(sv) {
 		scrollable : false,
 	});
 	sv.ui.view_menulist.add(sv.ui.tableView2);
-	
+
 	for (var i = 0; i < 2; i++) {
 		sv.ui.row = Ti.UI.createTableViewRow({
 			height : Ti.App.size(95),
@@ -519,16 +520,9 @@ function tao_ui(sv) {
 	sv.ui.View1.add(sv.ui.lbl_title);
 	sv.ui.WindowHome.add(sv.ui.View1);
 	/////////////////view menu left
-	sv.ui.v = require('/ui/Home');
-	sv.ui.wdHome = new sv.ui.v();
-	sv.ui.Viewtong.add(sv.ui.wdHome.ui.ViewTong);
+	var ViewHienTai = new (require('/ui/Home'))();
+	sv.ui.Viewtong.add(ViewHienTai.ui.ViewTong);
 	////////////////view menu right
-	sv.ui.windowInfoUser = require('/ui/Info');
-	sv.ui.wdInfoUser = new sv.ui.windowInfoUser();
-	sv.ui.windowLichsuGD = require('/ui/LichSuGiaoDich');
-	sv.ui.wdLSGD = new sv.ui.windowLichsuGD();
-	sv.ui.windowThongtincanhan = require('/ui/ThongTinCaNhan');
-	sv.ui.wdTTCN = new sv.ui.windowThongtincanhan();
 	sv.ui.navController = Ti.UI.iOS.createNavigationWindow({
 		window : sv.ui.WindowHome
 	});
@@ -551,7 +545,7 @@ function tao_ui(sv) {
 	///
 	tao_event(sv);
 	sv.ui.drawer.addEventListener('windowDidOpen', sv.fu.evt_draw_open);
-	sv.ui.drawer.addEventListener('windowDidClose',sv.fu.evt_draw_close);
+	sv.ui.drawer.addEventListener('windowDidClose', sv.fu.evt_draw_close);
 	sv.ui.tableView_r3.addEventListener('click', sv.fu.evt_tblviewright3_click);
 	sv.ui.tableView.addEventListener('click', sv.fu.evt_tblview_click);
 	sv.ui.tableView_r.addEventListener('click', sv.fu.evt_tblviewright1_click);
@@ -560,6 +554,61 @@ function tao_ui(sv) {
 	sv.ui.WindowHome.addEventListener('open', sv.fu.eventOpenWindow);
 	sv.ui.WindowHome.addEventListener('close', sv.fu.eventCloseWindow);
 };
+
+function removeAllEvent(sv) {
+	sv.fu = {};
+	if (sv.vari.VTView = 1) {
+		var ViewHienTai = new (require('/ui/Home'))();
+		ViewHienTai.removeAllEvent();
+	}
+
+	if (sv.vari.VTView = 2) {
+	}
+
+	if (sv.vari.VTView = 3) {
+	}
+
+	if (sv.vari.VTView = 4) {
+	}
+
+	if (sv.vari.VTView = 5) {
+	}
+
+	if (sv.vari.VTView = 6) {
+	}
+
+	if (sv.vari.VTView = 7) {
+	}
+
+	if (sv.vari.VTView = 8) {
+		var ViewHienTai = new (require('/ui/Info'))();
+		ViewHienTai.removeAllEvent();
+	}
+
+	if (sv.vari.VTView = 9) {
+		var ViewHienTai = new (require('/ui/ThongTinCaNhan'))();
+		ViewHienTai.removeAllEvent();
+	}
+
+	if (sv.vari.VTView = 10) {
+	}
+
+	if (sv.vari.VTView = 11) {
+	}
+
+	if (sv.vari.VTView = 12) {
+	}
+
+	if (sv.vari.VTView = 13) {
+	}
+
+	if (sv.vari.VTView = 14) {
+		var ViewHienTai = new (require('/ui/LichSuGiaoDich'))();
+		ViewHienTai.removeAllEvent();
+	}
+
+}
+
 function tao_event(sv) {
 	sv.fu = {};
 	//su kien click nut 3gach
@@ -577,10 +626,13 @@ function tao_event(sv) {
 		Ti.API.info('is righwindowopen' + sv.ui.drawer.isRightWindowOpen());
 		switch(e.index) {
 			case 0:
+				var newView = new (require('/ui/LichSuGiaoDich'))();
+				removeAllEvent(sv);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleRightWindow();
 				set_label(sv, "LỊCH SỬ GIAO DỊCH");
-				sv.ui.Viewtong.add(sv.ui.wdLSGD);
+				sv.ui.Viewtong.add(newView);
+				sv.vari.VTView = 14;
 				break;
 		};
 	};
@@ -589,18 +641,24 @@ function tao_event(sv) {
 		Ti.API.info('is righwindowopen' + sv.ui.drawer.isRightWindowOpen());
 		switch(e.index) {
 			case 0:
+				var newView = new (require('/ui/Info'))();
+				removeAllEvent(sv);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleRightWindow();
 				set_label(sv, "THÔNG TIN TÀI KHOẢN");
-				sv.ui.wdInfoUser.ui.scrollview.scrollTo(0,0);
-				sv.ui.Viewtong.add(sv.ui.wdInfoUser.ui.ViewTong);
+				newView.ui.scrollview.scrollTo(0, 0);
+				sv.ui.Viewtong.add(newView.ui.ViewTong);
+				sv.vari.VTView = 8;
 				break;
 			case 1:
+				var newView = new (require('/ui/ThongTinCaNhan'))();
+				removeAllEvent(sv);
 				sv.vari.flag_txtfield = true;
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleRightWindow();
 				set_label(sv, "THÔNG TIN CÁ NHÂN");
-				sv.ui.Viewtong.add(sv.ui.wdTTCN.ui.ViewTong);
+				sv.ui.Viewtong.add(newView.ui.ViewTong);
+				sv.vari.VTView = 9;
 				break;
 		};
 	};
@@ -609,11 +667,14 @@ function tao_event(sv) {
 		Ti.API.info("isLeftWindowOpen: " + sv.ui.drawer.isLeftWindowOpen());
 		switch(e.index) {
 			case 0:
+				var newView = new (require('/ui/Home'))();
+				removeAllEvent(sv);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleLeftWindow();
-				sv.ui.wdHome.ui.ViewTong.scrollTo(0,0);
+				newView.ui.ViewTong.scrollTo(0, 0);
 				set_label(sv, "Bang xep hang");
-				sv.ui.Viewtong.add(sv.ui.wdHome.ui.ViewTong);
+				sv.ui.Viewtong.add(newView.ui.ViewTong);
+				sv.vari.VTView = 1;
 				break;
 		}
 	};
@@ -621,23 +682,24 @@ function tao_event(sv) {
 		Ti.API.info('Opened window');
 	};
 	//su kien dong slide
-	sv.fu.evt_draw_close=function(e){
+	sv.fu.evt_draw_close = function(e) {
 		sv.ui.txtTimkiem.blur();
-		sv.ui.txtTimkiem.value='';
+		sv.ui.txtTimkiem.value = '';
 		sv.ui.scrollView.scrollTo(0, 0);
 		sv.ui.scrollView_right.scrollTo(0, 0);
 	};
 	//su kien mo slide
 	sv.fu.evt_draw_open = function(e) {
-		if(sv.vari.flag_txtfield==true){
-			sv.ui.wdTTCN.ui.TfMatKhau.blur();
-			sv.ui.wdTTCN.ui.TfTaiKhoan.blur();
-			sv.ui.wdTTCN.ui.TfEmail.blur();
+		var newView = new (require('/ui/ThongTinCaNhan'))();
+		if (sv.vari.flag_txtfield == true) {
+			newView.ui.TfMatKhau.blur();
+			newView.ui.TfTaiKhoan.blur();
+			newView.ui.TfEmail.blur();
 		};
 	};
 	//su kien dong window
 	sv.fu.eventCloseWindow = function(e) {
-		sv.ui.drawer.removeEventListener('windowDidClose',sv.fu.evt_draw_close);
+		sv.ui.drawer.removeEventListener('windowDidClose', sv.fu.evt_draw_close);
 		sv.ui.drawer.removeEventListener('windowDidOpen', sv.fu.evt_draw_open);
 		sv.ui.tableView.removeEventListener('click', sv.fu.evt_tblview_click);
 		sv.ui.WindowHome.removeEventListener('open', sv.fu.eventOpenWindow);
