@@ -11,7 +11,7 @@ module.exports = function() {
 		createUI(sv);
 	})();
 
-	return sv.ui.ViewTong;
+	return sv;
 };
 
 function createVariable(sv) {
@@ -36,28 +36,14 @@ function createUI(sv) {
 		borderColor : Ti.App.Color.magenta
 	});
 
-	createUI_Event(sv);
+	//createUI_Event(sv);
 
-	var IconLeft = Win.getIconLeft();
-	var IconRight = Win.getIconRight();
-	var LabelHeader = Win.getLabelHeader();
-
-	IconLeft.image = '/assets/images/icon/arrow.png';
-	IconLeft.addEventListener('click', sv.fu.eventClickIconLeft);
-	IconRight.addEventListener('click', sv.fu.eventClickIconRight);
-	LabelHeader.text = 'PREMIER LEAGUE';
 
 	sv.ui.ViewTong.add(sv.ui.ViewToolBar);
 
 }
 
 function RemoveAllEventListener(sv) {
-	var IconLeft = Win.getIconLeft();
-	var IconRight = Win.getIconRight();
-	var LabelHeader = Win.getLabelHeader();
-
-	IconLeft.removeEventListener('click', sv.fu.eventClickIconLeft);
-	IconRight.removeEventListener('click', sv.fu.eventClickIconRight);
 	sv.vari = null;
 	sv.arr = null;
 	sv.ui = null;
