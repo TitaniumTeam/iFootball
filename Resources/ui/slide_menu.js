@@ -156,7 +156,8 @@ function tao_ui(sv) {
 			font : {
 				fontSize : Ti.App.size(30)
 			},
-			textAlign : 'left'
+			textAlign : 'left',
+			highlightedColor : 'yellow'
 		});
 		sv.ui.row.add(sv.ui.lblgiai);
 		sv.arr.datatbl_right1.push(sv.ui.row);
@@ -194,7 +195,8 @@ function tao_ui(sv) {
 			font : {
 				fontSize : Ti.App.size(30)
 			},
-			textAlign : 'left'
+			textAlign : 'left',
+			highlightedColor : 'yellow'
 		});
 		sv.ui.row.add(sv.ui.lblgiai);
 		sv.arr.datatbl_right2.push(sv.ui.row);
@@ -232,7 +234,8 @@ function tao_ui(sv) {
 			font : {
 				fontSize : Ti.App.size(30)
 			},
-			textAlign : 'left'
+			textAlign : 'left',
+			highlightedColor : 'yellow'
 		});
 		sv.ui.row.add(sv.ui.lblgiai);
 		sv.arr.datatbl_right3.push(sv.ui.row);
@@ -333,7 +336,8 @@ function tao_ui(sv) {
 			font : {
 				fontSize : Ti.App.size(30)
 			},
-			textAlign : 'left'
+			textAlign : 'left',
+			highlightedColor : 'yellow'
 		});
 		sv.ui.row.add(sv.ui.lblgiai);
 		sv.ui.lblrow = Ti.UI.createImageView({
@@ -380,7 +384,8 @@ function tao_ui(sv) {
 			font : {
 				fontSize : Ti.App.size(30)
 			},
-			textAlign : 'left'
+			textAlign : 'left',
+			highlightedColor : 'yellow'
 		});
 		sv.ui.row.add(sv.ui.lblgiai);
 		sv.ui.lblrow = Ti.UI.createImageView({
@@ -428,7 +433,8 @@ function tao_ui(sv) {
 			font : {
 				fontSize : Ti.App.size(30)
 			},
-			textAlign : 'left'
+			textAlign : 'left',
+			highlightedColor : 'yellow'
 		});
 		sv.ui.row.add(sv.ui.lblgiai);
 		sv.ui.lblrow = Ti.UI.createImageView({
@@ -548,7 +554,7 @@ function tao_ui(sv) {
 	sv.ui.drawer.addEventListener('windowDidClose', sv.fu.evt_draw_close);
 	sv.ui.tableView_r3.addEventListener('click', sv.fu.evt_tblviewright3_click);
 	sv.ui.tableView.addEventListener('click', sv.fu.evt_tblview_click);
-	sv.ui.tableView2.addEventListener('click',sv.fu.evt_tblview2_click);
+	sv.ui.tableView2.addEventListener('click', sv.fu.evt_tblview2_click);
 	sv.ui.tableView_r.addEventListener('click', sv.fu.evt_tblviewright1_click);
 	sv.ui.view_menu_icon.addEventListener('click', sv.fu.eventSlideleft);
 	sv.ui.view_user_icon.addEventListener('click', sv.fu.eventSlideright);
@@ -693,7 +699,7 @@ function tao_event(sv) {
 		}
 	};
 	///su kien table view 2 menu left
-	sv.fu.evt_tblview2_click=function(e){
+	sv.fu.evt_tblview2_click = function(e) {
 		Ti.API.info("isLeftWindowOpen: " + sv.ui.drawer.isLeftWindowOpen());
 		switch(e.index) {
 			case 0:

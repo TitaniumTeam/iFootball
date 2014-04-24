@@ -53,7 +53,8 @@ function tao_ui(sv) {
 		font : {
 			fontSize : Ti.App.size(30)
 		},
-		height:Ti.App.size(80)
+		height:Ti.App.size(80),
+		highlightedColor:'yellow'
 	});
 	sv.ui.ngay.add(sv.ui.lbl_hqa);
 
@@ -68,7 +69,8 @@ function tao_ui(sv) {
 		font : {
 			fontSize : Ti.App.size(30)
 		},
-		height:Ti.App.size(80)
+		height:Ti.App.size(80),
+		highlightedColor:'yellow'
 	});
 	sv.ui.ngay.add(sv.ui.lbl_hnay);
 
@@ -83,7 +85,8 @@ function tao_ui(sv) {
 			fontSize : Ti.App.size(30)
 		},
 		right:0,
-		height:Ti.App.size(80)
+		height:Ti.App.size(80),
+		highlightedColor:'yellow'
 	});
 	sv.ui.ngay.add(sv.ui.lbl_mai);
 
