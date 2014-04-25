@@ -166,7 +166,7 @@ function tao_ui(sv) {
 		});
 		sv.ui.ViewChua.add(sv.ui.viewBack);
 		for ( j = 0; j < 3; j++) {
-			sv.ui.vThongtin = new sv.ui.vThongtinTD(1, Ti.App.size(190) * j, sv.arr.param1[j], null, setbd(j));
+			sv.ui.vThongtin = new sv.ui.vThongtinTD(Ti.App.size(190) * j, sv.arr.param1[j],setbd(j));
 			sv.ui.viewBack.add(sv.ui.vThongtin);
 		};
 		tao_event(sv);
