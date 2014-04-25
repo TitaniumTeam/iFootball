@@ -12,7 +12,7 @@ module.exports = function() {
 		createRemove(sv);
 	})();
 
-	return sv.ui.ViewTong;
+	return sv;
 };
 /**
  * Khởi tạo biến
@@ -162,7 +162,7 @@ function createUI_Event(sv) {
 }
 
 function createRemove(sv) {
-	sv.ui.ViewTong.removeAllEvent = function() {
+	sv.removeAllEvent = function() {
 		Ti.API.info('da remove xong ');
 	};
 }

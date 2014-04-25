@@ -323,7 +323,7 @@ function tao_ui(sv) {
 	sv.ui.view_menulist.add(sv.ui.row_header1);
 	sv.ui.row_header2 = new sv.ui.row_slide(Ti.App.size(350), sv.arr.ten[1], sv.arr.icon[1]);
 	sv.ui.view_menulist.add(sv.ui.row_header2);
-	sv.ui.row_header3 = new sv.ui.row_slide(Ti.App.size(610), sv.arr.ten[2], sv.arr.icon[2]);
+	sv.ui.row_header3 = new sv.ui.row_slide(Ti.App.size(600), sv.arr.ten[2], sv.arr.icon[2]);
 	sv.ui.view_menulist.add(sv.ui.row_header3);
 	for (var i = 0; i < 3; i++) {
 		sv.ui.row = Ti.UI.createTableViewRow({
@@ -461,7 +461,7 @@ function tao_ui(sv) {
 	}
 	sv.ui.tableView3 = Ti.UI.createTableView({
 		data : sv.arr.datatbl3,
-		top : Ti.App.size(670),
+		top : Ti.App.size(660),
 		separatorColor : Ti.App.Color.gray,
 		backgroundColor : 'transparent',
 		left : 0,
@@ -616,11 +616,10 @@ function removeAllEvent(sv) {
 	if (sv.vari.VTView == 9) {
 		var ViewHienTai = new sv.vari.Info();
 		ViewHienTai.removeAllEvent();
-
 	}
 
 	if (sv.vari.VTView == 10) {
-		var ViewHienTai = new sv.vari.ThonTinCaNhan();
+		var ViewHienTai = new sv.vari.ThongTinCaNhan();
 		ViewHienTai.removeAllEvent();
 	}
 
@@ -671,8 +670,8 @@ function tao_event(sv) {
 				removeAllEvent(sv);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleRightWindow();
-				set_label(sv, "LỊCH SỬ GIAO DỊCH");
-				sv.ui.Viewtong.add(newView);
+				set_label(sv, "LỊCH SỬ GIAO DỊCH",40);
+				sv.ui.Viewtong.add(newView.ui.ViewTong);
 				sv.vari.VTView = 15;
 				break;
 		};
@@ -687,7 +686,7 @@ function tao_event(sv) {
 				removeAllEvent(sv);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleRightWindow();
-				set_label(sv, "THÔNG TIN TÀI KHOẢN");
+				set_label(sv, "",40);
 				newView.ui.scrollview.scrollTo(0, 0);
 				sv.ui.Viewtong.add(newView.ui.ViewTong);
 				sv.vari.VTView = 9;
@@ -699,7 +698,7 @@ function tao_event(sv) {
 				sv.vari.flag_txtfield = true;
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleRightWindow();
-				set_label(sv, "THÔNG TIN CÁ NHÂN");
+				set_label(sv, "THÔNG TIN CÁ NHÂN",40);
 				sv.ui.Viewtong.add(newView.ui.ViewTong);
 				sv.vari.VTView = 10;
 				break;
@@ -716,7 +715,7 @@ function tao_event(sv) {
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleLeftWindow();
 				newView.ui.ViewTong.scrollTo(0, 0);
-				set_label(sv, "Bang xep hang");
+				set_label(sv, "Bảng xếp hạng",50);
 				sv.ui.Viewtong.add(newView.ui.ViewTong);
 				sv.vari.VTView = 1;
 				break;
@@ -727,8 +726,8 @@ function tao_event(sv) {
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleLeftWindow();
 				// newView.ui.ViewTong.scrollTo(0, 0);
-				set_label(sv, "TIN TỨC");
-				sv.ui.Viewtong.add(newView);
+				set_label(sv, "TIN TỨC",50);
+				sv.ui.Viewtong.add(newView.ui.ViewTong);
 				sv.vari.VTView = 3;
 				break;
 		}
@@ -742,8 +741,8 @@ function tao_event(sv) {
 				removeAllEvent(sv);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleLeftWindow();
-				newView.ui.ViewTong.scrollTo(0, 0);
-				set_label(sv, "KÈO TRỰC TIẾP");
+				// newView.ui.ViewTong.scrollTo(0, 0);
+				set_label(sv, "KÈO TRỰC TIẾP",40);
 				sv.ui.Viewtong.add(newView.ui.ViewTong);
 				sv.vari.VTView = 4;
 				break;
@@ -754,8 +753,8 @@ function tao_event(sv) {
 				removeAllEvent(sv);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleLeftWindow();
-				newView.ui.scrollview.scrollTo(0, 0);
-				set_label(sv, "KÈO");
+				// newView.ui.scrollview.scrollTo(0, 0);
+				set_label(sv, "KÈO",50);
 				sv.ui.Viewtong.add(newView.ui.ViewTong);
 				sv.vari.VTView = 5;
 		}
@@ -802,11 +801,11 @@ function tao_event(sv) {
 	};
 	//su kien mo slide
 	sv.fu.evt_draw_open = function(e) {
-		var newView = new sv.vari.ThongTinCaNhan();
+		var view = new sv.vari.ThongTinCaNhan();
 		if (sv.vari.flag_txtfield == true) {
-			newView.ui.TfMatKhau.blur();
-			newView.ui.TfTaiKhoan.blur();
-			newView.ui.TfEmail.blur();
+			view.ui.TfMatKhau.blur();
+			view.ui.TfTaiKhoan.blur();
+			view.ui.TfEmail.blur();
 		};
 	};
 	//su kien dong window
