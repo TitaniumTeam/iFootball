@@ -9,6 +9,7 @@ module.exports = function() {
 	(function() {
 		tao_bien(sv);
 		tao_ui(sv);
+		createRemove(sv);
 	})();
 
 	return sv;
@@ -30,7 +31,7 @@ function tao_bien(sv) {
 		tendoi2 : 'Liverpool',
 		tyle : ['0', '1', '1/4'],
 		ck : ['0.93', '0.97']
-	},{
+	}, {
 		thoigian : '22:10',
 		ngay : '22/7',
 		tendoi1 : 'Manchester United',
@@ -165,7 +166,7 @@ function tao_ui(sv) {
 		});
 		sv.ui.ViewChua.add(sv.ui.viewBack);
 		for ( j = 0; j < 3; j++) {
-			sv.ui.vThongtin = new sv.ui.vThongtinTD(1,Ti.App.size(190)*j,sv.arr.param1[j], null,setbd(j));
+			sv.ui.vThongtin = new sv.ui.vThongtinTD(1, Ti.App.size(190) * j, sv.arr.param1[j], null, setbd(j));
 			sv.ui.viewBack.add(sv.ui.vThongtin);
 		};
 		tao_event(sv);
@@ -212,9 +213,17 @@ function set_border(i, sv) {
 	}
 };
 function setbd(i) {
-	if (i == 0||i==2) {
+	if (i == 0 || i == 2) {
 		return false;
 	} else {
 		return true;
 	}
 };
+function createRemove(sv) {
+	sv.removeAllEvent = function() {
+		for (var i = 0; i < sv.arr.data.length; i++) {
+			sv.ui.row.addEventListener('click', sv.fu.event_clickrow);
+		}
+		Ti.API.info('remove event thong tin tran dau');
+	};
+}

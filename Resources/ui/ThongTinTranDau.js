@@ -185,6 +185,7 @@ function tao_ui(sv) {
 		backgroundSelectedColor : null,
 		backgroundFocusedColor : null,
 		backgroundFocusedImage : null,
+		showVerticalScrollIndicator:true
 	});
 	sv.ui.ViewTong.add(sv.ui.tbl);
 };

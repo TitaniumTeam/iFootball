@@ -26,7 +26,7 @@ function tao_bien(sv) {
 	//cac mang menu ben trai
 	sv.arr.ten = ['KẾT QUẢ TRẬN ĐẤU', 'XEM KÈO', 'CHỨC NĂNG VIP'];
 	sv.arr.icon = ['/assets/images/icon/icon-2.png', '/assets/images/icon/icon-1.png', '/assets/images/icon/icon-3.png'];
-	sv.arr.ten_menu = ['Bảng xếp hạng', 'Các trận đấu trực tiếp', 'Thông tin bên lề', 'Trận đấu đang diễn ra', 'Trận đấu sắp diễn ra', 'Thông tin trận đấu', 'Cá cược'];
+	sv.arr.ten_menu = ['Bảng xếp hạng', 'Các trận đấu trực tiếp', 'Thông tin bên lề', 'Trận đấu đang diễn ra', 'Trận đấu sắp diễn ra', 'Thông tin trận đấu', 'Cá cược', 'Trận ngon ăn'];
 	sv.arr.datatbl1 = [];
 	sv.arr.datatbl3 = [];
 	sv.arr.datatbl2 = [];
@@ -411,7 +411,7 @@ function tao_ui(sv) {
 	});
 	sv.ui.view_menulist.add(sv.ui.tableView2);
 
-	for (var i = 0; i < 2; i++) {
+	for (var i = 0; i < 3; i++) {
 		sv.ui.row = Ti.UI.createTableViewRow({
 			height : Ti.App.size(95),
 			width : Ti.App.size(480),
@@ -555,6 +555,7 @@ function tao_ui(sv) {
 	sv.ui.tableView_r3.addEventListener('click', sv.fu.evt_tblviewright3_click);
 	sv.ui.tableView.addEventListener('click', sv.fu.evt_tblview_click);
 	sv.ui.tableView2.addEventListener('click', sv.fu.evt_tblview2_click);
+	sv.ui.tableView3.addEventListener('click', sv.fu.evt_tblview3_click);
 	sv.ui.tableView_r.addEventListener('click', sv.fu.evt_tblviewright1_click);
 	sv.ui.view_menu_icon.addEventListener('click', sv.fu.eventSlideleft);
 	sv.ui.view_user_icon.addEventListener('click', sv.fu.eventSlideright);
@@ -570,14 +571,9 @@ function removeAllEvent(sv) {
 	}
 
 	if (sv.vari.VTView = 2) {
-		var ViewHienTai = new (require('/ui/ThongTinTranDau'))();
-		ViewHienTai.removeAllEvent();
+
 	}
 
-	// if (sv.vari.VTView = 3) {
-		// var ViewHienTai = new (require('/ui/News'))();
-		// ViewHienTai.removeAllEvent();
-	// }
 	if (sv.vari.VTView = 3) {
 		var ViewHienTai = new (require('/ui/News'))();
 		ViewHienTai.removeAllEvent();
@@ -590,22 +586,28 @@ function removeAllEvent(sv) {
 	}
 
 	if (sv.vari.VTView = 6) {
+		var ViewHienTai = new (require('/ui/ThongTinTranDau'))();
+		ViewHienTai.removeAllEvent();
 	}
 
 	if (sv.vari.VTView = 7) {
+
 	}
 
 	if (sv.vari.VTView = 8) {
-		var ViewHienTai = new (require('/ui/Info'))();
+		var ViewHienTai = new (require('/ui/ThongTinTranDau'))();
 		ViewHienTai.removeAllEvent();
 	}
 
 	if (sv.vari.VTView = 9) {
-		var ViewHienTai = new (require('/ui/ThongTinCaNhan'))();
+		var ViewHienTai = new (require('/ui/Info'))();
 		ViewHienTai.removeAllEvent();
+
 	}
 
 	if (sv.vari.VTView = 10) {
+		var ViewHienTai = new (require('/ui/ThongTinCaNhan'))();
+		ViewHienTai.removeAllEvent();
 	}
 
 	if (sv.vari.VTView = 11) {
@@ -615,11 +617,15 @@ function removeAllEvent(sv) {
 	}
 
 	if (sv.vari.VTView = 13) {
+		var ViewHienTai = new (require('/ui/LichSuGiaoDich'))();
+		ViewHienTai.removeAllEvent();
 	}
 
 	if (sv.vari.VTView = 14) {
-		var ViewHienTai = new (require('/ui/LichSuGiaoDich'))();
-		ViewHienTai.removeAllEvent();
+
+	}
+	if (sv.vari.VTView = 15) {
+
 	}
 
 }
@@ -663,7 +669,7 @@ function tao_event(sv) {
 				set_label(sv, "THÔNG TIN TÀI KHOẢN");
 				newView.ui.scrollview.scrollTo(0, 0);
 				sv.ui.Viewtong.add(newView.ui.ViewTong);
-				sv.vari.VTView = 8;
+				sv.vari.VTView = 9;
 				break;
 			case 1:
 				var newView = new (require('/ui/ThongTinCaNhan'))();
@@ -673,7 +679,7 @@ function tao_event(sv) {
 				sv.ui.drawer.toggleRightWindow();
 				set_label(sv, "THÔNG TIN CÁ NHÂN");
 				sv.ui.Viewtong.add(newView.ui.ViewTong);
-				sv.vari.VTView = 9;
+				sv.vari.VTView = 10;
 				break;
 		};
 	};
@@ -691,26 +697,17 @@ function tao_event(sv) {
 				sv.ui.Viewtong.add(newView.ui.ViewTong);
 				sv.vari.VTView = 1;
 				break;
-			case 1:
-				var newView = new (require('/ui/ThongTinTranDau'))();
+
+			case 2:
+				var newView = new (require('/ui/News'))();
 				removeAllEvent(sv);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleLeftWindow();
-				newView.ui.ViewTong.scrollTo(0, 0);
-				set_label(sv, "THÔNG TIN TRẬN ĐẤU",40);
-				sv.ui.Viewtong.add(newView.ui.ViewTong);
-				sv.vari.VTView = 2;
-				break;
-			// case 2:
-				// var newView = new (require('/ui/News'))();
-				// removeAllEvent(sv);
-				// sv.ui.Viewtong.removeAllChildren();
-				// sv.ui.drawer.toggleLeftWindow();
 				// newView.ui.ViewTong.scrollTo(0, 0);
-				// set_label(sv, "TIN TỨC");
-				// sv.ui.Viewtong.add(newView.ui.ViewTong);
-				// sv.vari.VTView = 3;
-				// break;
+				set_label(sv, "TIN TỨC");
+				sv.ui.Viewtong.add(newView);
+				sv.vari.VTView = 3;
+				break;
 		}
 	};
 	///su kien table view 2 menu left
@@ -738,18 +735,26 @@ function tao_event(sv) {
 				sv.ui.Viewtong.add(newView.ui.ViewTong);
 				sv.vari.VTView = 5;
 
-			case 2:
-				var newView = new (require('/ui/News'))();
+		}
+	};
+	////su kien click table view 3
+	sv.fu.evt_tblview3_click = function(e) {
+		Ti.API.info("isLeftWindowOpen: " + sv.ui.drawer.isLeftWindowOpen());
+		switch(e.index) {
+			case 0:
+				var newView = new (require('/ui/ThongTinTranDau'))();
 				removeAllEvent(sv);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleLeftWindow();
-				//newView.scrollTo(0, 0);
-				set_label(sv, "TIN TỨC");
-				sv.ui.Viewtong.add(newView);
-				sv.vari.VTView = 3;
+				newView.ui.ViewTong.scrollTo(0, 0);
+				set_label(sv, "THÔNG TIN TRẬN ĐẤU", 40);
+				sv.ui.Viewtong.add(newView.ui.ViewTong);
+				sv.vari.VTView = 6;
 				break;
 		}
 	};
+
+	////
 	sv.fu.eventOpenWindow = function(e) {
 		Ti.API.info('Opened window');
 	};
@@ -787,7 +792,9 @@ function tao_event(sv) {
 		Ti.API.info('Closed window, sv=' + sv);
 	};
 };
-function set_label(sv, _ten,_size) {
+function set_label(sv, _ten, _size) {
 	sv.ui.lbl_title.text = _ten;
-	sv.ui.lbl_title.font={fontSize:Ti.App.size(_size)};
+	sv.ui.lbl_title.font = {
+		fontSize : Ti.App.size(_size)
+	};
 }
