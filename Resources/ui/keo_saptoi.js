@@ -9,6 +9,7 @@ module.exports = function() {
 	(function() {
 		tao_bien(sv);
 		tao_ui(sv);
+		createRemove(sv);
 	})();
 
 	return sv;
@@ -53,8 +54,8 @@ function tao_ui(sv) {
 		font : {
 			fontSize : Ti.App.size(30)
 		},
-		height:Ti.App.size(80),
-		highlightedColor:'yellow'
+		height : Ti.App.size(80),
+		highlightedColor : 'yellow'
 	});
 	sv.ui.ngay.add(sv.ui.lbl_hqa);
 
@@ -69,13 +70,13 @@ function tao_ui(sv) {
 		font : {
 			fontSize : Ti.App.size(30)
 		},
-		height:Ti.App.size(80),
-		highlightedColor:'yellow'
+		height : Ti.App.size(80),
+		highlightedColor : 'yellow'
 	});
 	sv.ui.ngay.add(sv.ui.lbl_hnay);
 
 	sv.ui.lbl_mai = Ti.UI.createLabel({
-		backgroundColor :'transparent',
+		backgroundColor : 'transparent',
 		text : 'Ngày mai',
 		backgroundSelectedColor : Ti.App.Color.superwhite,
 		color : Ti.App.Color.superwhite,
@@ -84,9 +85,9 @@ function tao_ui(sv) {
 		font : {
 			fontSize : Ti.App.size(30)
 		},
-		right:0,
-		height:Ti.App.size(80),
-		highlightedColor:'yellow'
+		right : 0,
+		height : Ti.App.size(80),
+		highlightedColor : 'yellow'
 	});
 	sv.ui.ngay.add(sv.ui.lbl_mai);
 
@@ -97,7 +98,7 @@ function tao_ui(sv) {
 		backgroundColor : Ti.App.Color.magenta,
 		top : Ti.App.size(118),
 		left : 0,
-		showVerticalScrollIndicator:true
+		showVerticalScrollIndicator : true
 	});
 	sv.ui.ViewTong.add(sv.ui.scrollview);
 	sv.ui.vChua = Ti.UI.createView({
@@ -114,3 +115,8 @@ function tao_ui(sv) {
 	};
 }
 
+function createRemove(sv) {
+	sv.removeAllEvent = function() {
+		Ti.API.info('da remove xong ');
+	};
+}
