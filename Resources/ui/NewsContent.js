@@ -56,21 +56,6 @@ function createUI(sv) {
 		bottom : Ti.App.size(35)
 	});
 
-	// sv.ui.ViewIconRight = Ti.UI.createView({
-	// width : Ti.App.size(120),
-	// height : Ti.App.size(120),
-	// right : Ti.App.size(0),
-	// top : Ti.App.size(0)
-	// });
-	//
-	// sv.ui.IconRight = Ti.UI.createImageView({
-	// image : '/assets/images/icon/user.png',
-	// top : Ti.App.size(30),
-	// bottom : Ti.App.size(30),
-	// right : Ti.App.size(35),
-	// left : Ti.App.size(35)
-	// });
-
 	sv.ui.ViewLabelHeader = Ti.UI.createView({
 		height : Ti.App.size(120),
 		top : Ti.App.size(0),
@@ -79,7 +64,7 @@ function createUI(sv) {
 	});
 
 	sv.ui.LabelHeader = Ti.UI.createLabel({
-		text : 'PREMIER LEAGUE',
+		text : 'TIN TỨC',
 		font : {
 			fontSize : Ti.App.size(40),
 			fontWeight : 'bold',
@@ -88,14 +73,34 @@ function createUI(sv) {
 		color : Ti.App.Color.white,
 	});
 
-	sv.ui.ViewToolBar = Ti.UI.createView({
-		backgroundImage : '/assets/images/icon/header.jpg',
-		width : Ti.App.WidthScreen,
-		height : Ti.App.size(35),
+	sv.ui.BGHeader = Ti.UI.createView({
+		backgroundImage : '/assets/images/1/BGHeader.jpeg',
+		right : Ti.App.size(0),
+		height : Ti.App.size(285),
 		top : Ti.App.size(0),
+		left : 0
+	});
+
+	sv.ui.ViewTinHot = Ti.UI.createView({
+		backgroundColor : Ti.App.Color.nauden,
+		right : Ti.App.size(0),
 		left : Ti.App.size(0),
-		borderWidth : Ti.App.size(1),
-		borderColor : Ti.App.Color.magenta
+		height : Ti.App.size(120),
+		bottom : Ti.App.size(0),
+		opacity : 0.8
+	});
+
+	sv.ui.LabelTinHot = Ti.UI.createLabel({
+		text : 'Juventus vừa thông báo rằng chỉ sau một lượt đấu nữa sẽ là vô địch',
+		font : {
+			fontSize : Ti.App.size(24),
+			fontFamily : 'Aria',
+			fontWeight : 'bold',
+			textAlign : 'center'
+		},
+		color : Ti.App.Color.white,
+		left : Ti.App.size(40),
+		right : Ti.App.size(40)
 	});
 
 	createUI_Event(sv);
@@ -108,15 +113,16 @@ function createUI(sv) {
 	sv.ui.Window.add(sv.ui.ViewTong);
 
 	sv.ui.ViewHeader.add(sv.ui.ViewIconLeft);
-	//sv.ui.ViewHeader.add(sv.ui.ViewIconRight);
 	sv.ui.ViewHeader.add(sv.ui.ViewLabelHeader);
 
 	sv.ui.ViewIconLeft.add(sv.ui.IconLeft);
-	//sv.ui.ViewIconRight.add(sv.ui.IconRight);
 	sv.ui.ViewLabelHeader.add(sv.ui.LabelHeader);
 
-	sv.ui.ViewTong.add(sv.ui.ViewToolBar);
+	sv.ui.ViewTong.add(sv.ui.BGHeader);
+	
+	sv.ui.BGHeader.add(sv.ui.ViewTinHot);
 
+	sv.ui.ViewTinHot.add(sv.ui.LabelTinHot);
 }
 
 function createUI_Event(sv) {

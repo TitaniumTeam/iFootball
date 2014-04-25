@@ -9,6 +9,7 @@ module.exports = function() {
 	(function() {
 		createVariable(sv);
 		createUI(sv);
+		createRemove(sv);
 	})();
 
 	return sv.ui.ViewTong;
@@ -37,7 +38,7 @@ function createUI(sv) {
 		backgroundColor : Ti.App.Color.white,
 		// width : Ti.App.widthScreen,
 		// height : Ti.App.heightScreen,
-		top : Ti.App.size(120),
+		top : Ti.App.size(0),
 		left : 0
 	});
 
@@ -77,65 +78,110 @@ function createUI(sv) {
 		left : 0,
 		right : 0
 	});
-	
-	for(var i=0;i<sv.vari.SoTinTuc;i++){
+
+	for (var i = 0; i < sv.vari.SoTinTuc; i++) {
 		sv.arr.ViewTinTuc[i] = Ti.UI.createView({
 			backgroundColor : Ti.App.Color.magenta,
 			height : sv.vari.HeightView,
 			left : 0,
 			right : 0,
-			top : sv.vari.TopView + i * sv.vari.HeightView + i * Ti.App.size(30) - Ti.App.size(120),
+			top : i * sv.vari.HeightView,
 			borderWidth : Ti.App.size(1),
-			borderColor : Ti.App.Color.magenta
+			borderColor : Ti.App.Color.nauden
+		});
+
+		sv.arr.AnhTinTuc[i] = Ti.UI.createImageView({
+			image : '/assets/images/1/BGHeader.jpeg',
+			top : Ti.App.size(30),
+			left : Ti.App.size(40),
+			right : Ti.App.size(420),
+			bottom : Ti.App.size(30),
+		});
+
+		sv.arr.TenTinTuc[i] = Ti.UI.createLabel({
+			text : 'Juventus vừa thông báo rằng chỉ sau một lượt đấu nữa sẽ là vô địch',
+			font : {
+				fontSize : Ti.App.size(24),
+				fontFamily : 'Aria',
+				fontWeight : 'bold',
+				textAlign : 'left'
+			},
+			color : Ti.App.Color.nauden,
+			left : Ti.App.size(320),
+			right : Ti.App.size(40),
+			top : Ti.App.size(30),
+			bottom : Ti.App.size(130)
+		});
+
+		sv.arr.ThoiGianTinTuc[i] = Ti.UI.createLabel({
+			text : '20/03 14/04/2014',
+			font : {
+				fontSize : Ti.App.size(14),
+				fontFamily : 'Aria',
+				textAlign : 'left'
+			},
+			color : Ti.App.Color.nauden,
+			left : Ti.App.size(320),
+			right : Ti.App.size(40),
+			top : Ti.App.size(110),
+			bottom : Ti.App.size(100)
+		});
+
+		sv.arr.TTTinTuc[i] = Ti.UI.createLabel({
+			text : 'Juventus vừa thông báo rằng chỉ sau một lượt đấu nữa sẽ là vô địch',
+			font : {
+				fontSize : Ti.App.size(18),
+				fontFamily : 'Aria',
+				textAlign : 'left'
+			},
+			color : Ti.App.Color.nauden,
+			left : Ti.App.size(320),
+			right : Ti.App.size(40),
+			top : Ti.App.size(145),
+			bottom : Ti.App.size(30)
 		});
 	}
 
 	createUI_Event(sv);
 
-	var IconLeft = Win.getIconLeft();
-	var IconRight = Win.getIconRight();
-	var LabelHeader = Win.getLabelHeader();
-	IconLeft.image = '/assets/images/icon/menu.png';
-	Win.getLabelHeader().text = 'Tin Tức';
-
-	IconLeft.addEventListener('click', sv.fu.eventClickIconLeft);
-	IconRight.addEventListener('click', sv.fu.eventClickIconRight);
+	for (var i = 0; i < sv.vari.SoTinTuc; i++) {
+		sv.arr.ViewTinTuc[i].addEventListener('click', sv.arr.eventClickViewTinTuc[i]);
+	}
 
 	sv.ui.ViewTong.add(sv.ui.BGHeader);
+	sv.ui.ViewTong.add(sv.ui.ViewListTinTuc);
 
 	sv.ui.BGHeader.add(sv.ui.ViewTinHot);
 
 	sv.ui.ViewTinHot.add(sv.ui.LabelTinHot);
-}
 
-function RemoveAllEventListener(sv) {
-	var IconLeft = Win.getIconLeft();
-	var IconRight = Win.getIconRight();
-	var LabelHeader = Win.getLabelHeader();
+	for (var i = 0; i < sv.vari.SoTinTuc; i++) {
+		sv.ui.ViewListTinTuc.add(sv.arr.ViewTinTuc[i]);
 
-	IconLeft.removeEventListener('click', sv.fu.eventClickIconLeft);
-	IconRight.removeEventListener('click', sv.fu.eventClickIconRight);
-
-	sv.vari = null;
-	sv.arr = null;
-	sv.ui = null;
-	sv.fu = null;
-	sv.test = null;
-	sv = null;
+		sv.arr.ViewTinTuc[i].add(sv.arr.AnhTinTuc[i]);
+		sv.arr.ViewTinTuc[i].add(sv.arr.TenTinTuc[i]);
+		sv.arr.ViewTinTuc[i].add(sv.arr.ThoiGianTinTuc[i]);
+		sv.arr.ViewTinTuc[i].add(sv.arr.TTTinTuc[i]);
+	}
 }
 
 function createUI_Event(sv) {
 	sv.fu = {};
 
-	sv.fu.eventClickIconLeft = function(e) {
-		var NewView = new (require('ui/WindowMain'))();
-		Win.add(NewView);
-		Win.remove(sv.ui.ViewTong);
-		RemoveAllEventListener(sv);
-	};
+	for (var i = 0; i < sv.vari.SoTinTuc; i++) {
+		sv.arr.eventClickViewTinTuc[i] = function() {
+			var newWindow = new (require('ui/NewsContent'))();
+			newWindow.open();
+		};
+	}
 
-	sv.fu.eventClickIconRight = function(e) {
-		alert('Click ');
-	};
 }
 
+function createRemove(sv) {
+	sv.ui.ViewTong.removeAllEvent = function() {
+		for (var i = 0; i < sv.vari.SoTinTuc; i++) {
+			sv.arr.ViewTinTuc[i].removeEventListener('click', sv.arr.eventClickViewTinTuc[i]);
+		}
+		Ti.API.info('da remove xong ');
+	};
+}
