@@ -96,7 +96,8 @@ function tao_ui(sv) {
 	sv.ui.scrollview = Ti.UI.createScrollView({
 		backgroundColor : Ti.App.Color.magenta,
 		top : Ti.App.size(118),
-		left : 0
+		left : 0,
+		showVerticalScrollIndicator:true
 	});
 	sv.ui.ViewTong.add(sv.ui.scrollview);
 	sv.ui.vChua = Ti.UI.createView({
