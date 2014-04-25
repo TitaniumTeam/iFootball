@@ -602,7 +602,7 @@ function removeAllEvent(sv) {
 	}
 
 	if (sv.vari.VTView = 8) {
-		var ViewHienTai = new (require('/ui/ThongTinTranDau'))();
+		var ViewHienTai = new (require('/ui/Tranngonan'))();
 		var ViewHienTai = new sv.vari.Info();
 		ViewHienTai.removeAllEvent();
 	}
@@ -779,7 +779,7 @@ function tao_event(sv) {
 				newView.ui.ViewTong.scrollTo(0, 0);
 				set_label(sv, "TRẬN NGON ĂN", 40);
 				sv.ui.Viewtong.add(newView.ui.ViewTong);
-				sv.vari.VTView = 6;
+				sv.vari.VTView = 8;
 				break;
 		}
 	};
