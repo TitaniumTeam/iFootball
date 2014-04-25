@@ -12,10 +12,18 @@ module.exports = function() {
 	return sv.ui.drawer;
 };
 function tao_bien(sv) {
+
 	sv.vari = {};
 	sv.arr = {};
 	sv.vari.flag_txtfield = false;
 	sv.vari.VTView = 1;
+
+	sv.vari.Home = require('/ui/Home');
+	sv.vari.News = require('/ui/News');
+	sv.vari.Info = require('/ui/Info');
+	sv.vari.ThongTinCaNhan = require('/ui/ThongTinCaNhan');
+	sv.vari.LichSuGiaoDich = require('/ui/LichSuGiaoDich');
+
 	//cac mang menu ben phai
 	sv.arr.ten_right = ['THÔNG TIN TÀI KHOẢN', 'NẠP XU', 'LỊCH SỬ'];
 	sv.arr.icon_right = ['/assets/images/icon/icon-2.png', '/assets/images/icon/icon-lichsu.png', '/assets/images/icon/icon-napxu.png'];
@@ -520,7 +528,7 @@ function tao_ui(sv) {
 	sv.ui.View1.add(sv.ui.lbl_title);
 	sv.ui.WindowHome.add(sv.ui.View1);
 	/////////////////view menu left
-	var ViewHienTai = new (require('/ui/Home'))();
+	var ViewHienTai = new sv.vari.Home();
 	sv.ui.Viewtong.add(ViewHienTai.ui.ViewTong);
 	////////////////view menu right
 	sv.ui.navController = Ti.UI.iOS.createNavigationWindow({
@@ -558,7 +566,7 @@ function tao_ui(sv) {
 function removeAllEvent(sv) {
 	sv.fu = {};
 	if (sv.vari.VTView = 1) {
-		var ViewHienTai = new (require('/ui/Home'))();
+		var ViewHienTai = new sv.vari.Home();
 		ViewHienTai.removeAllEvent();
 	}
 
@@ -566,7 +574,7 @@ function removeAllEvent(sv) {
 	}
 
 	if (sv.vari.VTView = 3) {
-		var ViewHienTai = new (require('/ui/News'))();
+		var ViewHienTai = new sv.vari.News();
 		ViewHienTai.removeAllEvent();
 	}
 
@@ -583,12 +591,12 @@ function removeAllEvent(sv) {
 	}
 
 	if (sv.vari.VTView = 8) {
-		var ViewHienTai = new (require('/ui/Info'))();
+		var ViewHienTai = new sv.vari.Info();
 		ViewHienTai.removeAllEvent();
 	}
 
 	if (sv.vari.VTView = 9) {
-		var ViewHienTai = new (require('/ui/ThongTinCaNhan'))();
+		var ViewHienTai = new sv.vari.ThongTinCaNhan();
 		ViewHienTai.removeAllEvent();
 	}
 
@@ -605,7 +613,7 @@ function removeAllEvent(sv) {
 	}
 
 	if (sv.vari.VTView = 14) {
-		var ViewHienTai = new (require('/ui/LichSuGiaoDich'))();
+		var ViewHienTai = new sv.vari.LichSuGiaoDich();
 		ViewHienTai.removeAllEvent();
 	}
 
@@ -628,7 +636,7 @@ function tao_event(sv) {
 		Ti.API.info('is righwindowopen' + sv.ui.drawer.isRightWindowOpen());
 		switch(e.index) {
 			case 0:
-				var newView = new (require('/ui/LichSuGiaoDich'))();
+				var newView = new sv.vari.LichSuGiaoDich();
 				removeAllEvent(sv);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleRightWindow();
@@ -643,7 +651,7 @@ function tao_event(sv) {
 		Ti.API.info('is righwindowopen' + sv.ui.drawer.isRightWindowOpen());
 		switch(e.index) {
 			case 0:
-				var newView = new (require('/ui/Info'))();
+				var newView = new sv.vari.Info();
 				removeAllEvent(sv);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleRightWindow();
@@ -653,7 +661,7 @@ function tao_event(sv) {
 				sv.vari.VTView = 8;
 				break;
 			case 1:
-				var newView = new (require('/ui/ThongTinCaNhan'))();
+				var newView = new sv.vari.ThongTinCaNhan();
 				removeAllEvent(sv);
 				sv.vari.flag_txtfield = true;
 				sv.ui.Viewtong.removeAllChildren();
@@ -669,7 +677,7 @@ function tao_event(sv) {
 		Ti.API.info("isLeftWindowOpen: " + sv.ui.drawer.isLeftWindowOpen());
 		switch(e.index) {
 			case 0:
-				var newView = new (require('/ui/Home'))();
+				var newView = new sv.vari.Home();
 				removeAllEvent(sv);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleLeftWindow();
@@ -680,7 +688,7 @@ function tao_event(sv) {
 				break;
 
 			case 2:
-				var newView = new (require('/ui/News'))();
+				var newView = new sv.vari.News();
 				removeAllEvent(sv);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleLeftWindow();
@@ -703,7 +711,7 @@ function tao_event(sv) {
 	};
 	//su kien mo slide
 	sv.fu.evt_draw_open = function(e) {
-		var newView = new (require('/ui/ThongTinCaNhan'))();
+		var newView = new sv.vari.ThongTinCaNhan();
 		if (sv.vari.flag_txtfield == true) {
 			newView.ui.TfMatKhau.blur();
 			newView.ui.TfTaiKhoan.blur();
