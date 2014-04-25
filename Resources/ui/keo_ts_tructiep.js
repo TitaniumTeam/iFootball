@@ -17,9 +17,9 @@ module.exports = function() {
 function tao_bien(sv) {
 	sv.vari = {};
 	sv.arr = {};
+	sv.vari.view_keo = require('/ui/view_keo');
 };
 function tao_ui(sv) {
-	sv.ui.view_keo = require('/ui/view_keo');
 	sv.ui.ViewTong = Ti.UI.createScrollView({
 		backgroundColor : Ti.App.Color.magenta,
 		top : 0,
@@ -34,7 +34,7 @@ function tao_ui(sv) {
 	});
 	sv.ui.ViewTong.add(sv.ui.vChua);
 	for (var i = 0; i < 5; i++) {
-		sv.ui.vTong = new sv.ui.view_keo(Ti.App.size(400) * (i), 55, ["Manchester", "Chealse"], ["1.5", "1.09", "0.84"], ["1.5", "1.09", "0.84", "u"], ["1.5", "1.09", "0.84"]);
+		sv.ui.vTong = new sv.vari.view_keo(Ti.App.size(400) * (i), 55, ["Manchester", "Chealse"], ["1.5", "1.09", "0.84"], ["1.5", "1.09", "0.84", "u"], ["1.5", "1.09", "0.84"]);
 		sv.ui.vChua.add(sv.ui.vTong);
 	};
 }

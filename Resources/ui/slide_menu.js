@@ -141,9 +141,9 @@ function tao_ui(sv) {
 	sv.ui.row_slide = require('/ui/rowheader');
 	sv.ui.row_header1r = new sv.ui.row_slide(Ti.App.size(0), sv.arr.ten_right[0], sv.arr.icon_right[0]);
 	sv.ui.view_menulist_right.add(sv.ui.row_header1r);
-	sv.ui.row_header2r = new sv.ui.row_slide(Ti.App.size(340), sv.arr.ten_right[1], sv.arr.icon_right[1]);
+	sv.ui.row_header2r = new sv.ui.row_slide(Ti.App.size(330), sv.arr.ten_right[1], sv.arr.icon_right[1]);
 	sv.ui.view_menulist_right.add(sv.ui.row_header2r);
-	sv.ui.row_header3r = new sv.ui.row_slide(Ti.App.size(695), sv.arr.ten_right[2], sv.arr.icon_right[2]);
+	sv.ui.row_header3r = new sv.ui.row_slide(Ti.App.size(685), sv.arr.ten_right[2], sv.arr.icon_right[2]);
 	sv.ui.view_menulist_right.add(sv.ui.row_header3r);
 	for (var i = 0; i < 3; i++) {
 		sv.ui.row = Ti.UI.createTableViewRow({
@@ -215,7 +215,7 @@ function tao_ui(sv) {
 	}
 	sv.ui.tableView_r2 = Ti.UI.createTableView({
 		data : sv.arr.datatbl_right2,
-		top : Ti.App.size(410),
+		top : Ti.App.size(400),
 		separatorColor : Ti.App.Color.xanhnhat,
 		backgroundColor : 'transparent',
 		height : Ti.UI.SIZE,
@@ -254,7 +254,7 @@ function tao_ui(sv) {
 	}
 	sv.ui.tableView_r3 = Ti.UI.createTableView({
 		data : sv.arr.datatbl_right3,
-		top : Ti.App.size(760),
+		top : Ti.App.size(745),
 		separatorColor : Ti.App.Color.xanhnhat,
 		backgroundColor : 'transparent',
 		left : 0,
@@ -324,7 +324,7 @@ function tao_ui(sv) {
 	sv.ui.view_menulist.add(sv.ui.row_header1);
 	sv.ui.row_header2 = new sv.ui.row_slide(Ti.App.size(350), sv.arr.ten[1], sv.arr.icon[1]);
 	sv.ui.view_menulist.add(sv.ui.row_header2);
-	sv.ui.row_header3 = new sv.ui.row_slide(Ti.App.size(590), sv.arr.ten[2], sv.arr.icon[2]);
+	sv.ui.row_header3 = new sv.ui.row_slide(Ti.App.size(595), sv.arr.ten[2], sv.arr.icon[2]);
 	sv.ui.view_menulist.add(sv.ui.row_header3);
 	for (var i = 0; i < 3; i++) {
 		sv.ui.row = Ti.UI.createTableViewRow({
@@ -462,7 +462,7 @@ function tao_ui(sv) {
 	}
 	sv.ui.tableView3 = Ti.UI.createTableView({
 		data : sv.arr.datatbl3,
-		top : Ti.App.size(660),
+		top : Ti.App.size(655),
 		separatorColor : Ti.App.Color.xanhnhat,
 		backgroundColor : 'transparent',
 		left : 0,
@@ -788,11 +788,11 @@ function tao_event(sv) {
 	};
 	//su kien mo slide
 	sv.fu.evt_draw_open = function(e) {
-		var view = new sv.vari.ThongTinCaNhan();
+		var newview = new sv.vari.ThongTinCaNhan();
 		if (sv.vari.flag_txtfield == true) {
-			view.ui.TfMatKhau.blur();
-			view.ui.TfTaiKhoan.blur();
-			view.ui.TfEmail.blur();
+			newview.ui.TfMatKhau.blur();
+			newview.ui.TfTaiKhoan.blur();
+			newview.ui.TfEmail.blur();
 		};
 	};
 	//su kien dong window

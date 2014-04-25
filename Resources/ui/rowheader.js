@@ -4,7 +4,8 @@ module.exports = function(_top, _ten, _bg) {
 		top : _top,
 		width : Ti.App.size(500),
 		backgroundColor:Ti.App.Color.nauden,
-		left:0
+		left:0,
+		zIndex:10
 	});
 	var icon1 = Titanium.UI.createImageView({
 		width : Ti.App.size(35),
