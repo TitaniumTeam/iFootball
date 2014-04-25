@@ -190,7 +190,8 @@ function createRemove(sv) {
 	sv.ui.ViewTong.removeAllEvent = function() {
 		for (var i = 0; i < sv.vari.SoTinTuc; i++) {
 			sv.arr.ViewTinTuc[i].removeEventListener('click', sv.arr.eventClickViewTinTuc[i]);
+			Ti.API.info('da remove xong ');
 		}
-		Ti.API.info('da remove xong ');
+		
 	};
 }

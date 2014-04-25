@@ -23,7 +23,10 @@ function tao_bien(sv) {
 	sv.vari.Info = require('/ui/Info');
 	sv.vari.ThongTinCaNhan = require('/ui/ThongTinCaNhan');
 	sv.vari.LichSuGiaoDich = require('/ui/LichSuGiaoDich');
-
+	sv.vari.keo_tructiep = require('/ui/keo_ts_tructiep');
+	sv.vari.keo_saptoi = require('/ui/keo_saptoi');
+	sv.vari.ThongTinTD = require('/ui/ThongTinTranDau');
+	sv.vari.TranNgonAn = require('/ui/TranNgonAn');
 	//cac mang menu ben phai
 	sv.arr.ten_right = ['THÔNG TIN TÀI KHOẢN', 'NẠP XU', 'LỊCH SỬ'];
 	sv.arr.icon_right = ['/assets/images/icon/icon-2.png', '/assets/images/icon/icon-lichsu.png', '/assets/images/icon/icon-napxu.png'];
@@ -593,7 +596,6 @@ function removeAllEvent(sv) {
 	}
 
 	if (sv.vari.VTView = 6) {
-		var ViewHienTai = new (require('/ui/ThongTinTranDau'))();
 		ViewHienTai.removeAllEvent();
 	}
 
@@ -602,20 +604,16 @@ function removeAllEvent(sv) {
 	}
 
 	if (sv.vari.VTView = 8) {
-		var ViewHienTai = new (require('/ui/Tranngonan'))();
-		var ViewHienTai = new sv.vari.Info();
 		ViewHienTai.removeAllEvent();
 	}
 
 	if (sv.vari.VTView = 9) {
-		var ViewHienTai = new (require('/ui/Info'))();
 		var ViewHienTai = new sv.vari.ThongTinCaNhan();
 		ViewHienTai.removeAllEvent();
 
 	}
 
 	if (sv.vari.VTView = 10) {
-		var ViewHienTai = new (require('/ui/ThongTinCaNhan'))();
 		ViewHienTai.removeAllEvent();
 	}
 
@@ -626,7 +624,6 @@ function removeAllEvent(sv) {
 	}
 
 	if (sv.vari.VTView = 13) {
-		var ViewHienTai = new (require('/ui/LichSuGiaoDich'))();
 		ViewHienTai.removeAllEvent();
 	}
 
@@ -640,6 +637,7 @@ function removeAllEvent(sv) {
 	}
 
 }
+
 function tao_event(sv) {
 	sv.fu = {};
 	//su kien click nut 3gach
@@ -657,7 +655,6 @@ function tao_event(sv) {
 		Ti.API.info('is righwindowopen' + sv.ui.drawer.isRightWindowOpen());
 		switch(e.index) {
 			case 0:
-				var newView = new (require('/ui/LichSuGiaoDich'))();
 				// removeAllEvent(sv);
 				var newView = new sv.vari.LichSuGiaoDich();
 				removeAllEvent(sv);
@@ -674,7 +671,6 @@ function tao_event(sv) {
 		Ti.API.info('is righwindowopen' + sv.ui.drawer.isRightWindowOpen());
 		switch(e.index) {
 			case 0:
-				var newView = new (require('/ui/Info'))();
 				// removeAllEvent(sv);
 				var newView = new sv.vari.Info();
 				removeAllEvent(sv);
@@ -686,7 +682,6 @@ function tao_event(sv) {
 				// sv.vari.VTView = 9;
 				break;
 			case 1:
-				var newView = new (require('/ui/ThongTinCaNhan'))();
 				// removeAllEvent(sv);
 				var newView = new sv.vari.ThongTinCaNhan();
 				removeAllEvent(sv);
@@ -704,7 +699,6 @@ function tao_event(sv) {
 		Ti.API.info("isLeftWindowOpen: " + sv.ui.drawer.isLeftWindowOpen());
 		switch(e.index) {
 			case 0:
-				var newView = new (require('/ui/Home'))();
 				removeAllEvent(sv);
 				var newView = new sv.vari.Home();
 				// removeAllEvent(sv);
@@ -717,7 +711,6 @@ function tao_event(sv) {
 				break;
 
 			case 2:
-				var newView = new (require('/ui/News'))();
 				removeAllEvent(sv);
 				var newView = new sv.vari.News();
 				removeAllEvent(sv);
@@ -735,26 +728,25 @@ function tao_event(sv) {
 		Ti.API.info("isLeftWindowOpen: " + sv.ui.drawer.isLeftWindowOpen());
 		switch(e.index) {
 			case 0:
-				var newView = new (require('/ui/keo_ts_tructiep'))();
-				removeAllEvent(sv);
+				// removeAllEvent(sv);
+				var newView = new sv.vari.keo_tructiep();
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleLeftWindow();
 				newView.ui.ViewTong.scrollTo(0, 0);
 				set_label(sv, "KÈO TRỰC TIẾP");
 				sv.ui.Viewtong.add(newView.ui.ViewTong);
-				sv.vari.VTView = 4;
+				// sv.vari.VTView = 4;
 				break;
 
 			case 1:
-				var newView = new (require('/ui/keo_saptoi'))();
-				removeAllEvent(sv);
+				// removeAllEvent(sv);
+				var newView = new sv.vari.keo_saptoi();
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleLeftWindow();
 				newView.ui.scrollview.scrollTo(0, 0);
 				set_label(sv, "KÈO");
 				sv.ui.Viewtong.add(newView.ui.ViewTong);
-				sv.vari.VTView = 5;
-
+			// sv.vari.VTView = 5;
 		}
 	};
 	////su kien click table view 3
@@ -762,8 +754,8 @@ function tao_event(sv) {
 		Ti.API.info("isLeftWindowOpen: " + sv.ui.drawer.isLeftWindowOpen());
 		switch(e.index) {
 			case 0:
-				var newView = new (require('/ui/ThongTinTranDau'))();
 				removeAllEvent(sv);
+				var newView=new sv.vari.ThongTinTD();
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleLeftWindow();
 				newView.ui.ViewTong.scrollTo(0, 0);
@@ -771,9 +763,9 @@ function tao_event(sv) {
 				sv.ui.Viewtong.add(newView.ui.ViewTong);
 				sv.vari.VTView = 6;
 				break;
-				case 2:
-				var newView = new (require('/ui/TranNgonAn'))();
+			case 2:
 				removeAllEvent(sv);
+				var newView=new sv.vari.TranNgonAn();
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleLeftWindow();
 				newView.ui.ViewTong.scrollTo(0, 0);
