@@ -578,6 +578,10 @@ function removeAllEvent(sv) {
 		// var ViewHienTai = new (require('/ui/News'))();
 		// ViewHienTai.removeAllEvent();
 	// }
+	if (sv.vari.VTView = 3) {
+		var ViewHienTai = new (require('/ui/News'))();
+		ViewHienTai.removeAllEvent();
+	}
 
 	if (sv.vari.VTView = 4) {
 	}
@@ -733,6 +737,16 @@ function tao_event(sv) {
 				set_label(sv, "KÈO");
 				sv.ui.Viewtong.add(newView.ui.ViewTong);
 				sv.vari.VTView = 5;
+
+			case 2:
+				var newView = new (require('/ui/News'))();
+				removeAllEvent(sv);
+				sv.ui.Viewtong.removeAllChildren();
+				sv.ui.drawer.toggleLeftWindow();
+				//newView.scrollTo(0, 0);
+				set_label(sv, "TIN TỨC");
+				sv.ui.Viewtong.add(newView);
+				sv.vari.VTView = 3;
 				break;
 		}
 	};
