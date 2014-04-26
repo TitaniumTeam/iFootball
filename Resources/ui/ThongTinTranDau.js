@@ -85,7 +85,7 @@ function tao_ui(sv) {
 			backgroundFocusedColor : null,
 			backgroundFocusedImage : null,
 		});
-		sv.ui.row.add(sv.ui.ViewChua);
+		
 
 		sv.ui.viewRow = Ti.UI.createView({
 			height : sv.vari.row_height - 1,
@@ -99,7 +99,7 @@ function tao_ui(sv) {
 			backgroundFocusedColor : null,
 			backgroundFocusedImage : null,
 		});
-		sv.ui.ViewChua.add(sv.ui.viewRow);
+		
 		sv.ui.lbl_tennc = Ti.UI.createLabel({
 			height : Ti.UI.SIZE,
 			left : Ti.App.size(120),
@@ -109,14 +109,14 @@ function tao_ui(sv) {
 				fontSize : Ti.App.size(30)
 			}
 		});
-		sv.ui.viewRow.add(sv.ui.lbl_tennc);
+		
 		sv.ui.lbl_co = Titanium.UI.createImageView({
 			width : Ti.App.size(65),
 			height : Ti.App.size(45),
 			image : 'assets/images/icon/0' + (i + 1) + '.png',
 			left : Ti.App.size(40)
 		});
-		sv.ui.viewRow.add(sv.ui.lbl_co);
+		
 		sv.ui.lbl_tyle = Titanium.UI.createLabel({
 			width : Ti.App.size(95),
 			height : Ti.App.size(100),
@@ -126,7 +126,7 @@ function tao_ui(sv) {
 			},
 			left : Ti.App.size(475)
 		});
-		sv.ui.viewRow.add(sv.ui.lbl_tyle);
+		
 		sv.ui.lbl_ck = Titanium.UI.createLabel({
 			width : Ti.App.size(70),
 			height : Ti.App.size(100),
@@ -136,7 +136,7 @@ function tao_ui(sv) {
 				fontSize : Ti.App.size(25)
 			},
 		});
-		sv.ui.viewRow.add(sv.ui.lbl_ck);
+		
 		sv.ui.arrow = Titanium.UI.createImageView({
 			width : Ti.App.size(20),
 			height : Ti.App.size(40),
@@ -145,7 +145,7 @@ function tao_ui(sv) {
 			top : Ti.App.size(20),
 			left : Ti.App.size(650)
 		});
-		sv.ui.viewRow.add(sv.ui.arrow);
+		
 		//////////////
 		sv.ui.viewBack = Ti.UI.createView({
 			left : 0,
@@ -164,9 +164,16 @@ function tao_ui(sv) {
 			},
 			// bottom:1
 		});
+		sv.ui.row.add(sv.ui.ViewChua);
+		sv.ui.ViewChua.add(sv.ui.viewRow);
+		sv.ui.viewRow.add(sv.ui.lbl_tennc);
+		sv.ui.viewRow.add(sv.ui.lbl_co);
+		sv.ui.viewRow.add(sv.ui.lbl_tyle);
+		sv.ui.viewRow.add(sv.ui.lbl_ck);
+		sv.ui.viewRow.add(sv.ui.arrow);
 		sv.ui.ViewChua.add(sv.ui.viewBack);
 		for ( j = 0; j < 3; j++) {
-			sv.ui.vThongtin = new sv.ui.vThongtinTD(Ti.App.size(190) * j, sv.arr.param1[j],setbd(j));
+			sv.ui.vThongtin = new sv.ui.vThongtinTD(Ti.App.size(190) * j, sv.arr.param1[j]);
 			sv.ui.viewBack.add(sv.ui.vThongtin);
 		};
 		tao_event(sv);
@@ -211,13 +218,6 @@ function set_border(i, sv) {
 		return 1;
 	} else {
 		return 0;
-	}
-};
-function setbd(i) {
-	if (i == 0 || i == 2) {
-		return false;
-	} else {
-		return true;
 	}
 };
 function createRemove(sv) {

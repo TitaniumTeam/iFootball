@@ -19,25 +19,22 @@ function tao_bien(sv) {
 	sv.arr = {};
 	sv.arr.param1 = [{
 		thoigian : '22:10',
-		ngay : '22/7',
+		san : 'My dinh',
 		tendoi1 : 'Manchester United',
 		tendoi2 : 'Chealse',
-		tyle : ['0', '1', '1/4'],
-		ck : ['0.93', '0.97']
-	}, {
-		thoigian : '20:10',
-		ngay : '21/7',
-		tendoi1 : 'Manchester City',
-		tendoi2 : 'Liverpool',
-		tyle : ['0', '1', '1/4'],
-		ck : ['0.93', '0.97']
+		tengiai : 'V-League'
 	}, {
 		thoigian : '22:10',
-		ngay : '22/7',
+		san : 'My dinh',
 		tendoi1 : 'Manchester United',
 		tendoi2 : 'Chealse',
-		tyle : ['0', '1', '1/4'],
-		ck : ['0.93', '0.97']
+		tengiai : 'V-League'
+	}, {
+		thoigian : '22:10',
+		san : 'My dinh',
+		tendoi1 : 'Manchester United',
+		tendoi2 : 'Chealse',
+		tengiai : 'V-League'
 	}];
 	sv.arr.data = [{
 		title : 'Premier League',
@@ -58,14 +55,13 @@ function tao_bien(sv) {
 	sv.vari.trans2 = sv.vari.trans.rotate(270);
 };
 function tao_ui(sv) {
-	sv.ui.vThongtinTD = require('/ui/vThongTinTD');
+	sv.ui.vThongtinTD = require('/ui/vTranngonan');
 	sv.ui.ViewTong = Ti.UI.createScrollView({
 		showVerticalScrollIndicator : 'true',
 		top : 0,
 		left : 0,
 		width : Ti.App.size(720),
 	});
-
 	for (var i = 0; i < sv.arr.data.length; i++) {
 		sv.ui.row = Ti.UI.createTableViewRow({
 			expanded : false,
@@ -85,7 +81,6 @@ function tao_ui(sv) {
 			backgroundFocusedColor : null,
 			backgroundFocusedImage : null,
 		});
-		sv.ui.row.add(sv.ui.ViewChua);
 
 		sv.ui.viewRow = Ti.UI.createView({
 			height : sv.vari.row_height - 2,
@@ -99,7 +94,6 @@ function tao_ui(sv) {
 			backgroundFocusedColor : null,
 			backgroundFocusedImage : null,
 		});
-		sv.ui.ViewChua.add(sv.ui.viewRow);
 		sv.ui.lbl_tennc = Ti.UI.createLabel({
 			height : Ti.UI.SIZE,
 			left : Ti.App.size(120),
@@ -109,14 +103,14 @@ function tao_ui(sv) {
 				fontSize : Ti.App.size(30)
 			}
 		});
-		sv.ui.viewRow.add(sv.ui.lbl_tennc);
+
 		sv.ui.lbl_co = Titanium.UI.createImageView({
 			width : Ti.App.size(65),
 			height : Ti.App.size(45),
 			image : 'assets/images/icon/0' + (i + 1) + '.png',
 			left : Ti.App.size(40)
 		});
-		sv.ui.viewRow.add(sv.ui.lbl_co);
+
 		sv.ui.lbl_tyle = Titanium.UI.createLabel({
 			width : Ti.App.size(95),
 			height : Ti.App.size(100),
@@ -126,7 +120,7 @@ function tao_ui(sv) {
 			},
 			left : Ti.App.size(475)
 		});
-		sv.ui.viewRow.add(sv.ui.lbl_tyle);
+
 		sv.ui.lbl_ck = Titanium.UI.createLabel({
 			width : Ti.App.size(70),
 			height : Ti.App.size(100),
@@ -136,7 +130,7 @@ function tao_ui(sv) {
 				fontSize : Ti.App.size(25)
 			},
 		});
-		sv.ui.viewRow.add(sv.ui.lbl_ck);
+
 		sv.ui.arrow = Titanium.UI.createImageView({
 			width : Ti.App.size(20),
 			height : Ti.App.size(40),
@@ -145,11 +139,11 @@ function tao_ui(sv) {
 			top : Ti.App.size(20),
 			left : Ti.App.size(650)
 		});
-		sv.ui.viewRow.add(sv.ui.arrow);
+
 		//////////////
 		sv.ui.viewBack = Ti.UI.createView({
 			left : 0,
-			height : Ti.App.size(570),
+			height : Ti.App.size(870),
 			top : sv.vari.row_height,
 			width : Ti.App.size(720),
 			backgroundGradient : {
@@ -164,9 +158,16 @@ function tao_ui(sv) {
 			},
 			// bottom:1
 		});
+		sv.ui.viewRow.add(sv.ui.lbl_tennc);
+		sv.ui.viewRow.add(sv.ui.lbl_co);
+		sv.ui.viewRow.add(sv.ui.lbl_tyle);
+		sv.ui.viewRow.add(sv.ui.lbl_ck);
+		sv.ui.viewRow.add(sv.ui.arrow);
+		sv.ui.row.add(sv.ui.ViewChua);
+		sv.ui.ViewChua.add(sv.ui.viewRow);
 		sv.ui.ViewChua.add(sv.ui.viewBack);
 		for ( j = 0; j < 3; j++) {
-			sv.ui.vThongtin = new sv.ui.vThongtinTD(Ti.App.size(190) * j, sv.arr.param1[j],setbd(j));
+			sv.ui.vThongtin = new sv.ui.vThongtinTD(Ti.App.size(290) * j, sv.arr.param1[j]);
 			sv.ui.viewBack.add(sv.ui.vThongtin);
 		};
 		tao_event(sv);
@@ -174,7 +175,6 @@ function tao_ui(sv) {
 		sv.arr.rows.push(sv.ui.row);
 		sv.arr.arrow.push(sv.ui.arrow);
 	}
-
 	sv.ui.tbl = Ti.UI.createTableView({
 		data : sv.arr.rows,
 		height : Ti.UI.FILL,
@@ -198,7 +198,7 @@ function tao_event(sv) {
 			sv.arr.arrow[e.row.id].top = Ti.App.size(25);
 
 		} else {
-			e.row.setHeight(Ti.App.size(670));
+			e.row.setHeight(Ti.App.size(970));
 			e.row.expanded = true;
 			sv.arr.arrow[e.row.id].transform = sv.vari.trans1;
 			sv.arr.arrow[e.row.id].top = Ti.App.size(20);
@@ -210,13 +210,6 @@ function set_border(i, sv) {
 		return 1;
 	} else {
 		return 0;
-	}
-};
-function setbd(i) {
-	if (i == 0 || i == 2) {
-		return false;
-	} else {
-		return true;
 	}
 };
 function createRemove(sv) {

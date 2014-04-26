@@ -1,13 +1,12 @@
 ///param1 gom co:
 /*
 param1.thoigian
-param1.ngay
+param1.san
 param1.tendoi1
 param1.tendoi2
-param1.tyle1(gom 3 thong so)
-param1.ck (gom 2 thong so)
+param1.tengiai
 * */
-module.exports = function(_top, param1, _border) {
+module.exports = function(_top, param1) {
 	var viewtong = Ti.UI.createView({
 		width : Ti.App.size(720),
 		height : Ti.App.size(290),
@@ -15,7 +14,7 @@ module.exports = function(_top, param1, _border) {
 		left : 0,
 		top : _top,
 		borderColor : Ti.App.Color.xanhnhat,
-		borderWidth : set_border(_border)
+		borderWidth : 1
 	});
 	var hang1 = Ti.UI.createView({
 		width : Ti.App.size(720),
@@ -25,166 +24,127 @@ module.exports = function(_top, param1, _border) {
 		top : 0,
 	});
 	var icon_thoigian = Ti.UI.createImageView({
-		left : Ti.App.size(290),
+		left : Ti.App.size(295),
 		top : Ti.App.size(25),
 		width : Ti.App.size(25),
 		height : Ti.App.size(25),
-
+		backgroundImage : '/assets/images/icon/icon-time.png'
 	});
 	var lbl_thoigian = Ti.UI.createLabel({
 		text : param1.thoigian,
-		left : Ti.App.size(35),
+		left : Ti.App.size(325),
 		font : {
 			fontSize : Ti.App.size(30)
 		},
 		color : Ti.App.Color.nauden,
-		height : Ti.App.size(70),
+		height : Ti.App.size(40),
 		width : Ti.App.size(85),
 		textAlign : 'left',
+		top : Ti.App.size(20)
 	});
-	hang1.add(lbl_thoigian);
-	var lbl_tendoi1 = Ti.UI.createLabel({
-		width : Ti.App.size(340),
-		height : Ti.App.size(70),
-		left : Ti.App.size(140),
-		text : param1.tendoi1,
-		color : Ti.App.Color.nauden,
-		textAlign : 'left',
-	});
-	hang1.add(lbl_tendoi1);
-	var lbl_tyle1 = Ti.UI.createLabel({
-		width : Ti.App.size(40),
-		left : Ti.App.size(480),
-		height : Ti.App.size(70),
-		font : {
-			fontSize : Ti.App.size(30),
-			fontWeight : 'bold'
-		},
-		text : param1.tyle[0],
-		color : Ti.App.Color.nauden,
-		textAlign : 'left',
-	});
-	hang1.add(lbl_tyle1);
-	var lbl_ck1 = Ti.UI.createLabel({
-		left : Ti.App.size(620),
-		width : Ti.App.size(75),
-		backgroundGradient : {
-			type : 'linear',
-			colors : [{
-				color : Ti.App.Color.brown,
-				position : 0.5
-			}, {
-				color : Ti.App.Color.brown,
-				position : 0.50
-			}]
-		},
-		font : {
-			fontSize : Ti.App.size(30),
-			fontWeight : 'bold'
-		},
-		text : param1.ck[0],
-		color : Ti.App.Color.superwhite,
-		textAlign : 'center',
-		height : Ti.App.size(40),
-	});
-	hang1.add(lbl_ck1);
-	viewtong.add(hang1);
-	///
-	var hang2 = Ti.UI.createLabel({
-		width : Ti.App.size(340),
-		height : Ti.App.size(50),
-		left : Ti.App.size(140),
-		text : 'VS',
-		font : {
-			fontSize : Ti.App.size(30),
-			fontWeight : 'bold'
-		},
-		color : Ti.App.Color.nauden,
-		textAlign : 'left',
-		top : Ti.App.size(70)
-	});
-	viewtong.add(hang2);
 
+	var icon_diadiem = Ti.UI.createImageView({
+		left : Ti.App.size(290),
+		top : Ti.App.size(60),
+		width : Ti.App.size(15),
+		height : Ti.App.size(20),
+		backgroundImage : '/assets/images/icon/icon-address.png'
+	});
+
+	var lbl_diadiem = Ti.UI.createLabel({
+		left : Ti.App.size(320),
+		height : Ti.App.size(30),
+		top : Ti.App.size(60),
+		font : {
+			fontSize : Ti.App.size(25)
+		},
+		text : 'Sân ' + param1.san
+	});
 	///
-	var hang3 = Ti.UI.createLabel({
-		top : Ti.App.size(120),
+	var hang2 = Ti.UI.createView({
 		width : Ti.App.size(720),
+		height : Ti.App.size(200),
+		left : 0,
+		top : Ti.App.size(90)
+	});
+	var lbl_vs = Ti.UI.createLabel({
+		top : Ti.App.size(30),
+		width : Ti.App.size(318),
+		height : Ti.App.size(40),
+		left : Ti.App.size(200),
+		text : 'VS',
+		color : Ti.App.Color.nauden,
+		font : {
+			fontSize : Ti.App.size(40)
+		},
+		textAlign : 'center'
+	});
+	var lbl_tengiai = Ti.UI.createLabel({
+		top : Ti.App.size(70),
+		width : Ti.App.size(318),
+		height : Ti.App.size(40),
+		left : Ti.App.size(200),
+		text : param1.tengiai,
+		color : Ti.App.Color.nauden,
+		font : {
+			fontSize : Ti.App.size(30)
+		},
+		textAlign : 'center'
+	});
+	var logo_doi1 = Ti.UI.createImageView({
+		width : Ti.App.size(124),
+		height : Ti.App.size(124),
+		top : 0,
+		left : Ti.App.size(75),
+		image : '/assets/images/1/Manchester-United.png',
+	});
+	var lbl_tendoi1 = Ti.UI.createLabel({
+		width : Ti.App.size(275),
 		height : Ti.App.size(50),
 		left : 0,
-		backgroundColor : 'transparent',
-	});
-	var lbl_thoigian3 = Ti.UI.createLabel({
-		text : param1.ngay,
-		left : Ti.App.size(35),
+		text : param1.tendoi1,
+		color : Ti.App.Color.nauden,
+		textAlign : 'center',
+		top : Ti.App.size(124),
 		font : {
 			fontSize : Ti.App.size(30)
 		},
-		color : Ti.App.Color.nauden,
-		height : Ti.App.size(70),
-		width : Ti.App.size(85),
-		textAlign : 'left',
+		textAlign : 'center'
 	});
-	hang3.add(lbl_thoigian3);
-	var lbl_tendoi2 = Ti.UI.createLabel({
-		width : Ti.App.size(340),
-		height : Ti.App.size(70),
-		left : Ti.App.size(140),
+	var logo_doi2 = Ti.UI.createImageView({
+		width : Ti.App.size(124),
+		height : Ti.App.size(124),
+		top : 0,
+		left : Ti.App.size(518),
+		image : '/assets/images/1/Chelsea_FC.png'
+	});
+	var ten_doi2 = Ti.UI.createLabel({
+		width : Ti.App.size(275),
+		height : Ti.App.size(50),
 		text : param1.tendoi2,
 		color : Ti.App.Color.nauden,
-		textAlign : 'left',
-	});
-	hang3.add(lbl_tendoi2);
-	var lbl_tyle2 = Ti.UI.createLabel({
-		width : Ti.App.size(40),
-		left : Ti.App.size(480),
-		height : Ti.App.size(70),
-		font : {
-			fontSize : Ti.App.size(30),
-			fontWeight : 'bold'
-		},
-		text : param1.tyle[1],
-		color : Ti.App.Color.nauden,
-		textAlign : 'left',
-	});
-	hang3.add(lbl_tyle2);
-	var lbl_tyle3 = Ti.UI.createLabel({
-		width : Ti.App.size(60),
-		left : Ti.App.size(540),
-		height : Ti.App.size(70),
-		font : {
-			fontSize : Ti.App.size(30),
-			fontWeight : 'bold'
-		},
-		text : param1.tyle[2],
-		color : Ti.App.Color.nauden,
-		textAlign : 'left',
-	});
-	hang3.add(lbl_tyle3);
-	var lbl_ck2 = Ti.UI.createLabel({
-		left : Ti.App.size(620),
-		width : Ti.App.size(75),
-		backgroundGradient : {
-			type : 'linear',
-			colors : [{
-				color : Ti.App.Color.brown,
-				position : 0.5
-			}, {
-				color : Ti.App.Color.brown,
-				position : 0.50
-			}]
-		},
-		font : {
-			fontSize : Ti.App.size(30),
-			fontWeight : 'bold'
-		},
-		text : param1.ck[1],
-		color : Ti.App.Color.superwhite,
 		textAlign : 'center',
-		height : Ti.App.size(40),
+		top : Ti.App.size(124),
+		font : {
+			fontSize : Ti.App.size(30)
+		},
+		right : 0,
+		textAlign : 'center'
 	});
-	hang3.add(lbl_ck2);
+	////
+	hang1.add(lbl_thoigian);
+	hang1.add(icon_diadiem);
+	hang1.add(icon_thoigian);
+	hang1.add(lbl_diadiem);
+	hang2.add(logo_doi1);
+	hang2.add(lbl_vs);
+	hang2.add(lbl_tendoi1);
+	hang2.add(lbl_tengiai);
+	hang2.add(logo_doi2);
+	hang2.add(ten_doi2);
+	viewtong.add(hang1);
+	viewtong.add(hang2);
 
-	viewtong.add(hang3);
 	return viewtong;
 };
 

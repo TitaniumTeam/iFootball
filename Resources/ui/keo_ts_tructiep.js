@@ -23,7 +23,8 @@ function tao_ui(sv) {
 	sv.ui.ViewTong = Ti.UI.createScrollView({
 		backgroundColor : Ti.App.Color.magenta,
 		top : 0,
-		left : 0
+		left : 0,
+		showVerticalScrollIndicator:'true'
 	});
 	sv.ui.vChua = Ti.UI.createView({
 		top : Ti.App.size(20),
@@ -35,6 +36,7 @@ function tao_ui(sv) {
 	sv.ui.ViewTong.add(sv.ui.vChua);
 	for (var i = 0; i < 5; i++) {
 		sv.ui.vTong = new sv.vari.view_keo(Ti.App.size(400) * (i), 55, ["Manchester", "Chealse"], ["1.5", "1.09", "0.84"], ["1.5", "1.09", "0.84", "u"], ["1.5", "1.09", "0.84"]);
+
 		sv.ui.vChua.add(sv.ui.vTong);
 	};
 }
