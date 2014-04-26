@@ -1,6 +1,6 @@
 //tg,ten2doi,ty le 1,tyle2,tyle3
 
-module.exports = function(_top, tg, tendoi, tyle1, tyle2, tyle3) {
+module.exports = function(_top) {
 	var view_keo = Ti.UI.createView({
 		width : Ti.App.size(640),
 		height : Ti.App.size(380),
@@ -20,10 +20,10 @@ module.exports = function(_top, tg, tendoi, tyle1, tyle2, tyle3) {
 		view_keo.add(line);
 	}
 	// var hang1 = Ti.UI.createView({
-		// top : 0,
-		// width : Ti.App.size(640),
-		// height : Ti.App.size(75),
-		// backgroundColor : 'transparent'
+	// top : 0,
+	// width : Ti.App.size(640),
+	// height : Ti.App.size(75),
+	// backgroundColor : 'transparent'
 	// });
 
 	var lbldongho = Ti.UI.createImageView({
@@ -35,7 +35,6 @@ module.exports = function(_top, tg, tendoi, tyle1, tyle2, tyle3) {
 	});
 	view_keo.add(lbldongho);
 	var lbltg = Ti.UI.createLabel({
-		text : tg + "'",
 		top : Ti.App.size(40),
 		left : Ti.App.size(20),
 		font : {
@@ -51,26 +50,25 @@ module.exports = function(_top, tg, tendoi, tyle1, tyle2, tyle3) {
 		// bottom : 0,
 		left : Ti.App.size(80),
 		backgroundColor : Ti.App.Color.xanhnhat,
-		top:Ti.App.size(15)
+		top : Ti.App.size(15)
 	});
 	view_keo.add(linehang);
 	var lbl_tendoi = Ti.UI.createLabel({
-		text : tendoi[0] + '  vs  ' + tendoi[1],
 		font : {
 			fontSize : Ti.App.size(30)
 		},
 		left : Ti.App.size(80),
 		textAlign : 'center',
 		width : Ti.App.size(560),
-		top:Ti.App.size(25)
+		top : Ti.App.size(25)
 	});
 	view_keo.add(lbl_tendoi);
 	// view_keo.add(hang1);
 	//
 	// var hang2 = Ti.UI.createView({
-		// width : Ti.App.size(640),
-		// height : Ti.App.size(100),
-		// top : Ti.App.size(75)
+	// width : Ti.App.size(640),
+	// height : Ti.App.size(100),
+	// top : Ti.App.size(75)
 	// });
 	var lbl_nc1 = Ti.UI.createLabel({
 		text : 'Châu Á',
@@ -79,11 +77,10 @@ module.exports = function(_top, tg, tendoi, tyle1, tyle2, tyle3) {
 			fontSize : Ti.App.size(30)
 		},
 		color : Ti.App.Color.nauden,
-		top:Ti.App.size(112)
+		top : Ti.App.size(112)
 	});
 	view_keo.add(lbl_nc1);
 	var tyle11 = Ti.UI.createLabel({
-		text : tyle1[0],
 		left : Ti.App.size(200),
 		font : {
 			fontSize : Ti.App.size(30),
@@ -94,7 +91,6 @@ module.exports = function(_top, tg, tendoi, tyle1, tyle2, tyle3) {
 	});
 	view_keo.add(tyle11);
 	var tyle12 = Ti.UI.createLabel({
-		text : tyle1[1],
 		left : Ti.App.size(200),
 		font : {
 			fontSize : Ti.App.size(30),
@@ -105,7 +101,6 @@ module.exports = function(_top, tg, tendoi, tyle1, tyle2, tyle3) {
 	});
 	view_keo.add(tyle12);
 	var tyle13 = Ti.UI.createLabel({
-		text : tyle1[2],
 		left : Ti.App.size(500),
 		font : {
 			fontSize : Ti.App.size(30),
@@ -118,9 +113,9 @@ module.exports = function(_top, tg, tendoi, tyle1, tyle2, tyle3) {
 	// view_keo.add(hang2);
 	//
 	// var hang3 = Ti.UI.createView({
-		// width : Ti.App.size(640),
-		// height : Ti.App.size(100),
-		// top : Ti.App.size(175)
+	// width : Ti.App.size(640),
+	// height : Ti.App.size(100),
+	// top : Ti.App.size(175)
 	// });
 	var lbl_nc2 = Ti.UI.createLabel({
 		text : "Tài Xỉu",
@@ -129,11 +124,10 @@ module.exports = function(_top, tg, tendoi, tyle1, tyle2, tyle3) {
 			fontSize : Ti.App.size(30),
 		},
 		color : Ti.App.Color.nauden,
-		top:Ti.App.size(212)
+		top : Ti.App.size(212)
 	});
 	view_keo.add(lbl_nc2);
 	var tyle21 = Ti.UI.createLabel({
-		text : tyle2[0],
 		left : Ti.App.size(200),
 		font : {
 			fontSize : Ti.App.size(30),
@@ -144,7 +138,6 @@ module.exports = function(_top, tg, tendoi, tyle1, tyle2, tyle3) {
 	});
 	view_keo.add(tyle21);
 	var tyle22 = Ti.UI.createLabel({
-		text : tyle2[1],
 		left : Ti.App.size(200),
 		font : {
 			fontSize : Ti.App.size(30),
@@ -154,8 +147,7 @@ module.exports = function(_top, tg, tendoi, tyle1, tyle2, tyle3) {
 		top : Ti.App.size(235)
 	});
 	view_keo.add(tyle22);
-	var tyle33 = Ti.UI.createLabel({
-		text : tyle2[2],
+	var tyle23 = Ti.UI.createLabel({
 		left : Ti.App.size(500),
 		font : {
 			fontSize : Ti.App.size(30),
@@ -164,9 +156,8 @@ module.exports = function(_top, tg, tendoi, tyle1, tyle2, tyle3) {
 		color : Ti.App.Color.nauden,
 		top : Ti.App.size(235),
 	});
-	view_keo.add(tyle33);
-		var tyle24 = Ti.UI.createLabel({
-		text : tyle2[3],
+	view_keo.add(tyle23);
+	var tyle24 = Ti.UI.createLabel({
 		left : Ti.App.size(500),
 		font : {
 			fontSize : Ti.App.size(30),
@@ -179,53 +170,67 @@ module.exports = function(_top, tg, tendoi, tyle1, tyle2, tyle3) {
 	// view_keo.add(hang3);
 	//
 	// var hang4 = Ti.UI.createView({
-		// width : Ti.App.size(640),
-		// height : Ti.App.size(100),
-		// top : Ti.App.size(275)
+	// width : Ti.App.size(640),
+	// height : Ti.App.size(100),
+	// top : Ti.App.size(275)
 	// });
 	var lbl_nc3 = Ti.UI.createLabel({
-		text :"Châu Âu",
+		text : "Châu Âu",
 		left : Ti.App.size(20),
 		font : {
 			fontSize : Ti.App.size(30),
 		},
 		color : Ti.App.Color.nauden,
-		top:Ti.App.size(310)
+		top : Ti.App.size(310)
 	});
 	view_keo.add(lbl_nc3);
 	var tyle31 = Ti.UI.createLabel({
-		text : tyle3[0],
 		left : Ti.App.size(200),
 		font : {
 			fontSize : Ti.App.size(30),
 			fontWeight : 'bold'
 		},
 		color : Ti.App.Color.nauden,
-		top:Ti.App.size(310)
+		top : Ti.App.size(310)
 	});
 	view_keo.add(tyle31);
 	var tyle32 = Ti.UI.createLabel({
-		text : tyle3[1],
 		left : Ti.App.size(355),
 		font : {
 			fontSize : Ti.App.size(30),
 			fontWeight : 'bold'
 		},
-		color : Ti.App.Color.nauden,top:Ti.App.size(310)
+		color : Ti.App.Color.nauden,
+		top : Ti.App.size(310)
 	});
 	view_keo.add(tyle32);
 	var tyle33 = Ti.UI.createLabel({
-		text : tyle3[2],
 		left : Ti.App.size(500),
 		font : {
 			fontSize : Ti.App.size(30),
 			fontWeight : 'bold'
 		},
-		color : Ti.App.Color.nauden,top:Ti.App.size(310)
+		color : Ti.App.Color.nauden,
+		top : Ti.App.size(310)
 	});
 	view_keo.add(tyle33);
 	// view_keo.add(hang4);
-	
+	view_keo.setParam = function(param) {
+		if (param != null) {
+			lbltg.text = param.tg + "'";
+			lbl_tendoi.text = param.tendoi[0] + '  vs  ' + param.tendoi[1];
+			tyle11.text = param.tyle1[0];
+			tyle12.text = param.tyle1[1];
+			tyle13.text = param.tyle1[2];
+			tyle21.text = param.tyle2[0];
+			tyle22.text = param.tyle2[1];
+			tyle23.text = param.tyle2[2];
+			tyle24.text = param.tyle2[3];
+			tyle31.text = param.tyle3[0];
+			tyle32.text = param.tyle3[1];
+			tyle33.text = param.tyle3[2];
+		};
+	};
 	return view_keo;
 };
 function set_widthline(i) {

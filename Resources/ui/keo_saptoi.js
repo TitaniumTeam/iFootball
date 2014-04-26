@@ -18,6 +18,29 @@ function tao_bien(sv) {
 	sv.vari = {};
 	sv.arr = {};
 	sv.vari.view_keo = require('/ui/view_keo');
+	sv.arr.param1 = [{
+		tg : 55,
+		tendoi : ["Manchester", "Chealse"],
+		tyle1 : ["1.5", "1.09", "0.84"],
+		tyle2 : ["1.5", "1.09", "0.84", "u"],
+		tyle3 : ["1.5", "1.09", "0.84"]
+	}];
+	sv.arr.param2 = [{
+		tg : 15,
+		tendoi : ["Liverpool", "Ha Noi T&T"],
+		tyle1 : ["1.5", "1.09", "0.84"],
+		tyle2 : ["1.5", "1.09", "0.84", "u"],
+		tyle3 : ["1.5", "1.09", "0.84"]
+	}];
+	sv.arr.param3 = [{
+		tg : 45,
+		tendoi : ["RealMarid", "Becelona"],
+		tyle1 : ["1.5", "1.09", "0.84"],
+		tyle2 : ["1.5", "1.09", "0.84", "u"],
+		tyle3 : ["1.5", "1.09", "0.84"]
+	}];
+	sv.arr.dataVTong = [];
+
 };
 function tao_ui(sv) {
 	sv.ui.ViewTong = Titanium.UI.createView({
@@ -110,13 +133,55 @@ function tao_ui(sv) {
 	});
 	sv.ui.scrollview.add(sv.ui.vChua);
 	for (var i = 0; i < 1; i++) {
-		sv.ui.vTong = new sv.vari.view_keo(Ti.App.size(400) * (i), 55, ["Manchester", "Chealse"], ["1.5", "1.09", "0.84"], ["1.5", "1.09", "0.84", "u"], ["1.5", "1.09", "0.84"]);
+		sv.ui.vTong = new sv.vari.view_keo(Ti.App.size(400) * (i));
 		sv.ui.vChua.add(sv.ui.vTong);
+		sv.arr.dataVTong.push(sv.ui.vTong);
+		sv.arr.dataVTong[i].setParam(sv.arr.param2[i]);
+	};
+	tao_event(sv);
+	sv.ui.lbl_hnay.addEventListener('click', sv.fu.evt_clickhnay);
+	sv.ui.lbl_mai.addEventListener('click', sv.fu.evt_click_mai);
+	sv.ui.lbl_hqa.addEventListener('click', sv.fu.evt_clickhqua);
+}
+
+function tao_event(sv) {
+	sv.fu = {};
+	sv.fu.evt_clickhqua = function(e) {
+		set_mau(sv.ui.lbl_hqa, sv.ui.lbl_hnay, sv.ui.lbl_mai);
+		for (var i = 0; i < 1; i++) {
+			sv.arr.dataVTong[i].setParam(sv.arr.param1[i]);
+		};
+
+	};
+	sv.fu.evt_clickhnay = function(e) {
+		set_mau(sv.ui.lbl_hnay, sv.ui.lbl_hqa, sv.ui.lbl_mai);
+		for (var i = 0; i < 1; i++) {
+			sv.arr.dataVTong[i].setParam(sv.arr.param2[i]);
+		}
+	};
+	sv.fu.evt_click_mai = function(e) {
+		set_mau(sv.ui.lbl_mai, sv.ui.lbl_hnay, sv.ui.lbl_hqa);
+		for (var i = 0; i < 1; i++) {
+			sv.arr.dataVTong[i].setParam(sv.arr.param3[i]);
+		};
 	};
 }
 
 function createRemove(sv) {
 	sv.removeAllEvent = function() {
+		sv.ui.lbl_hnay.removeEventListener('click', sv.fu.evt_clickhnay);
+		sv.ui.lbl_mai.removeEventListener('click', sv.fu.evt_click_mai);
+		sv.ui.lbl_hqa.removeEventListener('click', sv.fu.evt_clickhqua);
 		Ti.API.info('da remove xong ');
 	};
 }
+
+function set_mau(a, b, c) {
+	a.backgroundColor = Ti.App.Color.superwhite;
+	a.color = Ti.App.Color.nauden;
+	b.backgroundColor = 'transparent';
+	b.color = Ti.App.Color.superwhite;
+	c.backgroundColor = 'transparent';
+	c.color = Ti.App.Color.superwhite;
+}
+

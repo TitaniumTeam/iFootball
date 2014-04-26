@@ -9,6 +9,7 @@ module.exports = function() {
 	(function() {
 		createVariable(sv);
 		createUI(sv);
+		set_txt(sv);
 		createRemove(sv);
 	})();
 
@@ -197,27 +198,27 @@ function createUI_Event(sv) {
 	sv.fu = {};
 
 	// sv.fu.eventClickIconBack = function() {
-		// var newWindow = new (require('ui/DangNhap'))();
-		// newWindow.open();
+	// var newWindow = new (require('ui/DangNhap'))();
+	// newWindow.open();
 	// };
-// 
+	//
 	// sv.fu.eventOpenWindow = function(e) {
-		// Ti.API.info('Opened window');
+	// Ti.API.info('Opened window');
 	// };
-// 
+	//
 	// sv.fu.eventCloseWindow = function(e) {
-		// // sv.ui.IconBack.removeEventListener('click', sv.fu.eventClickIconBack);
-		// // sv.ui.Window.removeEventListener('open', sv.fu.eventOpenWindow);
-		// // sv.ui.Window.removeEventListener('close', sv.fu.eventCloseWindow);
-// 
-		// sv.vari = null;
-		// sv.arr = null;
-		// sv.ui = null;
-		// sv.fu = null;
-		// sv.test = null;
-		// sv = null;
-// 
-		// Ti.API.info('Closed window, sv=' + sv);
+	// // sv.ui.IconBack.removeEventListener('click', sv.fu.eventClickIconBack);
+	// // sv.ui.Window.removeEventListener('open', sv.fu.eventOpenWindow);
+	// // sv.ui.Window.removeEventListener('close', sv.fu.eventCloseWindow);
+	//
+	// sv.vari = null;
+	// sv.arr = null;
+	// sv.ui = null;
+	// sv.fu = null;
+	// sv.test = null;
+	// sv = null;
+	//
+	// Ti.API.info('Closed window, sv=' + sv);
 	// };
 }
 
@@ -232,3 +233,17 @@ function createRemove(sv) {
 		Ti.API.info('da remove xong ');
 	};
 }
+
+function set_txt(sv) {
+	sv.set_statetxt = function(_state) {
+		if(_state==true){
+			sv.ui.TfMatKhau.blur();
+		sv.ui.TfTaiKhoan.blur();
+		sv.ui.TfEmail.blur();
+		}
+		else{
+			Ti.API.info('cha lam gi');
+		}
+		
+	};
+};

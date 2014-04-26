@@ -172,5 +172,6 @@ function createRemove(sv) {
 		for (var i = 0; i < sv.vari.SoGiai; i++) {
 			sv.arr.ViewDoi[i].removeEventListener('click', sv.arr.eventClickViewDoi[i]);
 		}
+		Ti.API.info('remove home event');
 	};
 }

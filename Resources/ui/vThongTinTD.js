@@ -37,7 +37,7 @@ module.exports = function(_top, param1) {
 		textAlign : 'left',
 		top : Ti.App.size(70)
 	});
-	var hang3 = Ti.UI.createLabel({
+	var hang3 = Ti.UI.createView({
 		top : Ti.App.size(120),
 		width : Ti.App.size(720),
 		height : Ti.App.size(50),

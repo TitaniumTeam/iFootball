@@ -73,17 +73,17 @@ function tao_ui(sv) {
 			width : Ti.App.size(720),
 			backgroundColor : Ti.App.Color.magenta,
 			id : i,
-			backgroundSelectedColor : null,
-			backgroundFocusedColor : null,
-			backgroundFocusedImage : null,
+			backgroundSelectedColor : 'transparent',
+			backgroundFocusedColor : 'transparent',
+			backgroundFocusedImage : 'transparent',
 		});
 
 		sv.ui.ViewChua = Ti.UI.createView({
 			height : Ti.UI.FILL,
 			width : Ti.App.size(720),
-			backgroundSelectedColor : null,
-			backgroundFocusedColor : null,
-			backgroundFocusedImage : null,
+			backgroundSelectedColor : 'transparent',
+			backgroundFocusedColor : 'transparent',
+			backgroundFocusedImage : 'transparent',
 		});
 
 		sv.ui.viewRow = Ti.UI.createView({
@@ -94,9 +94,9 @@ function tao_ui(sv) {
 			borderWidth : set_border(i, sv),
 			left : 0,
 			bottom : 1,
-			backgroundSelectedColor : null,
-			backgroundFocusedColor : null,
-			backgroundFocusedImage : null,
+			backgroundSelectedColor : 'transparent',
+			backgroundFocusedColor : 'transparent',
+			backgroundFocusedImage : 'transparent',
 		});
 
 		sv.ui.lbl_tennc = Ti.UI.createLabel({
@@ -171,7 +171,7 @@ function tao_ui(sv) {
 		sv.ui.viewRow.add(sv.ui.lbl_ck);
 		sv.ui.viewRow.add(sv.ui.arrow);
 		sv.ui.ViewChua.add(sv.ui.viewBack);
-		for ( j = 0; j < 1; j++) {
+		for ( j = 0; j < 3; j++) {
 			sv.ui.vThongtin = new sv.ui.vThongtinTD(Ti.App.size(190) * j, sv.arr.param1[j]);
 			sv.ui.viewBack.add(sv.ui.vThongtin);
 		};
@@ -188,10 +188,10 @@ function tao_ui(sv) {
 		top : 0,
 		separatorColor : 'transparent',
 		backgroundColor : Ti.App.Color.magenta,
-		backgroundSelectedColor : null,
-		backgroundFocusedColor : null,
-		backgroundFocusedImage : null,
-		showVerticalScrollIndicator : true
+		showVerticalScrollIndicator : true,
+		backgroundSelectedColor : 'transparent',
+		backgroundFocusedColor : 'transparent',
+		backgroundFocusedImage : 'transparent',
 	});
 	sv.ui.ViewTong.add(sv.ui.tbl);
 };
