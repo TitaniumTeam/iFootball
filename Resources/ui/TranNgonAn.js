@@ -17,6 +17,7 @@ module.exports = function() {
 function tao_bien(sv) {
 	sv.vari = {};
 	sv.arr = {};
+	sv.arr.event_clickrow = [];
 	sv.arr.param1 = [{
 		thoigian : '22:10',
 		san : 'My dinh',
@@ -170,10 +171,11 @@ function tao_ui(sv) {
 			sv.ui.vThongtin = new sv.ui.vThongtinTD(Ti.App.size(290) * j, sv.arr.param1[j]);
 			sv.ui.viewBack.add(sv.ui.vThongtin);
 		};
-		tao_event(sv);
-		sv.ui.row.addEventListener('click', sv.fu.event_clickrow);
 		sv.arr.rows.push(sv.ui.row);
 		sv.arr.arrow.push(sv.ui.arrow);
+		tao_event(sv);
+		sv.arr.rows[i].addEventListener('click', sv.arr.event_clickrow[i]);
+
 	}
 	sv.ui.tbl = Ti.UI.createTableView({
 		data : sv.arr.rows,
@@ -187,23 +189,31 @@ function tao_ui(sv) {
 		backgroundFocusedImage : null,
 	});
 	sv.ui.ViewTong.add(sv.ui.tbl);
+
+	// for (var i = 0; i < sv.arr.data.length; i++) {
+	//
+	// }
 };
 function tao_event(sv) {
 	sv.fu = {};
-	sv.fu.event_clickrow = function(e) {
-		if (e.row.expanded) {
-			e.row.setHeight(Ti.App.size(100));
-			e.row.expanded = false;
-			sv.arr.arrow[e.row.id].transform = sv.vari.trans2;
-			sv.arr.arrow[e.row.id].top = Ti.App.size(25);
+	for (var i = 0; i < sv.arr.data.length; i++) {
+		sv.arr.event_clickrow[i] = function(e) {
+			Ti.API.info('click');
+			if (e.row.expanded) {
+				e.row.setHeight(Ti.App.size(100));
+				e.row.expanded = false;
+				sv.arr.arrow[e.row.id].transform = sv.vari.trans2;
+				sv.arr.arrow[e.row.id].top = Ti.App.size(25);
 
-		} else {
-			e.row.setHeight(Ti.App.size(970));
-			e.row.expanded = true;
-			sv.arr.arrow[e.row.id].transform = sv.vari.trans1;
-			sv.arr.arrow[e.row.id].top = Ti.App.size(20);
-		}
-	};
+			} else {
+				e.row.setHeight(Ti.App.size(970));
+				e.row.expanded = true;
+				sv.arr.arrow[e.row.id].transform = sv.vari.trans1;
+				sv.arr.arrow[e.row.id].top = Ti.App.size(20);
+			}
+		};
+	}
+
 };
 function set_border(i, sv) {
 	if (i == 0 || i % 2 == 0 || i == (sv.arr.data.length - 1)) {
@@ -215,8 +225,18 @@ function set_border(i, sv) {
 function createRemove(sv) {
 	sv.removeAllEvent = function() {
 		for (var i = 0; i < sv.arr.data.length; i++) {
-			sv.ui.row.addEventListener('click', sv.fu.event_clickrow);
+			sv.arr.rows[i].expanded = false;
+			sv.arr.arrow[i].transform = sv.vari.trans2;
+			sv.arr.arrow[i].top = Ti.App.size(25);
+			sv.arr.rows[i].setHeight(Ti.App.size(100));
+			sv.arr.rows[i].removeEventListener('click', sv.arr.event_clickrow[i]);
 		}
-		Ti.API.info('remove event thong tin tran dau');
+		Ti.API.info('remove event tran ngon an');
+		sv.vari = null;
+		sv.arr = null;
+		sv.ui = null;
+		sv.fu = null;
+		sv = null;
 	};
 }
+

@@ -85,7 +85,6 @@ function tao_ui(sv) {
 			backgroundFocusedColor : null,
 			backgroundFocusedImage : null,
 		});
-		
 
 		sv.ui.viewRow = Ti.UI.createView({
 			height : sv.vari.row_height - 1,
@@ -99,7 +98,7 @@ function tao_ui(sv) {
 			backgroundFocusedColor : null,
 			backgroundFocusedImage : null,
 		});
-		
+
 		sv.ui.lbl_tennc = Ti.UI.createLabel({
 			height : Ti.UI.SIZE,
 			left : Ti.App.size(120),
@@ -109,14 +108,14 @@ function tao_ui(sv) {
 				fontSize : Ti.App.size(30)
 			}
 		});
-		
+
 		sv.ui.lbl_co = Titanium.UI.createImageView({
 			width : Ti.App.size(65),
 			height : Ti.App.size(45),
 			image : 'assets/images/icon/0' + (i + 1) + '.png',
 			left : Ti.App.size(40)
 		});
-		
+
 		sv.ui.lbl_tyle = Titanium.UI.createLabel({
 			width : Ti.App.size(95),
 			height : Ti.App.size(100),
@@ -126,7 +125,7 @@ function tao_ui(sv) {
 			},
 			left : Ti.App.size(475)
 		});
-		
+
 		sv.ui.lbl_ck = Titanium.UI.createLabel({
 			width : Ti.App.size(70),
 			height : Ti.App.size(100),
@@ -136,7 +135,7 @@ function tao_ui(sv) {
 				fontSize : Ti.App.size(25)
 			},
 		});
-		
+
 		sv.ui.arrow = Titanium.UI.createImageView({
 			width : Ti.App.size(20),
 			height : Ti.App.size(40),
@@ -145,7 +144,7 @@ function tao_ui(sv) {
 			top : Ti.App.size(20),
 			left : Ti.App.size(650)
 		});
-		
+
 		//////////////
 		sv.ui.viewBack = Ti.UI.createView({
 			left : 0,
@@ -177,9 +176,9 @@ function tao_ui(sv) {
 			sv.ui.viewBack.add(sv.ui.vThongtin);
 		};
 		tao_event(sv);
-		sv.ui.row.addEventListener('click', sv.fu.event_clickrow);
 		sv.arr.rows.push(sv.ui.row);
 		sv.arr.arrow.push(sv.ui.arrow);
+		sv.arr.rows[i].addEventListener('click', sv.fu.event_clickrow[i]);
 	}
 
 	sv.ui.tbl = Ti.UI.createTableView({
@@ -192,26 +191,29 @@ function tao_ui(sv) {
 		backgroundSelectedColor : null,
 		backgroundFocusedColor : null,
 		backgroundFocusedImage : null,
-		showVerticalScrollIndicator:true
+		showVerticalScrollIndicator : true
 	});
 	sv.ui.ViewTong.add(sv.ui.tbl);
 };
 function tao_event(sv) {
 	sv.fu = {};
-	sv.fu.event_clickrow = function(e) {
-		if (e.row.expanded) {
-			e.row.setHeight(Ti.App.size(100));
-			e.row.expanded = false;
-			sv.arr.arrow[e.row.id].transform = sv.vari.trans2;
-			sv.arr.arrow[e.row.id].top = Ti.App.size(25);
+	sv.fu.event_clickrow = [];
+	for (var i = 0; i < sv.arr.data.length; i++) {
+		sv.fu.event_clickrow[i] = function(e) {
+			if (e.row.expanded) {
+				e.row.setHeight(Ti.App.size(100));
+				e.row.expanded = false;
+				sv.arr.arrow[e.row.id].transform = sv.vari.trans2;
+				sv.arr.arrow[e.row.id].top = Ti.App.size(25);
 
-		} else {
-			e.row.setHeight(Ti.App.size(670));
-			e.row.expanded = true;
-			sv.arr.arrow[e.row.id].transform = sv.vari.trans1;
-			sv.arr.arrow[e.row.id].top = Ti.App.size(20);
-		}
-	};
+			} else {
+				e.row.setHeight(Ti.App.size(670));
+				e.row.expanded = true;
+				sv.arr.arrow[e.row.id].transform = sv.vari.trans1;
+				sv.arr.arrow[e.row.id].top = Ti.App.size(20);
+			}
+		};
+	}
 };
 function set_border(i, sv) {
 	if (i == 0 || i % 2 == 0 || i == (sv.arr.data.length - 1)) {
@@ -222,9 +224,21 @@ function set_border(i, sv) {
 };
 function createRemove(sv) {
 	sv.removeAllEvent = function() {
-		for (var i = 0; i < sv.arr.data.length; i++) {
-			sv.ui.row.addEventListener('click', sv.fu.event_clickrow);
-		}
-		Ti.API.info('remove event thong tin tran dau');
+		sv.removeAllEvent = function() {
+			for (var i = 0; i < sv.arr.data.length; i++) {
+				sv.arr.rows[i].expanded = false;
+				sv.arr.arrow[i].transform = sv.vari.trans2;
+				sv.arr.arrow[i].top = Ti.App.size(25);
+				sv.arr.rows[i].setHeight(Ti.App.size(100));
+				sv.arr.rows[i].removeEventListener('click', sv.fu.event_clickrow[i]);
+			}
+			sv.vari = null;
+			sv.arr = null;
+			sv.ui = null;
+			sv.fu = null;
+			sv = null;
+
+			Ti.API.info('remove event thong tin tran dau');
+		};
 	};
-}
+};

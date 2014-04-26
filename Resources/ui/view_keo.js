@@ -11,7 +11,7 @@ module.exports = function(_top, tg, tendoi, tyle1, tyle2, tyle3) {
 		top : _top
 	});
 	for (var i = 0; i < 3; i++) {
-		var line = Ti.UI.createView({
+		var line = Ti.UI.createImageView({
 			width : set_widthline(i),
 			height : 1,
 			top : set_top(i),
@@ -19,12 +19,12 @@ module.exports = function(_top, tg, tendoi, tyle1, tyle2, tyle3) {
 		});
 		view_keo.add(line);
 	}
-	var hang1 = Ti.UI.createView({
-		top : 0,
-		width : Ti.App.size(640),
-		height : Ti.App.size(75),
-		backgroundColor : 'transparent'
-	});
+	// var hang1 = Ti.UI.createView({
+		// top : 0,
+		// width : Ti.App.size(640),
+		// height : Ti.App.size(75),
+		// backgroundColor : 'transparent'
+	// });
 
 	var lbldongho = Ti.UI.createImageView({
 		image : '/assets/images/icon/icon-time.png',
@@ -33,7 +33,7 @@ module.exports = function(_top, tg, tendoi, tyle1, tyle2, tyle3) {
 		width : Ti.App.size(25),
 		height : Ti.App.size(25),
 	});
-	hang1.add(lbldongho);
+	view_keo.add(lbldongho);
 	var lbltg = Ti.UI.createLabel({
 		text : tg + "'",
 		top : Ti.App.size(40),
@@ -44,15 +44,16 @@ module.exports = function(_top, tg, tendoi, tyle1, tyle2, tyle3) {
 		},
 		color : Ti.App.Color.nauden
 	});
-	hang1.add(lbltg);
-	var linehang = Ti.UI.createView({
+	view_keo.add(lbltg);
+	var linehang = Ti.UI.createImageView({
 		width : 1,
 		height : Ti.App.size(60),
-		bottom : 0,
+		// bottom : 0,
 		left : Ti.App.size(80),
-		backgroundColor : Ti.App.Color.xanhnhat
+		backgroundColor : Ti.App.Color.xanhnhat,
+		top:Ti.App.size(15)
 	});
-	hang1.add(linehang);
+	view_keo.add(linehang);
 	var lbl_tendoi = Ti.UI.createLabel({
 		text : tendoi[0] + '  vs  ' + tendoi[1],
 		font : {
@@ -60,25 +61,27 @@ module.exports = function(_top, tg, tendoi, tyle1, tyle2, tyle3) {
 		},
 		left : Ti.App.size(80),
 		textAlign : 'center',
-		width : Ti.App.size(560)
+		width : Ti.App.size(560),
+		top:Ti.App.size(25)
 	});
-	hang1.add(lbl_tendoi);
-	view_keo.add(hang1);
+	view_keo.add(lbl_tendoi);
+	// view_keo.add(hang1);
 	//
-	var hang2 = Ti.UI.createView({
-		width : Ti.App.size(640),
-		height : Ti.App.size(100),
-		top : Ti.App.size(75)
-	});
+	// var hang2 = Ti.UI.createView({
+		// width : Ti.App.size(640),
+		// height : Ti.App.size(100),
+		// top : Ti.App.size(75)
+	// });
 	var lbl_nc1 = Ti.UI.createLabel({
 		text : 'Châu Á',
-		left : Ti.App.size(10),
+		left : Ti.App.size(20),
 		font : {
 			fontSize : Ti.App.size(30)
 		},
-		color : Ti.App.Color.nauden
+		color : Ti.App.Color.nauden,
+		top:Ti.App.size(112)
 	});
-	hang2.add(lbl_nc1);
+	view_keo.add(lbl_nc1);
 	var tyle11 = Ti.UI.createLabel({
 		text : tyle1[0],
 		left : Ti.App.size(200),
@@ -87,9 +90,9 @@ module.exports = function(_top, tg, tendoi, tyle1, tyle2, tyle3) {
 			fontWeight : 'bold'
 		},
 		color : Ti.App.Color.gray,
-		top : Ti.App.size(10)
+		top : Ti.App.size(85)
 	});
-	hang2.add(tyle11);
+	view_keo.add(tyle11);
 	var tyle12 = Ti.UI.createLabel({
 		text : tyle1[1],
 		left : Ti.App.size(200),
@@ -98,9 +101,9 @@ module.exports = function(_top, tg, tendoi, tyle1, tyle2, tyle3) {
 			fontWeight : 'bold'
 		},
 		color : Ti.App.Color.red,
-		top : Ti.App.size(60)
+		top : Ti.App.size(135)
 	});
-	hang2.add(tyle12);
+	view_keo.add(tyle12);
 	var tyle13 = Ti.UI.createLabel({
 		text : tyle1[2],
 		left : Ti.App.size(500),
@@ -109,25 +112,26 @@ module.exports = function(_top, tg, tendoi, tyle1, tyle2, tyle3) {
 			fontWeight : 'bold'
 		},
 		color : Ti.App.Color.nauden,
-		top : Ti.App.size(60),
+		top : Ti.App.size(135),
 	});
-	hang2.add(tyle13);
-	view_keo.add(hang2);
+	view_keo.add(tyle13);
+	// view_keo.add(hang2);
 	//
-	var hang3 = Ti.UI.createView({
-		width : Ti.App.size(640),
-		height : Ti.App.size(100),
-		top : Ti.App.size(175)
-	});
+	// var hang3 = Ti.UI.createView({
+		// width : Ti.App.size(640),
+		// height : Ti.App.size(100),
+		// top : Ti.App.size(175)
+	// });
 	var lbl_nc2 = Ti.UI.createLabel({
 		text : "Tài Xỉu",
-		left : Ti.App.size(10),
+		left : Ti.App.size(20),
 		font : {
 			fontSize : Ti.App.size(30),
 		},
-		color : Ti.App.Color.nauden
+		color : Ti.App.Color.nauden,
+		top:Ti.App.size(212)
 	});
-	hang3.add(lbl_nc2);
+	view_keo.add(lbl_nc2);
 	var tyle21 = Ti.UI.createLabel({
 		text : tyle2[0],
 		left : Ti.App.size(200),
@@ -136,9 +140,9 @@ module.exports = function(_top, tg, tendoi, tyle1, tyle2, tyle3) {
 			fontWeight : 'bold'
 		},
 		color : Ti.App.Color.gray,
-		top : Ti.App.size(10)
+		top : Ti.App.size(185)
 	});
-	hang3.add(tyle21);
+	view_keo.add(tyle21);
 	var tyle22 = Ti.UI.createLabel({
 		text : tyle2[1],
 		left : Ti.App.size(200),
@@ -147,9 +151,9 @@ module.exports = function(_top, tg, tendoi, tyle1, tyle2, tyle3) {
 			fontWeight : 'bold'
 		},
 		color : Ti.App.Color.red,
-		top : Ti.App.size(60)
+		top : Ti.App.size(235)
 	});
-	hang3.add(tyle22);
+	view_keo.add(tyle22);
 	var tyle33 = Ti.UI.createLabel({
 		text : tyle2[2],
 		left : Ti.App.size(500),
@@ -158,9 +162,9 @@ module.exports = function(_top, tg, tendoi, tyle1, tyle2, tyle3) {
 			fontWeight : 'bold'
 		},
 		color : Ti.App.Color.nauden,
-		top : Ti.App.size(60),
+		top : Ti.App.size(235),
 	});
-	hang3.add(tyle33);
+	view_keo.add(tyle33);
 		var tyle24 = Ti.UI.createLabel({
 		text : tyle2[3],
 		left : Ti.App.size(500),
@@ -169,25 +173,26 @@ module.exports = function(_top, tg, tendoi, tyle1, tyle2, tyle3) {
 			fontWeight : 'bold'
 		},
 		color : Ti.App.Color.brown,
-		top : Ti.App.size(10)
+		top : Ti.App.size(185)
 	});
-	hang3.add(tyle24);
-	view_keo.add(hang3);
+	view_keo.add(tyle24);
+	// view_keo.add(hang3);
 	//
-	var hang4 = Ti.UI.createView({
-		width : Ti.App.size(640),
-		height : Ti.App.size(100),
-		top : Ti.App.size(275)
-	});
+	// var hang4 = Ti.UI.createView({
+		// width : Ti.App.size(640),
+		// height : Ti.App.size(100),
+		// top : Ti.App.size(275)
+	// });
 	var lbl_nc3 = Ti.UI.createLabel({
 		text :"Châu Âu",
-		left : Ti.App.size(10),
+		left : Ti.App.size(20),
 		font : {
 			fontSize : Ti.App.size(30),
 		},
-		color : Ti.App.Color.nauden
+		color : Ti.App.Color.nauden,
+		top:Ti.App.size(310)
 	});
-	hang4.add(lbl_nc3);
+	view_keo.add(lbl_nc3);
 	var tyle31 = Ti.UI.createLabel({
 		text : tyle3[0],
 		left : Ti.App.size(200),
@@ -196,8 +201,9 @@ module.exports = function(_top, tg, tendoi, tyle1, tyle2, tyle3) {
 			fontWeight : 'bold'
 		},
 		color : Ti.App.Color.nauden,
+		top:Ti.App.size(310)
 	});
-	hang4.add(tyle31);
+	view_keo.add(tyle31);
 	var tyle32 = Ti.UI.createLabel({
 		text : tyle3[1],
 		left : Ti.App.size(355),
@@ -205,9 +211,9 @@ module.exports = function(_top, tg, tendoi, tyle1, tyle2, tyle3) {
 			fontSize : Ti.App.size(30),
 			fontWeight : 'bold'
 		},
-		color : Ti.App.Color.nauden,
+		color : Ti.App.Color.nauden,top:Ti.App.size(310)
 	});
-	hang4.add(tyle32);
+	view_keo.add(tyle32);
 	var tyle33 = Ti.UI.createLabel({
 		text : tyle3[2],
 		left : Ti.App.size(500),
@@ -215,10 +221,10 @@ module.exports = function(_top, tg, tendoi, tyle1, tyle2, tyle3) {
 			fontSize : Ti.App.size(30),
 			fontWeight : 'bold'
 		},
-		color : Ti.App.Color.nauden,
+		color : Ti.App.Color.nauden,top:Ti.App.size(310)
 	});
-	hang4.add(tyle33);
-	view_keo.add(hang4);
+	view_keo.add(tyle33);
+	// view_keo.add(hang4);
 	
 	return view_keo;
 };

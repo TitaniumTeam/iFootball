@@ -196,33 +196,39 @@ function createUI(sv) {
 function createUI_Event(sv) {
 	sv.fu = {};
 
-	sv.fu.eventClickIconBack = function() {
-		var newWindow = new (require('ui/DangNhap'))();
-		newWindow.open();
-	};
+	// sv.fu.eventClickIconBack = function() {
+		// var newWindow = new (require('ui/DangNhap'))();
+		// newWindow.open();
+	// };
+// 
+	// sv.fu.eventOpenWindow = function(e) {
+		// Ti.API.info('Opened window');
+	// };
+// 
+	// sv.fu.eventCloseWindow = function(e) {
+		// // sv.ui.IconBack.removeEventListener('click', sv.fu.eventClickIconBack);
+		// // sv.ui.Window.removeEventListener('open', sv.fu.eventOpenWindow);
+		// // sv.ui.Window.removeEventListener('close', sv.fu.eventCloseWindow);
+// 
+		// sv.vari = null;
+		// sv.arr = null;
+		// sv.ui = null;
+		// sv.fu = null;
+		// sv.test = null;
+		// sv = null;
+// 
+		// Ti.API.info('Closed window, sv=' + sv);
+	// };
+}
 
-	sv.fu.eventOpenWindow = function(e) {
-		Ti.API.info('Opened window');
-	};
-
-	sv.fu.eventCloseWindow = function(e) {
-		sv.ui.IconBack.removeEventListener('click', sv.fu.eventClickIconBack);
-		sv.ui.Window.removeEventListener('open', sv.fu.eventOpenWindow);
-		sv.ui.Window.removeEventListener('close', sv.fu.eventCloseWindow);
-
+function createRemove(sv) {
+	sv.removeAllEvent = function() {
 		sv.vari = null;
 		sv.arr = null;
 		sv.ui = null;
 		sv.fu = null;
 		sv.test = null;
 		sv = null;
-
-		Ti.API.info('Closed window, sv=' + sv);
-	};
-}
-
-function createRemove(sv) {
-	sv.removeAllEvent = function() {
 		Ti.API.info('da remove xong ');
 	};
 }

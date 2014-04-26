@@ -23,13 +23,9 @@ function tao_bien(sv) {
 	sv.vari.ThongTinCaNhan = require('/ui/ThongTinCaNhan');
 	sv.vari.LichSuGiaoDich = require('/ui/LichSuGiaoDich');
 	sv.vari.keo_tructiep = require('/ui/keo_ts_tructiep');
-	sv.vari.keott = new sv.vari.keo_tructiep();
 	sv.vari.keo_saptoi = require('/ui/keo_saptoi');
-	sv.vari.keost = new sv.vari.keo_saptoi();
 	sv.vari.ThongTinTD = require('/ui/ThongTinTranDau');
-	sv.vari.tttrandau = new sv.vari.ThongTinTD();
 	sv.vari.TranNgonAn = require('/ui/TranNgonAn');
-	sv.vari.tranna = new sv.vari.TranNgonAn();
 	//cac mang menu ben phai
 	sv.arr.ten_right = ['THÔNG TIN TÀI KHOẢN', 'NẠP XU', 'LỊCH SỬ'];
 	sv.arr.icon_right = ['/assets/images/icon/icon-2.png', '/assets/images/icon/icon-lichsu.png', '/assets/images/icon/icon-napxu.png'];
@@ -533,7 +529,7 @@ function tao_ui(sv) {
 		height : Ti.UI.SIZE,
 		backgroundColor : 'transparent'
 	});
-	
+
 	sv.ui.View1.add(sv.ui.view_menu_icon);
 	sv.ui.view_menu_icon.add(sv.ui.menu_icon);
 	sv.ui.View1.add(sv.ui.view_user_icon);
@@ -563,6 +559,7 @@ function tao_ui(sv) {
 		rightDrawerWidth : Ti.App.size(480),
 		tatusBarStyle : NappDrawerModule.STATUSBAR_WHITE, // remember to set UIViewControllerBasedStatusBarAppearance to false in tiapp.xml
 		orientationModes : [Ti.UI.PORTRAIT, Ti.UI.UPSIDE_PORTRAIT],
+		animationMode : NappDrawerModule.ANIMATION_PARALLAX_FACTOR_7
 	});
 	///
 	tao_event(sv);
@@ -595,21 +592,21 @@ function removeAllEvent(sv) {
 	}
 
 	if (sv.vari.VTView == 4) {
-		// var ViewHienTai = new sv.vari.keo_tructiep();
-		// ViewHienTai.removeAllEvent();
-		sv.vari.keott.removeAllEvent();
+		var ViewHienTai = new sv.vari.keo_tructiep();
+		ViewHienTai.removeAllEvent();
+		// sv.vari.keott.removeAllEvent();
 	}
 
 	if (sv.vari.VTView == 5) {
-		// var ViewHienTai = new sv.vari.keo_saptoi();
-		// ViewHienTai.removeAllEvent();
-		sv.vari.keost.removeAllEvent();
+		var ViewHienTai = new sv.vari.keo_saptoi();
+		ViewHienTai.removeAllEvent();
+		// sv.vari.keost.removeAllEvent();
 	}
 
 	if (sv.vari.VTView == 6) {
-		// var ViewHienTai = new sv.vari.ThongTinTD();
-		// ViewHienTai.removeAllEvent();
-		sv.vari.tttrandau.removeAllEvent();
+		var ViewHienTai = new sv.vari.ThongTinTD();
+		ViewHienTai.removeAllEvent();
+		// sv.vari.tttrandau.removeAllEvent();
 	}
 
 	if (sv.vari.VTView == 7) {
@@ -617,9 +614,9 @@ function removeAllEvent(sv) {
 	}
 
 	if (sv.vari.VTView == 8) {
-		// var ViewHienTai = new sv.vari.TranNgonAn();
-		// ViewHienTai.removeAllEvent();
-		sv.vari.tranna.removeAllEvent();
+		var ViewHienTai = new sv.vari.TranNgonAn();
+		ViewHienTai.removeAllEvent();
+		// sv.vari.tranna.removeAllEvent();
 	}
 
 	if (sv.vari.VTView == 9) {
@@ -714,21 +711,21 @@ function tao_event(sv) {
 		Ti.API.info("isLeftWindowOpen: " + sv.ui.drawer.isLeftWindowOpen());
 		switch(e.index) {
 			case 0:
-				sv.ui.Viewtong.removeAllChildren();
-				sv.ui.drawer.toggleLeftWindow();
 				set_label(sv, "Bảng xếp hạng", 50);
 				removeAllEvent(sv);
+				sv.ui.Viewtong.removeAllChildren();
 				var newView = new sv.vari.Home();
+				sv.ui.drawer.toggleLeftWindow();
 				sv.ui.Viewtong.add(newView.ui.ViewTong);
 				sv.vari.VTView = 1;
 				break;
 
 			case 2:
-				sv.ui.Viewtong.removeAllChildren();
-				sv.ui.drawer.toggleLeftWindow();
 				set_label(sv, "TIN TỨC", 50);
 				removeAllEvent(sv);
+				sv.ui.Viewtong.removeAllChildren();
 				var newView = new sv.vari.News();
+				sv.ui.drawer.toggleLeftWindow();
 				sv.ui.Viewtong.add(newView.ui.ViewTong);
 				sv.vari.VTView = 3;
 				break;
@@ -739,20 +736,22 @@ function tao_event(sv) {
 		Ti.API.info("isLeftWindowOpen: " + sv.ui.drawer.isLeftWindowOpen());
 		switch(e.index) {
 			case 0:
-				sv.ui.Viewtong.removeAllChildren();
-				sv.ui.drawer.toggleLeftWindow();
-				set_label(sv, "KÈO TRỰC TIẾP", 40);
 				removeAllEvent(sv);
-				sv.ui.Viewtong.add(sv.vari.keott.ui.ViewTong);
+				set_label(sv, "KÈO TRỰC TIẾP", 40);
+				sv.ui.Viewtong.removeAllChildren();
+				var keo = new sv.vari.keo_tructiep();
+				sv.ui.drawer.toggleLeftWindow();
+				sv.ui.Viewtong.add(keo.ui.ViewTong);
 				sv.vari.VTView = 4;
 				break;
 
 			case 1:
-				sv.ui.Viewtong.removeAllChildren();
-				sv.ui.drawer.toggleLeftWindow();
-				set_label(sv, "KÈO", 50);
 				removeAllEvent(sv);
-				sv.ui.Viewtong.add(sv.vari.keost.ui.ViewTong);
+				set_label(sv, "KÈO", 50);
+				sv.ui.Viewtong.removeAllChildren();
+				var keo_saptoi = new sv.vari.keo_saptoi();
+				sv.ui.drawer.toggleLeftWindow();
+				sv.ui.Viewtong.add(keo_saptoi.ui.ViewTong);
 				sv.vari.VTView = 5;
 		}
 	};
@@ -761,19 +760,21 @@ function tao_event(sv) {
 		Ti.API.info("isLeftWindowOpen: " + sv.ui.drawer.isLeftWindowOpen());
 		switch(e.index) {
 			case 0:
-				sv.ui.Viewtong.removeAllChildren();
-				sv.ui.drawer.toggleLeftWindow();
 				set_label(sv, "THÔNG TIN TRẬN ĐẤU", 40);
 				removeAllEvent(sv);
-				sv.ui.Viewtong.add(sv.vari.tttrandau.ui.ViewTong);
+				sv.ui.Viewtong.removeAllChildren();
+				var newView = new sv.vari.ThongTinTD();
+				sv.ui.drawer.toggleLeftWindow();
+				sv.ui.Viewtong.add(newView.ui.ViewTong);
 				sv.vari.VTView = 6;
 				break;
 			case 2:
-				sv.ui.Viewtong.removeAllChildren();
-				sv.ui.drawer.toggleLeftWindow();
 				set_label(sv, "TRẬN NGON ĂN", 40);
 				removeAllEvent(sv);
-				sv.ui.Viewtong.add(sv.vari.tranna.ui.ViewTong);
+				sv.ui.Viewtong.removeAllChildren();
+				var newView = new sv.vari.TranNgonAn();
+				sv.ui.drawer.toggleLeftWindow();
+				sv.ui.Viewtong.add(newView.ui.ViewTong);
 				sv.vari.VTView = 8;
 				break;
 		}
