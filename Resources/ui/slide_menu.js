@@ -321,7 +321,7 @@ function tao_ui(sv) {
 	sv.ui.row_slide = require('/ui/rowheader');
 	sv.ui.row_header1 = new sv.ui.row_slide(Ti.App.size(0), sv.arr.ten[0], sv.arr.icon[0]);
 	sv.ui.view_menulist.add(sv.ui.row_header1);
-	sv.ui.row_header2 = new sv.ui.row_slide(Ti.App.size(350), sv.arr.ten[1], sv.arr.icon[1]);
+	sv.ui.row_header2 = new sv.ui.row_slide(Ti.App.size(345), sv.arr.ten[1], sv.arr.icon[1]);
 	sv.ui.view_menulist.add(sv.ui.row_header2);
 	sv.ui.row_header3 = new sv.ui.row_slide(Ti.App.size(595), sv.arr.ten[2], sv.arr.icon[2]);
 	sv.ui.view_menulist.add(sv.ui.row_header3);
@@ -542,7 +542,8 @@ function tao_ui(sv) {
 	sv.ui.Viewtong.add(ViewHienTai.ui.ViewTong);
 	////////////////view menu right
 	sv.ui.navController = Ti.UI.iOS.createNavigationWindow({
-		window : sv.ui.WindowHome
+		window : sv.ui.WindowHome,
+		orientationModes:[Ti.UI.LANDSCAPE_LEFT,Ti.UI.LANDSCAPE_RIGHT]
 	});
 	/*
 	navcontroller win
@@ -671,9 +672,9 @@ function tao_event(sv) {
 		Ti.API.info('is righwindowopen' + sv.ui.drawer.isRightWindowOpen());
 		switch(e.index) {
 			case 0:
+				set_label(sv, "LỊCH SỬ GIAO DỊCH", 40);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleRightWindow();
-				set_label(sv, "LỊCH SỬ GIAO DỊCH", 40);
 				removeAllEvent(sv);
 				var newView = new sv.vari.LichSuGiaoDich();
 				sv.ui.Viewtong.add(newView.ui.ViewTong);
@@ -686,18 +687,18 @@ function tao_event(sv) {
 		Ti.API.info('is righwindowopen' + sv.ui.drawer.isRightWindowOpen());
 		switch(e.index) {
 			case 0:
+				set_label(sv, "", 40);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleRightWindow();
-				set_label(sv, "", 40);
 				removeAllEvent(sv);
 				var newView = new sv.vari.Info();
 				sv.ui.Viewtong.add(newView.ui.ViewTong);
 				sv.vari.VTView = 9;
 				break;
 			case 1:
+				set_label(sv, "THÔNG TIN CÁ NHÂN", 40);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleRightWindow();
-				set_label(sv, "THÔNG TIN CÁ NHÂN", 40);
 				removeAllEvent(sv);
 				sv.vari.flag_txtfield = true;
 				var newView = new sv.vari.ThongTinCaNhan();
@@ -712,20 +713,20 @@ function tao_event(sv) {
 		switch(e.index) {
 			case 0:
 				set_label(sv, "Bảng xếp hạng", 50);
-				removeAllEvent(sv);
 				sv.ui.Viewtong.removeAllChildren();
-				var newView = new sv.vari.Home();
 				sv.ui.drawer.toggleLeftWindow();
+				removeAllEvent(sv);
+				var newView = new sv.vari.Home();
 				sv.ui.Viewtong.add(newView.ui.ViewTong);
 				sv.vari.VTView = 1;
 				break;
 
 			case 2:
 				set_label(sv, "TIN TỨC", 50);
-				removeAllEvent(sv);
 				sv.ui.Viewtong.removeAllChildren();
-				var newView = new sv.vari.News();
 				sv.ui.drawer.toggleLeftWindow();
+				removeAllEvent(sv);
+				var newView = new sv.vari.News();
 				sv.ui.Viewtong.add(newView.ui.ViewTong);
 				sv.vari.VTView = 3;
 				break;
@@ -736,21 +737,21 @@ function tao_event(sv) {
 		Ti.API.info("isLeftWindowOpen: " + sv.ui.drawer.isLeftWindowOpen());
 		switch(e.index) {
 			case 0:
-				removeAllEvent(sv);
 				set_label(sv, "KÈO TRỰC TIẾP", 40);
 				sv.ui.Viewtong.removeAllChildren();
-				var keo = new sv.vari.keo_tructiep();
 				sv.ui.drawer.toggleLeftWindow();
+				removeAllEvent(sv);
+				var keo = new sv.vari.keo_tructiep();
 				sv.ui.Viewtong.add(keo.ui.ViewTong);
 				sv.vari.VTView = 4;
 				break;
 
 			case 1:
-				removeAllEvent(sv);
 				set_label(sv, "KÈO", 50);
 				sv.ui.Viewtong.removeAllChildren();
-				var keo_saptoi = new sv.vari.keo_saptoi();
 				sv.ui.drawer.toggleLeftWindow();
+				removeAllEvent(sv);
+				var keo_saptoi = new sv.vari.keo_saptoi();
 				sv.ui.Viewtong.add(keo_saptoi.ui.ViewTong);
 				sv.vari.VTView = 5;
 		}
@@ -761,19 +762,19 @@ function tao_event(sv) {
 		switch(e.index) {
 			case 0:
 				set_label(sv, "THÔNG TIN TRẬN ĐẤU", 40);
-				removeAllEvent(sv);
 				sv.ui.Viewtong.removeAllChildren();
-				var newView = new sv.vari.ThongTinTD();
 				sv.ui.drawer.toggleLeftWindow();
+				removeAllEvent(sv);
+				var newView = new sv.vari.ThongTinTD();
 				sv.ui.Viewtong.add(newView.ui.ViewTong);
 				sv.vari.VTView = 6;
 				break;
 			case 2:
 				set_label(sv, "TRẬN NGON ĂN", 40);
-				removeAllEvent(sv);
 				sv.ui.Viewtong.removeAllChildren();
-				var newView = new sv.vari.TranNgonAn();
 				sv.ui.drawer.toggleLeftWindow();
+				removeAllEvent(sv);
+				var newView = new sv.vari.TranNgonAn();
 				sv.ui.Viewtong.add(newView.ui.ViewTong);
 				sv.vari.VTView = 8;
 				break;

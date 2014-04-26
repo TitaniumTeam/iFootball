@@ -171,7 +171,7 @@ function tao_ui(sv) {
 		sv.ui.viewRow.add(sv.ui.lbl_ck);
 		sv.ui.viewRow.add(sv.ui.arrow);
 		sv.ui.ViewChua.add(sv.ui.viewBack);
-		for ( j = 0; j < 3; j++) {
+		for ( j = 0; j < 1; j++) {
 			sv.ui.vThongtin = new sv.ui.vThongtinTD(Ti.App.size(190) * j, sv.arr.param1[j]);
 			sv.ui.viewBack.add(sv.ui.vThongtin);
 		};

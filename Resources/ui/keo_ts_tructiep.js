@@ -34,7 +34,7 @@ function tao_ui(sv) {
 		height : Ti.UI.SIZE
 	});
 	sv.ui.ViewTong.add(sv.ui.vChua);
-	for (var i = 0; i < 3; i++) {
+	for (var i = 0; i < 1; i++) {
 		sv.ui.vTong = new sv.vari.view_keo(Ti.App.size(400) * (i), 55, ["Manchester", "Chealse"], ["1.5", "1.09", "0.84"], ["1.5", "1.09", "0.84", "u"], ["1.5", "1.09", "0.84"]);
 
 		sv.ui.vChua.add(sv.ui.vTong);
