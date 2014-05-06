@@ -47,6 +47,7 @@
     </mobileweb>
     <modules>
         <module platform="iphone">dk.napp.drawer</module>
+        <module platform="android">dk.napp.drawer</module>
     </modules>
     <deployment-targets>
         <target device="android">true</target>

@@ -5,8 +5,17 @@ if (Ti.version < 1.8) {
 
 //(function() {
 new (require('ui-controller/AllData'));
-var home = new (require('/ui/slide_menu'))();
+if(Ti.Platform.osname=="iphone"){
+	var home = new (require('/ui/slide_menu'))();
 home.open();
+}
+else{
+	if(Ti.Platform.osname=="android"){
+		var home_android=new (require('ui/slide_menu_android'))();
+		home_android.open();
+	}
+}
+
 /*
 var Win = Ti.UI.createWindow({
 //backgroundColor : Ti.App.Color.nauden,

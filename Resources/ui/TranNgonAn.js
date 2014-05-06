@@ -198,7 +198,6 @@ function tao_event(sv) {
 	sv.fu = {};
 	for (var i = 0; i < sv.arr.data.length; i++) {
 		sv.arr.event_clickrow[i] = function(e) {
-			Ti.API.info('click');
 			if (e.row.expanded) {
 				e.row.setHeight(Ti.App.size(100));
 				e.row.expanded = false;
