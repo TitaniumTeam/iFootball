@@ -287,7 +287,7 @@ function tao_ui(sv) {
 		font : {
 			fontSize : Ti.App.size(30),
 		},
-		returnKeyType:Ti.UI.RETURNKEY_SEARCH
+		returnKeyType : Ti.UI.RETURNKEY_SEARCH
 	});
 	sv.ui.view_timkiem.add(sv.ui.txtTimkiem);
 	sv.ui.win_left.add(sv.ui.view_timkiem);
@@ -701,12 +701,12 @@ function tao_event(sv) {
 				sv.vari.VTView = 9;
 				break;
 			case 1:
+				sv.vari.flag_txtfield = true;
 				removeAllEvent(sv);
 				sv.vari.viewht = null;
 				set_label(sv, "THÔNG TIN CÁ NHÂN", 40);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleRightWindow();
-				sv.vari.flag_txtfield = true;
 				sv.vari.viewht = new sv.vari.ThongTinCaNhan();
 				sv.ui.Viewtong.add(sv.vari.viewht.ui.ViewTong);
 				sv.vari.VTView = 10;
@@ -814,7 +814,7 @@ function tao_event(sv) {
 	sv.fu.evt_draw_open = function(e) {
 		if (sv.vari.flag_txtfield == true) {
 			sv.vari.viewht.set_statetxt(true);
-		} 
+		}
 	};
 	//su kien dong window
 	sv.fu.eventCloseWindow = function(e) {
