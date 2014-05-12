@@ -41,7 +41,7 @@ function createUI(sv) {
 
 	sv.ui.ViewTong = Ti.UI.createScrollView({
 		backgroundColor : Ti.App.Color.magenta,
-		top : Ti.App.size(0),
+		top :0,
 		left : 0
 	});
 

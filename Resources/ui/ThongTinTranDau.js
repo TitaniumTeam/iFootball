@@ -60,22 +60,31 @@ function tao_bien(sv) {
 function tao_ui(sv) {
 	sv.ui.vThongtinTD = require('/ui/vThongTinTD');
 	sv.ui.ViewTong = Ti.UI.createScrollView({
-		showVerticalScrollIndicator : 'true',
+		top : 0,
+		showVerticalScrollIndicator : true,
+		showHorizontalScrollIndicator : false,
+		layout : 'vertical',
+		scrollType : 'vertical'
+	});
+	sv.ui.vChua = Ti.UI.createView({
 		top : 0,
 		left : 0,
-		width : Ti.App.size(720),
+		right : 0,
+		backgroundColor : 'transparent',
+		height : Ti.UI.FILL
 	});
-
+	sv.ui.ViewTong.add(sv.ui.vChua);
 	for (var i = 0; i < sv.arr.data.length; i++) {
 		sv.ui.row = Ti.UI.createTableViewRow({
 			expanded : false,
 			height : sv.vari.row_height,
 			width : Ti.App.size(720),
-			backgroundColor : Ti.App.Color.magenta,
+			// backgroundColor : Ti.App.Color.magenta,
 			id : i,
 			backgroundSelectedColor : 'transparent',
 			backgroundFocusedColor : 'transparent',
 			backgroundFocusedImage : 'transparent',
+			top : 0
 		});
 
 		sv.ui.ViewChua = Ti.UI.createView({
@@ -84,6 +93,7 @@ function tao_ui(sv) {
 			backgroundSelectedColor : 'transparent',
 			backgroundFocusedColor : 'transparent',
 			backgroundFocusedImage : 'transparent',
+			top : 0
 		});
 
 		sv.ui.viewRow = Ti.UI.createView({
@@ -112,7 +122,7 @@ function tao_ui(sv) {
 		sv.ui.lbl_co = Titanium.UI.createImageView({
 			width : Ti.App.size(65),
 			height : Ti.App.size(45),
-			image : 'assets/images/icon/0' + (i + 1) + '.png',
+			image : '/assets/images/icon/0' + (i + 1) + '.png',
 			left : Ti.App.size(40)
 		});
 
@@ -139,7 +149,7 @@ function tao_ui(sv) {
 		sv.ui.arrow = Titanium.UI.createImageView({
 			width : Ti.App.size(20),
 			height : Ti.App.size(40),
-			backgroundImage : 'assets/images/icon/arrow-left.png',
+			image : '/assets/images/icon/arrow-left.png',
 			transform : sv.vari.trans2,
 			top : Ti.App.size(20),
 			left : Ti.App.size(650)
@@ -193,7 +203,7 @@ function tao_ui(sv) {
 		backgroundFocusedColor : 'transparent',
 		backgroundFocusedImage : 'transparent',
 	});
-	sv.ui.ViewTong.add(sv.ui.tbl);
+	sv.ui.vChua.add(sv.ui.tbl);
 };
 function tao_event(sv) {
 	sv.fu = {};

@@ -12,7 +12,7 @@ module.exports = function() {
 	return sv.ui.drawer;
 };
 function tao_bien(sv) {
-	sv.vari.viewht = {};
+	sv.vari.viewht = null;
 	sv.vari = {};
 	sv.arr = {};
 	sv.vari.flag_txtfield = false;
@@ -540,7 +540,6 @@ function tao_ui(sv) {
 	sv.ui.WindowHome.add(sv.ui.Viewtong);
 	/////////////////view menu left
 	sv.vari.viewht = new sv.vari.Home();
-	sv.ui.Viewtong.add(sv.vari.viewht.ui.ViewTong);
 	////////////////view menu right
 	sv.ui.navController = Ti.UI.iOS.createNavigationWindow({
 		window : sv.ui.WindowHome,
@@ -801,6 +800,7 @@ function tao_event(sv) {
 
 	////
 	sv.fu.eventOpenWindow = function(e) {
+		sv.ui.Viewtong.add(sv.vari.viewht.ui.ViewTong);
 		Ti.API.info('Opened window');
 	};
 	//su kien dong slide

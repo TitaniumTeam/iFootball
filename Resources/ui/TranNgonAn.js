@@ -58,10 +58,10 @@ function tao_bien(sv) {
 function tao_ui(sv) {
 	sv.ui.vThongtinTD = require('/ui/vTranngonan');
 	sv.ui.ViewTong = Ti.UI.createScrollView({
-		showVerticalScrollIndicator : 'true',
+		backgroundColor : Ti.App.Color.magenta,
 		top : 0,
 		left : 0,
-		width : Ti.App.size(720),
+		showVerticalScrollIndicator:'true'
 	});
 	for (var i = 0; i < sv.arr.data.length; i++) {
 		sv.ui.row = Ti.UI.createTableViewRow({
@@ -108,7 +108,7 @@ function tao_ui(sv) {
 		sv.ui.lbl_co = Titanium.UI.createImageView({
 			width : Ti.App.size(65),
 			height : Ti.App.size(45),
-			image : 'assets/images/icon/0' + (i + 1) + '.png',
+			image : '/assets/images/icon/0' + (i + 1) + '.png',
 			left : Ti.App.size(40)
 		});
 
@@ -135,7 +135,7 @@ function tao_ui(sv) {
 		sv.ui.arrow = Titanium.UI.createImageView({
 			width : Ti.App.size(20),
 			height : Ti.App.size(40),
-			backgroundImage : 'assets/images/icon/arrow-left.png',
+			image : '/assets/images/icon/arrow-left.png',
 			transform : sv.vari.trans2,
 			top : Ti.App.size(20),
 			left : Ti.App.size(650)

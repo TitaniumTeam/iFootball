@@ -78,7 +78,7 @@ function createUI(sv) {
 		backgroundColor : 'red'
 	});
 	sv.ui.circle = Titanium.UI.createImageView({
-		backgroundImage : '/assets/images/icon/xxxjav.png',
+		image : '/assets/images/icon/xxxjav.png',
 		top : -Ti.App.size(70),
 		width : Ti.App.size(420),
 		height : Ti.App.size(420),
@@ -86,7 +86,7 @@ function createUI(sv) {
 	});
 	sv.ui.viewAvatar.add(sv.ui.circle);
 	sv.ui.Avatar = Ti.UI.createImageView({
-		backgroundImage : '/assets/images/icon/avatar-defaut.png',
+		image : '/assets/images/icon/avatar-defaut.png',
 		top : Ti.App.size(45),
 		// right : Ti.App.size(250),
 		left : Ti.App.size(265),
@@ -117,7 +117,7 @@ function createUI(sv) {
 	});
 
 	sv.ui.ViewBut = Ti.UI.createImageView({
-		backgroundImage : '/assets/images/icon/icon-5.png',
+		image : '/assets/images/icon/icon-5.png',
 		top : Ti.App.size(325),
 		right : Ti.App.size(25),
 		left : Ti.App.size(665),
@@ -266,7 +266,7 @@ function createUI(sv) {
 		right : Ti.App.size(0),
 	});
 
-	sv.ui.ViewIconRow1 = Ti.UI.createImageView({
+	sv.ui.ViewIconRow1 = Ti.UI.createView({
 		bottom : Ti.App.size(0),
 		top : Ti.App.size(0),
 		left : Ti.App.size(0),
@@ -274,7 +274,7 @@ function createUI(sv) {
 	});
 
 	sv.ui.IconRow1 = Ti.UI.createImageView({
-		backgroundImage : '/assets/images/icon/icon-info-1.png',
+		image : '/assets/images/icon/icon-info-1.png',
 		bottom : Ti.App.size(30),
 		top : Ti.App.size(30),
 		left : Ti.App.size(40),
@@ -303,7 +303,7 @@ function createUI(sv) {
 		right : Ti.App.size(0),
 	});
 
-	sv.ui.ViewIconRow2 = Ti.UI.createImageView({
+	sv.ui.ViewIconRow2 = Ti.UI.createView({
 		bottom : Ti.App.size(0),
 		top : Ti.App.size(0),
 		left : Ti.App.size(0),
@@ -311,7 +311,7 @@ function createUI(sv) {
 	});
 
 	sv.ui.IconRow2 = Ti.UI.createImageView({
-		backgroundImage : '/assets/images/icon/icon-info-2.png',
+		image : '/assets/images/icon/icon-info-2.png',
 		bottom : Ti.App.size(30),
 		top : Ti.App.size(30),
 		left : Ti.App.size(30),
@@ -340,7 +340,7 @@ function createUI(sv) {
 		right : Ti.App.size(0),
 	});
 
-	sv.ui.ViewIconRow3 = Ti.UI.createImageView({
+	sv.ui.ViewIconRow3 = Ti.UI.createView({
 		bottom : Ti.App.size(0),
 		top : Ti.App.size(0),
 		left : Ti.App.size(0),
@@ -348,7 +348,7 @@ function createUI(sv) {
 	});
 
 	sv.ui.IconRow3 = Ti.UI.createImageView({
-		backgroundImage : '/assets/images/icon/icon-info-3.png',
+		image : '/assets/images/icon/icon-info-3.png',
 		bottom : Ti.App.size(30),
 		top : Ti.App.size(30),
 		left : Ti.App.size(30),
@@ -377,7 +377,7 @@ function createUI(sv) {
 		right : Ti.App.size(0),
 	});
 
-	sv.ui.ViewIconRow4 = Ti.UI.createImageView({
+	sv.ui.ViewIconRow4 = Ti.UI.createView({
 		bottom : Ti.App.size(0),
 		top : Ti.App.size(0),
 		left : Ti.App.size(0),
@@ -385,7 +385,7 @@ function createUI(sv) {
 	});
 
 	sv.ui.IconRow4 = Ti.UI.createImageView({
-		backgroundImage : '/assets/images/icon/icon-info-4.png',
+		image : '/assets/images/icon/icon-info-4.png',
 		bottom : Ti.App.size(30),
 		top : Ti.App.size(30),
 		left : Ti.App.size(30),
@@ -414,7 +414,7 @@ function createUI(sv) {
 		right : Ti.App.size(0),
 	});
 
-	sv.ui.ViewIconRow5 = Ti.UI.createImageView({
+	sv.ui.ViewIconRow5 = Ti.UI.createView({
 		bottom : Ti.App.size(0),
 		top : Ti.App.size(0),
 		left : Ti.App.size(0),
@@ -422,7 +422,7 @@ function createUI(sv) {
 	});
 
 	sv.ui.IconRow5 = Ti.UI.createImageView({
-		backgroundImage : '/assets/images/icon/icon-info-5.png',
+		image : '/assets/images/icon/icon-info-5.png',
 		bottom : Ti.App.size(30),
 		top : Ti.App.size(30),
 		left : Ti.App.size(30),
