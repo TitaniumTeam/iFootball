@@ -21,6 +21,16 @@ function tao_bien(sv) {
 /**khoi tao UI
  * */
 function tao_ui(sv) {
+	sv.ui.windowkqsx=Titanium.UI.createWindow();
+	sv.ui.button=Titanium.UI.createButton({
+		width:Ti.UI.SIZE,
+		height:Ti.UI.SIZE,
+		title:'exit',
+		color:'black',
+		zIndex:10,
+		top:10
+	});
+	sv.ui.windowkqsx.add(sv.ui.button);
 	sv.ui.scrollView = Ti.UI.createScrollView({
 		top : 0,
 		width : Ti.App.size(720),
@@ -35,15 +45,19 @@ function tao_ui(sv) {
 		disableBounce : true,
 		horizontalBounce : true,
 	});
+	sv.ui.windowkqsx.add(sv.ui.scrollView);
 	sv.ui.bangkq =bangketqua();
 	sv.ui.scrollView.add(sv.ui.bangkq);
 	sv.ui.bangkq.setKQ(sv.arr.param);
 	////
 	createUI_Event(sv);
-
+sv.ui.button.addEventListener('click',function(){
+	sv.ui.windowkqsx.close();
+});
 }
 
 function createUI_Event(sv) {
+	
 }
 
 function createRemove(sv) {

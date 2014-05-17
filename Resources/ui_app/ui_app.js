@@ -1,50 +1,70 @@
 module.exports = function() {
-	var win = Titanium.UI.createWindow({
+	var sv = {};
+	sv.ui = {};
+	sv.fu = {};
+	sv.vari = {};
+	sv.arr = {};
+	(function() {
+		tao_bien(sv);
+		tao_ui(sv);
+
+	})();
+	return sv;
+};
+function tao_bien(sv) {
+	sv.vari = {};
+	sv.vari.menu_soxo = new (require('/ui_soxo/menu_soxo'));
+	
+
+};
+function tao_ui(sv) {
+	sv.ui.win = Titanium.UI.createWindow({
 		backgroundColor : 'transparent',
 		fullscreen : false
 	});
-
+	sv.ui.winView1 = Ti.UI.createScrollView({
+		top : 0,
+		height : '85%',
+		backgroundColor : Ti.App.Color.magenta
+	});
+	sv.ui.win.add(sv.ui.winView1);
+	sv.ui.winView1.add(sv.vari.menu_soxo.ui.viewsoxo);
 	//-------Views to hold content-------
 
-	var winView1 = Ti.UI.createScrollView({
+	sv.ui.winView2 = Ti.UI.createScrollView({
 		top : 0,
 		height : '85%',
-		backgroundColor : 'blue'
-	});
-	var winView2 = Ti.UI.createScrollView({
-		top : 0,
-		height : '85%',
-		backgroundColor : 'yellow'
+		backgroundColor : Ti.App.Color.magenta
 	});
 
-	var winView3 = Ti.UI.createScrollView({
+	sv.ui.winView3 = Ti.UI.createScrollView({
 		top : 0,
 		height : '85%',
-		backgroundColor : 'green'
+		backgroundColor : Ti.App.Color.magenta
 	});
 
-	var winView4 = Ti.UI.createScrollView({
+	sv.ui.winView4 = Ti.UI.createScrollView({
 		top : 0,
 		height : '85%',
-		backgroundColor : 'red'
+		backgroundColor : Ti.App.Color.magenta
 	});
-	var winView5 = Ti.UI.createScrollView({
+	sv.ui.winView5 = Ti.UI.createScrollView({
 		top : 0,
 		height : '85%',
-		backgroundColor : 'brown'
+		backgroundColor : Ti.App.Color.magenta
 	});
 	//---------Labels that Describe each View-------
 
 	//Tab container holds the custom tabgroup
 
-	var tabContainer = Ti.UI.createView({
+	sv.ui.tabContainer = Ti.UI.createView({
 		bottom : 0,
 		height : '15%',
 		width : Ti.App.size(720),
 		layout : 'horizontal'
 
 	});
-	var linetab = Ti.UI.createView({
+	sv.ui.linetab = Ti.UI.createView({
 		top : 0,
 		width : Ti.App.size(720),
 		height : 1,
@@ -55,7 +75,7 @@ module.exports = function() {
 	//they can also be defined with a background image
 	//property which will give them a more professional style, look and feel
 
-	var tab1 = Ti.UI.createView({
+	sv.ui.tab1 = Ti.UI.createView({
 		left : 0,
 		height : Ti.UI.FILL,
 		width : '20%',
@@ -63,7 +83,7 @@ module.exports = function() {
 		top : 3
 	});
 
-	var tab2 = Ti.UI.createView({
+	sv.ui.tab2 = Ti.UI.createView({
 		left : 0,
 		height : Ti.UI.FILL,
 		width : '20%',
@@ -71,7 +91,7 @@ module.exports = function() {
 		top : 0
 	});
 
-	var tab3 = Ti.UI.createView({
+	sv.ui.tab3 = Ti.UI.createView({
 		left : 0,
 		height : Ti.UI.FILL,
 		width : '20%',
@@ -79,14 +99,14 @@ module.exports = function() {
 		top : 0
 	});
 
-	var tab4 = Ti.UI.createView({
+	sv.ui.tab4 = Ti.UI.createView({
 		left : 0,
 		height : Ti.UI.FILL,
 		width : '20%',
 		backgroundColor : Ti.App.Color.superwhite,
 		top : 0
 	});
-	var tab5 = Ti.UI.createView({
+	sv.ui.tab5 = Ti.UI.createView({
 		left : 0,
 		height : Ti.UI.FILL,
 		width : '20%',
@@ -95,113 +115,139 @@ module.exports = function() {
 	});
 	//Labels describing each custom tab view
 
-	var label1 = Ti.UI.createImageView({
+	sv.ui.label1 = Ti.UI.createImageView({
 		width : Ti.App.size(65),
 		height : Ti.App.size(65),
 		image : '/assets/images/icon/icon-soxo.png'
 	});
 
-	var label2 = Ti.UI.createImageView({
+	sv.ui.label2 = Ti.UI.createImageView({
 		width : Ti.App.size(65),
 		height : Ti.App.size(65),
 		image : '/assets/images/icon/icon-quabong.png',
 	});
 
-	var label3 = Ti.UI.createImageView({
+	sv.ui.label3 = Ti.UI.createImageView({
 		width : Ti.App.size(65),
 		height : Ti.App.size(65),
 		image : '/assets/images/icon/user-icon.png'
 	});
 
-	var label4 = Ti.UI.createImageView({
+	sv.ui.label4 = Ti.UI.createImageView({
 		width : Ti.App.size(65),
 		height : Ti.App.size(65),
 		image : '/assets/images/icon/calendar-icon.png',
 	});
-	var label5 = Ti.UI.createImageView({
+	sv.ui.label5 = Ti.UI.createImageView({
 		width : Ti.App.size(65),
 		height : Ti.App.size(65),
 		image : '/assets/images/icon/icon-moneyy.png'
 	});
 	//adding the labels to tabs and the tabs to the container
-	tab1.add(label1);
-	tab2.add(label2);
-	tab3.add(label3);
-	tab4.add(label4);
-	tab5.add(label5);
-	win.add(tabContainer);
+	sv.ui.tab1.add(sv.ui.label1);
+	sv.ui.tab2.add(sv.ui.label2);
+	sv.ui.tab3.add(sv.ui.label3);
+	sv.ui.tab4.add(sv.ui.label4);
+	sv.ui.tab5.add(sv.ui.label5);
+	sv.ui.win.add(sv.ui.tabContainer);
 
-	tabContainer.add(linetab);
-	tabContainer.add(tab1);
-	tabContainer.add(tab2);
-	tabContainer.add(tab3);
-	tabContainer.add(tab4);
-	tabContainer.add(tab5);
+	sv.ui.tabContainer.add(sv.ui.linetab);
+	sv.ui.tabContainer.add(sv.ui.tab1);
+	sv.ui.tabContainer.add(sv.ui.tab2);
+	sv.ui.tabContainer.add(sv.ui.tab3);
+	sv.ui.tabContainer.add(sv.ui.tab4);
+	sv.ui.tabContainer.add(sv.ui.tab5);
 
-	win.add(winView1);
+	// sv.ui.win.add(sv.ui.winView1);
 
-	win.add(winView2);
-	winView2.hide();
+	sv.ui.win.add(sv.ui.winView2);
+	sv.ui.winView2.hide();
 
-	win.add(winView3);
-	winView3.hide();
+	sv.ui.win.add(sv.ui.winView3);
+	sv.ui.winView3.hide();
 
-	win.add(winView4);
-	winView4.hide();
-	win.add(winView5);
-	winView5.hide();
+	sv.ui.win.add(sv.ui.winView4);
+	sv.ui.winView4.hide();
+	sv.ui.win.add(sv.ui.winView5);
+	sv.ui.winView5.hide();
 	//----------------Tab Event Listeners------------
-	tao_sukien();
-	tab1.addEventListener('click', evt_tab1);
-	tab2.addEventListener('click', evt_tab2);
-	tab3.addEventListener('click', evt_tab3);
-	tab4.addEventListener('click', evt_tab4);
-	tab5.addEventListener('click', evt_tab5);
-	win.addEventListener('open', evt_openwin);
-	win.addEventListener('close', evt_closewin);
+	tao_sukien(sv);
 
-	return win;
+	sv.ui.tab1.addEventListener('click', sv.fu.evt_tab1);
+	sv.ui.tab2.addEventListener('click', sv.fu.evt_tab2);
+	sv.ui.tab3.addEventListener('click', sv.fu.evt_tab3);
+	sv.ui.tab4.addEventListener('click', sv.fu.evt_tab4);
+	sv.ui.tab5.addEventListener('click', sv.fu.evt_tab5);
+	sv.ui.win.addEventListener('open', sv.fu.evt_openwin);
+	sv.ui.win.addEventListener('close', sv.fu.evt_closewin);
+
+	// return sv.ui.win;
 };
-function tao_sukien() {
-	var evt_tab1 = function(e) {
-		this.removeEventListener('click', evt_tab1);
-		tab_click(winView2, winView5, winView3, winView4, winView1);
-		tabtop_change(tab1, tab2, tab3, tab4, tab5);
+function tao_sukien(sv) {
+	sv.fu = {};
+	//
+	sv.fu.evt_thongke1 = function(e) {
+		sv.ui.wdSup = new (require('/ui_soxo/WindowSupport'));
+		sv.ui.winView1.removeAllChildren();
+		sv.ui.winView1.add(sv.ui.wdSup.ui.scrollView);
+	};
+	///
+	sv.fu.evt_luachon = function(e) {
+		sv.ui.wdchoose = new (require('/ui_soxo/WindowChoose'));
+		sv.ui.winView1.removeAllChildren();
+		sv.ui.winView1.add(sv.ui.wdchoose.ui.ViewTong);
+	};
+	sv.fu.evt_kqsx = function(e) {
+		sv.ui.wdKQSX = new (require('/ui_soxo/WindowKQSX'));
+		sv.ui.winView1.removeAllChildren();
+		sv.ui.winView1.add(sv.ui.wdKQSX.ui.scrollView);
+	};
+	///
+	sv.fu.evt_tab1 = function(e) {
+		// alert(sv.vari.viewht);
+		// sv.vari.viewht=null;
+		// sv.vari.viewht=sv.vari.menu_soxo;
+		sv.ui.winView1.removeAllChildren();;
+		sv.ui.winView1.add(sv.vari.menu_soxo.ui.viewsoxo);
+		//goi den ham remove viewht
+		// this.removeEventListener('click', sv.fu.evt_tab1);
+		tab_click(sv.ui.winView2, sv.ui.winView5, sv.ui.winView3, sv.ui.winView4, sv.ui.winView1);
+		tabtop_change(sv.ui.tab1, sv.ui.tab2, sv.ui.tab3, sv.ui.tab4, sv.ui.tab5);
 	};
 
-	var evt_tab2 = function(e) {
-		this.removeEventListener('click', evt_tab2);
-		tab_click(winView1, winView5, winView3, winView4, winView2);
-		tabtop_change(tab2, tab1, tab3, tab4, tab5);
+	sv.fu.evt_tab2 = function(e) {
+		// this.removeEventListener('click', sv.fu.evt_tab2);
+		tab_click(sv.ui.winView1, sv.ui.winView5, sv.ui.winView3, sv.ui.winView4, sv.ui.winView2);
+		tabtop_change(sv.ui.tab2, sv.ui.tab1, sv.ui.tab3, sv.ui.tab4, sv.ui.tab5);
 	};
 
-	var evt_tab3 = function(e) {
-		this.removeEventListener('click', evt_tab3);
-		tab_click(winView2, winView5, winView1, winView4, winView3);
-		tabtop_change(tab3, tab2, tab1, tab4, tab5);
+	sv.fu.evt_tab3 = function(e) {
+		// this.removeEventListener('click', sv.fu.evt_tab3);
+		tab_click(sv.ui.winView2, sv.ui.winView5, sv.ui.winView1, sv.ui.winView4, sv.ui.winView3);
+		tabtop_change(sv.ui.tab3, sv.ui.tab2, sv.ui.tab1, sv.ui.tab4, sv.ui.tab5);
 	};
 
-	var evt_tab4 = function(e) {
-		this.removeEventListener('click', evt_tab4);
-		tab_click(winView2, winView5, winView1, winView3, winView4);
-		tabtop_change(tab4, tab2, tab3, tab1, tab5);
+	sv.fu.evt_tab4 = function(e) {
+		// this.removeEventListener('click', sv.fu.evt_tab4);
+		tab_click(sv.ui.winView2, sv.ui.winView5, sv.ui.winView1, sv.ui.winView3, sv.ui.winView4);
+		tabtop_change(sv.ui.tab4, sv.ui.tab2, sv.ui.tab3, sv.ui.tab1, sv.ui.tab5);
 	};
-	var evt_tab5 = function(e) {
-		this.removeEventListener('click', evt_tab5);
-		tab_click(winView2, winView3, winView1, winView4, winView5);
-		tabtop_change(tab5, tab2, tab3, tab4, tab1);
+	sv.fu.evt_tab5 = function(e) {
+		// this.removeEventListener('click', sv.fu.evt_tab5);
+		tab_click(sv.ui.winView2, sv.ui.winView3,sv.ui.winView1, sv.ui.winView4, sv.ui.winView5);
+		tabtop_change(sv.ui.tab5, sv.ui.tab2, sv.ui.tab3, sv.ui.tab4, sv.ui.tab1);
 	};
-	var evt_openwin = function(e) {
+	sv.fu.evt_openwin = function(e) {
 		Ti.API.info('open window');
 	};
-	var evt_closewin = function(e) {
-		tab1.removeEventListener('click', evt_tab1);
-		tab2.removeEventListener('click', evt_tab2);
-		tab3.removeEventListener('click', evt_tab3);
-		tab4.removeEventListener('click', evt_tab4);
-		tab5.removeEventListener('click', evt_tab5);
-		win.removeEventListener('open', evt_openwin);
-		win.removeEventListener('close', evt_closewin);
+	sv.fu.evt_closewin = function(e) {
+		sv.ui.tab1.removeEventListener('click', sv.fu.evt_tab1);
+		sv.ui.tab2.removeEventListener('click', sv.fu.evt_tab2);
+		sv.ui.tab3.removeEventListener('click', sv.fu.evt_tab3);
+		sv.ui.tab4.removeEventListener('click', sv.fu.evt_tab4);
+		sv.ui.tab5.removeEventListener('click', sv.fu.evt_tab5);
+		sv.ui.win.removeEventListener('open', sv.fu.evt_openwin);
+		sv.ui.win.removeEventListener('close', sv.fu.evt_closewin);
 
 	};
 };
@@ -218,14 +264,4 @@ function tabtop_change(t1, t2, t3, t4, t5) {
 	t3.top = 0;
 	t4.top = 0;
 	t5.top = 0;
-};
-function menu_soxo() {
-	var viewsoxo = Ti.UI.createView({
-		width : Ti.App.size(720),
-		height : Ti.UI.FILL,
-		backgroundColor : 'transparent'
-	});
-	var view_kqsx = Ti.UI.createView({
-	});
-	return viewsoxo;
 };
