@@ -25,7 +25,7 @@ function taobien(sv) {
  */
 function tao_ui(sv) {
 
-	sv.ui.Viewtong = Titanium.UI.createWindow({
+	sv.ui.Viewtong = Titanium.UI.createWindow({navBarHidden:true
 	});
 	sv.ui.ViewHeader = Ti.UI.createView({
 		backgroundColor : Ti.App.Color.red,

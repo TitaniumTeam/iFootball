@@ -21,7 +21,7 @@ function createUI(sv) {
 	sv.ui.ViewTong = Ti.UI.createView({
 		width : Ti.App.size(720),
 		height : Ti.UI.FILL,
-		backgroundColor : 'red'
+		backgroundColor : 'transparent'
 	});
 
 	sv.ui.ViewBangXepHang = Ti.UI.createView({

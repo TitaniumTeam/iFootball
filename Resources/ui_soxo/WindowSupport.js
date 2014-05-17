@@ -36,7 +36,8 @@ function tao_bien(sv) {
  */
 function tao_ui(sv) {
 	sv.ui.windowkqsx = Titanium.UI.createWindow({
-		backgroundColor:Ti.App.Color.magenta
+		backgroundColor:Ti.App.Color.magenta,
+		navBarHidden:true
 	});
 	sv.ui.ViewHeader = Ti.UI.createView({
 		backgroundColor : Ti.App.Color.red,

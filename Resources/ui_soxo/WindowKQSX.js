@@ -19,7 +19,9 @@ function tao_bien(sv) {
 /**khoi tao UI
  * */
 function tao_ui(sv) {
-	sv.ui.windowkqsx = Titanium.UI.createWindow();
+	sv.ui.windowkqsx = Titanium.UI.createWindow({
+		navBarHidden:true
+	});
 	sv.ui.ViewHeader = Ti.UI.createView({
 		backgroundColor : Ti.App.Color.red,
 		width : Ti.App.size(720),

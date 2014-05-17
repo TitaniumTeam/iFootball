@@ -20,15 +20,14 @@ function tao_bien(sv) {
 function tao_ui(sv) {
 	sv.ui.win = Titanium.UI.createWindow({
 		backgroundColor : 'transparent',
-		fullscreen : false
+		// fullscreen : true,
+		navBarHidden:true
 	});
 	sv.ui.winView1 = Ti.UI.createScrollView({
 		top : 0,
 		height : '85%',
 		backgroundColor : Ti.App.Color.magenta
 	});
-	sv.ui.win.add(sv.ui.winView1);
-	sv.ui.winView1.add(sv.vari.menu_soxo.ui.viewsoxo);
 	//-------Views to hold content-------
 
 	sv.ui.winView2 = Ti.UI.createScrollView({
@@ -241,6 +240,8 @@ function tao_sukien(sv) {
 	};
 	sv.fu.evt_openwin = function(e) {
 		Ti.API.info('open window');
+		sv.ui.win.add(sv.ui.winView1);
+		sv.ui.winView1.add(sv.vari.menu_soxo.ui.viewsoxo);
 	};
 	sv.fu.evt_closewin = function(e) {
 		sv.ui.tab1.removeEventListener('click', sv.fu.evt_tab1);
