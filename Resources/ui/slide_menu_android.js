@@ -12,7 +12,7 @@ module.exports = function() {
 	return sv.ui.drawer;
 };
 function tao_bien(sv) {
-	sv.vari.viewht = {};
+	sv.vari.viewht = null;
 	sv.vari = {};
 	sv.arr = {};
 	sv.vari.flag_txtfield = false;
@@ -76,7 +76,7 @@ function tao_ui(sv) {
 	sv.ui.view_info = Titanium.UI.createView({
 		left : Ti.App.size(160),
 		top : Ti.App.size(30),
-		height : Ti.App.size(140),
+		height : Ti.UI.SIZE,
 		bottom : Ti.App.size(30),
 	});
 	sv.ui.viewavatar.add(sv.ui.view_info);
@@ -102,7 +102,7 @@ function tao_ui(sv) {
 	sv.ui.view_info.add(sv.ui.lblID_user);
 	sv.ui.lblXu_user = Ti.UI.createLabel({
 		left : 0,
-		top : Ti.App.size(110),
+		top : Ti.App.size(100),
 		text : "Xu: 2.000.000",
 		font : {
 			fontSize : Ti.App.size(30)
@@ -515,7 +515,7 @@ function tao_ui(sv) {
 	});
 	sv.ui.lbl_title = Ti.UI.createLabel({
 		width : Ti.UI.SIZE,
-		height : Ti.App.size(50),
+		// height : Ti.App.size(50),
 		text : 'Bảng xếp hạng',
 		color : Ti.App.Color.white,
 		top : Ti.App.size(35),
@@ -527,7 +527,8 @@ function tao_ui(sv) {
 		top : Ti.App.size(120),
 		left : 0,
 		width : Ti.App.size(720),
-		height : Ti.UI.SIZE,
+		// height : Ti.UI.FILL,
+		// height : Ti.UI.SIZE,
 		backgroundColor : 'transparent'
 	});
 
@@ -558,15 +559,17 @@ function tao_ui(sv) {
 		fading : 0.2, // 0-1
 		parallaxAmount : 0.2, //0-1
 		shadowWidth : "40dp",
-		leftDrawerWidth : "250dp",
-		rightDrawerWidth : "240dp",
+		leftDrawerWidth : Ti.App.size(500),
+		rightDrawerWidth : Ti.App.size(480),
 		animationMode : NappDrawerModule.ANIMATION_NONE,
 		closeDrawerGestureMode : NappDrawerModule.CLOSE_MODE_MARGIN,
 		openDrawerGestureMode : NappDrawerModule.OPEN_MODE_ALL,
 		orientationModes : [Ti.UI.PORTRAIT, Ti.UI.UPSIDE_PORTRAIT],
+		top : 0
 	});
 	///
 	tao_event(sv);
+	sv.ui.drawer.addEventListener('open', sv.fu.onNavDrawerWinOpen);
 	sv.ui.drawer.addEventListener('windowDidOpen', sv.fu.evt_draw_open);
 	sv.ui.drawer.addEventListener('windowDidClose', sv.fu.evt_draw_close);
 	sv.ui.tableView_r3.addEventListener('click', sv.fu.evt_tblviewright3_click);
@@ -672,9 +675,9 @@ function tao_event(sv) {
 	};
 	///su kien table view3 menu right
 	sv.fu.evt_tblviewright3_click = function(e) {
-		Ti.API.info('is righwindowopen' + sv.ui.drawer.isRightWindowOpen());
 		switch(e.index) {
 			case 0:
+				sv.vari.flag_txtfield = false;
 				removeAllEvent(sv);
 				sv.vari.viewht = null;
 				set_label(sv, "LỊCH SỬ GIAO DỊCH", 40);
@@ -688,7 +691,6 @@ function tao_event(sv) {
 	};
 	//su kien table view 1 menu right
 	sv.fu.evt_tblviewright1_click = function(e) {
-		Ti.API.info('is righwindowopen' + sv.ui.drawer.isRightWindowOpen());
 		switch(e.index) {
 			case 0:
 				sv.vari.flag_txtfield = false;
@@ -716,7 +718,6 @@ function tao_event(sv) {
 	};
 	///su kien table view 1 menu left
 	sv.fu.evt_tblview_click = function(e) {
-		Ti.API.info("isLeftWindowOpen: " + sv.ui.drawer.isLeftWindowOpen());
 		switch(e.index) {
 			case 0:
 				sv.vari.flag_txtfield = false;
@@ -745,7 +746,6 @@ function tao_event(sv) {
 	};
 	///su kien table view 2 menu left
 	sv.fu.evt_tblview2_click = function(e) {
-		Ti.API.info("isLeftWindowOpen: " + sv.ui.drawer.isLeftWindowOpen());
 		switch(e.index) {
 			case 0:
 				sv.vari.flag_txtfield = false;
@@ -774,7 +774,6 @@ function tao_event(sv) {
 	};
 	////su kien click table view 3
 	sv.fu.evt_tblview3_click = function(e) {
-		Ti.API.info("isLeftWindowOpen: " + sv.ui.drawer.isLeftWindowOpen());
 		switch(e.index) {
 			case 0:
 				sv.vari.flag_txtfield = false;
@@ -818,14 +817,24 @@ function tao_event(sv) {
 			if (sv.vari.flag_txtfield == true) {
 				sv.vari.viewht.set_statetxt(true);
 			}
-			Ti.API.info("windowDidOpen - LEFT sv.ui.drawer");
 		} else if (e.window == NappDrawerModule.RIGHT_WINDOW) {
 			if (sv.vari.flag_txtfield == true) {
 				sv.vari.viewht.set_statetxt(true);
 			}
-			Ti.API.info("windowDidOpen - RIGHT sv.ui.drawer");
 		}
 
+	};
+	///hide action bar
+	sv.fu.onNavDrawerWinOpen = function(evt) {
+		this.removeEventListener('open', sv.fu.onNavDrawerWinOpen);
+
+		if (this.getActivity()) {
+			// need to explicitly use getXYZ methods
+			var actionBar = this.getActivity().getActionBar();
+			if (actionBar) {
+				actionBar.hide();
+			}
+		}
 	};
 	//su kien dong window
 	sv.fu.eventCloseWindow = function(e) {

@@ -17,7 +17,7 @@ module.exports = function() {
 function tao_bien(sv) {
 	sv.vari = {};
 	sv.arr = {};
-	sv.vari.view_keo = require('/ui/view_keo');
+	sv.vari.view_keo = require('/ui_bongda/view_keo');
 	sv.arr.param1 = [{
 		tg : 55,
 		tendoi : ["Manchester", "Chealse"],
@@ -122,8 +122,9 @@ function tao_ui(sv) {
 		top : Ti.App.size(118),
 		left : 0,
 		showVerticalScrollIndicator : true,
+		layout : 'vertical',
 		height : Ti.UI.FILL,
-		layout:'vertical'
+		width : Ti.UI.FILL
 	});
 	sv.ui.ViewTong.add(sv.ui.scrollview);
 	sv.ui.vChua = Ti.UI.createView({
@@ -131,14 +132,15 @@ function tao_ui(sv) {
 		left : 0,
 		right : 0,
 		backgroundColor : 'transparent',
-		// height : Ti.UI.FILL
+		height : Ti.UI.FILL,
+		width : Ti.UI.FILL
 	});
 	sv.ui.scrollview.add(sv.ui.vChua);
-	for (var i = 0; i < 1; i++) {
-		sv.ui.vTong = new sv.vari.view_keo(Ti.App.size(400) * (i));
+	for (var i = 0; i < 10; i++) {
+		sv.ui.vTong = new sv.vari.view_keo(Ti.App.size(400*i));
 		sv.ui.vChua.add(sv.ui.vTong);
 		sv.arr.dataVTong.push(sv.ui.vTong);
-		sv.arr.dataVTong[i].setParam(sv.arr.param2[i]);
+		sv.arr.dataVTong[i].setParam(sv.arr.param2[0]);
 	};
 	tao_event(sv);
 	sv.ui.lbl_hnay.addEventListener('click', sv.fu.evt_clickhnay);
@@ -151,20 +153,20 @@ function tao_event(sv) {
 	sv.fu.evt_clickhqua = function(e) {
 		set_mau(sv.ui.lbl_hqa, sv.ui.lbl_hnay, sv.ui.lbl_mai);
 		for (var i = 0; i < 1; i++) {
-			sv.arr.dataVTong[i].setParam(sv.arr.param1[i]);
+			sv.arr.dataVTong[i].setParam(sv.arr.param1[0]);
 		};
 
 	};
 	sv.fu.evt_clickhnay = function(e) {
 		set_mau(sv.ui.lbl_hnay, sv.ui.lbl_hqa, sv.ui.lbl_mai);
-		for (var i = 0; i < 1; i++) {
-			sv.arr.dataVTong[i].setParam(sv.arr.param2[i]);
+		for (var i = 0; i < 10; i++) {
+			sv.arr.dataVTong[i].setParam(sv.arr.param2[0]);
 		}
 	};
 	sv.fu.evt_click_mai = function(e) {
 		set_mau(sv.ui.lbl_mai, sv.ui.lbl_hnay, sv.ui.lbl_hqa);
-		for (var i = 0; i < 1; i++) {
-			sv.arr.dataVTong[i].setParam(sv.arr.param3[i]);
+		for (var i = 0; i < 10; i++) {
+			sv.arr.dataVTong[i].setParam(sv.arr.param3[0]);
 		};
 	};
 }

@@ -47,35 +47,12 @@ function createUI(sv) {
 		showVerticalScrollIndicator : true
 	});
 
-	//tao view header
-	// sv.ui.ViewHeader = Ti.UI.createView({
-	// backgroundColor : Ti.App.Color.red,
-	// top : Ti.App.size(0),
-	// left : Ti.App.size(0),
-	// right : Ti.App.size(0),
-	// height : Ti.App.size(620),
-	// });
-	//
-	// sv.ui.IconMenu = Ti.UI.createImageView({
-	// backgroundImage : '/assets/images/icon/menu.png',
-	// top : Ti.App.size(40),
-	// left : Ti.App.size(30),
-	// right : Ti.App.size(630),
-	// bottom : Ti.App.size(540),
-	// });
-	//
-	// sv.ui.IconUser = Ti.UI.createImageView({
-	// backgroundImage : '/assets/images/icon/user.png',
-	// top : Ti.App.size(40),
-	// right : Ti.App.size(35),
-	// left : Ti.App.size(635),
-	// bottom : Ti.App.size(530),
-	// });
+	
 	sv.ui.viewAvatar = Titanium.UI.createView({
 		top : 0,
 		left : 0,
 		height : Ti.App.size(500),
-		backgroundColor : 'red'
+		backgroundColor : Ti.App.Color.red
 	});
 	sv.ui.circle = Titanium.UI.createImageView({
 		image : '/assets/images/icon/xxxjav.png',
@@ -102,8 +79,8 @@ function createUI(sv) {
 			fontWeight : 'bold',
 		},
 		top : Ti.App.size(260),
-		bottom : Ti.App.size(210),
-		color : Ti.App.Color.superwhite
+		// bottom : Ti.App.size(210),
+		color : Ti.App.Color.superwhite,
 	});
 
 	sv.ui.LabelThongTin = Ti.UI.createLabel({
@@ -125,8 +102,8 @@ function createUI(sv) {
 	});
 
 	sv.ui.ViewThongSo = Ti.UI.createView({
-		backgroundColor : Ti.App.Color.red,
-		opacity : 0.5,
+		backgroundColor : Ti.App.Color.nauden,
+		opacity : 0.3,
 		height : Ti.App.size(120),
 		bottom : Ti.App.size(0),
 		left : Ti.App.size(0),
@@ -292,6 +269,7 @@ function createUI(sv) {
 		top : Ti.App.size(30),
 		left : Ti.App.size(100),
 		right : Ti.App.size(0),
+		color : 'black'
 	});
 
 	sv.ui.Row2 = Ti.UI.createView({
@@ -329,6 +307,7 @@ function createUI(sv) {
 		top : Ti.App.size(30),
 		left : Ti.App.size(100),
 		right : Ti.App.size(0),
+		color : 'black'
 	});
 
 	sv.ui.Row3 = Ti.UI.createView({
@@ -366,6 +345,7 @@ function createUI(sv) {
 		top : Ti.App.size(30),
 		left : Ti.App.size(100),
 		right : Ti.App.size(0),
+		color : 'black'
 	});
 
 	sv.ui.Row4 = Ti.UI.createView({
@@ -403,6 +383,7 @@ function createUI(sv) {
 		top : Ti.App.size(30),
 		left : Ti.App.size(100),
 		right : Ti.App.size(0),
+		color : 'black'
 	});
 
 	sv.ui.Row5 = Ti.UI.createView({
@@ -440,6 +421,7 @@ function createUI(sv) {
 		top : Ti.App.size(30),
 		left : Ti.App.size(100),
 		right : Ti.App.size(0),
+		color : 'black'
 	});
 
 	createUI_Event(sv);
@@ -454,7 +436,7 @@ function createUI(sv) {
 	sv.ui.scrollview.add(sv.ui.ViewUngDung);
 	sv.ui.ViewTong.add(sv.ui.scrollview);
 	sv.ui.ViewTong.add(sv.ui.viewAvatar);
-	sv.ui.viewAvatar.add(sv.ui.Avatar);
+	// sv.ui.viewAvatar.add(sv.ui.Avatar);
 	sv.ui.viewAvatar.add(sv.ui.LabelName);
 	sv.ui.viewAvatar.add(sv.ui.LabelThongTin);
 	sv.ui.viewAvatar.add(sv.ui.ViewBut);
