@@ -14,7 +14,7 @@ module.exports = function() {
 function tao_bien(sv) {
 	sv.vari = {};
 	sv.vari.menu_soxo = new (require('/ui_soxo/menu_soxo'));
-	
+	sv.vari.UngDungBongDa = new (require('/ui_bongda/UngDungBongDa'));
 
 };
 function tao_ui(sv) {
@@ -207,7 +207,7 @@ function tao_sukien(sv) {
 		// alert(sv.vari.viewht);
 		// sv.vari.viewht=null;
 		// sv.vari.viewht=sv.vari.menu_soxo;
-		sv.ui.winView1.removeAllChildren();;
+		sv.ui.winView1.removeAllChildren();
 		sv.ui.winView1.add(sv.vari.menu_soxo.ui.viewsoxo);
 		//goi den ham remove viewht
 		// this.removeEventListener('click', sv.fu.evt_tab1);
@@ -216,6 +216,8 @@ function tao_sukien(sv) {
 	};
 
 	sv.fu.evt_tab2 = function(e) {
+		sv.ui.winView2.removeAllChildren();
+		sv.ui.winView2.add(sv.vari.UngDungBongDa.ui.ViewTong);
 		// this.removeEventListener('click', sv.fu.evt_tab2);
 		tab_click(sv.ui.winView1, sv.ui.winView5, sv.ui.winView3, sv.ui.winView4, sv.ui.winView2);
 		tabtop_change(sv.ui.tab2, sv.ui.tab1, sv.ui.tab3, sv.ui.tab4, sv.ui.tab5);
@@ -234,7 +236,7 @@ function tao_sukien(sv) {
 	};
 	sv.fu.evt_tab5 = function(e) {
 		// this.removeEventListener('click', sv.fu.evt_tab5);
-		tab_click(sv.ui.winView2, sv.ui.winView3,sv.ui.winView1, sv.ui.winView4, sv.ui.winView5);
+		tab_click(sv.ui.winView2, sv.ui.winView3, sv.ui.winView1, sv.ui.winView4, sv.ui.winView5);
 		tabtop_change(sv.ui.tab5, sv.ui.tab2, sv.ui.tab3, sv.ui.tab4, sv.ui.tab1);
 	};
 	sv.fu.evt_openwin = function(e) {
