@@ -1,11 +1,12 @@
 if (Ti.version < 1.8) {
 	alert('Sorry - this application template requires Titanium Mobile SDK 1.8 or later');
 }
-var VtViewHT = 1;
 
 new (require('ui-controller/AllData'));
 var home = new (require('ui_app/ui_app'));
 home.ui.win.open();
+
+
 /*
  function isiOS4Plus() {
  if (Titanium.Platform.name == 'iPhone OS') {
