@@ -21,19 +21,21 @@ function tao_ui(sv) {
 	sv.ui.win = Titanium.UI.createWindow({
 		backgroundColor : 'transparent',
 		// fullscreen : true,
-		navBarHidden:true
+		navBarHidden : true
 	});
 	sv.ui.winView1 = Ti.UI.createScrollView({
 		top : 0,
 		height : '85%',
-		backgroundColor : Ti.App.Color.magenta
+		backgroundColor : Ti.App.Color.magenta,
+		bottom:'15%'
 	});
 	//-------Views to hold content-------
 
 	sv.ui.winView2 = Ti.UI.createScrollView({
 		top : 0,
 		height : '85%',
-		backgroundColor : Ti.App.Color.magenta
+		backgroundColor : Ti.App.Color.magenta,
+		bottom:'15%'
 	});
 
 	sv.ui.winView3 = Ti.UI.createScrollView({
@@ -55,13 +57,19 @@ function tao_ui(sv) {
 	//---------Labels that Describe each View-------
 
 	//Tab container holds the custom tabgroup
+	sv.ui.scrollableView = Titanium.UI.createScrollableView({
+		views : [sv.ui.winView1, sv.ui.winView2, sv.ui.winView3, sv.ui.winView4, sv.ui.winView5],
+		showPagingControl : false,
+		currentPage : 0
+	});
+	sv.ui.win.add(sv.ui.scrollableView);
 
 	sv.ui.tabContainer = Ti.UI.createView({
 		bottom : 0,
 		height : '15%',
 		width : Ti.App.size(720),
-		layout : 'horizontal'
-
+		layout : 'horizontal',
+		backgroundColor:Ti.App.Color.nauden
 	});
 	sv.ui.linetab = Ti.UI.createView({
 		top : 0,
@@ -157,18 +165,7 @@ function tao_ui(sv) {
 	sv.ui.tabContainer.add(sv.ui.tab4);
 	sv.ui.tabContainer.add(sv.ui.tab5);
 
-	// sv.ui.win.add(sv.ui.winView1);
 
-	sv.ui.win.add(sv.ui.winView2);
-	sv.ui.winView2.hide();
-
-	sv.ui.win.add(sv.ui.winView3);
-	sv.ui.winView3.hide();
-
-	sv.ui.win.add(sv.ui.winView4);
-	sv.ui.winView4.hide();
-	sv.ui.win.add(sv.ui.winView5);
-	sv.ui.winView5.hide();
 	//----------------Tab Event Listeners------------
 	tao_sukien(sv);
 
@@ -179,7 +176,23 @@ function tao_ui(sv) {
 	sv.ui.tab5.addEventListener('click', sv.fu.evt_tab5);
 	sv.ui.win.addEventListener('open', sv.fu.evt_openwin);
 	sv.ui.win.addEventListener('close', sv.fu.evt_closewin);
-
+	sv.ui.scrollableView.addEventListener('scrollend', function() {
+		if (sv.ui.scrollableView.currentPage == 0) {
+			tabtop_change(sv.ui.tab1, sv.ui.tab2, sv.ui.tab3, sv.ui.tab4, sv.ui.tab5);
+		}
+		if (sv.ui.scrollableView.currentPage == 1) {
+			tabtop_change(sv.ui.tab2, sv.ui.tab1, sv.ui.tab3, sv.ui.tab4, sv.ui.tab5);
+		}
+		if (sv.ui.scrollableView.currentPage == 2) {
+			tabtop_change(sv.ui.tab3, sv.ui.tab1, sv.ui.tab4, sv.ui.tab2, sv.ui.tab5);
+		}
+		if (sv.ui.scrollableView.currentPage == 3) {
+			tabtop_change(sv.ui.tab4, sv.ui.tab1, sv.ui.tab2, sv.ui.tab3, sv.ui.tab5);
+		}
+		if (sv.ui.scrollableView.currentPage == 4) {
+			tabtop_change(sv.ui.tab5, sv.ui.tab1, sv.ui.tab3, sv.ui.tab4, sv.ui.tab2);
+		}
+	});
 	// return sv.ui.win;
 };
 function tao_sukien(sv) {
@@ -203,44 +216,31 @@ function tao_sukien(sv) {
 	};
 	///
 	sv.fu.evt_tab1 = function(e) {
-		// alert(sv.vari.viewht);
-		// sv.vari.viewht=null;
-		// sv.vari.viewht=sv.vari.menu_soxo;
-		sv.ui.winView1.removeAllChildren();
-		sv.ui.winView1.add(sv.vari.menu_soxo.ui.viewsoxo);
-		//goi den ham remove viewht
-		// this.removeEventListener('click', sv.fu.evt_tab1);
-		tab_click(sv.ui.winView2, sv.ui.winView5, sv.ui.winView3, sv.ui.winView4, sv.ui.winView1);
+		sv.ui.scrollableView.currentPage = 0;
 		tabtop_change(sv.ui.tab1, sv.ui.tab2, sv.ui.tab3, sv.ui.tab4, sv.ui.tab5);
 	};
 
 	sv.fu.evt_tab2 = function(e) {
-		sv.ui.winView2.removeAllChildren();
-		sv.ui.winView2.add(sv.vari.UngDungBongDa.ui.ViewTong);
-		// this.removeEventListener('click', sv.fu.evt_tab2);
-		tab_click(sv.ui.winView1, sv.ui.winView5, sv.ui.winView3, sv.ui.winView4, sv.ui.winView2);
+		sv.ui.scrollableView.currentPage = 1;
 		tabtop_change(sv.ui.tab2, sv.ui.tab1, sv.ui.tab3, sv.ui.tab4, sv.ui.tab5);
 	};
 
 	sv.fu.evt_tab3 = function(e) {
-		// this.removeEventListener('click', sv.fu.evt_tab3);
-		tab_click(sv.ui.winView2, sv.ui.winView5, sv.ui.winView1, sv.ui.winView4, sv.ui.winView3);
+		sv.ui.scrollableView.currentPage = 2;
 		tabtop_change(sv.ui.tab3, sv.ui.tab2, sv.ui.tab1, sv.ui.tab4, sv.ui.tab5);
 	};
 
 	sv.fu.evt_tab4 = function(e) {
-		// this.removeEventListener('click', sv.fu.evt_tab4);
-		tab_click(sv.ui.winView2, sv.ui.winView5, sv.ui.winView1, sv.ui.winView3, sv.ui.winView4);
+		sv.ui.scrollableView.currentPage = 3;
 		tabtop_change(sv.ui.tab4, sv.ui.tab2, sv.ui.tab3, sv.ui.tab1, sv.ui.tab5);
 	};
 	sv.fu.evt_tab5 = function(e) {
-		// this.removeEventListener('click', sv.fu.evt_tab5);
-		tab_click(sv.ui.winView2, sv.ui.winView3, sv.ui.winView1, sv.ui.winView4, sv.ui.winView5);
+		sv.ui.scrollableView.currentPage = 4;
 		tabtop_change(sv.ui.tab5, sv.ui.tab2, sv.ui.tab3, sv.ui.tab4, sv.ui.tab1);
 	};
 	sv.fu.evt_openwin = function(e) {
 		Ti.API.info('open window');
-		sv.ui.win.add(sv.ui.winView1);
+		sv.ui.winView2.add(sv.vari.UngDungBongDa.ui.ViewTong);
 		sv.ui.winView1.add(sv.vari.menu_soxo.ui.viewsoxo);
 	};
 	sv.fu.evt_closewin = function(e) {

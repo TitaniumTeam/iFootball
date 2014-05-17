@@ -139,6 +139,11 @@ function tao_ui(sv) {
 	sv.ui.ViewIconLeft.addEventListener('click', sv.fu.event_btnclose);
 	sv.ui.windowkqsx.addEventListener('open', sv.fu.event_openwin);
 	sv.ui.windowkqsx.addEventListener('close', sv.fu.event_closewin);
+	
+	sv.ui.btn_xemkq.addEventListener('click',function(){
+	sv.ui.wdKQSX = new (require('/ui_soxo/WindowKQSX'));
+		sv.ui.wdKQSX.ui.windowkqsx.open();
+});
 	//////
 
 };
