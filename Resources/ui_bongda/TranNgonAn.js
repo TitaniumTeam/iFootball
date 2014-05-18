@@ -9,10 +9,9 @@ module.exports = function() {
 	(function() {
 		tao_bien(sv);
 		tao_ui(sv);
-		createRemove(sv);
 	})();
 
-	return sv;
+	return sv.ui.Window;
 };
 function tao_bien(sv) {
 	sv.vari = {};
@@ -56,14 +55,62 @@ function tao_bien(sv) {
 };
 function tao_ui(sv) {
 	sv.ui.vThongtinTD = require('/ui_bongda/vTranngonan');
+
+	sv.ui.Window = Ti.UI.createWindow({
+		//backgroundColor : Ti.App.Color.nauden,
+		navBarHidden : true,
+		keepScreenOn : true,
+		top : 0,
+	});
+
 	sv.ui.ViewTong = Ti.UI.createScrollView({
 		backgroundColor : 'transparent',
-		top : 0,
+		top : Ti.App.size(120),
 		left : 0,
 		showVerticalScrollIndicator : 'true',
 		contentHeight : Ti.UI.FILL,
 		height : Ti.UI.FILL
 	});
+
+	sv.ui.ViewHeader = Ti.UI.createView({
+		backgroundImage : '/assets/images/icon/header.jpg',
+		width : Ti.App.WidthScreen,
+		height : Ti.App.size(120),
+		top : 0
+	});
+
+	sv.ui.ViewIconLeft = Ti.UI.createView({
+		width : Ti.App.size(120),
+		height : Ti.App.size(120),
+		left : Ti.App.size(0),
+		top : Ti.App.size(0)
+	});
+
+	sv.ui.IconLeft = Ti.UI.createImageView({
+		image : '/assets/images/icon/arrow.png',
+		top : Ti.App.size(35),
+		left : Ti.App.size(30),
+		right : Ti.App.size(30),
+		bottom : Ti.App.size(35)
+	});
+
+	sv.ui.ViewLabelHeader = Ti.UI.createView({
+		height : Ti.App.size(120),
+		top : Ti.App.size(0),
+		left : Ti.App.size(120),
+		right : Ti.App.size(120)
+	});
+
+	sv.ui.LabelHeader = Ti.UI.createLabel({
+		text : 'TRẬN NGON ĂN',
+		font : {
+			fontSize : Ti.App.size(40),
+			fontWeight : 'bold',
+			fontFamily : 'Aria'
+		},
+		color : Ti.App.Color.white,
+	});
+
 	for (var i = 0; i < sv.arr.data.length; i++) {
 		sv.ui.row = Ti.UI.createTableViewRow({
 			expanded : false,
@@ -178,6 +225,21 @@ function tao_ui(sv) {
 		sv.arr.arrow.push(sv.ui.arrow);
 	}
 	tao_event(sv);
+
+	sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
+	sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
+
+	sv.ui.ViewIconLeft.addEventListener('click', sv.fu.eventClickIconLeft);
+
+	sv.ui.Window.add(sv.ui.ViewHeader);
+	sv.ui.Window.add(sv.ui.ViewTong);
+
+	sv.ui.ViewHeader.add(sv.ui.ViewIconLeft);
+	sv.ui.ViewHeader.add(sv.ui.ViewLabelHeader);
+
+	sv.ui.ViewIconLeft.add(sv.ui.IconLeft);
+	sv.ui.ViewLabelHeader.add(sv.ui.LabelHeader);
+
 	for (var i = 0; i < sv.arr.data.length; i++) {
 		sv.arr.rows[i].addEventListener('click', sv.fu.event_clickrow[i]);
 	}
@@ -197,6 +259,11 @@ function tao_ui(sv) {
 };
 function tao_event(sv) {
 	sv.fu = {};
+
+	sv.fu.eventClickIconLeft = function(e) {
+		sv.ui.Window.close();
+	};
+
 	sv.fu.event_clickrow = [];
 	for (var i = 0; i < sv.arr.data.length; i++) {
 		sv.fu.event_clickrow[i] = function(e) {
@@ -215,6 +282,33 @@ function tao_event(sv) {
 		};
 	}
 
+	sv.fu.eventOpenWindow = function() {
+		Ti.API.info('Opened window');
+	};
+
+	sv.fu.eventCloseWindow = function(e) {
+		sv.ui.Window.removeEventListener('open', sv.fu.eventOpenWindow);
+		sv.ui.Window.removeEventListener('close', sv.fu.eventCloseWindow);
+		sv.ui.ViewIconLeft.removeEventListener('click', sv.fu.eventClickIconLeft);
+
+		for (var i = 0; i < sv.arr.data.length; i++) {
+			sv.arr.rows[i].expanded = false;
+			sv.arr.arrow[i].transform = sv.vari.trans2;
+			sv.arr.arrow[i].top = Ti.App.size(25);
+			sv.arr.rows[i].setHeight(Ti.App.size(100));
+			sv.arr.rows[i].removeEventListener('click', sv.fu.event_clickrow[i]);
+		}
+
+		sv.vari = null;
+		sv.arr = null;
+		sv.ui = null;
+		sv.fu = null;
+		sv.test = null;
+		sv = null;
+
+		Ti.API.info('Closed window, sv=' + sv);
+	};
+
 };
 function set_border(i, sv) {
 	if (i == 0 || i % 2 == 0 || i == (sv.arr.data.length - 1)) {
@@ -223,21 +317,4 @@ function set_border(i, sv) {
 		return 0;
 	}
 };
-function createRemove(sv) {
-	sv.removeAllEvent = function() {
-		for (var i = 0; i < sv.arr.data.length; i++) {
-			sv.arr.rows[i].expanded = false;
-			sv.arr.arrow[i].transform = sv.vari.trans2;
-			sv.arr.arrow[i].top = Ti.App.size(25);
-			sv.arr.rows[i].setHeight(Ti.App.size(100));
-			sv.arr.rows[i].removeEventListener('click', sv.fu.event_clickrow[i]);
-		}
-		Ti.API.info('remove event tran ngon an');
-		sv.vari = null;
-		sv.arr = null;
-		sv.ui = null;
-		sv.fu = null;
-		sv = null;
-	};
-}
 

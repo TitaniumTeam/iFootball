@@ -44,7 +44,6 @@ function tao_ui(sv) {
 	sv.ui.Window = Ti.UI.createWindow({
 		//backgroundColor : Ti.App.Color.nauden,
 		navBarHidden : true,
-		fullscreen : true,
 		keepScreenOn : true,
 		top : 0,
 	});

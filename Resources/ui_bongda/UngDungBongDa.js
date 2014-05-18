@@ -14,7 +14,8 @@ module.exports = function() {
 	return sv;
 };
 function createVariable(sv) {
-
+	sv.vari.SoLuongMenu = 6;
+	sv.vari.TenMenu = ['Bảng xếp hạng', 'Thông tin bên lề', 'Cá Cược', 'Trận ngon ăn', 'Trân đấu đang diễn ra'];
 }
 
 function createUI(sv) {
@@ -158,6 +159,8 @@ function createUI(sv) {
 
 function createUI_Event(sv) {
 	sv.fu.eventClickViewBangXepHang = function(e) {
+		var newWindow = new (require('ui_bongda/Home'))();
+		newWindow.open();
 		Ti.API.info('Click');
 	};
 
@@ -169,18 +172,26 @@ function createUI_Event(sv) {
 
 	sv.fu.eventClickViewThongTinBenLe = function(e) {
 		Ti.API.info('Click');
+		var newWindow = new (require('ui_bongda/News'))();
+		newWindow.open();
 	};
 
 	sv.fu.eventClickViewTranDauDangDienRa = function(e) {
+		var newWindow = new (require('ui_bongda/keo_ts_tructiep'))();
+		newWindow.open();
 		Ti.API.info('Click');
 	};
 
 	sv.fu.eventClickViewTranDauSapDienRa = function(e) {
+		var newWindow = new (require('ui_bongda/keo_saptoi'))();
+		newWindow.open();
 		Ti.API.info('Click');
 	};
 
 	sv.fu.eventClickViewTranNgonAn = function(e) {
 		Ti.API.info('Click');
+		var newWindow = new (require('ui_bongda/TranNgonAn'))();
+		newWindow.open();
 	};
 }
 

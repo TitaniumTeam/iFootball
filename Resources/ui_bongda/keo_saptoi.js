@@ -9,10 +9,9 @@ module.exports = function() {
 	(function() {
 		tao_bien(sv);
 		tao_ui(sv);
-		createRemove(sv);
 	})();
 
-	return sv;
+	return sv.ui.Window;
 };
 function tao_bien(sv) {
 	sv.vari = {};
@@ -43,12 +42,60 @@ function tao_bien(sv) {
 
 };
 function tao_ui(sv) {
-	sv.ui.ViewTong = Titanium.UI.createView({
+
+	sv.ui.Window = Ti.UI.createWindow({
+		//backgroundColor : Ti.App.Color.nauden,
+		navBarHidden : true,
+		keepScreenOn : true,
 		top : 0,
+	});
+
+	sv.ui.ViewTong = Titanium.UI.createView({
+		top : Ti.App.size(120),
 		left : 0,
 		width : Ti.App.size(720),
 		height : Ti.UI.SIZE
 	});
+
+	sv.ui.ViewHeader = Ti.UI.createView({
+		backgroundImage : '/assets/images/icon/header.jpg',
+		width : Ti.App.WidthScreen,
+		height : Ti.App.size(120),
+		top : 0
+	});
+
+	sv.ui.ViewIconLeft = Ti.UI.createView({
+		width : Ti.App.size(120),
+		height : Ti.App.size(120),
+		left : Ti.App.size(0),
+		top : Ti.App.size(0)
+	});
+
+	sv.ui.IconLeft = Ti.UI.createImageView({
+		image : '/assets/images/icon/arrow.png',
+		top : Ti.App.size(35),
+		left : Ti.App.size(30),
+		right : Ti.App.size(30),
+		bottom : Ti.App.size(35)
+	});
+
+	sv.ui.ViewLabelHeader = Ti.UI.createView({
+		height : Ti.App.size(120),
+		top : Ti.App.size(0),
+		left : Ti.App.size(120),
+		right : Ti.App.size(120)
+	});
+
+	sv.ui.LabelHeader = Ti.UI.createLabel({
+		text : 'KÈO',
+		font : {
+			fontSize : Ti.App.size(40),
+			fontWeight : 'bold',
+			fontFamily : 'Aria'
+		},
+		color : Ti.App.Color.white,
+	});
+
 	sv.ui.vHeader = Titanium.UI.createView({
 		top : 0,
 		left : 0,
@@ -137,12 +184,27 @@ function tao_ui(sv) {
 	});
 	sv.ui.scrollview.add(sv.ui.vChua);
 	for (var i = 0; i < 10; i++) {
-		sv.ui.vTong = new sv.vari.view_keo(Ti.App.size(400*i));
+		sv.ui.vTong = new sv.vari.view_keo(Ti.App.size(400 * i));
 		sv.ui.vChua.add(sv.ui.vTong);
 		sv.arr.dataVTong.push(sv.ui.vTong);
 		sv.arr.dataVTong[i].setParam(sv.arr.param2[0]);
 	};
 	tao_event(sv);
+
+	sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
+	sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
+
+	sv.ui.ViewIconLeft.addEventListener('click', sv.fu.eventClickIconLeft);
+
+	sv.ui.Window.add(sv.ui.ViewHeader);
+	sv.ui.Window.add(sv.ui.ViewTong);
+
+	sv.ui.ViewHeader.add(sv.ui.ViewIconLeft);
+	sv.ui.ViewHeader.add(sv.ui.ViewLabelHeader);
+
+	sv.ui.ViewIconLeft.add(sv.ui.IconLeft);
+	sv.ui.ViewLabelHeader.add(sv.ui.LabelHeader);
+
 	sv.ui.lbl_hnay.addEventListener('click', sv.fu.evt_clickhnay);
 	sv.ui.lbl_mai.addEventListener('click', sv.fu.evt_click_mai);
 	sv.ui.lbl_hqa.addEventListener('click', sv.fu.evt_clickhqua);
@@ -150,6 +212,11 @@ function tao_ui(sv) {
 
 function tao_event(sv) {
 	sv.fu = {};
+
+	sv.fu.eventClickIconLeft = function(e) {
+		sv.ui.Window.close();
+	};
+
 	sv.fu.evt_clickhqua = function(e) {
 		set_mau(sv.ui.lbl_hqa, sv.ui.lbl_hnay, sv.ui.lbl_mai);
 		for (var i = 0; i < 1; i++) {
@@ -169,15 +236,30 @@ function tao_event(sv) {
 			sv.arr.dataVTong[i].setParam(sv.arr.param3[0]);
 		};
 	};
-}
 
-function createRemove(sv) {
-	sv.removeAllEvent = function() {
+	sv.fu.eventOpenWindow = function() {
+		Ti.API.info('Opened window');
+	};
+
+	sv.fu.eventCloseWindow = function(e) {
+		sv.ui.Window.removeEventListener('open', sv.fu.eventOpenWindow);
+		sv.ui.Window.removeEventListener('close', sv.fu.eventCloseWindow);
+		sv.ui.ViewIconLeft.removeEventListener('click', sv.fu.eventClickIconLeft);
+
 		sv.ui.lbl_hnay.removeEventListener('click', sv.fu.evt_clickhnay);
 		sv.ui.lbl_mai.removeEventListener('click', sv.fu.evt_click_mai);
 		sv.ui.lbl_hqa.removeEventListener('click', sv.fu.evt_clickhqua);
-		Ti.API.info('da remove xong ');
+
+		sv.vari = null;
+		sv.arr = null;
+		sv.ui = null;
+		sv.fu = null;
+		sv.test = null;
+		sv = null;
+
+		Ti.API.info('Closed window, sv=' + sv);
 	};
+
 }
 
 function set_mau(a, b, c) {
