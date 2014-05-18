@@ -33,7 +33,7 @@ function tao_ui(sv) {
 		height : Ti.UI.FILL,
 		backgroundColor : 'transparent',
 		top:0,
-		bottom:Ti.App.size(192)
+		bottom:Ti.App.size(212)
 	});
 
 	for (var i = 0; i < sv.vari.SoLuongMenu; i++) {

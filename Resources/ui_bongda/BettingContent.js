@@ -73,11 +73,11 @@ function createUI(sv) {
 	});
 
 	sv.ui.BGHeader = Ti.UI.createView({
-		backgroundImage : '/assets/images/icon/header.jpg',
 		right : Ti.App.size(0),
 		height : Ti.App.size(430),
 		top : Ti.App.size(0),
-		left : 0
+		left : 0,
+		backgroundColor:Ti.App.Color.red
 	});
 
 	sv.ui.LbNgayThang = Ti.UI.createLabel({

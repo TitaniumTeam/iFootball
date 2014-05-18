@@ -21,15 +21,10 @@ function createVariable(sv) {
 }
 
 function createUI(sv) {
-	// sv.ui.Window = Ti.UI.createWindow({
-	// backgroundColor : Ti.App.Color.magenta,
-	// // width : Ti.App.widthScreen,
-	// // height : Ti.App.heightScreen,
-	// navBarHidden : true,
-	// fullscreen : true,
-	// keepScreenOn : true,
-	// top : 0,
-	// });
+	sv.ui.Window = Ti.UI.createWindow({
+	backgroundColor : Ti.App.Color.magenta,
+	navBarHidden : true,
+	});
 	sv.ui.ViewTong = Titanium.UI.createView({
 		top : 0,
 		left : 0,
@@ -427,11 +422,11 @@ function createUI(sv) {
 	createUI_Event(sv);
 
 	// sv.ui.IconMenu.addEventListener('click', sv.fu.eventClickIconMenu);
-	// sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
-	// sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
+	sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
+	sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
 
-	// sv.ui.Window.add(sv.ui.ViewTong);
-	// sv.ui.Window.add(sv.ui.ViewHeader);
+	sv.ui.Window.add(sv.ui.ViewTong);
+	sv.ui.Window.add(sv.ui.ViewHeader);
 
 	sv.ui.scrollview.add(sv.ui.ViewUngDung);
 	sv.ui.ViewTong.add(sv.ui.scrollview);
