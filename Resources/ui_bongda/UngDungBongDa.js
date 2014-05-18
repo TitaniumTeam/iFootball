@@ -14,7 +14,16 @@ module.exports = function() {
 	return sv;
 };
 function createVariable(sv) {
-
+	sv.vari.SoLuongMenu = 6;
+	sv.arr.ParamTen = ['Bảng xếp hạng', 'Thông tin bên lề', 'Cá Cược', 'Trận ngon ăn', 'Trân đang diễn ra', 'Trận sắp diễn ra'];
+	sv.arr.ParamIcon = ['/assets/images/icon/icon-quabong.png'];
+	sv.arr.eventClickViewMenu = [];
+	sv.arr.ViewMenu = [];
+	sv.arr.ViewTenMenu = [];
+	sv.arr.TenMenu = [];
+	sv.arr.IconMenu = [];
+	sv.vari.LeftMenu = Ti.App.size(40);
+	sv.vari.TopMenu = Ti.App.size(20);
 }
 
 function createUI(sv) {
@@ -24,174 +33,130 @@ function createUI(sv) {
 		backgroundColor : 'transparent'
 	});
 
-	sv.ui.ViewBangXepHang = Ti.UI.createView({
-		width : Ti.App.size(320),
-		height : Ti.App.size(300),
-		backgroundColor : Ti.App.Color.xanhnhat,
-		left : Ti.App.size(20),
-		top : Ti.App.size(20)
-	});
+	for (var i = 0; i < sv.vari.SoLuongMenu; i++) {
 
-	sv.ui.LabelBangXepHang = Ti.UI.createLabel({
-		width : Ti.UI.SIZE,
-		height : Ti.UI.SIZE,
-		text : 'Bảng xếp hạng',
-		color : Ti.App.Color.nauden,
-		font : {
-			fontSize : Ti.App.size(50)
+		if ((i % 2) == 0) {
+			sv.arr.ViewMenu[i] = Ti.UI.createView({
+				width : Ti.App.size(300),
+				height : Ti.App.size(300),
+				backgroundColor : Ti.App.Color.white,
+				left : sv.vari.LeftMenu,
+				top : sv.vari.TopMenu,
+			});
+			sv.vari.LeftMenu = Ti.App.size(40 + ((i + 1) % 2) * 40 + ((i + 1) % 2) * 300);
+		} else {
+			sv.arr.ViewMenu[i] = Ti.UI.createView({
+				width : Ti.App.size(300),
+				height : Ti.App.size(300),
+				backgroundColor : Ti.App.Color.white,
+				left : sv.vari.LeftMenu,
+				top : sv.vari.TopMenu,
+			});
+			sv.vari.TopMenu = Ti.App.size(20 + ((i + 1) / 2) * 300 + ((i + 1) / 2) * 20);
+			sv.vari.LeftMenu = Ti.App.size(40 + ((i + 1) % 2) * 40 + ((i + 1) % 2) * 300);
 		}
-	});
 
-	sv.ui.ViewThongTinBenLe = Ti.UI.createView({
-		width : Ti.App.size(320),
-		height : Ti.App.size(300),
-		backgroundColor : Ti.App.Color.xanhnhat,
-		left : Ti.App.size(360),
-		top : Ti.App.size(20)
-	});
+		sv.arr.IconMenu[i] = Ti.UI.createImageView({
+			width : Ti.App.size(180),
+			top : Ti.App.size(20),
+			height : Ti.App.size(180),
+			left : Ti.App.size(60),
+			image : sv.arr.ParamIcon[0],
+		});
 
-	sv.ui.LabelThongTinBenLe = Ti.UI.createLabel({
-		width : Ti.UI.SIZE,
-		height : Ti.UI.SIZE,
-		text : 'Thông tin bên lề',
-		color : Ti.App.Color.nauden,
-		font : {
-			fontSize : Ti.App.size(50)
-		}
-	});
+		sv.arr.ViewTenMenu[i] = Ti.UI.createView({
+			width : Ti.App.size(300),
+			top : Ti.App.size(225),
+			height : Ti.App.size(75),
+			left : Ti.App.size(0),
+		});
 
-	sv.ui.ViewCaCuoc = Ti.UI.createView({
-		width : Ti.App.size(320),
-		height : Ti.App.size(300),
-		backgroundColor : Ti.App.Color.xanhnhat,
-		left : Ti.App.size(20),
-		top : Ti.App.size(340)
-	});
+		sv.arr.TenMenu[i] = Ti.UI.createLabel({
+			text : sv.arr.ParamTen[i],
+			color : Ti.App.Color.nauden,
+			font : {
+				fontSize : Ti.App.size(30)
+			},
+			touchEnabled : false
+		});
 
-	sv.ui.LabelCaCuoc = Ti.UI.createLabel({
-		width : Ti.UI.SIZE,
-		height : Ti.UI.SIZE,
-		text : 'Cá Cược',
-		color : Ti.App.Color.nauden,
-		font : {
-			fontSize : Ti.App.size(50)
-		}
-	});
-
-	sv.ui.ViewTranNgonAn = Ti.UI.createView({
-		width : Ti.App.size(320),
-		height : Ti.App.size(300),
-		backgroundColor : Ti.App.Color.xanhnhat,
-		left : Ti.App.size(360),
-		top : Ti.App.size(340)
-	});
-	sv.ui.LabelTranNgonAn = Ti.UI.createLabel({
-		width : Ti.UI.SIZE,
-		height : Ti.UI.SIZE,
-		text : 'Trận ngon ăn',
-		color : Ti.App.Color.nauden,
-		font : {
-			fontSize : Ti.App.size(50)
-		}
-	});
-
-	sv.ui.ViewTranDauDangDienRa = Ti.UI.createView({
-		width : Ti.App.size(320),
-		height : Ti.App.size(300),
-		backgroundColor : Ti.App.Color.xanhnhat,
-		left : Ti.App.size(360),
-		top : Ti.App.size(660)
-	});
-
-	sv.ui.LabelTranDauDangDienRa = Ti.UI.createLabel({
-		width : Ti.UI.SIZE,
-		height : Ti.UI.SIZE,
-		text : 'Trân đấu đang diễn ra',
-		color : Ti.App.Color.nauden,
-		font : {
-			fontSize : Ti.App.size(50)
-		}
-	});
-
-	sv.ui.ViewTranDauSapDienRa = Ti.UI.createView({
-		width : Ti.App.size(320),
-		height : Ti.App.size(300),
-		backgroundColor : Ti.App.Color.xanhnhat,
-		left : Ti.App.size(20),
-		top : Ti.App.size(660)
-	});
-
-	sv.ui.LabelTranDauSapDienRa = Ti.UI.createLabel({
-		width : Ti.UI.SIZE,
-		height : Ti.UI.SIZE,
-		text : 'Trận đấu sắp diễn ra',
-		color : Ti.App.Color.nauden,
-		font : {
-			fontSize : Ti.App.size(50)
-		}
-	});
+	}
 
 	createUI_Event(sv);
 
-	sv.ui.ViewBangXepHang.addEventListener('click', sv.fu.eventClickViewBangXepHang);
-	sv.ui.ViewCaCuoc.addEventListener('click', sv.fu.eventClickViewCaCuoc);
-	sv.ui.ViewThongTinBenLe.addEventListener('click', sv.fu.eventClickViewThongTinBenLe);
-	sv.ui.ViewTranDauDangDienRa.addEventListener('click', sv.fu.eventClickViewTranDauDangDienRa);
-	sv.ui.ViewTranDauSapDienRa.addEventListener('click', sv.fu.eventClickViewTranDauSapDienRa);
-	sv.ui.ViewTranNgonAn.addEventListener('click', sv.fu.eventClickViewTranNgonAn);
+	for (var i = 0; i < sv.vari.SoLuongMenu; i++) {
+		sv.arr.ViewMenu[i].addEventListener('click', sv.arr.eventClickViewMenu[i]);
+	}
 
-	sv.ui.ViewTong.add(sv.ui.ViewBangXepHang);
-	sv.ui.ViewTong.add(sv.ui.ViewCaCuoc);
-	sv.ui.ViewTong.add(sv.ui.ViewThongTinBenLe);
-	sv.ui.ViewTong.add(sv.ui.ViewTranDauDangDienRa);
-	sv.ui.ViewTong.add(sv.ui.ViewTranDauSapDienRa);
-	sv.ui.ViewTong.add(sv.ui.ViewTranNgonAn);
-
-	sv.ui.ViewBangXepHang.add(sv.ui.LabelBangXepHang);
-	sv.ui.ViewCaCuoc.add(sv.ui.LabelCaCuoc);
-	sv.ui.ViewThongTinBenLe.add(sv.ui.LabelThongTinBenLe);
-	sv.ui.ViewTranDauDangDienRa.add(sv.ui.LabelTranDauDangDienRa);
-	sv.ui.ViewTranDauSapDienRa.add(sv.ui.LabelTranDauSapDienRa);
-	sv.ui.ViewTranNgonAn.add(sv.ui.LabelTranNgonAn);
+	for (var i = 0; i < sv.vari.SoLuongMenu; i++) {
+		sv.ui.ViewTong.add(sv.arr.ViewMenu[i]);
+		sv.arr.ViewMenu[i].add(sv.arr.IconMenu[i]);
+		sv.arr.ViewMenu[i].add(sv.arr.ViewTenMenu[i]);
+		sv.arr.ViewTenMenu[i].add(sv.arr.TenMenu[i]);
+	}
 
 }
 
 function createUI_Event(sv) {
-	sv.fu.eventClickViewBangXepHang = function(e) {
-		Ti.API.info('Click');
-	};
 
-	sv.fu.eventClickViewCaCuoc = function(e) {
-		Ti.API.info('Click');
-		var newWindow = new (require('ui_bongda/Betting'))();
-		newWindow.open();
-	};
+	for (var i = 0; i < sv.vari.SoLuongMenu; i++) {
+		if (i == 0) {
+			sv.arr.eventClickViewMenu[i] = function(e) {
+				var newWindow = new (require('ui_bongda/Home'))();
+				newWindow.open();
+				Ti.API.info('Click');
+			};
+		}
 
-	sv.fu.eventClickViewThongTinBenLe = function(e) {
-		Ti.API.info('Click');
-	};
+		if (i == 1) {
+			sv.arr.eventClickViewMenu[i] = function(e) {
+				var newWindow = new (require('ui_bongda/News'))();
+				newWindow.open();
+				Ti.API.info('Click');
+			};
+		}
 
-	sv.fu.eventClickViewTranDauDangDienRa = function(e) {
-		Ti.API.info('Click');
-	};
+		if (i == 2) {
+			sv.arr.eventClickViewMenu[i] = function(e) {
+				var newWindow = new (require('ui_bongda/Betting'))();
+				newWindow.open();
+				Ti.API.info('Click');
+			};
+		}
 
-	sv.fu.eventClickViewTranDauSapDienRa = function(e) {
-		Ti.API.info('Click');
-	};
+		if (i == 3) {
+			sv.arr.eventClickViewMenu[i] = function(e) {
+				var newWindow = new (require('ui_bongda/TranNgonAn'))();
+				newWindow.open();
+				Ti.API.info('Click');
+			};
+		}
 
-	sv.fu.eventClickViewTranNgonAn = function(e) {
-		Ti.API.info('Click');
-	};
+		if (i == 4) {
+			sv.arr.eventClickViewMenu[i] = function(e) {
+				var newWindow = new (require('ui_bongda/keo_saptoi'))();
+				newWindow.open();
+				Ti.API.info('Click');
+			};
+		}
+
+		if (i == 5) {
+			sv.arr.eventClickViewMenu[i] = function(e) {
+				var newWindow = new (require('ui_bongda/keo_ts_tructiep'))();
+				newWindow.open();
+				Ti.API.info('Click');
+			};
+		}
+
+	}
+
 }
 
 function RemoveAllEvent(sv) {
 	sv.removeAllEvent = function(e) {
-		sv.ui.ViewBangXepHang.removeEventListener('click', sv.fu.eventClickViewBangXepHang);
-		sv.ui.ViewCaCuoc.removeEventListener('click', sv.fu.eventClickViewCaCuoc);
-		sv.ui.ViewThongTinBenLe.removeEventListener('click', sv.fu.eventClickViewThongTinBenLe);
-		sv.ui.ViewTranDauDangDienRa.removeEventListener('click', sv.fu.eventClickViewTranDauDangDienRa);
-		sv.ui.ViewTranDauSapDienRa.removeEventListener('click', sv.fu.eventClickViewTranDauSapDienRa);
-		sv.ui.ViewTranNgonAn.removeEventListener('click', sv.fu.eventClickViewTranNgonAn);
+		for (var i = 0; i < sv.vari.SoLuongMenu; i++) {
+			sv.arr.ViewMenu[i].removeEventListener('click', sv.arr.eventClickViewMenu[i]);
+		}
 		Ti.API.info('Đã remove xong');
 	};
 };
