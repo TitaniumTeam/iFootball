@@ -33,7 +33,7 @@ function tao_ui(sv) {
 
 	sv.ui.winView2 = Ti.UI.createScrollView({
 		top : 0,
-		height : '85%',
+		height : '80%',
 		backgroundColor : Ti.App.Color.magenta,
 		bottom:'15%'
 	});
@@ -41,7 +41,8 @@ function tao_ui(sv) {
 	sv.ui.winView3 = Ti.UI.createScrollView({
 		top : 0,
 		height : '85%',
-		backgroundColor : Ti.App.Color.magenta
+		backgroundColor : Ti.App.Color.magenta,
+		bottom:'30%'
 	});
 
 	sv.ui.winView4 = Ti.UI.createScrollView({

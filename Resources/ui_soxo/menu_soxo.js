@@ -16,7 +16,9 @@ function tao_ui(sv) {
 	sv.ui.viewsoxo = Ti.UI.createView({
 		width : Ti.App.size(720),
 		height : Ti.UI.FILL,
-		backgroundColor : 'transparent'
+		backgroundColor : 'transparent',
+		top:0,
+		bottom:Ti.App.size(20)
 	});
 
 	sv.ui.v_luachon = Ti.UI.createView({
