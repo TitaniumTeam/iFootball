@@ -15,7 +15,7 @@ function tao_bien(sv) {
 	sv.vari = {};
 	sv.vari.menu_soxo = new (require('/ui_soxo/menu_soxo'));
 	sv.vari.UngDungBongDa = new (require('/ui_bongda/UngDungBongDa'));
-	sv.vari.menu_user=new (require('/ui_user/menu_user'));
+	sv.vari.menu_user = new (require('/ui_user/menu_user'));
 
 };
 function tao_ui(sv) {
@@ -24,9 +24,8 @@ function tao_ui(sv) {
 		// fullscreen : true,
 		navBarHidden : true
 	});
-	
-	//-------Views to hold content-------
 
+	//-------Views to hold content-------
 
 	sv.ui.winView3 = Ti.UI.createScrollView({
 		top : 0,
@@ -70,6 +69,13 @@ function tao_ui(sv) {
 		height : 1,
 		left : 0,
 		backgroundColor : Ti.App.Color.xanhnhat
+	});
+	sv.ui.indicator=Titanium.UI.createView({
+		left:0,
+		height:Ti.UI.FILL,
+		width:'20%',
+		backgroundColor:'black',
+		top:0
 	});
 	//----The custom tabs-----
 	//they can also be defined with a background image
@@ -176,18 +182,30 @@ function tao_sukien(sv) {
 	//
 	sv.fu.evt_slidemenu = function(e) {
 		if (sv.ui.scrollableView.currentPage == 0) {
+			sv.vari.UngDungBongDa.ui.winView2.scrollTo(0, 0);
+			sv.vari.menu_user.ui.winView3.scrollTo(0, 0);
 			tabtop_change(sv.ui.tab1, sv.ui.tab2, sv.ui.tab3, sv.ui.tab4, sv.ui.tab5);
 		}
 		if (sv.ui.scrollableView.currentPage == 1) {
+			sv.vari.menu_soxo.ui.winView1.scrollTo(0, 0);
+			sv.vari.menu_user.ui.winView3.scrollTo(0, 0);
 			tabtop_change(sv.ui.tab2, sv.ui.tab1, sv.ui.tab3, sv.ui.tab4, sv.ui.tab5);
 		}
 		if (sv.ui.scrollableView.currentPage == 2) {
+			sv.vari.menu_soxo.ui.winView1.scrollTo(0, 0);
+			sv.vari.UngDungBongDa.ui.winView2.scrollTo(0, 0);
 			tabtop_change(sv.ui.tab3, sv.ui.tab1, sv.ui.tab4, sv.ui.tab2, sv.ui.tab5);
 		}
 		if (sv.ui.scrollableView.currentPage == 3) {
+			sv.vari.menu_soxo.ui.winView1.scrollTo(0, 0);
+			sv.vari.UngDungBongDa.ui.winView2.scrollTo(0, 0);
+			sv.vari.menu_user.ui.winView3.scrollTo(0, 0);
 			tabtop_change(sv.ui.tab4, sv.ui.tab1, sv.ui.tab2, sv.ui.tab3, sv.ui.tab5);
 		}
 		if (sv.ui.scrollableView.currentPage == 4) {
+			sv.vari.menu_soxo.ui.winView1.scrollTo(0, 0);
+			sv.vari.UngDungBongDa.ui.winView2.scrollTo(0, 0);
+			sv.vari.menu_user.ui.winView3.scrollTo(0, 0);
 			tabtop_change(sv.ui.tab5, sv.ui.tab1, sv.ui.tab3, sv.ui.tab4, sv.ui.tab2);
 		}
 	};
