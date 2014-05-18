@@ -53,7 +53,7 @@ function createUI(sv) {
 	});
 
 	sv.ui.ViewHeader = Ti.UI.createView({
-		backgroundImage : '/assets/images/icon/header.jpg',
+		backgroundColor : Ti.App.Color.red,
 		width : Ti.App.WidthScreen,
 		height : Ti.App.size(120),
 		top : 0
