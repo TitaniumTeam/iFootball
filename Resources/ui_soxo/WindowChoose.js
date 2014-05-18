@@ -15,13 +15,20 @@ function tao_bien(sv) {
 	sv.arr = {};
 	sv.arr.tinhthanh = ['HÀ NỘI', 'HỒ CHÍ MINH', 'HẢI DƯƠNG', 'HÀ NỘI', 'HỒ CHÍ MINH', 'HẢI DƯƠNG', 'HÀ NỘI', 'HỒ CHÍ MINH', 'HẢI DƯƠNG'];
 	sv.arr.ngay = ['6/9/2014', '1/1/2014'];
+	// sv.arr.pickerdata = [];
+	// for (var i = 0; i < 8; i++) {
+		// sv.arr.pickerdata.push(sv.ui.pickerrow = Ti.UI.createPickerRow({
+			// title : sv.arr.tinhthanh[i],
+			// val : i
+		// }));
+	// }
 };
 /*khoi tao UI
  */
 function tao_ui(sv) {
 	sv.ui.windowkqsx = Titanium.UI.createWindow({
 		backgroundColor : Ti.App.Color.magenta,
-		navBarHidden:true
+		navBarHidden : true
 	});
 	sv.ui.ViewHeader = Ti.UI.createView({
 		backgroundColor : Ti.App.Color.red,
@@ -100,6 +107,13 @@ function tao_ui(sv) {
 			fontSize : Ti.App.size(50)
 		},
 	});
+	// sv.ui.picker = Ti.UI.createPicker({
+		// top : Ti.App.size(250),
+		// selectionIndicator : true,
+		// width:Ti.App.size(500)
+	// });
+	// sv.ui.picker.add(sv.arr.pickerdata);
+	// sv.ui.windowkqsx.add(sv.ui.picker);
 	sv.vari.arrow = require('/ui_soxo/vArrow');
 	sv.ui.arrow1 = new sv.vari.arrow(Ti.App.size(250));
 	sv.ui.varrow11 = sv.ui.arrow1.getvArrow1();
@@ -120,6 +134,7 @@ function tao_ui(sv) {
 	sv.ui.table_view = sv.ui.view_choose.getTableView();
 	sv.ui.table_view1 = sv.ui.view_choose1.getTableView();
 	///
+
 	sv.ui.ViewTong.add(sv.ui.arrow1);
 	sv.ui.ViewTong.add(sv.ui.arrow2);
 	sv.ui.ViewTong.add(sv.ui.view_choose);
@@ -139,11 +154,11 @@ function tao_ui(sv) {
 	sv.ui.ViewIconLeft.addEventListener('click', sv.fu.event_btnclose);
 	sv.ui.windowkqsx.addEventListener('open', sv.fu.event_openwin);
 	sv.ui.windowkqsx.addEventListener('close', sv.fu.event_closewin);
-	
-	sv.ui.btn_xemkq.addEventListener('click',function(){
-	sv.ui.wdKQSX = new (require('/ui_soxo/WindowKQSX'));
+
+	sv.ui.btn_xemkq.addEventListener('click', function() {
+		sv.ui.wdKQSX = new (require('/ui_soxo/WindowKQSX'));
 		sv.ui.wdKQSX.ui.windowkqsx.open();
-});
+	});
 	//////
 
 };

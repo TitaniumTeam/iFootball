@@ -12,8 +12,8 @@ module.exports = function() {
 };
 
 function taobien(sv) {
-	sv.vari = {};
-	sv.arr = {};
+	// sv.vari = {};
+	// sv.arr = {};
 	sv.arr.datarow = [];
 	sv.arr.height = [Ti.App.size(120), Ti.App.size(200)];
 	sv.arr.dayso1 = ['12', '12', '12', '12', '12', '12', '12', '12', '12'];

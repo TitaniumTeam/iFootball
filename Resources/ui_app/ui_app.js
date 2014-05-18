@@ -25,35 +25,37 @@ function tao_ui(sv) {
 	});
 	sv.ui.winView1 = Ti.UI.createScrollView({
 		top : 0,
-		height : '85%',
+		height : Ti.App.size(1088),
 		backgroundColor : Ti.App.Color.magenta,
-		bottom:'15%'
+		bottom : Ti.App.size(192)
 	});
 	//-------Views to hold content-------
 
 	sv.ui.winView2 = Ti.UI.createScrollView({
 		top : 0,
-		height : '80%',
+		height : Ti.App.size(1088),
 		backgroundColor : Ti.App.Color.magenta,
-		bottom:'15%'
+		bottom : Ti.App.size(192)
 	});
 
 	sv.ui.winView3 = Ti.UI.createScrollView({
 		top : 0,
-		height : '85%',
+		height : Ti.App.size(1088),
 		backgroundColor : Ti.App.Color.magenta,
-		bottom:'30%'
+		bottom : Ti.App.size(192)
 	});
 
 	sv.ui.winView4 = Ti.UI.createScrollView({
 		top : 0,
-		height : '85%',
-		backgroundColor : Ti.App.Color.magenta
+		height : Ti.App.size(1088),
+		backgroundColor : Ti.App.Color.magenta,
+		bottom : Ti.App.size(192)
 	});
 	sv.ui.winView5 = Ti.UI.createScrollView({
 		top : 0,
-		height : '85%',
-		backgroundColor : Ti.App.Color.magenta
+		height : Ti.App.size(1088),
+		backgroundColor : Ti.App.Color.magenta,
+		bottom : Ti.App.size(192)
 	});
 	//---------Labels that Describe each View-------
 
@@ -67,10 +69,10 @@ function tao_ui(sv) {
 
 	sv.ui.tabContainer = Ti.UI.createView({
 		bottom : 0,
-		height : '15%',
+		height : Ti.App.size(192),
 		width : Ti.App.size(720),
 		layout : 'horizontal',
-		backgroundColor:Ti.App.Color.nauden
+		backgroundColor : Ti.App.Color.nauden
 	});
 	sv.ui.linetab = Ti.UI.createView({
 		top : 0,
@@ -166,7 +168,6 @@ function tao_ui(sv) {
 	sv.ui.tabContainer.add(sv.ui.tab4);
 	sv.ui.tabContainer.add(sv.ui.tab5);
 
-
 	//----------------Tab Event Listeners------------
 	tao_sukien(sv);
 
@@ -177,7 +178,13 @@ function tao_ui(sv) {
 	sv.ui.tab5.addEventListener('click', sv.fu.evt_tab5);
 	sv.ui.win.addEventListener('open', sv.fu.evt_openwin);
 	sv.ui.win.addEventListener('close', sv.fu.evt_closewin);
-	sv.ui.scrollableView.addEventListener('scrollend', function() {
+	sv.ui.scrollableView.addEventListener('scrollend', sv.fu.evt_slidemenu);
+	// return sv.ui.win;
+};
+function tao_sukien(sv) {
+	sv.fu = {};
+	//
+	sv.fu.evt_slidemenu = function(e) {
 		if (sv.ui.scrollableView.currentPage == 0) {
 			tabtop_change(sv.ui.tab1, sv.ui.tab2, sv.ui.tab3, sv.ui.tab4, sv.ui.tab5);
 		}
@@ -193,27 +200,6 @@ function tao_ui(sv) {
 		if (sv.ui.scrollableView.currentPage == 4) {
 			tabtop_change(sv.ui.tab5, sv.ui.tab1, sv.ui.tab3, sv.ui.tab4, sv.ui.tab2);
 		}
-	});
-	// return sv.ui.win;
-};
-function tao_sukien(sv) {
-	sv.fu = {};
-	//
-	sv.fu.evt_thongke1 = function(e) {
-		sv.ui.wdSup = new (require('/ui_soxo/WindowSupport'));
-		sv.ui.winView1.removeAllChildren();
-		sv.ui.winView1.add(sv.ui.wdSup.ui.scrollView);
-	};
-	///
-	sv.fu.evt_luachon = function(e) {
-		sv.ui.wdchoose = new (require('/ui_soxo/WindowChoose'));
-		sv.ui.winView1.removeAllChildren();
-		sv.ui.winView1.add(sv.ui.wdchoose.ui.ViewTong);
-	};
-	sv.fu.evt_kqsx = function(e) {
-		sv.ui.wdKQSX = new (require('/ui_soxo/WindowKQSX'));
-		sv.ui.winView1.removeAllChildren();
-		sv.ui.winView1.add(sv.ui.wdKQSX.ui.scrollView);
 	};
 	///
 	sv.fu.evt_tab1 = function(e) {
@@ -242,7 +228,7 @@ function tao_sukien(sv) {
 	sv.fu.evt_openwin = function(e) {
 		Ti.API.info('open window');
 		sv.ui.winView2.add(sv.vari.UngDungBongDa.ui.ViewTong);
-		sv.ui.winView1.add(sv.vari.menu_soxo.ui.viewsoxo);
+		sv.ui.winView1.add(sv.vari.menu_soxo.ui.ViewTong);
 	};
 	sv.fu.evt_closewin = function(e) {
 		sv.ui.tab1.removeEventListener('click', sv.fu.evt_tab1);
@@ -252,7 +238,7 @@ function tao_sukien(sv) {
 		sv.ui.tab5.removeEventListener('click', sv.fu.evt_tab5);
 		sv.ui.win.removeEventListener('open', sv.fu.evt_openwin);
 		sv.ui.win.removeEventListener('close', sv.fu.evt_closewin);
-
+		sv.ui.scrollableView.removeEventListener('scrollend', sv.fu.evt_slidemenu);
 	};
 };
 function tab_click(t1, t2, t3, t4, t5) {

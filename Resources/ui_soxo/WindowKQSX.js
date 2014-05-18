@@ -61,13 +61,13 @@ function tao_ui(sv) {
 		top : Ti.App.size(20)
 	});
 	sv.ui.LabelFooter = Ti.UI.createLabel({
-		text : 'Ngay' + currDate(),
+		text : 'Ngày' + currDate(),
 		font : {
 			fontSize : Ti.App.size(30),
 			fontWeight : 'bold',
 		},
 		color : Ti.App.Color.superwhite,
-		bottom : Ti.App.size(20)
+		bottom : Ti.App.size(10)
 	});
 
 	sv.ui.windowkqsx.add(sv.ui.ViewHeader);
@@ -105,7 +105,7 @@ function tao_ui(sv) {
 }
 
 function createUI_Event(sv) {
-sv.fu = {};
+// sv.fu = {};
 	sv.fu.event_btnclose = function(e) {
 		sv.ui.windowkqsx.close();
 	};
