@@ -9,25 +9,69 @@ module.exports = function() {
 	(function() {
 		createVariable(sv);
 		createUI(sv);
-		set_txt(sv);
-		createRemove(sv);
 	})();
 
-	return sv;
+	return sv.ui.windowkqsx;
 };
 
 function createVariable(sv) {
 }
 
 function createUI(sv) {
+	sv.ui.windowkqsx = Titanium.UI.createWindow({
+		navBarHidden : true
+	});
+	sv.ui.ViewHeader = Ti.UI.createView({
+		backgroundColor : Ti.App.Color.red,
+		width : Ti.App.size(720),
+		height : Ti.App.size(120),
+		top : 0
+	});
 
+	sv.ui.ViewIconLeft = Ti.UI.createView({
+		width : Ti.App.size(120),
+		height : Ti.App.size(120),
+		left : Ti.App.size(0),
+		top : Ti.App.size(0)
+	});
+
+	sv.ui.IconLeft = Ti.UI.createImageView({
+		image : '/assets/images/icon/arrow.png',
+		top : Ti.App.size(35),
+		left : Ti.App.size(30),
+		right : Ti.App.size(30),
+		bottom : Ti.App.size(35)
+	});
+
+	sv.ui.ViewLabelHeader = Ti.UI.createView({
+		height : Ti.App.size(120),
+		top : Ti.App.size(0),
+		left : Ti.App.size(120),
+		right : Ti.App.size(120)
+	});
+
+	sv.ui.LabelHeader = Ti.UI.createLabel({
+		text : 'Thông tin cá nhân',
+		font : {
+			fontSize : Ti.App.size(40),
+			fontWeight : 'bold',
+		},
+		color : Ti.App.Color.superwhite,
+	});
+
+	sv.ui.windowkqsx.add(sv.ui.ViewHeader);
+	sv.ui.ViewHeader.add(sv.ui.ViewIconLeft);
+	sv.ui.ViewHeader.add(sv.ui.ViewLabelHeader);
+
+	sv.ui.ViewIconLeft.add(sv.ui.IconLeft);
+	sv.ui.ViewLabelHeader.add(sv.ui.LabelHeader);
+	
 	sv.ui.ViewTong = Ti.UI.createScrollView({
 		backgroundColor : Ti.App.Color.white,
-		// width : Ti.App.widthScreen,
-		// height : Ti.App.heightScreen,
-		top : 0,
+		top : Ti.App.size(120),
 		left : 0,
-		showVerticalScrollIndicator : true
+		showVerticalScrollIndicator : true,
+		height:Ti.UI.FILL
 	});
 
 	//Tao view Email
@@ -166,14 +210,10 @@ function createUI(sv) {
 		},
 	});
 
-	// createUI_Event(sv);
-
-	// sv.ui.IconBack.addEventListener('click', sv.fu.eventClickIconBack);
-	// sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
-	// sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
-	//
-	// sv.ui.Window.add(sv.ui.ViewTong);
-	// sv.ui.Window.add(sv.ui.ViewHeader);
+	createUI_Event(sv);
+	sv.ui.ViewIconLeft.addEventListener('click', sv.fu.event_btnclose);
+	sv.ui.windowkqsx.addEventListener('open', sv.fu.event_openwin);
+	sv.ui.windowkqsx.addEventListener('close', sv.fu.event_closewin);
 
 	sv.ui.ViewTong.add(sv.ui.ViewEmail);
 	sv.ui.ViewTong.add(sv.ui.ViewTaiKhoan);
@@ -192,58 +232,24 @@ function createUI(sv) {
 	sv.ui.ViewXacNhan.add(sv.ui.XacNhan);
 
 	sv.ui.XacNhan.add(sv.ui.LabelXacNhan);
+	sv.ui.windowkqsx.add(sv.ui.ViewTong);
 }
 
 function createUI_Event(sv) {
-	sv.fu = {};
-
-	// sv.fu.eventClickIconBack = function() {
-	// var newWindow = new (require('ui/DangNhap'))();
-	// newWindow.open();
-	// };
-	//
-	// sv.fu.eventOpenWindow = function(e) {
-	// Ti.API.info('Opened window');
-	// };
-	//
-	// sv.fu.eventCloseWindow = function(e) {
-	// // sv.ui.IconBack.removeEventListener('click', sv.fu.eventClickIconBack);
-	// // sv.ui.Window.removeEventListener('open', sv.fu.eventOpenWindow);
-	// // sv.ui.Window.removeEventListener('close', sv.fu.eventCloseWindow);
-	//
-	// sv.vari = null;
-	// sv.arr = null;
-	// sv.ui = null;
-	// sv.fu = null;
-	// sv.test = null;
-	// sv = null;
-	//
-	// Ti.API.info('Closed window, sv=' + sv);
-	// };
-}
-
-function createRemove(sv) {
-	sv.removeAllEvent = function() {
+	sv.fu.event_btnclose = function(e) {
+		sv.ui.windowkqsx.close();
+	};
+	sv.fu.event_openwin = function(e) {
+		Ti.API.info('open');
+	};
+	sv.fu.event_closewin = function(e) {
+		sv.ui.ViewIconLeft.removeEventListener('click', sv.fu.event_btnclose);
+		sv.ui.windowkqsx.removeEventListener('open', sv.fu.event_openwin);
+		sv.ui.windowkqsx.removeEventListener('close', sv.fu.event_closewin);
 		sv.vari = null;
 		sv.arr = null;
 		sv.ui = null;
 		sv.fu = null;
-		sv.test = null;
 		sv = null;
-		Ti.API.info('da remove xong ');
 	};
 }
-
-function set_txt(sv) {
-	sv.set_statetxt = function(_state) {
-		if(_state==true){
-			sv.ui.TfMatKhau.blur();
-		sv.ui.TfTaiKhoan.blur();
-		sv.ui.TfEmail.blur();
-		}
-		else{
-			Ti.API.info('cha lam gi');
-		}
-		
-	};
-};

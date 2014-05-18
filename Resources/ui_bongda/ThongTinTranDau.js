@@ -9,29 +9,14 @@ module.exports = function() {
 	(function() {
 		tao_bien(sv);
 		tao_ui(sv);
-		createRemove(sv);
 	})();
 
-	return sv;
+	return sv.ui.Window;
 };
 function tao_bien(sv) {
 	sv.vari = {};
 	sv.arr = {};
 	sv.arr.param1 = [{
-		thoigian : '22:10',
-		ngay : '22/7',
-		tendoi1 : 'Manchester United',
-		tendoi2 : 'Chealse',
-		tyle : ['0', '1', '1/4'],
-		ck : ['0.93', '0.97']
-	}, {
-		thoigian : '20:10',
-		ngay : '21/7',
-		tendoi1 : 'Manchester City',
-		tendoi2 : 'Liverpool',
-		tyle : ['0', '1', '1/4'],
-		ck : ['0.93', '0.97']
-	}, {
 		thoigian : '22:10',
 		ngay : '22/7',
 		tendoi1 : 'Manchester United',
@@ -58,14 +43,59 @@ function tao_bien(sv) {
 	sv.vari.trans2 = sv.vari.trans.rotate(270);
 };
 function tao_ui(sv) {
-	sv.ui.vThongtinTD = require('/ui_bongda/vThongTinTD');
+	// sv.ui.vThongtinTD = require('/ui_bongda/vThongTinTD');
+	sv.ui.Window = Ti.UI.createWindow({
+		backgroundColor : Ti.App.Color.magenta,
+		navBarHidden : true,
+		// keepScreenOn : true,
+		// top : 0,
+	});
+
+	sv.ui.ViewHeader = Ti.UI.createView({
+		backgroundColor : Ti.App.Color.red,
+		width : Ti.App.WidthScreen,
+		height : Ti.App.size(120),
+		top : 0
+	});
+
+	sv.ui.ViewIconLeft = Ti.UI.createView({
+		width : Ti.App.size(120),
+		height : Ti.App.size(120),
+		left : Ti.App.size(0),
+		top : Ti.App.size(0)
+	});
+
+	sv.ui.IconLeft = Ti.UI.createImageView({
+		image : '/assets/images/icon/arrow.png',
+		top : Ti.App.size(35),
+		left : Ti.App.size(30),
+		right : Ti.App.size(30),
+		bottom : Ti.App.size(35)
+	});
+
+	sv.ui.ViewLabelHeader = Ti.UI.createView({
+		height : Ti.App.size(120),
+		top : Ti.App.size(0),
+		left : Ti.App.size(120),
+		right : Ti.App.size(120)
+	});
+
+	sv.ui.LabelHeader = Ti.UI.createLabel({
+		text : 'THÔNG TIN TRẬN ĐẤU',
+		font : {
+			fontSize : Ti.App.size(40),
+			fontWeight : 'bold',
+			fontFamily : 'Aria'
+		},
+		color : Ti.App.Color.white,
+	});
 	sv.ui.ViewTong = Ti.UI.createScrollView({
-		backgroundColor :'transparent',
-		top : 0,
+		backgroundColor : 'transparent',
+		top : Ti.App.size(120),
 		left : 0,
 		showVerticalScrollIndicator : 'true',
-		contentHeight : Ti.UI.FILL,
-		height : Ti.UI.FILL
+		height : Ti.UI.FILL,
+		contentHeight:Ti.UI.FILL
 	});
 	for (var i = 0; i < sv.arr.data.length; i++) {
 		sv.ui.row = Ti.UI.createTableViewRow({
@@ -165,7 +195,7 @@ function tao_ui(sv) {
 					position : 0.5
 				}]
 			},
-			bottom:1
+			bottom : 1
 		});
 		// sv.ui.row.add(sv.ui.ViewChua);
 		sv.ui.row.add(sv.ui.viewRow);
@@ -176,8 +206,9 @@ function tao_ui(sv) {
 		sv.ui.viewRow.add(sv.ui.arrow);
 		sv.ui.row.add(sv.ui.viewBack);
 		for ( j = 0; j < 3; j++) {
-			sv.ui.vThongtin = new sv.ui.vThongtinTD(Ti.App.size(190 * j), sv.arr.param1[j]);
-			sv.ui.viewBack.add(sv.ui.vThongtin);
+			sv.ui.vThongtinTD = tao_list(Ti.App.size(190 * j));
+			sv.ui.vThongtinTD.setParam(sv.arr.param1[0]);
+			sv.ui.viewBack.add(sv.ui.vThongtinTD);
 		};
 		sv.arr.rows.push(sv.ui.row);
 		sv.arr.arrow.push(sv.ui.arrow);
@@ -186,7 +217,10 @@ function tao_ui(sv) {
 	for (var i = 0; i < sv.arr.data.length; i++) {
 		sv.arr.rows[i].addEventListener('click', sv.fu.event_clickrow[i]);
 	}
+	sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
+	sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
 
+	sv.ui.ViewIconLeft.addEventListener('click', sv.fu.eventClickIconLeft);
 	sv.ui.tbl = Ti.UI.createTableView({
 		data : sv.arr.rows,
 		// height : Ti.UI.FILL,
@@ -197,10 +231,19 @@ function tao_ui(sv) {
 		// showVerticalScrollIndicator : true,
 	});
 	sv.ui.ViewTong.add(sv.ui.tbl);
+	sv.ui.Window.add(sv.ui.ViewTong);
+	sv.ui.Window.add(sv.ui.ViewHeader);
+	sv.ui.ViewHeader.add(sv.ui.ViewIconLeft);
+	sv.ui.ViewHeader.add(sv.ui.ViewLabelHeader);
+
+	sv.ui.ViewIconLeft.add(sv.ui.IconLeft);
+	sv.ui.ViewLabelHeader.add(sv.ui.LabelHeader);
 };
 function tao_event(sv) {
-	sv.fu = {};
 	sv.fu.event_clickrow = [];
+	sv.fu.eventClickIconLeft = function(e) {
+		sv.ui.Window.close();
+	};
 	for (var i = 0; i < sv.arr.data.length; i++) {
 		sv.fu.event_clickrow[i] = function(e) {
 			if (e.row.expanded) {
@@ -217,6 +260,33 @@ function tao_event(sv) {
 			}
 		};
 	}
+
+	sv.fu.eventOpenWindow = function() {
+		Ti.API.info('Opened window');
+	};
+
+	sv.fu.eventCloseWindow = function(e) {
+		sv.ui.Window.removeEventListener('open', sv.fu.eventOpenWindow);
+		sv.ui.Window.removeEventListener('close', sv.fu.eventCloseWindow);
+		sv.ui.ViewIconLeft.removeEventListener('click', sv.fu.eventClickIconLeft);
+
+		for (var i = 0; i < sv.arr.data.length; i++) {
+			sv.arr.rows[i].expanded = false;
+			sv.arr.arrow[i].transform = sv.vari.trans2;
+			sv.arr.arrow[i].top = Ti.App.size(25);
+			sv.arr.rows[i].setHeight(Ti.App.size(100));
+			sv.arr.rows[i].removeEventListener('click', sv.fu.event_clickrow[i]);
+		}
+
+		sv.vari = null;
+		sv.arr = null;
+		sv.ui = null;
+		sv.fu = null;
+		sv.test = null;
+		sv = null;
+
+		Ti.API.info('Closed window, sv=' + sv);
+	};
 };
 function set_border(i, sv) {
 	if (i == 0 || i % 2 == 0 || i == (sv.arr.data.length - 1)) {
@@ -225,23 +295,192 @@ function set_border(i, sv) {
 		return 0;
 	}
 };
-function createRemove(sv) {
-	sv.removeAllEvent = function() {
-		sv.removeAllEvent = function() {
-			for (var i = 0; i < sv.arr.data.length; i++) {
-				sv.arr.rows[i].expanded = false;
-				sv.arr.arrow[i].transform = sv.vari.trans2;
-				sv.arr.arrow[i].top = Ti.App.size(25);
-				sv.arr.rows[i].setHeight(Ti.App.size(100));
-				sv.arr.rows[i].removeEventListener('click', sv.fu.event_clickrow[i]);
-			}
-			sv.vari = null;
-			sv.arr = null;
-			sv.ui = null;
-			sv.fu = null;
-			sv = null;
 
-			Ti.API.info('remove event thong tin tran dau');
-		};
+function tao_list(_top) {
+	var viewtong = Ti.UI.createView({
+		width : Ti.App.size(720),
+		height : Ti.App.size(190),
+		backgroundColor : 'transparent',
+		left : 0,
+		top : _top,
+		borderColor : Ti.App.Color.xanhnhat,
+		borderWidth : 1
+	});
+	var hang1 = Ti.UI.createView({
+		width : Ti.App.size(720),
+		height : Ti.App.size(70),
+		backgroundColor : 'transparent',
+		left : 0,
+		top : 0,
+	});
+	var hang2 = Ti.UI.createLabel({
+		width : Ti.App.size(340),
+		// height : Ti.App.size(50),
+		left : Ti.App.size(140),
+		text : 'VS',
+		font : {
+			fontSize : Ti.App.size(30),
+			fontWeight : 'bold'
+		},
+		color : Ti.App.Color.nauden,
+		textAlign : 'left',
+		top : Ti.App.size(70)
+	});
+	var hang3 = Ti.UI.createView({
+		top : Ti.App.size(120),
+		width : Ti.App.size(720),
+		height : Ti.App.size(50),
+		left : 0,
+		backgroundColor : 'transparent',
+	});
+	var lbl_thoigian = Ti.UI.createLabel({
+		left : Ti.App.size(35),
+		font : {
+			fontSize : Ti.App.size(30)
+		},
+		color : Ti.App.Color.nauden,
+		// height : Ti.App.size(70),
+		width : Ti.App.size(85),
+		textAlign : 'left',
+	});
+
+	var lbl_tendoi1 = Ti.UI.createLabel({
+		width : Ti.App.size(340),
+		// height : Ti.App.size(70),
+		left : Ti.App.size(140),
+		color : Ti.App.Color.nauden,
+		textAlign : 'left',
+		font : {
+			fontSize : Ti.App.size(30)
+		},
+	});
+
+	var lbl_tyle1 = Ti.UI.createLabel({
+		width : Ti.App.size(40),
+		left : Ti.App.size(480),
+		// height : Ti.App.size(70),
+		font : {
+			fontSize : Ti.App.size(30),
+			fontWeight : 'bold'
+		},
+		color : Ti.App.Color.nauden,
+		textAlign : 'left',
+	});
+
+	var lbl_ck1 = Ti.UI.createLabel({
+		left : Ti.App.size(620),
+		width : Ti.App.size(75),
+		backgroundGradient : {
+			type : 'linear',
+			colors : [{
+				color : Ti.App.Color.brown,
+				position : 0.5
+			}, {
+				color : Ti.App.Color.brown,
+				position : 0.50
+			}]
+		},
+		font : {
+			fontSize : Ti.App.size(30),
+			fontWeight : 'bold'
+		},
+		color : Ti.App.Color.superwhite,
+		textAlign : 'center',
+		height : Ti.App.size(40),
+	});
+
+	///
+
+	///
+	var lbl_thoigian3 = Ti.UI.createLabel({
+		left : Ti.App.size(35),
+		font : {
+			fontSize : Ti.App.size(30)
+		},
+		color : Ti.App.Color.nauden,
+		// height : Ti.App.size(70),
+		width : Ti.App.size(85),
+		textAlign : 'left',
+	});
+
+	var lbl_tendoi2 = Ti.UI.createLabel({
+		width : Ti.App.size(340),
+		// height : Ti.App.size(70),
+		left : Ti.App.size(140),
+		color : Ti.App.Color.nauden,
+		textAlign : 'left',
+		font : {
+			fontSize : Ti.App.size(30)
+		},
+	});
+
+	var lbl_tyle2 = Ti.UI.createLabel({
+		width : Ti.App.size(40),
+		left : Ti.App.size(480),
+		// height : Ti.App.size(70),
+		font : {
+			fontSize : Ti.App.size(30),
+			fontWeight : 'bold'
+		},
+		color : Ti.App.Color.nauden,
+		textAlign : 'left',
+	});
+
+	var lbl_tyle3 = Ti.UI.createLabel({
+		width : Ti.App.size(60),
+		left : Ti.App.size(540),
+		// height : Ti.App.size(70),
+		font : {
+			fontSize : Ti.App.size(30),
+			fontWeight : 'bold'
+		},
+		color : Ti.App.Color.nauden,
+		textAlign : 'left',
+	});
+
+	var lbl_ck2 = Ti.UI.createLabel({
+		left : Ti.App.size(620),
+		width : Ti.App.size(75),
+		backgroundGradient : {
+			type : 'linear',
+			colors : [{
+				color : Ti.App.Color.brown,
+				position : 0.5
+			}, {
+				color : Ti.App.Color.brown,
+				position : 0.50
+			}]
+		},
+		font : {
+			fontSize : Ti.App.size(30),
+			fontWeight : 'bold'
+		},
+		color : Ti.App.Color.superwhite,
+		textAlign : 'center',
+		height : Ti.App.size(40),
+	});
+	hang1.add(lbl_thoigian);
+	hang1.add(lbl_tendoi1);
+	hang1.add(lbl_tyle1);
+	hang1.add(lbl_ck1);
+	hang3.add(lbl_ck2);
+	hang3.add(lbl_thoigian3);
+	hang3.add(lbl_tendoi2);
+	hang3.add(lbl_tyle2);
+	hang3.add(lbl_tyle3);
+	viewtong.add(hang1);
+	viewtong.add(hang2);
+	viewtong.add(hang3);
+	viewtong.setParam = function(param1) {
+		lbl_tyle1.text = param1.tyle[0];
+		lbl_tendoi1.text = param1.tendoi1;
+		lbl_thoigian.text = param1.thoigian;
+		lbl_ck1.text = param1.ck[0];
+		lbl_thoigian3.text = param1.ngay;
+		lbl_tendoi2.text = param1.tendoi2;
+		lbl_tyle2.text = param1.tyle[1];
+		lbl_tyle3.text = param1.tyle[2];
+		lbl_ck2.text = param1.ck[1];
 	};
-};
+	return viewtong;
+}

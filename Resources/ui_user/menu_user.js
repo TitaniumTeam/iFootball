@@ -1,22 +1,22 @@
 module.exports = function() {
 	var sv = {};
+	sv.ui = {};
 	sv.vari = {};
 	sv.arr = {};
-	sv.ui = {};
 	sv.fu = {};
-	sv.test = {};
-
 	(function() {
-		createVariable(sv);
-		createUI(sv);
+		tao_bien(sv);
+		tao_ui(sv);
+		tao_event(sv);
+		remove_event(sv);
 	})();
-
 	return sv;
 };
-function createVariable(sv) {
-	sv.vari.SoLuongMenu = 7;
-	sv.arr.ParamTen = ['Bảng xếp hạng', 'Thông tin bên lề', 'Cá Cược','Trận ngon ăn', 'Thông tin trận đấu', 'Trân đang diễn ra', 'Trận sắp diễn ra'];
-	sv.arr.ParamIcon = ['/assets/images/icon/icon-quabong.png'];
+///tao bien
+function tao_bien(sv) {
+	sv.vari.SoLuongMenu = 2;
+	sv.arr.ParamTen = ['Thông tin cá nhân', 'Thay đổi thông tin'];
+	sv.arr.ParamIcon = ['/assets/images/icon/user-icon.png'];
 	sv.arr.eventClickViewMenu = [];
 	sv.arr.ViewMenu = [];
 	sv.arr.ViewTenMenu = [];
@@ -24,10 +24,11 @@ function createVariable(sv) {
 	sv.arr.IconMenu = [];
 	sv.vari.LeftMenu = Ti.App.size(40);
 	sv.vari.TopMenu = Ti.App.size(20);
-}
+};
 
-function createUI(sv) {
-	sv.ui.winView2 = Ti.UI.createScrollView({
+/// tao ui
+function tao_ui(sv) {
+	sv.ui.winView3 = Ti.UI.createScrollView({
 		top : 0,
 		height : Ti.App.size(1088),
 		backgroundColor : Ti.App.Color.magenta,
@@ -94,7 +95,7 @@ function createUI(sv) {
 
 	}
 
-	createUI_Event(sv);
+	tao_event(sv);
 
 	for (var i = 0; i < sv.vari.SoLuongMenu; i++) {
 		sv.arr.ViewMenu[i].addEventListener('click', sv.arr.eventClickViewMenu[i]);
@@ -106,69 +107,33 @@ function createUI(sv) {
 		sv.arr.ViewMenu[i].add(sv.arr.ViewTenMenu[i]);
 		sv.arr.ViewTenMenu[i].add(sv.arr.TenMenu[i]);
 	}
-	sv.ui.winView2.add(sv.ui.ViewTong);
-}
-
-function createUI_Event(sv) {
-
+	sv.ui.winView3.add(sv.ui.ViewTong);
+};
+function tao_event(sv) {
 	for (var i = 0; i < sv.vari.SoLuongMenu; i++) {
 		if (i == 0) {
 			sv.arr.eventClickViewMenu[i] = function(e) {
-				var newWindow = new (require('ui_bongda/Home'))();
+				var newWindow = new (require('ui_user/Info'))();
 				newWindow.open();
 			};
 		}
 
 		if (i == 1) {
 			sv.arr.eventClickViewMenu[i] = function(e) {
-				var newWindow = new (require('ui_bongda/News'))();
-				newWindow.open();
-			};
-		}
-
-		if (i == 2) {
-			sv.arr.eventClickViewMenu[i] = function(e) {
-				var newWindow = new (require('ui_bongda/Betting'))();
-				newWindow.open();
-			};
-		}
-
-		if (i == 3) {
-			sv.arr.eventClickViewMenu[i] = function(e) {
-				var newWindow = new (require('ui_bongda/TranNgonAn'))();
-				newWindow.open();
-			};
-		}
-		if (i == 4) {
-			sv.arr.eventClickViewMenu[i] = function(e) {
-				var newWindow = new (require('ui_bongda/ThongTinTranDau'))();
-				newWindow.open();
-			};
-		};
-		if (i == 5) {
-			sv.arr.eventClickViewMenu[i] = function(e) {
-				var newWindow = new (require('ui_bongda/keo_saptoi'))();
-				newWindow.open();
-			};
-		}
-
-		if (i == 6) {
-			sv.arr.eventClickViewMenu[i] = function(e) {
-				var newWindow = new (require('ui_bongda/keo_ts_tructiep'))();
+				var newWindow = new (require('ui_user/ThongTinCaNhan'))();
 				newWindow.open();
 			};
 		}
 
 	}
-
-}
-
-function RemoveAllEvent(sv) {
+};
+function remove_event(sv) {
 	sv.removeAllEvent = function(e) {
-		for (var i = 0; i < sv.vari.SoLuongMenu; i++) {
-			sv.arr.ViewMenu[i].removeEventListener('click', sv.arr.eventClickViewMenu[i]);
-		}
-		Ti.API.info('Đã remove xong');
+		sv.removeAllEvent = function(e) {
+			for (var i = 0; i < sv.vari.SoLuongMenu; i++) {
+				sv.arr.ViewMenu[i].removeEventListener('click', sv.arr.eventClickViewMenu[i]);
+			}
+			Ti.API.info('Đã remove xong');
+		};
 	};
 };
-

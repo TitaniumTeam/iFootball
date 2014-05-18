@@ -28,12 +28,18 @@ function tao_bien(sv) {
 
 /// tao ui
 function tao_ui(sv) {
+	sv.ui.winView1 = Ti.UI.createScrollView({
+		top : 0,
+		height : Ti.App.size(1088),
+		backgroundColor : Ti.App.Color.magenta,
+		bottom : Ti.App.size(192)
+	});
 	sv.ui.ViewTong = Ti.UI.createView({
 		width : Ti.App.size(720),
 		height : Ti.UI.FILL,
 		backgroundColor : 'transparent',
-		top:0,
-		bottom:Ti.App.size(212)
+		top : 0,
+		bottom : Ti.App.size(212)
 	});
 
 	for (var i = 0; i < sv.vari.SoLuongMenu; i++) {
@@ -45,6 +51,7 @@ function tao_ui(sv) {
 				backgroundColor : Ti.App.Color.white,
 				left : sv.vari.LeftMenu,
 				top : sv.vari.TopMenu,
+				backgroundSelectedColor : Ti.App.Color.xanhnhat
 			});
 			sv.vari.LeftMenu = Ti.App.size(40 + ((i + 1) % 2) * 40 + ((i + 1) % 2) * 300);
 		} else {
@@ -54,6 +61,7 @@ function tao_ui(sv) {
 				backgroundColor : Ti.App.Color.white,
 				left : sv.vari.LeftMenu,
 				top : sv.vari.TopMenu,
+				backgroundSelectedColor : Ti.App.Color.xanhnhat
 			});
 			sv.vari.TopMenu = Ti.App.size(20 + ((i + 1) / 2) * 300 + ((i + 1) / 2) * 20);
 			sv.vari.LeftMenu = Ti.App.size(40 + ((i + 1) % 2) * 40 + ((i + 1) % 2) * 300);
@@ -65,13 +73,14 @@ function tao_ui(sv) {
 			height : Ti.App.size(180),
 			left : Ti.App.size(60),
 			image : sv.arr.ParamIcon[0],
+			touchEnabled:false
 		});
 
 		sv.arr.ViewTenMenu[i] = Ti.UI.createView({
 			width : Ti.App.size(300),
 			top : Ti.App.size(225),
 			height : Ti.App.size(75),
-			left : Ti.App.size(0),
+			left : Ti.App.size(0),touchEnabled:false
 		});
 
 		sv.arr.TenMenu[i] = Ti.UI.createLabel({
@@ -97,6 +106,7 @@ function tao_ui(sv) {
 		sv.arr.ViewMenu[i].add(sv.arr.ViewTenMenu[i]);
 		sv.arr.ViewTenMenu[i].add(sv.arr.TenMenu[i]);
 	}
+	sv.ui.winView1.add(sv.ui.ViewTong);
 };
 function tao_event(sv) {
 	for (var i = 0; i < sv.vari.SoLuongMenu; i++) {
@@ -154,10 +164,10 @@ function tao_event(sv) {
 function remove_event(sv) {
 	sv.removeAllEvent = function(e) {
 		sv.removeAllEvent = function(e) {
-		for (var i = 0; i < sv.vari.SoLuongMenu; i++) {
-			sv.arr.ViewMenu[i].removeEventListener('click', sv.arr.eventClickViewMenu[i]);
-		}
-		Ti.API.info('Đã remove xong');
-	};
+			for (var i = 0; i < sv.vari.SoLuongMenu; i++) {
+				sv.arr.ViewMenu[i].removeEventListener('click', sv.arr.eventClickViewMenu[i]);
+			}
+			Ti.API.info('Đã remove xong');
+		};
 	};
 };

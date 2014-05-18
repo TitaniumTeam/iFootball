@@ -105,7 +105,6 @@ function tao_ui(sv) {
 }
 
 function createUI_Event(sv) {
-// sv.fu = {};
 	sv.fu.event_btnclose = function(e) {
 		sv.ui.windowkqsx.close();
 	};

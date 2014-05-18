@@ -9,10 +9,9 @@ module.exports = function() {
 	(function() {
 		createVariable(sv);
 		createUI(sv);
-		createRemove(sv);
 	})();
 
-	return sv;
+	return sv.ui.windowkqsx;
 };
 /**
  * Khởi tạo biến
@@ -21,33 +20,64 @@ function createVariable(sv) {
 }
 
 function createUI(sv) {
-	sv.ui.Window = Ti.UI.createWindow({
-	backgroundColor : Ti.App.Color.magenta,
-	navBarHidden : true,
+	sv.ui.windowkqsx = Titanium.UI.createWindow({
+		navBarHidden : true
 	});
+	sv.ui.ViewHeader = Ti.UI.createView({
+		backgroundColor : Ti.App.Color.red,
+		width : Ti.App.size(720),
+		height : Ti.App.size(120),
+		top : 0
+	});
+
+	sv.ui.ViewIconLeft = Ti.UI.createView({
+		width : Ti.App.size(120),
+		height : Ti.App.size(120),
+		left : Ti.App.size(0),
+		top : Ti.App.size(0)
+	});
+
+	sv.ui.IconLeft = Ti.UI.createImageView({
+		image : '/assets/images/icon/arrow.png',
+		top : Ti.App.size(35),
+		left : Ti.App.size(30),
+		right : Ti.App.size(30),
+		bottom : Ti.App.size(35)
+	});
+
+	sv.ui.ViewLabelHeader = Ti.UI.createView({
+		height : Ti.App.size(120),
+		top : Ti.App.size(0),
+		left : Ti.App.size(120),
+		right : Ti.App.size(120)
+	});
+
+	sv.ui.windowkqsx.add(sv.ui.ViewHeader);
+	sv.ui.ViewHeader.add(sv.ui.ViewIconLeft);
+	sv.ui.ViewHeader.add(sv.ui.ViewLabelHeader);
+
+	sv.ui.ViewIconLeft.add(sv.ui.IconLeft);
+
 	sv.ui.ViewTong = Titanium.UI.createView({
-		top : 0,
+		top : Ti.App.size(120),
 		left : 0,
 		width : Ti.App.size(720),
-		height : Ti.UI.SIZE,
+		height : Ti.UI.FILL,
 	});
 	sv.ui.scrollview = Ti.UI.createScrollView({
 		backgroundColor : Ti.App.Color.magenta,
-		// width : Ti.App.widthScreen,
-		// height : Ti.App.heightScreen,
 		top : Ti.App.size(500),
 		left : 0,
 		width : Ti.App.size(720),
-		height : Ti.UI.SIZE,
+		height : Ti.UI.FILL,
 		showVerticalScrollIndicator : true
 	});
 
-	
 	sv.ui.viewAvatar = Titanium.UI.createView({
 		top : 0,
 		left : 0,
 		height : Ti.App.size(500),
-		backgroundColor : Ti.App.Color.red
+		backgroundColor : 'red'
 	});
 	sv.ui.circle = Titanium.UI.createImageView({
 		image : '/assets/images/icon/xxxjav.png',
@@ -76,6 +106,7 @@ function createUI(sv) {
 		top : Ti.App.size(260),
 		// bottom : Ti.App.size(210),
 		color : Ti.App.Color.superwhite,
+		top : Ti.App.size(20)
 	});
 
 	sv.ui.LabelThongTin = Ti.UI.createLabel({
@@ -420,13 +451,9 @@ function createUI(sv) {
 	});
 
 	createUI_Event(sv);
-
-	// sv.ui.IconMenu.addEventListener('click', sv.fu.eventClickIconMenu);
-	sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
-	sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
-
-	sv.ui.Window.add(sv.ui.ViewTong);
-	sv.ui.Window.add(sv.ui.ViewHeader);
+	sv.ui.ViewIconLeft.addEventListener('click', sv.fu.event_btnclose);
+	sv.ui.windowkqsx.addEventListener('open', sv.fu.event_openwin);
+	sv.ui.windowkqsx.addEventListener('close', sv.fu.event_closewin);
 
 	sv.ui.scrollview.add(sv.ui.ViewUngDung);
 	sv.ui.ViewTong.add(sv.ui.scrollview);
@@ -465,39 +492,26 @@ function createUI(sv) {
 	sv.ui.ViewIconRow3.add(sv.ui.IconRow3);
 	sv.ui.ViewIconRow4.add(sv.ui.IconRow4);
 	sv.ui.ViewIconRow5.add(sv.ui.IconRow5);
+	sv.ui.windowkqsx.add(sv.ui.ViewTong);
 
 }
 
 function createUI_Event(sv) {
-	sv.fu = {};
-
-	sv.fu.eventClickIconMenu = function(e) {
-		var newWindow = new (require('ui/DangNhap'))();
-		newWindow.open();
+	sv.fu.event_btnclose = function(e) {
+		sv.ui.windowkqsx.close();
 	};
-
-	sv.fu.eventOpenWindow = function(e) {
-		Ti.API.info('Opened window');
+	sv.fu.event_openwin = function(e) {
+		Ti.API.info('open');
 	};
-
-	sv.fu.eventCloseWindow = function(e) {
-		// sv.ui.IconMenu.removeEventListener('click', sv.fu.eventClickIconMenu);
-		// sv.ui.Window.removeEventListener('open', sv.fu.eventOpenWindow);
-		// sv.ui.Window.removeEventListener('close', sv.fu.eventCloseWindow);
-
+	sv.fu.event_closewin = function(e) {
+		sv.ui.ViewIconLeft.removeEventListener('click', sv.fu.event_btnclose);
+		sv.ui.windowkqsx.removeEventListener('open', sv.fu.event_openwin);
+		sv.ui.windowkqsx.removeEventListener('close', sv.fu.event_closewin);
 		sv.vari = null;
 		sv.arr = null;
 		sv.ui = null;
 		sv.fu = null;
-		sv.test = null;
 		sv = null;
-
-		Ti.API.info('Closed window, sv=' + sv);
 	};
 }
 
-function createRemove(sv) {
-	sv.removeAllEvent = function() {
-		Ti.API.info('da remove xong ');
-	};
-}

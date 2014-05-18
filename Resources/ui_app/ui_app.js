@@ -15,6 +15,7 @@ function tao_bien(sv) {
 	sv.vari = {};
 	sv.vari.menu_soxo = new (require('/ui_soxo/menu_soxo'));
 	sv.vari.UngDungBongDa = new (require('/ui_bongda/UngDungBongDa'));
+	sv.vari.menu_user=new (require('/ui_user/menu_user'));
 
 };
 function tao_ui(sv) {
@@ -23,20 +24,9 @@ function tao_ui(sv) {
 		// fullscreen : true,
 		navBarHidden : true
 	});
-	sv.ui.winView1 = Ti.UI.createScrollView({
-		top : 0,
-		height : Ti.App.size(1088),
-		backgroundColor : Ti.App.Color.magenta,
-		bottom : Ti.App.size(192)
-	});
+	
 	//-------Views to hold content-------
 
-	sv.ui.winView2 = Ti.UI.createScrollView({
-		top : 0,
-		height : Ti.App.size(1088),
-		backgroundColor : Ti.App.Color.magenta,
-		bottom : Ti.App.size(192)
-	});
 
 	sv.ui.winView3 = Ti.UI.createScrollView({
 		top : 0,
@@ -61,7 +51,7 @@ function tao_ui(sv) {
 
 	//Tab container holds the custom tabgroup
 	sv.ui.scrollableView = Titanium.UI.createScrollableView({
-		views : [sv.ui.winView1, sv.ui.winView2, sv.ui.winView3, sv.ui.winView4, sv.ui.winView5],
+		views : [sv.vari.menu_soxo.ui.winView1, sv.vari.UngDungBongDa.ui.winView2, sv.vari.menu_user.ui.winView3, sv.ui.winView4, sv.ui.winView5],
 		showPagingControl : false,
 		currentPage : 0
 	});
@@ -227,8 +217,8 @@ function tao_sukien(sv) {
 	};
 	sv.fu.evt_openwin = function(e) {
 		Ti.API.info('open window');
-		sv.ui.winView2.add(sv.vari.UngDungBongDa.ui.ViewTong);
-		sv.ui.winView1.add(sv.vari.menu_soxo.ui.ViewTong);
+		// sv.ui.winView2.add(sv.vari.UngDungBongDa.ui.ViewTong);
+		// sv.ui.winView1.add(sv.vari.menu_soxo.ui.ViewTong);
 	};
 	sv.fu.evt_closewin = function(e) {
 		sv.ui.tab1.removeEventListener('click', sv.fu.evt_tab1);
@@ -240,13 +230,6 @@ function tao_sukien(sv) {
 		sv.ui.win.removeEventListener('close', sv.fu.evt_closewin);
 		sv.ui.scrollableView.removeEventListener('scrollend', sv.fu.evt_slidemenu);
 	};
-};
-function tab_click(t1, t2, t3, t4, t5) {
-	t1.hide();
-	t2.hide();
-	t3.hide();
-	t4.hide();
-	t5.show();
 };
 function tabtop_change(t1, t2, t3, t4, t5) {
 	t1.top = 3;

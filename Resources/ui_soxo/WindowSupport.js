@@ -182,13 +182,16 @@ function tao_ui(sv) {
 		right : 0
 	});
 
-	sv.ui.rowchild = require('/ui_soxo/RowChild');
-	sv.ui.rowc1 = new sv.ui.rowchild(0, 0, Ti.App.size(220), Ti.App.size(80), 'Số nhịp', true);
+	// sv.ui.rowchild = require('/ui_soxo/RowChild');
+	sv.ui.rowc1 = rowchild(0, 0, Ti.App.size(220), Ti.App.size(80),true);
 	sv.ui.rowc1.setColor_Line(Ti.App.Color.nauden);
-	sv.ui.rowc2 = new sv.ui.rowchild(0, Ti.App.size(220), Ti.App.size(270), Ti.App.size(80), 'Về giải', true);
+	sv.ui.rowc1.setText('Số nhịp');
+	sv.ui.rowc2 = rowchild(0, Ti.App.size(220), Ti.App.size(270), Ti.App.size(80), true);
 	sv.ui.rowc2.setColor_Line(Ti.App.Color.nauden);
-	sv.ui.rowc3 = new sv.ui.rowchild(0, Ti.App.size(490), Ti.App.size(230), Ti.App.size(80), 'Ngày', false);
+	sv.ui.rowc2.setText('Về giải');
+	sv.ui.rowc3 = rowchild(0, Ti.App.size(490), Ti.App.size(230), Ti.App.size(80), false);
 	sv.ui.rowc3.setColor_Line(Ti.App.Color.nauden);
+	sv.ui.rowc3.setText('Ngày');
 	sv.ui.demuc.add(sv.ui.rowc1);
 	sv.ui.demuc.add(sv.ui.rowc2);
 	sv.ui.demuc.add(sv.ui.rowc3);
@@ -278,7 +281,6 @@ function tao_ui(sv) {
 
 };
 function tao_event(sv) {
-	// sv.fu = {};
 	sv.fu.event_closewin = function(e) {
 		sv.ui.windowkqsx.close();
 	};
@@ -333,3 +335,49 @@ function view_click(_tbl1, _tbl2, _tbl3) {
 	_tbl2.visible = false;
 	_tbl3.visible = false;
 }
+function rowchild(_top, _left, _width, _height, _visible, _border, _bg, _border2){
+	var view_contain = Ti.UI.createView({
+		width : _width,
+		height : _height,
+		top : _top,
+		left : _left,
+	});
+	var line_doc = Ti.UI.createView({
+		width : 1,
+		height : Ti.App.size(70),
+		right : 0,
+		backgroundColor : Ti.App.Color.magenta,
+		visible : _visible
+	});
+	view_contain.add(line_doc);
+	var lbl_kq = Ti.UI.createLabel({
+		color : Ti.App.Color.nauden,
+		textAlign : 'center',
+		font : {
+			fontSize : Ti.App.size(40)
+		}
+	});
+	view_contain.add(lbl_kq);
+	view_contain.setColor_Line = function(_color) {
+		line_doc.backgroundColor = _color;
+	};
+	if (_border == true) {
+		view_contain.borderColor = 'black';
+		view_contain.borderRadius = 3;
+		view_contain.borderWidth = 1;
+	};
+	if (_border2 == true) {
+		view_contain.borderWidth = 1;
+		view_contain.borderColor = 'black';
+	};
+	if (_bg == true) {
+		view_contain.backgroundColor = Ti.App.Color.red;
+		lbl_kq.color = Ti.App.Color.superwhite;
+	}
+	
+	view_contain.setText=function(_conso){
+		lbl_kq.text=_conso;
+	};
+	return view_contain;
+};
+
