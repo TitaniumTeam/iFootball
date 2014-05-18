@@ -8,7 +8,7 @@
     <description>not specified</description>
     <copyright>2014 by SCN</copyright>
     <icon>appicon.png</icon>
-    <fullscreen>false</fullscreen>
+    <fullscreen>true</fullscreen>
     <navbar-hidden>false</navbar-hidden>
     <analytics>true</analytics>
     <guid>96457246-859e-4e88-89a7-1db08d5f1a1c</guid>

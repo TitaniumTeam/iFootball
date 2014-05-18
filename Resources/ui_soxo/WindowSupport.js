@@ -7,7 +7,6 @@ module.exports = function() {
 	(function() {
 		tao_bien(sv);
 		tao_ui(sv);
-		createRemove(sv);
 	})();
 	return sv;
 };
@@ -36,8 +35,57 @@ function tao_bien(sv) {
 /*khoi tao UI
  */
 function tao_ui(sv) {
+	sv.ui.windowkqsx = Titanium.UI.createWindow({
+		backgroundColor:Ti.App.Color.magenta,
+		navBarHidden:true
+	});
+	sv.ui.ViewHeader = Ti.UI.createView({
+		backgroundColor : Ti.App.Color.red,
+		width : Ti.App.size(720),
+		height : Ti.App.size(120),
+		top : 0
+	});
+
+	sv.ui.ViewIconLeft = Ti.UI.createView({
+		width : Ti.App.size(120),
+		height : Ti.App.size(120),
+		left : Ti.App.size(0),
+		top : Ti.App.size(0)
+	});
+
+	sv.ui.IconLeft = Ti.UI.createImageView({
+		image : '/assets/images/icon/arrow.png',
+		top : Ti.App.size(35),
+		left : Ti.App.size(30),
+		right : Ti.App.size(30),
+		bottom : Ti.App.size(35)
+	});
+
+	sv.ui.ViewLabelHeader = Ti.UI.createView({
+		height : Ti.App.size(120),
+		top : Ti.App.size(0),
+		left : Ti.App.size(120),
+		right : Ti.App.size(120)
+	});
+
+	sv.ui.LabelHeader = Ti.UI.createLabel({
+		text : 'DÃY SỐ LÂU VỀ',
+		font : {
+			fontSize : Ti.App.size(40),
+			fontWeight : 'bold',
+		},
+		color : Ti.App.Color.superwhite,
+	});
+
+	sv.ui.windowkqsx.add(sv.ui.ViewHeader);
+	sv.ui.ViewHeader.add(sv.ui.ViewIconLeft);
+	sv.ui.ViewHeader.add(sv.ui.ViewLabelHeader);
+
+	sv.ui.ViewIconLeft.add(sv.ui.IconLeft);
+	sv.ui.ViewLabelHeader.add(sv.ui.LabelHeader);
+
 	sv.ui.scrollView = Ti.UI.createScrollView({
-		top : 0,
+		top : Ti.App.size(120),
 		width : Ti.App.size(720),
 		left : 0,
 		right : 0,
@@ -50,6 +98,7 @@ function tao_ui(sv) {
 		disableBounce : true,
 		horizontalBounce : true,
 	});
+	sv.ui.windowkqsx.add(sv.ui.scrollView);
 	//
 	/*view tong1
 	 */
@@ -221,11 +270,39 @@ function tao_ui(sv) {
 	sv.ui.table_view1.addEventListener('click', sv.fu.event_clicktbl1);
 	sv.ui.view_choose2.addEventListener('click', sv.fu.event_click_view2);
 	sv.ui.table_view2.addEventListener('click', sv.fu.event_clicktbl2);
+	sv.ui.ViewIconLeft.addEventListener('click', sv.fu.event_closewin);
+
+	sv.ui.windowkqsx.addEventListener('open', sv.fu.event_openwin);
+	sv.ui.windowkqsx.addEventListener('close', sv.fu.event_close);
 	//////
 
 };
 function tao_event(sv) {
 	sv.fu = {};
+	sv.fu.event_closewin = function(e) {
+		sv.ui.windowkqsx.close();
+	};
+	sv.fu.event_openwin = function(e) {
+		Ti.API.info('open win');
+	};
+	sv.fu.event_close = function(e) {
+		sv.ui.arrow1.removeEventListener('click', sv.fu.event_click_view);
+		sv.ui.arrow2.removeEventListener('click', sv.fu.event_click_view1);
+		sv.ui.view_choose.removeEventListener('click', sv.fu.event_click_view);
+		sv.ui.table_view.removeEventListener('click', sv.fu.event_clicktbl);
+		sv.ui.view_choose1.removeEventListener('click', sv.fu.event_click_view1);
+		sv.ui.table_view1.removeEventListener('click', sv.fu.event_clicktbl1);
+		sv.ui.view_choose2.removeEventListener('click', sv.fu.event_click_view2);
+		sv.ui.table_view2.removeEventListener('click', sv.fu.event_clicktbl2);
+		sv.ui.ViewIconLeft.removeEventListener('click', sv.fu.event_closewin);
+		sv.ui.windowkqsx.removeEventListener('open', sv.fu.event_openwin);
+		sv.ui.windowkqsx.removeEventListener('close', sv.fu.event_close);
+		sv.vari = null;
+		sv.arr = null;
+		sv.ui = null;
+		sv.fu = null;
+		sv = null;
+	};
 	sv.fu.event_click_view = function(e) {
 		view_click(sv.ui.table_view, sv.ui.table_view1, sv.ui.table_view2);
 	};
@@ -255,23 +332,4 @@ function view_click(_tbl1, _tbl2, _tbl3) {
 	_tbl1.visible = true;
 	_tbl2.visible = false;
 	_tbl3.visible = false;
-}
-
-function createRemove(sv) {
-	sv.removeAllEvent = function() {
-		sv.ui.arrow1.removeEventListener('click', sv.fu.event_click_view);
-		sv.ui.arrow2.removeEventListener('click', sv.fu.event_click_view1);
-		sv.ui.view_choose.removeEventListener('click', sv.fu.event_click_view);
-		sv.ui.table_view.removeEventListener('click', sv.fu.event_clicktbl);
-		sv.ui.view_choose1.removeEventListener('click', sv.fu.event_click_view1);
-		sv.ui.table_view1.removeEventListener('click', sv.fu.event_clicktbl1);
-		sv.ui.view_choose2.removeEventListener('click', sv.fu.event_click_view2);
-		sv.ui.table_view2.removeEventListener('click', sv.fu.event_clicktbl2);
-		Ti.API.info('remove event wd support');
-		sv.vari = null;
-		sv.arr = null;
-		sv.ui = null;
-		sv.fu = null;
-		sv = null;
-	};
 }

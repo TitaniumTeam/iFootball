@@ -7,7 +7,6 @@ module.exports = function() {
 	(function() {
 		taobien(sv);
 		tao_ui(sv);
-		createRemove(sv);
 	})();
 	return sv;
 };
@@ -18,8 +17,7 @@ function taobien(sv) {
 	sv.arr.datarow = [];
 	sv.arr.height = [Ti.App.size(120), Ti.App.size(200)];
 	sv.arr.dayso1 = ['12', '12', '12', '12', '12', '12', '12', '12', '12'];
-	sv.arr.param = ['09808', '09808', '09808', '09808', '09808', '09990', '09788', '04358', '09899', '09111', '0978', '0435'
-	, '0981', '0911', '0978', '0435', '0981', '0911', '0978', '0435', '091', '091', '097', '04', '09', '01', '09'];
+	sv.arr.param = ['09808', '09808', '09808', '09808', '09808', '09990', '09788', '04358', '09899', '09111', '0978', '0435', '0981', '0911', '0978', '0435', '0981', '0911', '0978', '0435', '091', '091', '097', '04', '09', '01', '09'];
 }
 
 /*
@@ -27,18 +25,58 @@ function taobien(sv) {
  */
 function tao_ui(sv) {
 
-	sv.ui.Viewtong = Titanium.UI.createView({
-		width : Ti.App.size(720),
-		height : Ti.UI.FILL,
-		left : 0,
-		top : 0,
-		backgroundColor : 'transparent'
+	sv.ui.Viewtong = Titanium.UI.createWindow({navBarHidden:true
 	});
+	sv.ui.ViewHeader = Ti.UI.createView({
+		backgroundColor : Ti.App.Color.red,
+		width : Ti.App.size(720),
+		height : Ti.App.size(120),
+		top : 0
+	});
+
+	sv.ui.ViewIconLeft = Ti.UI.createView({
+		width : Ti.App.size(120),
+		height : Ti.App.size(120),
+		left : Ti.App.size(0),
+		top : Ti.App.size(0)
+	});
+
+	sv.ui.IconLeft = Ti.UI.createImageView({
+		image : '/assets/images/icon/arrow.png',
+		top : Ti.App.size(35),
+		left : Ti.App.size(30),
+		right : Ti.App.size(30),
+		bottom : Ti.App.size(35)
+	});
+
+	sv.ui.ViewLabelHeader = Ti.UI.createView({
+		height : Ti.App.size(120),
+		top : Ti.App.size(0),
+		left : Ti.App.size(120),
+		right : Ti.App.size(120)
+	});
+
+	sv.ui.LabelHeader = Ti.UI.createLabel({
+		text : 'TRỰC TIẾP',
+		font : {
+			fontSize : Ti.App.size(40),
+			fontWeight : 'bold',
+		},
+		color : Ti.App.Color.superwhite,
+	});
+
+	sv.ui.Viewtong.add(sv.ui.ViewHeader);
+	sv.ui.ViewHeader.add(sv.ui.ViewIconLeft);
+	sv.ui.ViewHeader.add(sv.ui.ViewLabelHeader);
+
+	sv.ui.ViewIconLeft.add(sv.ui.IconLeft);
+	sv.ui.ViewLabelHeader.add(sv.ui.LabelHeader);
+	//////
 	sv.ui.View1 = Ti.UI.createView({
 		backgroundColor : 'red',
 		width : Ti.App.size(720),
 		height : Ti.App.size(100),
-		top : 0
+		top : Ti.App.size(120)
 	});
 	sv.ui.lbl_sxmb = Titanium.UI.createLabel({
 		top : Ti.App.size(10),
@@ -92,7 +130,7 @@ function tao_ui(sv) {
 		width : Ti.App.size(720),
 		height : Ti.App.size(100),
 		left : 0,
-		top : Ti.App.size(100),
+		top : Ti.App.size(220),
 		backgroundColor : Ti.App.Color.magenta
 	});
 	sv.ui.lbl_tg = Titanium.UI.createLabel({
@@ -118,19 +156,19 @@ function tao_ui(sv) {
 		}
 	});
 	sv.ui.scrollView = Ti.UI.createScrollView({
-		top : Ti.App.size(200),
+		top : Ti.App.size(320),
 		width : Ti.App.size(720),
 		left : 0,
 		right : 0,
 		layout : 'vertical',
 		horizontalWrap : false,
 		scrollType : 'vertical',
-		backgroundColor : 'transparent',
+		backgroundColor : Ti.App.Color.superwhite,
 		showHorizontalScrollIndicator : false,
 		showVerticalScrollIndicator : true,
 		disableBounce : true,
 		horizontalBounce : true,
-		height:Ti.UI.FILL
+		height : Ti.UI.FILL
 	});
 
 	sv.ui.bangkq = bangketqua();
@@ -244,9 +282,30 @@ function tao_ui(sv) {
 	sv.ui.Viewtong.add(sv.ui.view_title);
 	sv.ui.Viewtong.add(sv.ui.View1);
 	sv.ui.Viewtong.add(sv.ui.scrollView);
+	createUI_Event(sv);
+	sv.ui.ViewIconLeft.addEventListener('click', sv.fu.event_btnclose);
+	sv.ui.Viewtong.addEventListener('open', sv.fu.event_openwin);
+	sv.ui.Viewtong.addEventListener('close', sv.fu.event_closewin);
 };
 function createUI_Event(sv) {
-}
+	sv.fu = {};
+	sv.fu.event_btnclose = function(e) {
+		sv.ui.Viewtong.close();
+	};
+	sv.fu.event_openwin = function(e) {
+		Ti.API.info('open');
+	};
+	sv.fu.event_closewin = function(e) {
+		sv.ui.ViewIconLeft.removeEventListener('click', sv.fu.event_btnclose);
+		sv.ui.Viewtong.removeEventListener('open', sv.fu.event_openwin);
+		sv.ui.Viewtong.removeEventListener('close', sv.fu.event_closewin);
+		sv.vari = null;
+		sv.arr = null;
+		sv.ui = null;
+		sv.fu = null;
+		sv = null;
+	};
+};
 
 function setbg(i, _bg) {
 	if (i == _bg) {
@@ -259,18 +318,8 @@ function setleft(j, _left) {
 		return Ti.App.size(1);
 	} else
 		return Ti.App.size(74 * j);
-}
+};
 
-function createRemove(sv) {
-	sv.removeAllEvent = function() {
-		Ti.API.info('remove event keo wd realtime');
-		sv.vari = null;
-		sv.arr = null;
-		sv.ui = null;
-		sv.fu = null;
-		sv = null;
-	};
-}
 
 function bangketqua() {
 	var h1 = Ti.App.size(120);
@@ -577,7 +626,7 @@ function bangketqua() {
 		}
 
 	};
-	viewchua.getDatalbl=function(){
+	viewchua.getDatalbl = function() {
 		return data_lbl;
 	};
 
@@ -609,11 +658,11 @@ function lblketqua(_left, _top) {
 	lbl.top = _top;
 	return lbl;
 };
-function currDate(){
+function currDate() {
 	var currTime = new Date();
-	var ngay =currTime.getDate();
+	var ngay = currTime.getDate();
 	var thang = currTime.getMonth() + 1;
 	var nam = currTime.getFullYear();
-	var currdate=ngay+'/'+thang+'/'+nam;
+	var currdate = ngay + '/' + thang + '/' + nam;
 	return currdate;
 }

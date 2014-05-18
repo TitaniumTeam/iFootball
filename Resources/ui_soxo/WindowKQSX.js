@@ -7,7 +7,6 @@ module.exports = function() {
 	(function() {
 		tao_bien(sv);
 		tao_ui(sv);
-		createRemove(sv);
 	})();
 	return sv;
 };
@@ -15,24 +14,73 @@ module.exports = function() {
 function tao_bien(sv) {
 	sv.arr.datarow = [];
 	sv.arr.height = [Ti.App.size(120), Ti.App.size(200)];
-	sv.arr.param = ['09808', '09808', '09808', '09808', '09808', '09990', '09788', '04358', '09899', '09111', '0978', '0435'
-	, '0981', '0911', '0978', '0435', '0981', '0911', '0978', '0435', '091', '091', '097', '04', '09', '01', '09'];
+	sv.arr.param = ['09808', '09808', '09808', '09808', '09808', '09990', '09788', '04358', '09899', '09111', '0978', '0435', '0981', '0911', '0978', '0435', '0981', '0911', '0978', '0435', '091', '091', '097', '04', '09', '01', '09'];
 };
 /**khoi tao UI
  * */
 function tao_ui(sv) {
-	sv.ui.windowkqsx=Titanium.UI.createWindow();
-	sv.ui.button=Titanium.UI.createButton({
-		width:Ti.UI.SIZE,
-		height:Ti.UI.SIZE,
-		title:'exit',
-		color:'black',
-		zIndex:10,
-		top:10
+	sv.ui.windowkqsx = Titanium.UI.createWindow({
+		navBarHidden:true
 	});
-	sv.ui.windowkqsx.add(sv.ui.button);
+	sv.ui.ViewHeader = Ti.UI.createView({
+		backgroundColor : Ti.App.Color.red,
+		width : Ti.App.size(720),
+		height : Ti.App.size(120),
+		top : 0
+	});
+
+	sv.ui.ViewIconLeft = Ti.UI.createView({
+		width : Ti.App.size(120),
+		height : Ti.App.size(120),
+		left : Ti.App.size(0),
+		top : Ti.App.size(0)
+	});
+
+	sv.ui.IconLeft = Ti.UI.createImageView({
+		image : '/assets/images/icon/arrow.png',
+		top : Ti.App.size(35),
+		left : Ti.App.size(30),
+		right : Ti.App.size(30),
+		bottom : Ti.App.size(35)
+	});
+
+	sv.ui.ViewLabelHeader = Ti.UI.createView({
+		height : Ti.App.size(120),
+		top : Ti.App.size(0),
+		left : Ti.App.size(120),
+		right : Ti.App.size(120)
+	});
+
+	sv.ui.LabelHeader = Ti.UI.createLabel({
+		text : 'Xổ số Miền Bắc',
+		font : {
+			fontSize : Ti.App.size(40),
+			fontWeight : 'bold',
+		},
+		color : Ti.App.Color.superwhite,
+		top : Ti.App.size(20)
+	});
+	sv.ui.LabelFooter = Ti.UI.createLabel({
+		text : 'Ngay' + currDate(),
+		font : {
+			fontSize : Ti.App.size(30),
+			fontWeight : 'bold',
+		},
+		color : Ti.App.Color.superwhite,
+		bottom : Ti.App.size(20)
+	});
+
+	sv.ui.windowkqsx.add(sv.ui.ViewHeader);
+	sv.ui.ViewHeader.add(sv.ui.LabelFooter);
+	sv.ui.ViewHeader.add(sv.ui.ViewIconLeft);
+	sv.ui.ViewHeader.add(sv.ui.ViewLabelHeader);
+
+	sv.ui.ViewIconLeft.add(sv.ui.IconLeft);
+	sv.ui.ViewLabelHeader.add(sv.ui.LabelHeader);
+	
+	
 	sv.ui.scrollView = Ti.UI.createScrollView({
-		top : 0,
+		top : Ti.App.size(120),
 		width : Ti.App.size(720),
 		left : 0,
 		right : 0,
@@ -46,23 +94,28 @@ function tao_ui(sv) {
 		horizontalBounce : true,
 	});
 	sv.ui.windowkqsx.add(sv.ui.scrollView);
-	sv.ui.bangkq =bangketqua();
+	sv.ui.bangkq = bangketqua();
 	sv.ui.scrollView.add(sv.ui.bangkq);
 	sv.ui.bangkq.setKQ(sv.arr.param);
 	////
 	createUI_Event(sv);
-sv.ui.button.addEventListener('click',function(){
-	sv.ui.windowkqsx.close();
-});
+	sv.ui.ViewIconLeft.addEventListener('click', sv.fu.event_btnclose);
+	sv.ui.windowkqsx.addEventListener('open', sv.fu.event_openwin);
+	sv.ui.windowkqsx.addEventListener('close', sv.fu.event_closewin);
 }
 
 function createUI_Event(sv) {
-	
-}
-
-function createRemove(sv) {
-	sv.removeAllEvent = function() {
-		Ti.API.info('remove event kqsx');
+sv.fu = {};
+	sv.fu.event_btnclose = function(e) {
+		sv.ui.windowkqsx.close();
+	};
+	sv.fu.event_openwin = function(e) {
+		Ti.API.info('open');
+	};
+	sv.fu.event_closewin = function(e) {
+		sv.ui.ViewIconLeft.removeEventListener('click', sv.fu.event_btnclose);
+		sv.ui.windowkqsx.removeEventListener('open', sv.fu.event_openwin);
+		sv.ui.windowkqsx.removeEventListener('close', sv.fu.event_closewin);
 		sv.vari = null;
 		sv.arr = null;
 		sv.ui = null;
@@ -70,6 +123,7 @@ function createRemove(sv) {
 		sv = null;
 	};
 }
+
 
 ////
 function bangketqua() {
@@ -377,7 +431,7 @@ function bangketqua() {
 		}
 
 	};
-	viewchua.getDatalbl=function(){
+	viewchua.getDatalbl = function() {
 		return data_lbl;
 	};
 
@@ -410,3 +464,11 @@ function lblketqua(_left, _top) {
 	return lbl;
 };
 
+function currDate() {
+	var currTime = new Date();
+	var ngay = currTime.getDate();
+	var thang = currTime.getMonth() + 1;
+	var nam = currTime.getFullYear();
+	var currdate = ngay + '/' + thang + '/' + nam;
+	return currdate;
+}
