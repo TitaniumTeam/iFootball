@@ -17,7 +17,7 @@ module.exports = function() {
  * Khởi tạo biến
  */
 function createVariable(sv) {
-	sv.vari.consodachoi = new (require('/ui_user/ConsoDachoi'));
+	sv.vari.consodachoi = new (require('/ui_user/ConSoDachoi'));
 	sv.vari.lichsugiaodich = new (require('/ui_user/LichSuGiaoDich'));
 	sv.arr.datanapxu = [{
 		title : 'Nạp 1000 xu',
