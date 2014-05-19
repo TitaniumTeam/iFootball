@@ -18,7 +18,21 @@ module.exports = function() {
  */
 function createVariable(sv) {
 	sv.vari.consodachoi = new (require('/ui_user/ConsoDachoi'));
-	sv.vari.lichsugiaodich=new (require('/ui_user/LichSuGiaoDich'));
+	sv.vari.lichsugiaodich = new (require('/ui_user/LichSuGiaoDich'));
+	sv.arr.datanapxu = [{
+		title : 'Nạp 1000 xu',
+		hasCheck : true,
+		id : 0
+	}, {
+		title : 'Nạp 5000 xu',
+		hasCheck : false,
+		id : 1
+	}, {
+		title : 'Nạp 10000 xu',
+		hasCheck : false,
+		id : 2
+	}];
+	sv.arr.event_napxu = [];
 }
 
 function createUI(sv) {
@@ -46,7 +60,6 @@ function createUI(sv) {
 		right : Ti.App.size(30),
 		bottom : Ti.App.size(35)
 	});
-
 
 	sv.ui.windowkqsx.add(sv.ui.ViewHeader);
 	sv.ui.ViewHeader.add(sv.ui.ViewIconLeft);
@@ -484,19 +497,25 @@ function createUI(sv) {
 	sv.ui.ViewIconRow5.add(sv.ui.IconRow5);
 	sv.ui.windowkqsx.add(sv.ui.ViewTong);
 	sv.ui.windowkqsx.add(sv.ui.circle);
+	nap_xu(sv);
+	sv.ui.windowkqsx.add(sv.ui.view_napxu);
 	createUI_Event(sv);
 	sv.ui.ViewIconLeft.addEventListener('click', sv.fu.event_btnclose);
 	sv.ui.windowkqsx.addEventListener('open', sv.fu.event_openwin);
 	sv.ui.windowkqsx.addEventListener('close', sv.fu.event_closewin);
-	sv.ui.Row2.addEventListener('click',sv.fu.event_consodachoi);
-	sv.ui.Row3.addEventListener('click',sv.fu.event_lichsugiaodich);
+	sv.ui.Row2.addEventListener('click', sv.fu.event_consodachoi);
+	sv.ui.Row3.addEventListener('click', sv.fu.event_lichsugiaodich);
+	sv.ui.Row1.addEventListener('click', sv.fu.event_napxu);
 }
 
 function createUI_Event(sv) {
-	sv.fu.event_consodachoi=function(e){
+	sv.fu.event_napxu = function(e) {
+		sv.ui.view_napxu.visible = true;
+	};
+	sv.fu.event_consodachoi = function(e) {
 		sv.vari.consodachoi.open();
 	};
-	sv.fu.event_lichsugiaodich=function(e){
+	sv.fu.event_lichsugiaodich = function(e) {
 		sv.vari.lichsugiaodich.open();
 	};
 	sv.fu.event_btnclose = function(e) {
@@ -517,3 +536,52 @@ function createUI_Event(sv) {
 	};
 }
 
+function nap_xu(sv) {
+	sv.ui.view_napxu = Ti.UI.createView({
+		width : Ti.App.size(720),
+		height : Ti.UI.FILL,
+		zIndex : 10,
+		top : 0,
+		left : 0,
+	});
+	sv.ui.view_napxu.visible = false;
+	sv.ui.view_napxu.add(Ti.UI.createView({
+		width : '100%',
+		height : '100%',
+		zIndex : 0,
+		backgroundColor : Ti.App.Color.nauden,
+		opacity : 0.4
+	}));
+	sv.ui.vTong = Ti.UI.createView({
+		width : Ti.App.size(700),
+		height : Ti.App.size(700),
+		zIndex : 1
+	});
+	sv.ui.label = Ti.UI.createLabel({
+		backgroundColor : Ti.App.Color.magenta,
+		left : 0,
+		width : Ti.UI.FILL,
+		height : Ti.App.size(200),
+		top : 0,
+		color : Ti.App.Color.nauden,
+		textAlign : 'center',
+		text : 'Ban muon nap'
+	});
+	sv.ui.vTong.add(sv.ui.label);
+	sv.ui.table_napxu = Titanium.UI.createTableView({
+		data : sv.arr.datanapxu,
+		top : Ti.App.size(200)
+	});
+
+	sv.ui.table_napxu.addEventListener('click', function(e) {
+			e.row.hashCheck=true;
+			// for(var i=0;i<3;i++){
+				// if(i!=(e.row.id)){
+					// sv.arr.datanapxu[i].hasCheck=false;
+				// }
+			// }
+			
+	});
+	sv.ui.vTong.add(sv.ui.table_napxu);
+	sv.ui.view_napxu.add(sv.ui.vTong);
+};
