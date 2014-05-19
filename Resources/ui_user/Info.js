@@ -17,6 +17,8 @@ module.exports = function() {
  * Khởi tạo biến
  */
 function createVariable(sv) {
+	sv.vari.consodachoi = new (require('/ui_user/ConsoDachoi'));
+	sv.vari.lichsugiaodich=new (require('/ui_user/LichSuGiaoDich'));
 }
 
 function createUI(sv) {
@@ -45,16 +47,9 @@ function createUI(sv) {
 		bottom : Ti.App.size(35)
 	});
 
-	sv.ui.ViewLabelHeader = Ti.UI.createView({
-		height : Ti.App.size(120),
-		top : Ti.App.size(0),
-		left : Ti.App.size(120),
-		right : Ti.App.size(120)
-	});
 
 	sv.ui.windowkqsx.add(sv.ui.ViewHeader);
 	sv.ui.ViewHeader.add(sv.ui.ViewIconLeft);
-	sv.ui.ViewHeader.add(sv.ui.ViewLabelHeader);
 
 	sv.ui.ViewIconLeft.add(sv.ui.IconLeft);
 
@@ -77,16 +72,16 @@ function createUI(sv) {
 		top : 0,
 		left : 0,
 		height : Ti.App.size(500),
-		backgroundColor : 'red'
+		backgroundColor : Ti.App.Color.red
 	});
 	sv.ui.circle = Titanium.UI.createImageView({
 		image : '/assets/images/icon/xxxjav.png',
-		top : -Ti.App.size(70),
+		top : Ti.App.size(60),
 		width : Ti.App.size(420),
 		height : Ti.App.size(420),
-		left : Ti.App.size(150)
+		left : Ti.App.size(150),
+		zIndex : 10
 	});
-	sv.ui.viewAvatar.add(sv.ui.circle);
 	sv.ui.Avatar = Ti.UI.createImageView({
 		image : '/assets/images/icon/avatar-defaut.png',
 		top : Ti.App.size(45),
@@ -103,8 +98,8 @@ function createUI(sv) {
 			fontSize : Ti.App.size(30),
 			fontWeight : 'bold',
 		},
-		top : Ti.App.size(260),
-		// bottom : Ti.App.size(210),
+		// top : Ti.App.size(260),
+		bottom : Ti.App.size(0),
 		color : Ti.App.Color.superwhite,
 		top : Ti.App.size(20)
 	});
@@ -450,11 +445,6 @@ function createUI(sv) {
 		color : 'black'
 	});
 
-	createUI_Event(sv);
-	sv.ui.ViewIconLeft.addEventListener('click', sv.fu.event_btnclose);
-	sv.ui.windowkqsx.addEventListener('open', sv.fu.event_openwin);
-	sv.ui.windowkqsx.addEventListener('close', sv.fu.event_closewin);
-
 	sv.ui.scrollview.add(sv.ui.ViewUngDung);
 	sv.ui.ViewTong.add(sv.ui.scrollview);
 	sv.ui.ViewTong.add(sv.ui.viewAvatar);
@@ -493,15 +483,27 @@ function createUI(sv) {
 	sv.ui.ViewIconRow4.add(sv.ui.IconRow4);
 	sv.ui.ViewIconRow5.add(sv.ui.IconRow5);
 	sv.ui.windowkqsx.add(sv.ui.ViewTong);
-
+	sv.ui.windowkqsx.add(sv.ui.circle);
+	createUI_Event(sv);
+	sv.ui.ViewIconLeft.addEventListener('click', sv.fu.event_btnclose);
+	sv.ui.windowkqsx.addEventListener('open', sv.fu.event_openwin);
+	sv.ui.windowkqsx.addEventListener('close', sv.fu.event_closewin);
+	sv.ui.Row2.addEventListener('click',sv.fu.event_consodachoi);
+	sv.ui.Row3.addEventListener('click',sv.fu.event_lichsugiaodich);
 }
 
 function createUI_Event(sv) {
+	sv.fu.event_consodachoi=function(e){
+		sv.vari.consodachoi.open();
+	};
+	sv.fu.event_lichsugiaodich=function(e){
+		sv.vari.lichsugiaodich.open();
+	};
 	sv.fu.event_btnclose = function(e) {
 		sv.ui.windowkqsx.close();
 	};
 	sv.fu.event_openwin = function(e) {
-		Ti.API.info('open');
+		Ti.API.info('open info');
 	};
 	sv.fu.event_closewin = function(e) {
 		sv.ui.ViewIconLeft.removeEventListener('click', sv.fu.event_btnclose);

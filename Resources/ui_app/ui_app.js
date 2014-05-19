@@ -70,13 +70,6 @@ function tao_ui(sv) {
 		left : 0,
 		backgroundColor : Ti.App.Color.xanhnhat
 	});
-	sv.ui.indicator=Titanium.UI.createView({
-		left:0,
-		height:Ti.UI.FILL,
-		width:'20%',
-		backgroundColor:'black',
-		top:0
-	});
 	//----The custom tabs-----
 	//they can also be defined with a background image
 	//property which will give them a more professional style, look and feel
@@ -86,7 +79,8 @@ function tao_ui(sv) {
 		height : Ti.UI.FILL,
 		width : '20%',
 		backgroundColor : Ti.App.Color.superwhite,
-		top : 3
+		top : 3,
+		backgroundSelectedColor : Ti.App.Color.xanhnhat
 	});
 
 	sv.ui.tab2 = Ti.UI.createView({
@@ -94,7 +88,8 @@ function tao_ui(sv) {
 		height : Ti.UI.FILL,
 		width : '20%',
 		backgroundColor : Ti.App.Color.superwhite,
-		top : 0
+		top : 0,
+		backgroundSelectedColor : Ti.App.Color.xanhnhat
 	});
 
 	sv.ui.tab3 = Ti.UI.createView({
@@ -102,7 +97,8 @@ function tao_ui(sv) {
 		height : Ti.UI.FILL,
 		width : '20%',
 		backgroundColor : Ti.App.Color.superwhite,
-		top : 0
+		top : 0,
+		backgroundSelectedColor : Ti.App.Color.xanhnhat
 	});
 
 	sv.ui.tab4 = Ti.UI.createView({
@@ -110,44 +106,51 @@ function tao_ui(sv) {
 		height : Ti.UI.FILL,
 		width : '20%',
 		backgroundColor : Ti.App.Color.superwhite,
-		top : 0
+		top : 0,
+		backgroundSelectedColor : Ti.App.Color.xanhnhat
 	});
 	sv.ui.tab5 = Ti.UI.createView({
 		left : 0,
 		height : Ti.UI.FILL,
 		width : '20%',
 		backgroundColor : Ti.App.Color.superwhite,
-		top : 0
+		top : 0,
+		backgroundSelectedColor : Ti.App.Color.xanhnhat
 	});
 	//Labels describing each custom tab view
 
 	sv.ui.label1 = Ti.UI.createImageView({
 		width : Ti.App.size(65),
 		height : Ti.App.size(65),
-		image : '/assets/images/icon/icon-soxo.png'
+		image : '/assets/images/icon/icon-soxo.png',
+		touchEnabled : false
 	});
 
 	sv.ui.label2 = Ti.UI.createImageView({
 		width : Ti.App.size(65),
 		height : Ti.App.size(65),
 		image : '/assets/images/icon/icon-quabong.png',
+		touchEnabled : false
 	});
 
 	sv.ui.label3 = Ti.UI.createImageView({
 		width : Ti.App.size(65),
 		height : Ti.App.size(65),
-		image : '/assets/images/icon/user-icon.png'
+		image : '/assets/images/icon/user-icon.png',
+		touchEnabled : false
 	});
 
 	sv.ui.label4 = Ti.UI.createImageView({
 		width : Ti.App.size(65),
 		height : Ti.App.size(65),
 		image : '/assets/images/icon/calendar-icon.png',
+		touchEnabled : false
 	});
 	sv.ui.label5 = Ti.UI.createImageView({
 		width : Ti.App.size(65),
 		height : Ti.App.size(65),
-		image : '/assets/images/icon/icon-moneyy.png'
+		image : '/assets/images/icon/icon-moneyy.png',
+		touchEnabled : false
 	});
 	//adding the labels to tabs and the tabs to the container
 	sv.ui.tab1.add(sv.ui.label1);

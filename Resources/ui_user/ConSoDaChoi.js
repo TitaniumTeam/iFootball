@@ -52,7 +52,7 @@ function createUI(sv) {
 		right : Ti.App.size(120),
 	});
 	sv.ui.LabelHeader = Ti.UI.createLabel({
-		text : 'LỊCH SỬ GIAO DỊCH',
+		text : 'CON SỐ ĐÃ CHƠI',
 		font : {
 			fontSize : Ti.App.size(40),
 			fontWeight : 'bold',
@@ -62,7 +62,7 @@ function createUI(sv) {
 	sv.ui.windowkqsx.add(sv.ui.ViewHeader);
 	sv.ui.ViewHeader.add(sv.ui.ViewIconLeft);
 	sv.ui.ViewHeader.add(sv.ui.ViewLabelHeader);
-	sv.ui.ViewLabelHeader.add(sv.ui.LabelHeader);
+sv.ui.ViewLabelHeader.add(sv.ui.LabelHeader);
 	sv.ui.ViewIconLeft.add(sv.ui.IconLeft);
 	sv.ui.ViewTong = Ti.UI.createView({
 		backgroundColor : Ti.App.Color.white,
@@ -103,14 +103,16 @@ function createUI(sv) {
 		right : Ti.App.size(618),
 		width : Ti.App.size(2),
 	});
-	sv.ui.XU = Titanium.UI.createView({
+
+	sv.ui.CSDC = Ti.UI.createView({
 		top : Ti.App.size(25),
 		bottom : Ti.App.size(25),
-		right : Ti.App.size(420),
-		left : Ti.App.size(98),
+		right : Ti.App.size(232),
+		left : Ti.App.size(102),
 	});
-	sv.ui.LabelXu = Ti.UI.createLabel({
-		text : 'Xu',
+
+	sv.ui.LabelCSDC = Ti.UI.createLabel({
+		text : 'Con số đã chơi',
 		font : {
 			fontSize : Ti.App.size(26),
 			fontFamily : 'Aria'
@@ -119,29 +121,6 @@ function createUI(sv) {
 	});
 
 	sv.ui.Line2 = Ti.UI.createView({
-		backgroundColor : Ti.App.Color.magenta,
-		top : Ti.App.size(20),
-		bottom : Ti.App.size(20),
-		left : Ti.App.size(300),
-		width : Ti.App.size(2),
-	});
-	sv.ui.DAUSO = Ti.UI.createView({
-		top : Ti.App.size(25),
-		bottom : Ti.App.size(25),
-		right : Ti.App.size(232),
-		left : Ti.App.size(298),
-	});
-
-	sv.ui.LabelDauSo = Ti.UI.createLabel({
-		text : 'Đầu số',
-		font : {
-			fontSize : Ti.App.size(26),
-			fontFamily : 'Aria'
-		},
-		color : Ti.App.Color.nauden
-	});
-
-	sv.ui.Line3 = Ti.UI.createView({
 		backgroundColor : Ti.App.Color.magenta,
 		top : Ti.App.size(20),
 		bottom : Ti.App.size(20),
@@ -193,15 +172,12 @@ function createUI(sv) {
 
 	sv.ui.ViewTruong.add(sv.ui.TT);
 	sv.ui.ViewTruong.add(sv.ui.Line1);
-	sv.ui.ViewTruong.add(sv.ui.DAUSO);
+	sv.ui.ViewTruong.add(sv.ui.CSDC);
 	sv.ui.ViewTruong.add(sv.ui.Line2);
 	sv.ui.ViewTruong.add(sv.ui.TG);
 	sv.ui.TT.add(sv.ui.LabelTT);
-	sv.ui.DAUSO.add(sv.ui.LabelDauSo);
+	sv.ui.CSDC.add(sv.ui.LabelCSDC);
 	sv.ui.TG.add(sv.ui.LabelTG);
-	sv.ui.XU.add(sv.ui.LabelXu);
-	sv.ui.ViewTruong.add(sv.ui.Line3);
-	sv.ui.ViewTruong.add(sv.ui.XU);
 }
 
 function createUI_Event(sv) {
