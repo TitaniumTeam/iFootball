@@ -45,10 +45,7 @@
         </splash>
         <theme>default</theme>
     </mobileweb>
-    <modules>
-        <module platform="iphone">dk.napp.drawer</module>
-        <module platform="android">dk.napp.drawer</module>
-    </modules>
+    <modules/>
     <deployment-targets>
         <target device="android">true</target>
         <target device="blackberry">false</target>

@@ -7,8 +7,8 @@ module.exports = function() {
 	sv.test = {};
 
 	(function() {
-		createVariable(sv);
-		createUI(sv);
+		// createVariable(sv);
+		create_ui(sv);
 	})();
 
 	return sv.ui.windowkqsx;
@@ -19,7 +19,7 @@ module.exports = function() {
 function createVariable(sv) {
 }
 
-function createUI(sv) {
+function create_ui(sv) {
 	sv.ui.windowkqsx = Titanium.UI.createWindow({
 		navBarHidden : true
 	});

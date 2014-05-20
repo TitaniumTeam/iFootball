@@ -7,7 +7,7 @@ module.exports = function() {
 	sv.test = {};
 
 	(function() {
-		createVariable(sv);
+		// createVariable(sv);
 		createUI(sv);
 	})();
 

@@ -79,7 +79,7 @@ function tao_ui(sv) {
 		height : Ti.UI.FILL,
 		width : '20%',
 		backgroundColor : Ti.App.Color.superwhite,
-		top : 3,
+		top : 0,
 		backgroundSelectedColor : Ti.App.Color.xanhnhat
 	});
 
@@ -117,6 +117,44 @@ function tao_ui(sv) {
 		top : 0,
 		backgroundSelectedColor : Ti.App.Color.xanhnhat
 	});
+
+	sv.ui.l_tab1 = Titanium.UI.createView({
+		left : 0,
+		height : 3,
+		width : '100%',
+		backgroundColor : Ti.App.Color.nauden,
+		top : 0,
+	});
+	sv.ui.l_tab2 = Titanium.UI.createView({
+		left : 0,
+		height : 3,
+		width : '100%',
+		backgroundColor : Ti.App.Color.nauden,
+		top : 0,
+		visible : false
+	});
+	sv.ui.l_tab3 = Titanium.UI.createView({
+		left : 0,
+		height : 3,
+		width : '100%',
+		backgroundColor : Ti.App.Color.nauden,
+		top : 0,
+	});
+	sv.ui.l_tab4 = Titanium.UI.createView({
+		left : 0,
+		height : 3,
+		width : '100%',
+		backgroundColor : Ti.App.Color.nauden,
+		top : 0,
+	});
+	sv.ui.l_tab5 = Titanium.UI.createView({
+		left : 0,
+		height : 3,
+		width : '100%',
+		backgroundColor : Ti.App.Color.nauden,
+		top : 0,
+	});
+
 	//Labels describing each custom tab view
 
 	sv.ui.label1 = Ti.UI.createImageView({
@@ -153,6 +191,12 @@ function tao_ui(sv) {
 		touchEnabled : false
 	});
 	//adding the labels to tabs and the tabs to the container
+	sv.ui.tab1.add(sv.ui.l_tab1);
+	sv.ui.tab2.add(sv.ui.l_tab2);
+	sv.ui.tab3.add(sv.ui.l_tab3);
+	sv.ui.tab4.add(sv.ui.l_tab4);
+	sv.ui.tab5.add(sv.ui.l_tab5);
+
 	sv.ui.tab1.add(sv.ui.label1);
 	sv.ui.tab2.add(sv.ui.label2);
 	sv.ui.tab3.add(sv.ui.label3);
@@ -187,59 +231,62 @@ function tao_sukien(sv) {
 		if (sv.ui.scrollableView.currentPage == 0) {
 			sv.vari.UngDungBongDa.ui.winView2.scrollTo(0, 0);
 			sv.vari.menu_user.ui.winView3.scrollTo(0, 0);
-			tabtop_change(sv.ui.tab1, sv.ui.tab2, sv.ui.tab3, sv.ui.tab4, sv.ui.tab5);
+			tab_change(sv.ui.l_tab1, sv.ui.l_tab2, sv.ui.l_tab3, sv.ui.l_tab4, sv.ui.l_tab5);
 		}
 		if (sv.ui.scrollableView.currentPage == 1) {
 			sv.vari.menu_soxo.ui.winView1.scrollTo(0, 0);
 			sv.vari.menu_user.ui.winView3.scrollTo(0, 0);
-			tabtop_change(sv.ui.tab2, sv.ui.tab1, sv.ui.tab3, sv.ui.tab4, sv.ui.tab5);
+			tab_change(sv.ui.l_tab2, sv.ui.l_tab1, sv.ui.l_tab3, sv.ui.l_tab4, sv.ui.l_tab5);
 		}
 		if (sv.ui.scrollableView.currentPage == 2) {
 			sv.vari.menu_soxo.ui.winView1.scrollTo(0, 0);
 			sv.vari.UngDungBongDa.ui.winView2.scrollTo(0, 0);
-			tabtop_change(sv.ui.tab3, sv.ui.tab1, sv.ui.tab4, sv.ui.tab2, sv.ui.tab5);
+			tab_change(sv.ui.l_tab3, sv.ui.l_tab2, sv.ui.l_tab1, sv.ui.l_tab4, sv.ui.l_tab5);
 		}
 		if (sv.ui.scrollableView.currentPage == 3) {
 			sv.vari.menu_soxo.ui.winView1.scrollTo(0, 0);
 			sv.vari.UngDungBongDa.ui.winView2.scrollTo(0, 0);
 			sv.vari.menu_user.ui.winView3.scrollTo(0, 0);
-			tabtop_change(sv.ui.tab4, sv.ui.tab1, sv.ui.tab2, sv.ui.tab3, sv.ui.tab5);
+			tab_change(sv.ui.l_tab4, sv.ui.l_tab2, sv.ui.l_tab3, sv.ui.l_tab1, sv.ui.l_tab5);
 		}
 		if (sv.ui.scrollableView.currentPage == 4) {
 			sv.vari.menu_soxo.ui.winView1.scrollTo(0, 0);
 			sv.vari.UngDungBongDa.ui.winView2.scrollTo(0, 0);
 			sv.vari.menu_user.ui.winView3.scrollTo(0, 0);
-			tabtop_change(sv.ui.tab5, sv.ui.tab1, sv.ui.tab3, sv.ui.tab4, sv.ui.tab2);
+			tab_change(sv.ui.l_tab5, sv.ui.l_tab2, sv.ui.l_tab3, sv.ui.l_tab4, sv.ui.l_tab1);
 		}
 	};
 	///
 	sv.fu.evt_tab1 = function(e) {
 		sv.ui.scrollableView.currentPage = 0;
-		tabtop_change(sv.ui.tab1, sv.ui.tab2, sv.ui.tab3, sv.ui.tab4, sv.ui.tab5);
+		tab_change(sv.ui.l_tab1, sv.ui.l_tab2, sv.ui.l_tab3, sv.ui.l_tab4, sv.ui.l_tab5);
 	};
 
 	sv.fu.evt_tab2 = function(e) {
 		sv.ui.scrollableView.currentPage = 1;
-		tabtop_change(sv.ui.tab2, sv.ui.tab1, sv.ui.tab3, sv.ui.tab4, sv.ui.tab5);
+		tab_change(sv.ui.l_tab2, sv.ui.l_tab1, sv.ui.l_tab3, sv.ui.l_tab4, sv.ui.l_tab5);
 	};
 
 	sv.fu.evt_tab3 = function(e) {
 		sv.ui.scrollableView.currentPage = 2;
-		tabtop_change(sv.ui.tab3, sv.ui.tab2, sv.ui.tab1, sv.ui.tab4, sv.ui.tab5);
+		tab_change(sv.ui.l_tab3, sv.ui.l_tab2, sv.ui.l_tab1, sv.ui.l_tab4, sv.ui.l_tab5);
 	};
 
 	sv.fu.evt_tab4 = function(e) {
 		sv.ui.scrollableView.currentPage = 3;
-		tabtop_change(sv.ui.tab4, sv.ui.tab2, sv.ui.tab3, sv.ui.tab1, sv.ui.tab5);
+		tab_change(sv.ui.l_tab4, sv.ui.l_tab2, sv.ui.l_tab3, sv.ui.l_tab1, sv.ui.l_tab5);
 	};
 	sv.fu.evt_tab5 = function(e) {
 		sv.ui.scrollableView.currentPage = 4;
-		tabtop_change(sv.ui.tab5, sv.ui.tab2, sv.ui.tab3, sv.ui.tab4, sv.ui.tab1);
+		tab_change(sv.ui.l_tab5, sv.ui.l_tab2, sv.ui.l_tab3, sv.ui.l_tab4, sv.ui.l_tab1);
 	};
 	sv.fu.evt_openwin = function(e) {
 		Ti.API.info('open window');
-		// sv.ui.winView2.add(sv.vari.UngDungBongDa.ui.ViewTong);
-		// sv.ui.winView1.add(sv.vari.menu_soxo.ui.ViewTong);
+		sv.ui.l_tab1.show();
+		sv.ui.l_tab2.hide();
+		sv.ui.l_tab3.hide();
+		sv.ui.l_tab4.hide();
+		sv.ui.l_tab5.hide();
 	};
 	sv.fu.evt_closewin = function(e) {
 		sv.ui.tab1.removeEventListener('click', sv.fu.evt_tab1);
@@ -252,10 +299,10 @@ function tao_sukien(sv) {
 		sv.ui.scrollableView.removeEventListener('scrollend', sv.fu.evt_slidemenu);
 	};
 };
-function tabtop_change(t1, t2, t3, t4, t5) {
-	t1.top = 3;
-	t2.top = 0;
-	t3.top = 0;
-	t4.top = 0;
-	t5.top = 0;
+function tab_change(t1, t2, t3, t4, t5) {
+	t1.show();
+	t2.hide();
+	t3.hide();
+	t4.hide();
+	t5.hide();
 };

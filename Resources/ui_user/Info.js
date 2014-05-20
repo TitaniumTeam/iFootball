@@ -19,20 +19,18 @@ module.exports = function() {
 function createVariable(sv) {
 	sv.vari.consodachoi = new (require('/ui_user/ConSoDaChoi'));
 	sv.vari.lichsugiaodich = new (require('/ui_user/LichSuGiaoDich'));
-	sv.arr.datanapxu = [{
+	sv.arr.datanapxu = [];
+	sv.arr.event_napxu = [];
+	sv.arr.title = [{
 		title : 'Nạp 1000 xu',
-		hasCheck : true,
 		id : 0
 	}, {
 		title : 'Nạp 5000 xu',
-		hasCheck : false,
 		id : 1
 	}, {
 		title : 'Nạp 10000 xu',
-		hasCheck : false,
 		id : 2
 	}];
-	sv.arr.event_napxu = [];
 }
 
 function createUI(sv) {
@@ -543,7 +541,7 @@ function nap_xu(sv) {
 		zIndex : 10,
 		top : 0,
 		left : 0,
-		backgroundColor:'transparent'
+		backgroundColor : 'transparent'
 	});
 	sv.ui.view_napxu.visible = false;
 	sv.ui.view_napxu.add(Ti.UI.createView({
@@ -557,36 +555,48 @@ function nap_xu(sv) {
 		width : Ti.App.size(700),
 		height : Ti.UI.SIZE,
 		zIndex : 10,
-		backgroundColor:Ti.App.Color.superwhite
+		backgroundColor : Ti.App.Color.superwhite
 	});
 	sv.ui.label = Ti.UI.createLabel({
 		backgroundColor : Ti.App.Color.magenta,
 		left : 0,
 		width : Ti.UI.FILL,
-		height : Ti.App.size(200),
+		height : Ti.App.size(150),
 		top : 0,
 		color : Ti.App.Color.nauden,
 		textAlign : 'center',
 		text : 'Ban muon nap',
-		font:{fontSize:Ti.App.size(40)}
+		font : {
+			fontSize : Ti.App.size(40)
+		}
 	});
 	sv.ui.vTong.add(sv.ui.label);
+	for (var i = 0; i < 3; i++) {
+		sv.ui.rows = Titanium.UI.createTableViewRow({
+			title : sv.arr.title[i].title,
+			id : sv.arr.title[i].id,
+			height : Ti.App.size(50),
+			backgroundColor : Ti.App.Color.xanhnhat,
+			selected : false,
+		});
+		sv.arr.datanapxu.push(sv.ui.rows);
+	}
+
 	sv.ui.table_napxu = Titanium.UI.createTableView({
 		data : sv.arr.datanapxu,
-		top : Ti.App.size(200),
-		height:Ti.UI.SIZE,
-		separatorColor:Ti.App.Color.nauden
+		top : Ti.App.size(150),
+		height : Ti.UI.SIZE,
+		separatorColor : Ti.App.Color.nauden
 	});
-
 	sv.ui.table_napxu.addEventListener('click', function(e) {
-			e.row.hashCheck=true;
-			// for(var i=0;i<3;i++){
-				// if(i!=(e.row.id)){
-					// sv.arr.datanapxu[i].hasCheck=false;
-				// }
-			// }
-			sv.ui.view_napxu.visible=false;
-			
+		if (e.rowData.selected) {
+			e.row.hasCheck = false;
+			Ti.API.info('row has click');
+		} else {
+			Titanium.API.info('not selected clicked');
+			e.row.hasCheck = true;
+		}
+		e.rowData.selected = !e.rowData.selected;
 	});
 	sv.ui.vTong.add(sv.ui.table_napxu);
 	sv.ui.view_napxu.add(sv.ui.vTong);
