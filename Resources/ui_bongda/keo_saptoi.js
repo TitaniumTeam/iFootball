@@ -48,6 +48,7 @@ function tao_ui(sv) {
 		navBarHidden : true,
 		keepScreenOn : true,
 		top : 0,
+		orientationModes : [Ti.UI.PORTRAIT],
 	});
 
 	sv.ui.ViewTong = Titanium.UI.createView({

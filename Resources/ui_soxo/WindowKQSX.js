@@ -20,7 +20,11 @@ function tao_bien(sv) {
  * */
 function tao_ui(sv) {
 	sv.ui.windowkqsx = Titanium.UI.createWindow({
-		navBarHidden:true
+		navBarHidden : true,
+		keepScreenOn : true,
+		top : 0,
+		orientationModes : [Ti.UI.PORTRAIT],
+
 	});
 	sv.ui.ViewHeader = Ti.UI.createView({
 		backgroundColor : Ti.App.Color.red,
@@ -77,8 +81,7 @@ function tao_ui(sv) {
 
 	sv.ui.ViewIconLeft.add(sv.ui.IconLeft);
 	sv.ui.ViewLabelHeader.add(sv.ui.LabelHeader);
-	
-	
+
 	sv.ui.scrollView = Ti.UI.createScrollView({
 		top : Ti.App.size(120),
 		width : Ti.App.size(720),
@@ -96,7 +99,6 @@ function tao_ui(sv) {
 	sv.ui.windowkqsx.add(sv.ui.scrollView);
 	sv.ui.bangkq = bangketqua();
 	sv.ui.scrollView.add(sv.ui.bangkq);
-	sv.ui.bangkq.setKQ(sv.arr.param);
 	////
 	createUI_Event(sv);
 	sv.ui.ViewIconLeft.addEventListener('click', sv.fu.event_btnclose);
@@ -109,6 +111,11 @@ function createUI_Event(sv) {
 		sv.ui.windowkqsx.close();
 	};
 	sv.fu.event_openwin = function(e) {
+		Ti.App.vIndicatorWindow.openIndicator(sv.ui.windowkqsx);
+		setTimeout(function() {
+			Ti.App.vIndicatorWindow.closeIndicator(sv.ui.windowkqsx);
+			sv.ui.bangkq.setKQ(sv.arr.param);
+		}, 2000);
 		Ti.API.info('open');
 	};
 	sv.fu.event_closewin = function(e) {
@@ -122,7 +129,6 @@ function createUI_Event(sv) {
 		sv = null;
 	};
 }
-
 
 ////
 function bangketqua() {

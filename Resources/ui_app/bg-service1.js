@@ -1,4 +1,5 @@
 
+
 Ti.API.info("hello from a background service!");
 
 var alertCount = 0;

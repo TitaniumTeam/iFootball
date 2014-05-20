@@ -22,7 +22,8 @@ function tao_ui(sv) {
 	sv.ui.win = Titanium.UI.createWindow({
 		backgroundColor : 'transparent',
 		// fullscreen : true,
-		navBarHidden : true
+		navBarHidden : true,
+		orientationModes : [Ti.UI.PORTRAIT],
 	});
 
 	//-------Views to hold content-------

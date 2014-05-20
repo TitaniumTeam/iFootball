@@ -20,11 +20,11 @@ function createVariable(sv) {
 
 function createUI(sv) {
 	sv.ui.Window = Ti.UI.createWindow({
-		//backgroundColor : Ti.App.Color.nauden,
 		navBarHidden : true,
-		fullscreen : true,
 		keepScreenOn : true,
 		top : 0,
+		orientationModes : [Ti.UI.PORTRAIT],
+
 	});
 
 	sv.ui.ViewTong = Ti.UI.createScrollView({
@@ -77,7 +77,7 @@ function createUI(sv) {
 		height : Ti.App.size(430),
 		top : Ti.App.size(0),
 		left : 0,
-		backgroundColor:Ti.App.Color.red
+		backgroundColor : Ti.App.Color.red
 	});
 
 	sv.ui.LbNgayThang = Ti.UI.createLabel({

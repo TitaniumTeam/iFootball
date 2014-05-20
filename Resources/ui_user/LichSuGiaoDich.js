@@ -21,7 +21,11 @@ function createVariable(sv) {
 
 function create_ui(sv) {
 	sv.ui.windowkqsx = Titanium.UI.createWindow({
-		navBarHidden : true
+		navBarHidden : true,
+		keepScreenOn : true,
+		top : 0,
+		orientationModes : [Ti.UI.PORTRAIT],
+
 	});
 	sv.ui.ViewHeader = Ti.UI.createView({
 		backgroundColor : Ti.App.Color.red,

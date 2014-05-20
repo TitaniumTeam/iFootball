@@ -17,10 +17,10 @@ function tao_bien(sv) {
 	sv.arr.ngay = ['6/9/2014', '1/1/2014'];
 	// sv.arr.pickerdata = [];
 	// for (var i = 0; i < 8; i++) {
-		// sv.arr.pickerdata.push(sv.ui.pickerrow = Ti.UI.createPickerRow({
-			// title : sv.arr.tinhthanh[i],
-			// val : i
-		// }));
+	// sv.arr.pickerdata.push(sv.ui.pickerrow = Ti.UI.createPickerRow({
+	// title : sv.arr.tinhthanh[i],
+	// val : i
+	// }));
 	// }
 };
 /*khoi tao UI
@@ -28,7 +28,11 @@ function tao_bien(sv) {
 function tao_ui(sv) {
 	sv.ui.windowkqsx = Titanium.UI.createWindow({
 		backgroundColor : Ti.App.Color.magenta,
-		navBarHidden : true
+		navBarHidden : true,
+		keepScreenOn : true,
+		top : 0,
+		orientationModes : [Ti.UI.PORTRAIT],
+
 	});
 	sv.ui.ViewHeader = Ti.UI.createView({
 		backgroundColor : Ti.App.Color.red,
@@ -108,9 +112,9 @@ function tao_ui(sv) {
 		},
 	});
 	// sv.ui.picker = Ti.UI.createPicker({
-		// top : Ti.App.size(250),
-		// selectionIndicator : true,
-		// width:Ti.App.size(500)
+	// top : Ti.App.size(250),
+	// selectionIndicator : true,
+	// width:Ti.App.size(500)
 	// });
 	// sv.ui.picker.add(sv.arr.pickerdata);
 	// sv.ui.windowkqsx.add(sv.ui.picker);
@@ -125,7 +129,7 @@ function tao_ui(sv) {
 	///
 	sv.vari.combobox = require('/ui_soxo/ComboBox');
 	sv.ui.view_choose = new sv.vari.combobox(Ti.App.size(250), Ti.App.size(345), 'Tỉnh thành', Ti.App.size(585));
-	
+
 	sv.ui.view_choose1 = new sv.vari.combobox(Ti.App.size(380), Ti.App.size(475), 'Ngày', Ti.App.size(585));
 	sv.ui.view_choose.setTable(sv.arr.tinhthanh);
 	sv.ui.view_choose1.setTable(sv.arr.ngay);

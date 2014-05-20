@@ -19,7 +19,11 @@ function createVariable(sv) {
 
 function createUI(sv) {
 	sv.ui.windowkqsx = Titanium.UI.createWindow({
-		navBarHidden : true
+		navBarHidden : true,
+		keepScreenOn : true,
+		top : 0,
+		orientationModes : [Ti.UI.PORTRAIT],
+
 	});
 	sv.ui.ViewHeader = Ti.UI.createView({
 		backgroundColor : Ti.App.Color.red,
@@ -65,13 +69,13 @@ function createUI(sv) {
 
 	sv.ui.ViewIconLeft.add(sv.ui.IconLeft);
 	sv.ui.ViewLabelHeader.add(sv.ui.LabelHeader);
-	
+
 	sv.ui.ViewTong = Ti.UI.createScrollView({
 		backgroundColor : Ti.App.Color.white,
 		top : Ti.App.size(120),
 		left : 0,
 		showVerticalScrollIndicator : true,
-		height:Ti.UI.FILL
+		height : Ti.UI.FILL
 	});
 
 	//Tao view Email

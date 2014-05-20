@@ -15,7 +15,7 @@ module.exports = function() {
 };
 function createVariable(sv) {
 	sv.vari.SoLuongMenu = 7;
-	sv.arr.ParamTen = ['Bảng xếp hạng', 'Thông tin bên lề', 'Cá Cược','Trận ngon ăn', 'Thông tin trận đấu', 'Trân đang diễn ra', 'Trận sắp diễn ra'];
+	sv.arr.ParamTen = ['Bảng xếp hạng', 'Thông tin bên lề', 'Cá Cược','Trận ngon ăn', 'Thông tin trận đấu', 'Kèo sắp tới', 'Kèo trực tiếp'];
 	sv.arr.ParamIcon = ['/assets/images/icon/icon-quabong.png'];
 	sv.arr.eventClickViewMenu = [];
 	sv.arr.ViewMenu = [];
@@ -31,7 +31,7 @@ function createUI(sv) {
 		top : 0,
 		height : Ti.App.size(1088),
 		backgroundColor : Ti.App.Color.magenta,
-		bottom : Ti.App.size(192)
+		bottom : Ti.App.size(192),
 	});
 	sv.ui.ViewTong = Ti.UI.createView({
 		width : Ti.App.size(720),

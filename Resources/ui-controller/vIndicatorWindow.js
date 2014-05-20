@@ -3,7 +3,7 @@ var vIndicatorWindow = function(text) {
 	Ti.App.widthScreen = SizeMultiScreen.widthApp;
 	Ti.App.heightScreen = SizeMultiScreen.heightApp;
 	Ti.App.size = SizeMultiScreen.size;
-	var message = text || 'Loading...';
+	var message = text || 'Đang tải....';
 
 	var _isAndroid = (Ti.Platform.osname === 'android' );
 	var _padding = '25dp';

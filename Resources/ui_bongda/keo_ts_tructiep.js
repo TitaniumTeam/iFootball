@@ -28,10 +28,11 @@ function tao_bien(sv) {
 function tao_ui(sv) {
 
 	sv.ui.Window = Ti.UI.createWindow({
-		//backgroundColor : Ti.App.Color.nauden,
 		navBarHidden : true,
 		keepScreenOn : true,
 		top : 0,
+		orientationModes : [Ti.UI.PORTRAIT],
+
 	});
 
 	sv.ui.ViewTong = Ti.UI.createScrollView({

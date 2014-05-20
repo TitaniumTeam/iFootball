@@ -41,7 +41,11 @@ function createVariable(sv) {
 function createUI(sv) {
 
 	sv.ui.Window = Ti.UI.createWindow({
-		navBarHidden : true,
+				navBarHidden : true,
+		keepScreenOn : true,
+		top : 0,
+		orientationModes : [Ti.UI.PORTRAIT],
+
 	});
 
 	sv.ui.ViewTong = Ti.UI.createView({
@@ -60,7 +64,7 @@ function createUI(sv) {
 		width : Ti.App.WidthScreen,
 		height : Ti.App.size(120),
 		top : 0,
-		backgroundColor:Ti.App.Color.red
+		backgroundColor : Ti.App.Color.red
 	});
 
 	sv.ui.ViewIconLeft = Ti.UI.createView({
@@ -96,13 +100,13 @@ function createUI(sv) {
 	});
 
 	sv.ui.ViewToolBar = Ti.UI.createView({
-		backgroundImage : '/assets/images/icon/header.jpg',
 		width : Ti.App.WidthScreen,
 		height : Ti.App.size(35),
 		top : Ti.App.size(0),
 		left : Ti.App.size(0),
 		borderWidth : Ti.App.size(1),
-		borderColor : Ti.App.Color.magenta
+		borderColor : Ti.App.Color.magenta,
+		backgroundColor:Ti.App.Color.red
 	});
 
 	sv.ui.ViewToolBarDiem = Ti.UI.createView({

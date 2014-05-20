@@ -44,8 +44,10 @@ function tao_ui(sv) {
 	sv.ui.Window = Ti.UI.createWindow({
 		backgroundColor : Ti.App.Color.magenta,
 		navBarHidden : true,
-		// keepScreenOn : true,
-		// top : 0,
+		keepScreenOn : true,
+		top : 0,
+		orientationModes : [Ti.UI.PORTRAIT],
+
 	});
 
 	sv.ui.ViewTong = Ti.UI.createScrollView({
@@ -256,7 +258,7 @@ function tao_ui(sv) {
 				sv.ui.lbl_tyle = Titanium.UI.createLabel({
 					width : Ti.App.size(95),
 					height : Ti.App.size(100),
-					text : 'Ty le',
+					text : 'Tỷ lệ',
 					font : {
 						fontSize : Ti.App.size(25)
 					},

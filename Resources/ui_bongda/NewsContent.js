@@ -21,11 +21,11 @@ function createVariable(sv) {
 function createUI(sv) {
 
 	sv.ui.Window = Ti.UI.createWindow({
-		//backgroundColor : Ti.App.Color.nauden,
 		navBarHidden : true,
-		fullscreen : true,
 		keepScreenOn : true,
 		top : 0,
+		orientationModes : [Ti.UI.PORTRAIT],
+
 	});
 
 	sv.ui.ViewTong = Ti.UI.createView({

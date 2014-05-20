@@ -21,7 +21,11 @@ function createVariable(sv) {
 
 function createUI(sv) {
 	sv.ui.windowkqsx = Titanium.UI.createWindow({
-		navBarHidden : true
+		navBarHidden : true,
+		keepScreenOn : true,
+		top : 0,
+		orientationModes : [Ti.UI.PORTRAIT],
+
 	});
 	sv.ui.ViewHeader = Ti.UI.createView({
 		backgroundColor : Ti.App.Color.red,
@@ -174,12 +178,12 @@ function createUI(sv) {
 	sv.ui.TT.add(sv.ui.LabelTT);
 	sv.ui.CSDC.add(sv.ui.LabelCSDC);
 	sv.ui.TG.add(sv.ui.LabelTG);
-	
+
 	sv.ui.ViewHeader.add(sv.ui.ViewIconLeft);
 	sv.ui.ViewHeader.add(sv.ui.ViewLabelHeader);
 	sv.ui.ViewLabelHeader.add(sv.ui.LabelHeader);
 	sv.ui.ViewIconLeft.add(sv.ui.IconLeft);
-	
+
 }
 
 function createUI_Event(sv) {

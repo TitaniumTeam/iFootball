@@ -25,7 +25,12 @@ function taobien(sv) {
  */
 function tao_ui(sv) {
 
-	sv.ui.Viewtong = Titanium.UI.createWindow({navBarHidden:true
+	sv.ui.Viewtong = Titanium.UI.createWindow({
+		navBarHidden : true,
+		keepScreenOn : true,
+		top : 0,
+		orientationModes : [Ti.UI.PORTRAIT],
+
 	});
 	sv.ui.ViewHeader = Ti.UI.createView({
 		backgroundColor : Ti.App.Color.red,
@@ -270,7 +275,7 @@ function tao_ui(sv) {
 			sv.ui.rowchild_vds = rowchild(Ti.App.size(1), setleft(j, 0), Ti.App.size(67), Ti.App.size(67), false, false, false, setbg(j, 0));
 			sv.ui.rowchild_vds.setText(sv.arr.dayso1[0]);
 			sv.ui.vds_sovesau.add(sv.ui.rowchild_vds);
-			
+
 		}
 		sv.ui.scrollView.add(sv.ui.space);
 		sv.ui.scrollView.add(sv.ui.vds_sovesau);
@@ -322,7 +327,6 @@ function setleft(j, _left) {
 	} else
 		return Ti.App.size(74 * j);
 };
-
 
 function bangketqua() {
 	var h1 = Ti.App.size(120);
@@ -667,7 +671,7 @@ function currDate() {
 	return currdate;
 }
 
-function rowchild(_top, _left, _width, _height, _visible, _border, _bg, _border2){
+function rowchild(_top, _left, _width, _height, _visible, _border, _bg, _border2) {
 	var view_contain = Ti.UI.createView({
 		width : _width,
 		height : _height,
@@ -706,8 +710,8 @@ function rowchild(_top, _left, _width, _height, _visible, _border, _bg, _border2
 		view_contain.backgroundColor = Ti.App.Color.red;
 		lbl_kq.color = Ti.App.Color.superwhite;
 	}
-	view_contain.setText=function(_conso){
-		lbl_kq.text=_conso;
+	view_contain.setText = function(_conso) {
+		lbl_kq.text = _conso;
 	};
 	return view_contain;
 };

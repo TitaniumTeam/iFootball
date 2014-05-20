@@ -17,9 +17,12 @@ function tao_ui(sv) {
 	sv.arr = {};
 	sv.vari = {};
 	sv.ui.WindowDK = Ti.UI.createWindow({
-		navBarHidden : true,
-		fullscreen : true,
 		backgroundColor : 'red',
+		navBarHidden : true,
+		keepScreenOn : true,
+		top : 0,
+		orientationModes : [Ti.UI.PORTRAIT],
+
 	});
 	sv.ui.scrollView = Ti.UI.createScrollView({
 		left : 0,

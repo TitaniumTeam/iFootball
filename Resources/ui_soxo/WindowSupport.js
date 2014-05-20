@@ -36,8 +36,12 @@ function tao_bien(sv) {
  */
 function tao_ui(sv) {
 	sv.ui.windowkqsx = Titanium.UI.createWindow({
-		backgroundColor:Ti.App.Color.magenta,
-		navBarHidden:true
+		backgroundColor : Ti.App.Color.magenta,
+		navBarHidden : true,
+		keepScreenOn : true,
+		top : 0,
+		orientationModes : [Ti.UI.PORTRAIT],
+
 	});
 	sv.ui.ViewHeader = Ti.UI.createView({
 		backgroundColor : Ti.App.Color.red,
@@ -183,7 +187,7 @@ function tao_ui(sv) {
 	});
 
 	// sv.ui.rowchild = require('/ui_soxo/RowChild');
-	sv.ui.rowc1 = rowchild(0, 0, Ti.App.size(220), Ti.App.size(80),true);
+	sv.ui.rowc1 = rowchild(0, 0, Ti.App.size(220), Ti.App.size(80), true);
 	sv.ui.rowc1.setColor_Line(Ti.App.Color.nauden);
 	sv.ui.rowc1.setText('Số nhịp');
 	sv.ui.rowc2 = rowchild(0, Ti.App.size(220), Ti.App.size(270), Ti.App.size(80), true);
@@ -335,7 +339,8 @@ function view_click(_tbl1, _tbl2, _tbl3) {
 	_tbl2.visible = false;
 	_tbl3.visible = false;
 }
-function rowchild(_top, _left, _width, _height, _visible, _border, _bg, _border2){
+
+function rowchild(_top, _left, _width, _height, _visible, _border, _bg, _border2) {
 	var view_contain = Ti.UI.createView({
 		width : _width,
 		height : _height,
@@ -374,9 +379,9 @@ function rowchild(_top, _left, _width, _height, _visible, _border, _bg, _border2
 		view_contain.backgroundColor = Ti.App.Color.red;
 		lbl_kq.color = Ti.App.Color.superwhite;
 	}
-	
-	view_contain.setText=function(_conso){
-		lbl_kq.text=_conso;
+
+	view_contain.setText = function(_conso) {
+		lbl_kq.text = _conso;
 	};
 	return view_contain;
 };
