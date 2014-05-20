@@ -41,11 +41,7 @@ function createVariable(sv) {
 function createUI(sv) {
 
 	sv.ui.Window = Ti.UI.createWindow({
-		//backgroundColor : Ti.App.Color.nauden,
 		navBarHidden : true,
-		fullscreen : true,
-		keepScreenOn : true,
-		top : 0,
 	});
 
 	sv.ui.ViewTong = Ti.UI.createView({
@@ -61,10 +57,10 @@ function createUI(sv) {
 	});
 
 	sv.ui.ViewHeader = Ti.UI.createView({
-		backgroundImage : '/assets/images/icon/header.jpg',
 		width : Ti.App.WidthScreen,
 		height : Ti.App.size(120),
-		top : 0
+		top : 0,
+		backgroundColor:Ti.App.Color.red
 	});
 
 	sv.ui.ViewIconLeft = Ti.UI.createView({

@@ -59,11 +59,7 @@ function createUI(sv) {
 		},
 		color : Ti.App.Color.superwhite,
 	});
-	sv.ui.windowkqsx.add(sv.ui.ViewHeader);
-	sv.ui.ViewHeader.add(sv.ui.ViewIconLeft);
-	sv.ui.ViewHeader.add(sv.ui.ViewLabelHeader);
-	sv.ui.ViewLabelHeader.add(sv.ui.LabelHeader);
-	sv.ui.ViewIconLeft.add(sv.ui.IconLeft);
+
 	sv.ui.ViewTong = Ti.UI.createView({
 		backgroundColor : Ti.App.Color.white,
 		// width : Ti.App.widthScreen,
@@ -71,7 +67,6 @@ function createUI(sv) {
 		top : Ti.App.size(120),
 		left : 0
 	});
-	sv.ui.windowkqsx.add(sv.ui.ViewTong);
 
 	//Tao view Truong
 	sv.ui.ViewTruong = Ti.UI.createView({
@@ -183,9 +178,12 @@ function createUI(sv) {
 	});
 
 	createUI_Event(sv);
-	sv.ui.ViewIconLeft.addEventListener('click', sv.fu.event_btnclose);
 	sv.ui.windowkqsx.addEventListener('open', sv.fu.event_openwin);
 	sv.ui.windowkqsx.addEventListener('close', sv.fu.event_closewin);
+	sv.ui.ViewIconLeft.addEventListener('click', sv.fu.event_btnclose);
+
+	sv.ui.windowkqsx.add(sv.ui.ViewTong);
+	sv.ui.windowkqsx.add(sv.ui.ViewHeader);
 
 	sv.ui.ViewTong.add(sv.ui.ViewTruong);
 	sv.ui.ViewTong.add(sv.ui.ViewLine);
@@ -202,6 +200,12 @@ function createUI(sv) {
 	sv.ui.XU.add(sv.ui.LabelXu);
 	sv.ui.ViewTruong.add(sv.ui.Line3);
 	sv.ui.ViewTruong.add(sv.ui.XU);
+
+	sv.ui.ViewHeader.add(sv.ui.ViewIconLeft);
+	sv.ui.ViewHeader.add(sv.ui.ViewLabelHeader);
+	sv.ui.ViewLabelHeader.add(sv.ui.LabelHeader);
+	sv.ui.ViewIconLeft.add(sv.ui.IconLeft);
+
 }
 
 function createUI_Event(sv) {
@@ -212,9 +216,9 @@ function createUI_Event(sv) {
 		Ti.API.info('open');
 	};
 	sv.fu.event_closewin = function(e) {
-		sv.ui.ViewIconLeft.removeEventListener('click', sv.fu.event_btnclose);
 		sv.ui.windowkqsx.removeEventListener('open', sv.fu.event_openwin);
 		sv.ui.windowkqsx.removeEventListener('close', sv.fu.event_closewin);
+		sv.ui.ViewIconLeft.removeEventListener('click', sv.fu.event_btnclose);
 		sv.vari = null;
 		sv.arr = null;
 		sv.ui = null;

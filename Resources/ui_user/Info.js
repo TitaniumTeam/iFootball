@@ -543,6 +543,7 @@ function nap_xu(sv) {
 		zIndex : 10,
 		top : 0,
 		left : 0,
+		backgroundColor:'transparent'
 	});
 	sv.ui.view_napxu.visible = false;
 	sv.ui.view_napxu.add(Ti.UI.createView({
@@ -554,8 +555,9 @@ function nap_xu(sv) {
 	}));
 	sv.ui.vTong = Ti.UI.createView({
 		width : Ti.App.size(700),
-		height : Ti.App.size(700),
-		zIndex : 1
+		height : Ti.UI.SIZE,
+		zIndex : 10,
+		backgroundColor:Ti.App.Color.superwhite
 	});
 	sv.ui.label = Ti.UI.createLabel({
 		backgroundColor : Ti.App.Color.magenta,
@@ -565,12 +567,15 @@ function nap_xu(sv) {
 		top : 0,
 		color : Ti.App.Color.nauden,
 		textAlign : 'center',
-		text : 'Ban muon nap'
+		text : 'Ban muon nap',
+		font:{fontSize:Ti.App.size(40)}
 	});
 	sv.ui.vTong.add(sv.ui.label);
 	sv.ui.table_napxu = Titanium.UI.createTableView({
 		data : sv.arr.datanapxu,
-		top : Ti.App.size(200)
+		top : Ti.App.size(200),
+		height:Ti.UI.SIZE,
+		separatorColor:Ti.App.Color.nauden
 	});
 
 	sv.ui.table_napxu.addEventListener('click', function(e) {
@@ -580,6 +585,7 @@ function nap_xu(sv) {
 					// sv.arr.datanapxu[i].hasCheck=false;
 				// }
 			// }
+			sv.ui.view_napxu.visible=false;
 			
 	});
 	sv.ui.vTong.add(sv.ui.table_napxu);
