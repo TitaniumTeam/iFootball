@@ -5,6 +5,7 @@
 module.exports = function() {
 	var sv = {};
 	sv.red = '#FF0000';
+	sv.red_press='#C24641';
 	sv.white = '#F3F3F3';
 	sv.gray = '#16A085';
 	sv.magenta = '#E0E0E0';

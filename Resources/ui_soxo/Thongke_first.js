@@ -7,13 +7,14 @@ module.exports = function() {
 	(function() {
 		taobien(sv);
 		tao_ui(sv);
+		removeAllEvent(sv);
+		setkq(sv);
 	})();
 	return sv;
 };
 
 function taobien(sv) {
-	// sv.vari = {};
-	// sv.arr = {};
+	sv.vari.thongke2 = require('/ui_soxo/WindowChoose');
 	sv.arr.datarow = [];
 	sv.arr.height = [Ti.App.size(120), Ti.App.size(200)];
 	sv.arr.dayso1 = ['12', '12', '12', '12', '12', '12', '12', '12', '12'];
@@ -31,12 +32,12 @@ function tao_ui(sv) {
 		lef : 0,
 		backgroundColor : 'transparent'
 	});
-	sv.ui.ViewHeader = Ti.UI.createLabel({
+	sv.ui.ViewHeader2 = Ti.UI.createLabel({
 		width : Ti.App.size(720),
 		height : Ti.App.size(70),
 		backgroundColor : Ti.App.Color.xanhnhat,
 		left : 0,
-		top : 0,
+		top :0,
 		touchEnabled : false,
 		text : 'Xổ xố miền Bắc ngày 22-5-2014 (Hà Nội)',
 		font : {
@@ -45,7 +46,26 @@ function tao_ui(sv) {
 		textAlign : 'center',
 		color : 'black'
 	});
-	sv.ui.ViewTong.add(sv.ui.ViewHeader);
+	sv.ui.ViewTong.add(sv.ui.ViewHeader2);
+	sv.ui.View_icon_search = Titanium.UI.createView({
+		width : Ti.App.size(125),
+		height : Ti.App.size(125),
+		left : Ti.App.size(10),
+		backgroundSelectedColor : Ti.App.Color.xanhnhat,
+		opacity : 0.5,
+		backgroundColor : 'green',
+		borderRadius : 5,
+		zIndex : 10,
+		top : 0
+	});
+	sv.ui.icon_search = Titanium.UI.createImageView({
+		width : Ti.App.size(60),
+		height : Ti.App.size(60),
+		backgroundImage : '/assets/images/icon/icon-search.png',
+		touchEnabled : false
+	});
+	sv.ui.View_icon_search.add(sv.ui.icon_search);
+	sv.ui.ViewTong.add(sv.ui.View_icon_search);
 	sv.ui.scrollView = Ti.UI.createScrollView({
 		top : Ti.App.size(70),
 		width : Ti.App.size(720),
@@ -62,9 +82,9 @@ function tao_ui(sv) {
 		height : Ti.UI.FILL
 	});
 	sv.ui.ViewTong.add(sv.ui.scrollView);
+	////
 	sv.ui.bangkq = bangketqua();
 	sv.ui.scrollView.add(sv.ui.bangkq);
-	sv.ui.bangkq.setKQ(sv.arr.param);
 	sv.ui.vDaysove = Ti.UI.createView({
 		width : Ti.App.size(720),
 		height : Ti.App.size(300),
@@ -169,27 +189,31 @@ function tao_ui(sv) {
 
 	;
 	////
-	// createUI_Event(sv);
+	createUI_Event(sv);
+	sv.ui.scrollView.addEventListener('scroll', sv.fu.evt_scroll);
+	sv.ui.View_icon_search.addEventListener('click', sv.fu.evt_search_icon);
 };
 function createUI_Event(sv) {
-	sv.fu.event_btnclose = function(e) {
-		sv.ui.Viewtong.close();
+	sv.fu.evt_scroll = function(e) {
+		sv.ui.View_icon_search.top = (e.y) / 4;
 	};
-	sv.fu.event_openwin = function(e) {
-		Ti.API.info('open');
-	};
-	sv.fu.event_closewin = function(e) {
-		sv.ui.ViewIconLeft.removeEventListener('click', sv.fu.event_btnclose);
-		sv.ui.Viewtong.removeEventListener('open', sv.fu.event_openwin);
-		sv.ui.Viewtong.removeEventListener('close', sv.fu.event_closewin);
-		sv.vari = null;
-		sv.arr = null;
-		sv.ui = null;
-		sv.fu = null;
-		sv = null;
+	sv.fu.evt_search_icon = function(e) {
+		sv.vari.view_thongke2 = new sv.vari.thongke2();
+		sv.ui.ViewTong.removeAllChildren();
+		sv.ui.ViewTong.add(sv.vari.view_thongke2.ui.ViewTong);
 	};
 };
+function setkq(sv) {
+	sv.setParam = function(param) {
+		sv.ui.bangkq.setKQ(param);
+	};
+}
 
+function removeAllEvent(sv) {
+	sv.removeAllEvent = function(e) {
+		sv.ui.scrollView.removeEventListener('scroll', sv.fu.evt_scroll);
+	};
+};
 function setbg(i, _bg) {
 	if (i == _bg) {
 		return true;
@@ -590,4 +614,3 @@ function rowchild(_top, _left, _width, _height, _visible, _border, _bg, _border2
 	};
 	return view_contain;
 };
-

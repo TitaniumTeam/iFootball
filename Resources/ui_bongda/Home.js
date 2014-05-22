@@ -11,21 +11,19 @@ module.exports = function() {
 		createUI(sv);
 	})();
 
-	return sv.ui.Window;
+	return sv;
 };
 /**
  * Khởi tạo biến
  */
 function createVariable(sv) {
-	sv.vari = {};
-	sv.arr = {};
-
+	sv.vari.bxh = require('/ui_bongda/BangXepHang');
 	sv.vari.SoGiai = 7;
 	sv.vari.TopView = Ti.App.size(160);
 	sv.vari.HeightView = Ti.App.size(120);
 	sv.vari.LeftView = Ti.App.size(40);
 	sv.vari.RightView = Ti.App.size(40);
-
+	sv.arr.space = [];
 	sv.arr.ViewDoi = [];
 	sv.arr.LogoDoi = [];
 	sv.arr.TenNuoc = [];
@@ -38,58 +36,15 @@ function createVariable(sv) {
 
 function createUI(sv) {
 
-	sv.ui.Window = Ti.UI.createWindow({
-		navBarHidden : true,
-		keepScreenOn : true,
-		top : 0,
-		orientationModes : [Ti.UI.PORTRAIT],
-
-	});
-
 	sv.ui.ViewTong = Ti.UI.createScrollView({
 		backgroundColor : Ti.App.Color.magenta,
-		top : Ti.App.size(120),
+		top : 0,
 		left : 0,
-		showVerticalScrollIndicator : 'true'
-	});
-
-	sv.ui.ViewHeader = Ti.UI.createView({
-		backgroundColor : Ti.App.Color.red,
-		width : Ti.App.WidthScreen,
-		height : Ti.App.size(120),
-		top : 0
-	});
-
-	sv.ui.ViewIconLeft = Ti.UI.createView({
-		width : Ti.App.size(120),
-		height : Ti.App.size(120),
-		left : Ti.App.size(0),
-		top : Ti.App.size(0)
-	});
-
-	sv.ui.IconLeft = Ti.UI.createImageView({
-		image : '/assets/images/icon/arrow.png',
-		top : Ti.App.size(35),
-		left : Ti.App.size(30),
-		right : Ti.App.size(30),
-		bottom : Ti.App.size(35)
-	});
-
-	sv.ui.ViewLabelHeader = Ti.UI.createView({
-		height : Ti.App.size(120),
-		top : Ti.App.size(0),
-		left : Ti.App.size(120),
-		right : Ti.App.size(120)
-	});
-
-	sv.ui.LabelHeader = Ti.UI.createLabel({
-		text : 'BẢNG XẾP HẠNG',
-		font : {
-			fontSize : Ti.App.size(40),
-			fontWeight : 'bold',
-			fontFamily : 'Aria'
-		},
-		color : Ti.App.Color.white,
+		showVerticalScrollIndicator : 'true',
+		width : Ti.UI.FILL,
+		height : Ti.UI.FILL,
+		layout : 'vertical',
+		scrollType : 'vertical'
 	});
 
 	for (var i = 0; i < sv.vari.SoGiai; i++) {
@@ -98,11 +53,17 @@ function createUI(sv) {
 			height : sv.vari.HeightView,
 			left : sv.vari.LeftView,
 			right : sv.vari.RightView,
-			top : Ti.App.size(40 + (120 * i) + (30 * i)), //+ Ti.App.size() +  Ti.App.size(),
+			// top : Ti.App.size(40 + (120 * i) + (30 * i)), //+ Ti.App.size() +  Ti.App.size(),
 			borderWidth : 1,
 			borderColor : Ti.App.Color.magenta
 		});
-
+		sv.arr.space[i] = Titanium.UI.createView({
+			backgroundColor : 'transparent',
+			height : Ti.App.size(30),
+			left : 0,
+			right : 0,
+			width : Ti.App.size(720)
+		});
 		sv.arr.LogoDoi[i] = Ti.UI.createImageView({
 			borderWidth : 1,
 			borderColor : Ti.App.Color.magenta,
@@ -156,23 +117,10 @@ function createUI(sv) {
 		sv.arr.ViewDoi[i].addEventListener('click', sv.arr.eventClickViewDoi[i]);
 	}
 
-	sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
-	sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
-
-	sv.ui.ViewIconLeft.addEventListener('click', sv.fu.eventClickIconLeft);
-
-	sv.ui.Window.add(sv.ui.ViewHeader);
-	sv.ui.Window.add(sv.ui.ViewTong);
-
-	sv.ui.ViewHeader.add(sv.ui.ViewIconLeft);
-	sv.ui.ViewHeader.add(sv.ui.ViewLabelHeader);
-
-	sv.ui.ViewIconLeft.add(sv.ui.IconLeft);
-	sv.ui.ViewLabelHeader.add(sv.ui.LabelHeader);
-
 	for (var i = 0; i < sv.vari.SoGiai; i++) {
 		sv.arr.madoi[i] = i;
 		sv.ui.ViewTong.add(sv.arr.ViewDoi[i]);
+		sv.ui.ViewTong.add(sv.arr.space[i]);
 		sv.ui.ViewTong.removeViewDoi = function() {
 			return sv.arr.ViewDoi[i].addEventListener('click', sv.arr.eventClickViewDoi[i]);
 			;
@@ -225,8 +173,10 @@ function createUI_Event(sv) {
 
 	for (var i = 0; i < sv.vari.SoGiai; i++) {
 		sv.arr.eventClickViewDoi[i] = function() {
-			var newWindow = new (require('ui_bongda/BangXepHang'))();
-			newWindow.open();
+			sv.vari.view_bxh = new sv.vari.bxh();
+			sv.ui.ViewTong.removeAllChildren();
+			remove_sukien(sv);
+			sv.ui.ViewTong.add(sv.vari.view_bxh.ui.ViewTong);
 		};
 	}
 
@@ -235,9 +185,6 @@ function createUI_Event(sv) {
 	};
 
 	sv.fu.eventCloseWindow = function(e) {
-		sv.ui.Window.removeEventListener('open', sv.fu.eventOpenWindow);
-		sv.ui.Window.removeEventListener('close', sv.fu.eventCloseWindow);
-		sv.ui.ViewIconLeft.removeEventListener('click', sv.fu.eventClickIconLeft);
 		for (var i = 0; i < sv.vari.SoGiai; i++) {
 			sv.arr.ViewDoi[i].addEventListener('click', sv.arr.eventClickViewDoi[i]);
 		}
@@ -253,3 +200,9 @@ function createUI_Event(sv) {
 	};
 }
 
+function remove_sukien(sv) {
+	for (var i = 0; i < sv.vari.SoGiai; i++) {
+		sv.arr.ViewDoi[i].addEventListener('click', sv.arr.eventClickViewDoi[i]);
+	}
+	Ti.API.info('Closed window, sv=' + sv);
+};
