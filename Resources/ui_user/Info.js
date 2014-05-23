@@ -11,14 +11,14 @@ module.exports = function() {
 		createUI(sv);
 	})();
 
-	return sv.ui.windowkqsx;
+	return sv;
 };
 /**
  * Khởi tạo biến
  */
 function createVariable(sv) {
-	sv.vari.consodachoi = new (require('/ui_user/ConSoDaChoi'));
-	sv.vari.lichsugiaodich = new (require('/ui_user/LichSuGiaoDich'));
+	sv.vari.consodachoi = new (require('/ui_user/ConSoDaChoi'))();
+	sv.vari.lichsugiaodich = new (require('/ui_user/LichSuGiaoDich'))();
 	sv.arr.datanapxu = [];
 	sv.arr.event_napxu = [];
 	sv.arr.title = [{
@@ -34,42 +34,9 @@ function createVariable(sv) {
 }
 
 function createUI(sv) {
-	sv.ui.windowkqsx = Titanium.UI.createWindow({
-		navBarHidden : true,
-		keepScreenOn : true,
-		top : 0,
-		orientationModes : [Ti.UI.PORTRAIT],
-
-	});
-	sv.ui.ViewHeader = Ti.UI.createView({
-		backgroundColor : Ti.App.Color.red,
-		width : Ti.App.size(720),
-		height : Ti.App.size(120),
-		top : 0
-	});
-
-	sv.ui.ViewIconLeft = Ti.UI.createView({
-		width : Ti.App.size(120),
-		height : Ti.App.size(120),
-		left : Ti.App.size(0),
-		top : Ti.App.size(0)
-	});
-
-	sv.ui.IconLeft = Ti.UI.createImageView({
-		image : '/assets/images/icon/arrow.png',
-		top : Ti.App.size(35),
-		left : Ti.App.size(30),
-		right : Ti.App.size(30),
-		bottom : Ti.App.size(35)
-	});
-
-	sv.ui.windowkqsx.add(sv.ui.ViewHeader);
-	sv.ui.ViewHeader.add(sv.ui.ViewIconLeft);
-
-	sv.ui.ViewIconLeft.add(sv.ui.IconLeft);
 
 	sv.ui.ViewTong = Titanium.UI.createView({
-		top : Ti.App.size(120),
+		top : Ti.App.size(0),
 		left : 0,
 		width : Ti.App.size(720),
 		height : Ti.UI.FILL,
@@ -469,6 +436,7 @@ function createUI(sv) {
 	sv.ui.viewAvatar.add(sv.ui.ViewBut);
 	sv.ui.viewAvatar.add(sv.ui.ViewThongSo);
 	sv.ui.viewAvatar.add(sv.ui.Viewcontain);
+	sv.ui.viewAvatar.add(sv.ui.Avatar);
 	sv.ui.ViewUngDung.add(sv.ui.UngDung);
 
 	sv.ui.UngDung.add(sv.ui.Row1);
@@ -497,14 +465,8 @@ function createUI(sv) {
 	sv.ui.ViewIconRow3.add(sv.ui.IconRow3);
 	sv.ui.ViewIconRow4.add(sv.ui.IconRow4);
 	sv.ui.ViewIconRow5.add(sv.ui.IconRow5);
-	sv.ui.windowkqsx.add(sv.ui.ViewTong);
-	sv.ui.windowkqsx.add(sv.ui.circle);
 	nap_xu(sv);
-	sv.ui.windowkqsx.add(sv.ui.view_napxu);
 	createUI_Event(sv);
-	sv.ui.ViewIconLeft.addEventListener('click', sv.fu.event_btnclose);
-	sv.ui.windowkqsx.addEventListener('open', sv.fu.event_openwin);
-	sv.ui.windowkqsx.addEventListener('close', sv.fu.event_closewin);
 	sv.ui.Row2.addEventListener('click', sv.fu.event_consodachoi);
 	sv.ui.Row3.addEventListener('click', sv.fu.event_lichsugiaodich);
 	sv.ui.Row1.addEventListener('click', sv.fu.event_napxu);
@@ -515,21 +477,19 @@ function createUI_Event(sv) {
 		sv.ui.view_napxu.visible = true;
 	};
 	sv.fu.event_consodachoi = function(e) {
-		sv.vari.consodachoi.open();
+		sv.ui.ViewTong.removeAllChildren();
+		remove_sukien(sv);
+		sv.ui.ViewTong.add(sv.vari.consodachoi.ui.ViewTong);
 	};
 	sv.fu.event_lichsugiaodich = function(e) {
-		sv.vari.lichsugiaodich.open();
-	};
-	sv.fu.event_btnclose = function(e) {
-		sv.ui.windowkqsx.close();
+		sv.ui.ViewTong.removeAllChildren();
+		remove_sukien(sv);
+		sv.ui.ViewTong.add(sv.vari.lichsugiaodich.ui.ViewTong);
 	};
 	sv.fu.event_openwin = function(e) {
 		Ti.API.info('open info');
 	};
 	sv.fu.event_closewin = function(e) {
-		sv.ui.ViewIconLeft.removeEventListener('click', sv.fu.event_btnclose);
-		sv.ui.windowkqsx.removeEventListener('open', sv.fu.event_openwin);
-		sv.ui.windowkqsx.removeEventListener('close', sv.fu.event_closewin);
 		sv.vari = null;
 		sv.arr = null;
 		sv.ui = null;
@@ -537,6 +497,13 @@ function createUI_Event(sv) {
 		sv = null;
 	};
 }
+
+function remove_sukien(sv) {
+	sv.ui.Row2.removeEventListener('click', sv.fu.event_consodachoi);
+	sv.ui.Row3.removeEventListener('click', sv.fu.event_lichsugiaodich);
+	sv.ui.Row1.removeEventListener('click', sv.fu.event_napxu);
+	Ti.API.info('Closed window, sv=' + sv);
+};
 
 function nap_xu(sv) {
 	sv.ui.view_napxu = Ti.UI.createView({

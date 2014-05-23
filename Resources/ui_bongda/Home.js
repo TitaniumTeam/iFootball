@@ -189,13 +189,6 @@ function createUI_Event(sv) {
 			sv.arr.ViewDoi[i].addEventListener('click', sv.arr.eventClickViewDoi[i]);
 		}
 
-		sv.vari = null;
-		sv.arr = null;
-		sv.ui = null;
-		sv.fu = null;
-		sv.test = null;
-		sv = null;
-
 		Ti.API.info('Closed window, sv=' + sv);
 	};
 }
@@ -204,5 +197,6 @@ function remove_sukien(sv) {
 	for (var i = 0; i < sv.vari.SoGiai; i++) {
 		sv.arr.ViewDoi[i].addEventListener('click', sv.arr.eventClickViewDoi[i]);
 	}
+
 	Ti.API.info('Closed window, sv=' + sv);
 };

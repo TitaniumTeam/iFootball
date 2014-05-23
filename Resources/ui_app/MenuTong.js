@@ -18,6 +18,8 @@ function taobien(sv) {
 	sv.vari.thongke1 = require('/ui_soxo/Thongke_first');
 	sv.vari.bangxephang = (require('/ui_bongda/Home'));
 	sv.vari.TTTD = require('/ui_bongda/ThongTinTranDau');
+	sv.vari.TranNgonAn = new (require('/ui_bongda/TranNgonAn'))();
+	sv.vari.Betting = new (require('/ui_bongda/Betting'))();
 
 	sv.arr.param = ['09808', '09808', '09808', '09808', '09808', '09990', '09788', '04358', '09899', '09111', '0978', '0435', '0981', '0911', '0978', '0435', '0981', '0911', '0978', '0435', '091', '091', '097', '04', '09', '01', '09'];
 
@@ -81,13 +83,13 @@ function taoui(sv) {
 	});
 	sv.ui.ViewHeader.add(sv.ui.View_icon_soxo);
 
-	sv.ui.icon_bongda = Ti.UI.createImageView({
+	sv.ui.icon_soxo = Ti.UI.createImageView({
 		image : '/assets/images/icon/icon-soxo.png',
 		width : Ti.App.size(60),
 		height : Ti.App.size(60),
 		touchEnabled : false
 	});
-	sv.ui.View_icon_soxo.add(sv.ui.icon_bongda);
+	sv.ui.View_icon_soxo.add(sv.ui.icon_soxo);
 
 	/////
 	sv.ui.ViewTong = Ti.UI.createView({
@@ -117,16 +119,20 @@ function taoui(sv) {
 		zIndex : 10
 	});
 	sv.ui.ViewFooter.add(sv.ui.line_vfoot);
+	//sv.ui.ViewFooter.add(sv.vari.footer.ui.footer_soxo);
 	/////
 	taosukien(sv);
+
 	for (var i = 0; i < 3; i++) {
 		sv.vari.footer.arr.viewchucnangsoxo[i].addEventListener('click', sv.arr.evt_chucnangsoxo[i]);
 	}
 	for (var i = 0; i < 4; i++) {
 		sv.vari.footer.arr.viewchucnangbongda[i].addEventListener('click', sv.arr.evt_chucnangbongda[i]);
 	};
+
 	sv.ui.View_icon_bongda.addEventListener('click', sv.fu.evt_icon_bongda);
 	sv.ui.View_icon_soxo.addEventListener('click', sv.fu.evt_icon_soxo);
+	sv.ui.View_icon_user.addEventListener('click', sv.fu.EvtClickView_icon_user);
 	sv.ui.win.addEventListener('open', sv.fu.evt_win_open);
 	sv.ui.win.addEventListener('close', sv.fu.evt_win_close);
 };
@@ -175,13 +181,19 @@ function taosukien(sv) {
 
 	for (var i = 0; i < 4; i++) {
 		if (i == 0) {
-			sv.arr.evt_chucnangbongda[i] = function(e) {
+			sv.arr.evt_chucnangbongda[0] = function(e) {
 				sv.vari.footer.arr.lbl_icon_footer1[0].color = Ti.App.Color.superwhite;
 				sv.vari.footer.arr.viewchucnangbongda[0].backgroundColor = Ti.App.Color.nauden;
 				sv.vari.footer.arr.icon_footer1[0].image = '/assets/images/icon/icon-calander_press.png';
 				sv.vari.footer.arr.lbl_icon_footer1[1].color = Ti.App.Color.nauden;
 				sv.vari.footer.arr.viewchucnangbongda[1].backgroundColor = Ti.App.Color.superwhite;
 				sv.vari.footer.arr.icon_footer1[1].image = '/assets/images/icon/icon-xephang.png';
+				sv.vari.footer.arr.lbl_icon_footer1[2].color = Ti.App.Color.nauden;
+				sv.vari.footer.arr.viewchucnangbongda[2].backgroundColor = Ti.App.Color.superwhite;
+				sv.vari.footer.arr.icon_footer1[2].image = '/assets/images/icon/icon-tuvan.png';
+				sv.vari.footer.arr.lbl_icon_footer1[3].color = Ti.App.Color.nauden;
+				sv.vari.footer.arr.viewchucnangbongda[3].backgroundColor = Ti.App.Color.superwhite;
+				sv.vari.footer.arr.icon_footer1[3].image = '/assets/images/icon/icon-3.png';
 				sv.ui.ViewTong.removeAllChildren();
 				sv.vari.wdTTTD = new sv.vari.TTTD();
 				sv.ui.ViewTong.add(sv.vari.wdTTTD.ui.ViewTong);
@@ -192,13 +204,19 @@ function taosukien(sv) {
 			};
 		}
 		if (i == 1) {
-			sv.arr.evt_chucnangbongda[i] = function(e) {
+			sv.arr.evt_chucnangbongda[1] = function(e) {
 				sv.vari.footer.arr.lbl_icon_footer1[0].color = Ti.App.Color.nauden;
 				sv.vari.footer.arr.viewchucnangbongda[0].backgroundColor = Ti.App.Color.superwhite;
 				sv.vari.footer.arr.icon_footer1[0].image = '/assets/images/icon/icon-calander.png';
 				sv.vari.footer.arr.lbl_icon_footer1[1].color = Ti.App.Color.superwhite;
 				sv.vari.footer.arr.viewchucnangbongda[1].backgroundColor = Ti.App.Color.nauden;
 				sv.vari.footer.arr.icon_footer1[1].image = '/assets/images/icon/icon-xephang_press.png';
+				sv.vari.footer.arr.lbl_icon_footer1[2].color = Ti.App.Color.nauden;
+				sv.vari.footer.arr.viewchucnangbongda[2].backgroundColor = Ti.App.Color.superwhite;
+				sv.vari.footer.arr.icon_footer1[2].image = '/assets/images/icon/icon-tuvan.png';
+				sv.vari.footer.arr.lbl_icon_footer1[3].color = Ti.App.Color.nauden;
+				sv.vari.footer.arr.viewchucnangbongda[3].backgroundColor = Ti.App.Color.superwhite;
+				sv.vari.footer.arr.icon_footer1[3].image = '/assets/images/icon/icon-3.png';
 				sv.ui.ViewTong.removeAllChildren();
 				sv.vari.bxh = new sv.vari.bangxephang();
 				sv.ui.ViewTong.add(sv.vari.bxh.ui.ViewTong);
@@ -209,12 +227,48 @@ function taosukien(sv) {
 			};
 		}
 		if (i == 2) {
-			sv.arr.evt_chucnangbongda[i] = function(e) {
+			sv.arr.evt_chucnangbongda[2] = function(e) {
+				sv.vari.footer.arr.lbl_icon_footer1[0].color = Ti.App.Color.nauden;
+				sv.vari.footer.arr.viewchucnangbongda[0].backgroundColor = Ti.App.Color.superwhite;
+				sv.vari.footer.arr.icon_footer1[0].image = '/assets/images/icon/icon-calander.png';
+				sv.vari.footer.arr.lbl_icon_footer1[1].color = Ti.App.Color.nauden;
+				sv.vari.footer.arr.viewchucnangbongda[1].backgroundColor = Ti.App.Color.superwhite;
+				sv.vari.footer.arr.icon_footer1[1].image = '/assets/images/icon/icon-xephang.png';
+				sv.vari.footer.arr.lbl_icon_footer1[2].color = Ti.App.Color.superwhite;
+				sv.vari.footer.arr.viewchucnangbongda[2].backgroundColor = Ti.App.Color.nauden;
+				sv.vari.footer.arr.icon_footer1[2].image = '/assets/images/icon/icon-tuvan_press.png';
+				sv.vari.footer.arr.lbl_icon_footer1[3].color = Ti.App.Color.nauden;
+				sv.vari.footer.arr.viewchucnangbongda[3].backgroundColor = Ti.App.Color.superwhite;
+				sv.vari.footer.arr.icon_footer1[3].image = '/assets/images/icon/icon-3.png';
+				sv.ui.ViewTong.removeAllChildren();
+				sv.ui.ViewTong.add(sv.vari.TranNgonAn.ui.ViewTong);
+				Ti.App.vIndicatorWindow.openIndicator(sv.ui.ViewTong);
+				setTimeout(function() {
+					Ti.App.vIndicatorWindow.closeIndicator(sv.ui.ViewTong);
+				}, 2000);
 				Ti.API.info('test');
 			};
 		}
 		if (i == 3) {
 			sv.arr.evt_chucnangbongda[i] = function(e) {
+				sv.vari.footer.arr.lbl_icon_footer1[0].color = Ti.App.Color.nauden;
+				sv.vari.footer.arr.viewchucnangbongda[0].backgroundColor = Ti.App.Color.superwhite;
+				sv.vari.footer.arr.icon_footer1[0].image = '/assets/images/icon/icon-calander.png';
+				sv.vari.footer.arr.lbl_icon_footer1[1].color = Ti.App.Color.nauden;
+				sv.vari.footer.arr.viewchucnangbongda[1].backgroundColor = Ti.App.Color.superwhite;
+				sv.vari.footer.arr.icon_footer1[1].image = '/assets/images/icon/icon-xephang.png';
+				sv.vari.footer.arr.lbl_icon_footer1[2].color = Ti.App.Color.nauden;
+				sv.vari.footer.arr.viewchucnangbongda[2].backgroundColor = Ti.App.Color.superwhite;
+				sv.vari.footer.arr.icon_footer1[2].image = '/assets/images/icon/icon-tuvan.png';
+				sv.vari.footer.arr.lbl_icon_footer1[3].color = Ti.App.Color.superwhite;
+				sv.vari.footer.arr.viewchucnangbongda[3].backgroundColor = Ti.App.Color.nauden;
+				sv.vari.footer.arr.icon_footer1[3].image = '/assets/images/icon/icon-3_press.png';
+				sv.ui.ViewTong.removeAllChildren();
+				sv.ui.ViewTong.add(sv.vari.Betting.ui.ViewTong);
+				Ti.App.vIndicatorWindow.openIndicator(sv.ui.ViewTong);
+				setTimeout(function() {
+					Ti.App.vIndicatorWindow.closeIndicator(sv.ui.ViewTong);
+				}, 2000);
 				Ti.API.info('test');
 			};
 		}
@@ -228,9 +282,30 @@ function taosukien(sv) {
 		set_maubg(sv.ui.View_icon_bongda, sv.ui.View_icon_soxo, sv.ui.View_icon_user);
 		sv.vari.footer.ui.footer_bongda.visible = true;
 		sv.vari.footer.ui.footer_soxo.visible = false;
+		sv.vari.footer.arr.lbl_icon_footer1[0].color = Ti.App.Color.superwhite;
+		sv.vari.footer.arr.viewchucnangbongda[0].backgroundColor = Ti.App.Color.nauden;
+		sv.vari.footer.arr.icon_footer1[0].image = '/assets/images/icon/icon-calander_press.png';
+		sv.vari.footer.arr.lbl_icon_footer1[1].color = Ti.App.Color.nauden;
+		sv.vari.footer.arr.viewchucnangbongda[1].backgroundColor = Ti.App.Color.superwhite;
+		sv.vari.footer.arr.icon_footer1[1].image = '/assets/images/icon/icon-xephang.png';
+		sv.vari.footer.arr.lbl_icon_footer1[2].color = Ti.App.Color.nauden;
+		sv.vari.footer.arr.viewchucnangbongda[2].backgroundColor = Ti.App.Color.superwhite;
+		sv.vari.footer.arr.icon_footer1[2].image = '/assets/images/icon/icon-tuvan.png';
+		sv.vari.footer.arr.lbl_icon_footer1[3].color = Ti.App.Color.nauden;
+		sv.vari.footer.arr.viewchucnangbongda[3].backgroundColor = Ti.App.Color.superwhite;
+		sv.vari.footer.arr.icon_footer1[3].image = '/assets/images/icon/icon-3.png';
 		sv.ui.ViewTong.removeAllChildren();
 		sv.vari.wdTTTD = new sv.vari.TTTD();
 		sv.ui.ViewTong.add(sv.vari.wdTTTD.ui.ViewTong);
+	};
+
+	sv.fu.EvtClickView_icon_user = function(e) {
+		set_maubg(sv.ui.View_icon_user, sv.ui.View_icon_soxo, sv.ui.View_icon_bongda);
+		sv.vari.footer.ui.footer_bongda.visible = false;
+		sv.vari.footer.ui.footer_soxo.visible = false;
+		sv.ui.ViewTong.removeAllChildren();
+		sv.vari.Info = new (require('/ui_user/Info'))();
+		sv.ui.ViewTong.add(sv.vari.Info.ui.ViewTong);
 	};
 
 	///su kien khi click vao header soxo
