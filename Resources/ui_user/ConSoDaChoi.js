@@ -7,68 +7,33 @@ module.exports = function() {
 	sv.test = {};
 
 	(function() {
-		// createVariable(sv);
+		createVariable(sv);
 		createUI(sv);
 	})();
 
-	return sv.ui.windowkqsx;
+	return sv;
 };
 /**
  * Khởi tạo biến
  */
 function createVariable(sv) {
+	sv.arr.DaySo = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15'];
+	sv.arr.data = [];
+	sv.arr.ViewSTT = [];
+	sv.arr.STT = [];
+	sv.arr.ViewConSoDaChoi = [];
+	sv.arr.LabelConSoDaChoi = [];
+	sv.arr.ViewThoiGian = [];
+	sv.arr.LabelThoiGian = [];
 }
 
 function createUI(sv) {
-	sv.ui.windowkqsx = Titanium.UI.createWindow({
-		navBarHidden : true,
-		keepScreenOn : true,
-		top : 0,
-		orientationModes : [Ti.UI.PORTRAIT],
-
-	});
-	sv.ui.ViewHeader = Ti.UI.createView({
-		backgroundColor : Ti.App.Color.red,
-		width : Ti.App.size(720),
-		height : Ti.App.size(120),
-		top : 0
-	});
-
-	sv.ui.ViewIconLeft = Ti.UI.createView({
-		width : Ti.App.size(120),
-		height : Ti.App.size(120),
-		left : Ti.App.size(0),
-		top : Ti.App.size(0)
-	});
-
-	sv.ui.IconLeft = Ti.UI.createImageView({
-		image : '/assets/images/icon/arrow.png',
-		top : Ti.App.size(35),
-		left : Ti.App.size(30),
-		right : Ti.App.size(30),
-		bottom : Ti.App.size(35)
-	});
-
-	sv.ui.ViewLabelHeader = Ti.UI.createView({
-		height : Ti.App.size(120),
-		top : Ti.App.size(0),
-		left : Ti.App.size(120),
-		right : Ti.App.size(120),
-	});
-	sv.ui.LabelHeader = Ti.UI.createLabel({
-		text : 'CON SỐ ĐÃ CHƠI',
-		font : {
-			fontSize : Ti.App.size(40),
-			fontWeight : 'bold',
-		},
-		color : Ti.App.Color.superwhite,
-	});
 
 	sv.ui.ViewTong = Ti.UI.createView({
 		backgroundColor : Ti.App.Color.white,
 		// width : Ti.App.widthScreen,
 		height : Ti.UI.FILL,
-		top : Ti.App.size(120),
+		top : Ti.App.size(0),
 		left : 0
 	});
 
@@ -153,19 +118,82 @@ function createUI(sv) {
 
 	sv.ui.ViewDanhSach = Ti.UI.createTableView({
 		backgroundColor : Ti.App.Color.magenta,
-		separatorColor : 'transparent',
 		top : Ti.App.size(82),
-		bottom : Ti.App.size(120),
-		left : 0,
-		right : 0
+		left : 0
 	});
 
+	for (var i = 0; i < 15; i++) {
+
+		var row = Ti.UI.createTableViewRow({
+			width : Ti.App.size(720),
+			height : Ti.App.size(80),
+			left : 0,
+			id : i,
+			backgroundSelectedColor : 'black'
+		});
+
+		sv.arr.ViewSTT[i] = Ti.UI.createView({
+			width : Ti.App.size(100),
+			height : Ti.App.size(80),
+			left : Ti.App.size(0),
+		});
+
+		sv.arr.STT[i] = Ti.UI.createLabel({
+			text : sv.arr.DaySo[i],
+			font : {
+				fontSize : Ti.App.size(22),
+				fontWeight : 'bold',
+				fontFamily : 'Aria',
+			},
+			color : Ti.App.Color.nauden,
+		});
+
+		sv.arr.ViewSTT[i].add(sv.arr.STT[i]);
+		row.add(sv.arr.ViewSTT[i]);
+
+		sv.arr.ViewConSoDaChoi[i] = Ti.UI.createView({
+			left : Ti.App.size(100),
+			width : Ti.App.size(390),
+			height : Ti.App.size(80),
+		});
+
+		sv.arr.LabelConSoDaChoi[i] = Ti.UI.createLabel({
+			text : '14',
+			font : {
+				fontSize : Ti.App.size(22),
+				fontFamily : 'Aria',
+
+			},
+			color : Ti.App.Color.nauden,
+		});
+
+		sv.arr.ViewConSoDaChoi[i].add(sv.arr.LabelConSoDaChoi[i]);
+		row.add(sv.arr.ViewConSoDaChoi[i]);
+
+		sv.arr.ViewThoiGian[i] = Ti.UI.createView({
+			left : Ti.App.size(490),
+			width : Ti.App.size(230),
+			height : Ti.App.size(80),
+		});
+
+		sv.arr.LabelThoiGian[i] = Ti.UI.createLabel({
+			text : '14/04/1993',
+			font : {
+				fontSize : Ti.App.size(22),
+				fontFamily : 'Aria',
+			},
+			color : Ti.App.Color.nauden,
+		});
+
+		sv.arr.ViewThoiGian[i].add(sv.arr.LabelThoiGian[i]);
+		row.add(sv.arr.ViewThoiGian[i]);
+
+		sv.arr.data.push(row);
+	};
+	sv.ui.ViewDanhSach.setData(sv.arr.data);
+
 	createUI_Event(sv);
-	sv.ui.windowkqsx.addEventListener('open', sv.fu.event_openwin);
-	sv.ui.windowkqsx.addEventListener('close', sv.fu.event_closewin);
-	sv.ui.ViewIconLeft.addEventListener('click', sv.fu.event_btnclose);
-	sv.ui.windowkqsx.add(sv.ui.ViewTong);
-	sv.ui.windowkqsx.add(sv.ui.ViewHeader);
+
 	sv.ui.ViewTong.add(sv.ui.ViewTruong);
 	sv.ui.ViewTong.add(sv.ui.ViewLine);
 	sv.ui.ViewTong.add(sv.ui.ViewDanhSach);
@@ -179,25 +207,14 @@ function createUI(sv) {
 	sv.ui.CSDC.add(sv.ui.LabelCSDC);
 	sv.ui.TG.add(sv.ui.LabelTG);
 
-	sv.ui.ViewHeader.add(sv.ui.ViewIconLeft);
-	sv.ui.ViewHeader.add(sv.ui.ViewLabelHeader);
-	sv.ui.ViewLabelHeader.add(sv.ui.LabelHeader);
-	sv.ui.ViewIconLeft.add(sv.ui.IconLeft);
-
 }
 
 function createUI_Event(sv) {
-	sv.fu.event_btnclose = function(e) {
-		sv.ui.windowkqsx.close();
-	};
 	sv.fu.event_openwin = function(e) {
 		Ti.API.info('open');
 	};
 	sv.fu.event_closewin = function(e) {
 
-		sv.ui.windowkqsx.removeEventListener('open', sv.fu.event_openwin);
-		sv.ui.windowkqsx.removeEventListener('close', sv.fu.event_closewin);
-		sv.ui.ViewIconLeft.removeEventListener('click', sv.fu.event_btnclose);
 		sv.vari = null;
 		sv.arr = null;
 		sv.ui = null;
