@@ -47,6 +47,14 @@ function tao_ui(sv) {
 		color : 'black'
 	});
 	sv.ui.ViewTong.add(sv.ui.ViewHeader2);
+	sv.ui.ViewChua=Titanium.UI.createView({
+		width : Ti.UI.FILL,
+		height : Ti.UI.FILL,
+		top :Ti.App.size(70),
+		lef : 0,
+		backgroundColor:'transparent'
+	});
+	sv.ui.ViewTong.add(sv.ui.ViewChua);
 	sv.ui.View_icon_search = Titanium.UI.createView({
 		width : Ti.App.size(125),
 		height : Ti.App.size(125),
@@ -56,7 +64,7 @@ function tao_ui(sv) {
 		backgroundColor : 'green',
 		borderRadius : 5,
 		zIndex : 10,
-		top : Ti.App.size(70)
+		top :0
 	});
 	sv.ui.icon_search = Titanium.UI.createImageView({
 		width : Ti.App.size(60),
@@ -65,9 +73,9 @@ function tao_ui(sv) {
 		touchEnabled : false
 	});
 	sv.ui.View_icon_search.add(sv.ui.icon_search);
-	sv.ui.ViewTong.add(sv.ui.View_icon_search);
+	sv.ui.ViewChua.add(sv.ui.View_icon_search);
 	sv.ui.scrollView = Ti.UI.createScrollView({
-		top : Ti.App.size(70),
+		top :0,
 		width : Ti.App.size(720),
 		left : 0,
 		right : 0,
@@ -81,7 +89,7 @@ function tao_ui(sv) {
 		horizontalBounce : true,
 		height : Ti.UI.FILL
 	});
-	sv.ui.ViewTong.add(sv.ui.scrollView);
+	sv.ui.ViewChua.add(sv.ui.scrollView);
 	////
 	sv.ui.bangkq = bangketqua();
 	sv.ui.scrollView.add(sv.ui.bangkq);

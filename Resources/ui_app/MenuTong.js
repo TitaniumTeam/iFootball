@@ -192,10 +192,10 @@ function taosukien(sv) {
 				sv.ui.ViewTong.removeAllChildren();
 				sv.vari.wdthongke1 = new sv.vari.thongke1();
 				sv.ui.ViewTong.add(sv.vari.wdthongke1.ui.ViewTong);
-				Ti.App.vIndicatorWindow.openIndicator(sv.ui.ViewTong);
+				Ti.App.vIndicatorWindow.openIndicator(sv.vari.wdthongke1.ui.ViewTong);
 				setTimeout(function() {
 					sv.vari.wdthongke1.setParam(sv.arr.param);
-					Ti.App.vIndicatorWindow.closeIndicator(sv.ui.ViewTong);
+					Ti.App.vIndicatorWindow.closeIndicator(sv.vari.wdthongke1.ui.ViewTong);
 				}, 2000);
 
 			};
@@ -214,9 +214,9 @@ function taosukien(sv) {
 				sv.ui.ViewTong.removeAllChildren();
 				sv.vari.view_tuvan = new sv.vari.tuvan();
 				sv.ui.ViewTong.add(sv.vari.view_tuvan.ui.ViewTong);
-				Ti.App.vIndicatorWindow.openIndicator(sv.ui.ViewTong);
+				Ti.App.vIndicatorWindow.openIndicator(sv.vari.view_tuvan.ui.ViewTong);
 				setTimeout(function() {
-					Ti.App.vIndicatorWindow.closeIndicator(sv.ui.ViewTong);
+					Ti.App.vIndicatorWindow.closeIndicator(sv.vari.view_tuvan.ui.ViewTong);
 				}, 2000);
 
 			};
@@ -235,9 +235,9 @@ function taosukien(sv) {
 				sv.ui.ViewTong.removeAllChildren();
 				sv.vari.view_tuvan = new sv.vari.tuvan();
 				sv.ui.ViewTong.add(sv.vari.view_tuvan.ui.ViewTong);
-				Ti.App.vIndicatorWindow.openIndicator(sv.ui.ViewTong);
+				Ti.App.vIndicatorWindow.openIndicator(sv.vari.view_tuvan.ui.ViewTong);
 				setTimeout(function() {
-					Ti.App.vIndicatorWindow.closeIndicator(sv.ui.ViewTong);
+					Ti.App.vIndicatorWindow.closeIndicator(sv.vari.view_tuvan.ui.ViewTong);
 				}, 2000);
 			};
 		}
@@ -262,9 +262,9 @@ function taosukien(sv) {
 				sv.ui.ViewTong.removeAllChildren();
 				sv.vari.wdTTTD = new sv.vari.TTTD();
 				sv.ui.ViewTong.add(sv.vari.wdTTTD.ui.ViewTong);
-				Ti.App.vIndicatorWindow.openIndicator(sv.ui.ViewTong);
+				Ti.App.vIndicatorWindow.openIndicator(sv.vari.wdTTTD.ui.ViewTong);
 				setTimeout(function() {
-					Ti.App.vIndicatorWindow.closeIndicator(sv.ui.ViewTong);
+					Ti.App.vIndicatorWindow.closeIndicator(sv.vari.wdTTTD.ui.ViewTong);
 				}, 2000);
 			};
 		}
@@ -285,10 +285,10 @@ function taosukien(sv) {
 				sv.ui.ViewTong.removeAllChildren();
 				sv.vari.bxh = new sv.vari.bangxephang();
 				sv.ui.ViewTong.add(sv.vari.bxh.ui.ViewTong);
-				Ti.App.vIndicatorWindow.openIndicator(sv.ui.ViewTong);
-				setTimeout(function() {
-					Ti.App.vIndicatorWindow.closeIndicator(sv.ui.ViewTong);
-				}, 2000);
+				// Ti.App.vIndicatorWindow.openIndicator(sv.vari.bxh.ui.ViewTong);
+				// setTimeout(function() {
+					// Ti.App.vIndicatorWindow.closeIndicator(sv.vari.bxh.ui.ViewTong);
+				// }, 2000);
 			};
 		}
 		if (i == 2) {
@@ -307,10 +307,10 @@ function taosukien(sv) {
 				sv.vari.footer.arr.icon_footer1[3].image = '/assets/images/icon/icon-3.png';
 				sv.ui.ViewTong.removeAllChildren();
 				sv.ui.ViewTong.add(sv.vari.Betting.ui.ViewTong);
-				Ti.App.vIndicatorWindow.openIndicator(sv.ui.ViewTong);
-				setTimeout(function() {
-					Ti.App.vIndicatorWindow.closeIndicator(sv.ui.ViewTong);
-				}, 2000);
+				// Ti.App.vIndicatorWindow.openIndicator(sv.vari.Betting.ui.ViewTong);
+				// setTimeout(function() {
+					// Ti.App.vIndicatorWindow.closeIndicator(sv.vari.Betting.ui.ViewTong);
+				// }, 2000);
 			};
 		}
 		if (i == 3) {
@@ -346,6 +346,10 @@ function taosukien(sv) {
 		sv.ui.ViewTong.removeAllChildren();
 		sv.vari.wdTTTD = new sv.vari.TTTD();
 		sv.ui.ViewTong.add(sv.vari.wdTTTD.ui.ViewTong);
+		Ti.App.vIndicatorWindow.openIndicator(sv.vari.wdTTTD.ui.ViewTong);
+		setTimeout(function() {
+			Ti.App.vIndicatorWindow.closeIndicator(sv.vari.wdTTTD.ui.ViewTong);
+		}, 2000);
 	};
 
 	sv.fu.EvtClickView_icon_user = function(e) {
@@ -355,6 +359,10 @@ function taosukien(sv) {
 		sv.ui.ViewTong.removeAllChildren();
 		sv.vari.Info = new (require('/ui_user/Info'))();
 		sv.ui.ViewTong.add(sv.vari.Info.ui.ViewTong);
+		Ti.App.vIndicatorWindow.openIndicator(sv.vari.Info.ui.ViewTong);
+		setTimeout(function() {
+			Ti.App.vIndicatorWindow.closeIndicator(sv.vari.Info.ui.ViewTong);
+		}, 2000);
 	};
 
 	///su kien khi click vao header soxo
@@ -372,6 +380,10 @@ function taosukien(sv) {
 		sv.ui.ViewTong.removeAllChildren();
 		sv.vari.wdKQSX = new sv.vari.KQSX();
 		sv.ui.ViewTong.add(sv.vari.wdKQSX.ui.ViewTong);
+		Ti.App.vIndicatorWindow.openIndicator(sv.vari.wdKQSX.ui.ViewTong);
+		setTimeout(function() {
+			Ti.App.vIndicatorWindow.closeIndicator(sv.vari.wdKQSX.ui.ViewTong);
+		}, 2000);
 	};
 	/**su kien cua window
 	 * **/
@@ -384,6 +396,10 @@ function taosukien(sv) {
 		sv.vari.footer.ui.footer_soxo.visible = true;
 		sv.vari.wdKQSX = new sv.vari.KQSX();
 		sv.ui.ViewTong.add(sv.vari.wdKQSX.ui.ViewTong);
+		Ti.App.vIndicatorWindow.openIndicator(sv.vari.wdKQSX.ui.ViewTong);
+		setTimeout(function() {
+			Ti.App.vIndicatorWindow.closeIndicator(sv.vari.wdKQSX.ui.ViewTong);
+		}, 2000);
 	};
 	sv.fu.evt_win_close = function(e) {
 		sv.ui.win.removeEventListener('open', sv.fu.evt_win_open);

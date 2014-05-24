@@ -20,7 +20,6 @@ var vIndicatorWindow = function(text) {
 		height : height,
 		width : width,
 		backgroundColor : '#000',
-		borderRadius : 10,
 		opacity : 0.5,
 		touchEnabled : false,
 		layout : 'vertical'
