@@ -29,15 +29,12 @@ function taobien(sv) {
 	sv.arr.rows = [];
 };
 function taoui(sv) {
-	sv.ui.ViewTong = Ti.UI.createScrollView({
+	sv.ui.ViewTong = Ti.UI.createView({
 		top : 0,
 		left : 0,
-		showVerticalScrollIndicator : 'true',
-		layout : 'vertical',
 		width : Ti.App.size(720),
 		height : Ti.UI.FILL,
 		backgroundColor : Ti.App.Color.magenta,
-		contentWidth:Ti.UI.FILL
 	});
 	for (var i = 0; i < sv.arr.data.length; i++) {
 		sv.ui.row = Ti.UI.createTableViewRow({
@@ -59,7 +56,7 @@ function taoui(sv) {
 		width : Ti.UI.FILL,
 		height : Ti.UI.SIZE,
 		data : sv.arr.rows,
-		top:Ti.App.size(20)
+		top:0
 	});
 	sv.ui.ViewTong.add(sv.ui.tbl1);
 	sv.ui.webview = Ti.UI.createWebView({
