@@ -53,51 +53,94 @@ function taobien(sv) {
 	}];
 };
 function taoui(sv) {
-	sv.ui.footer_bongda = Ti.UI.createScrollView({
-		width : Ti.UI.FILL,
-		height : Ti.App.size(100),
-		backgroundSelectedColor : Ti.App.Color.nauden,
-		backgroundColor : 'transparent',
-		top : 0,
-		left : 0
-	});
-	// if(Ti.Platform.osname=='android'){
-	// sv.ui.footer_bongda.horizontalWrap=false;
-	// }
+	sv.ui.footer_bongda = {};
+	if (Ti.Platform.osname == 'android') {
+		sv.ui.footer_bongda = Ti.UI.createScrollView({
+			width : Ti.UI.FILL,
+			height : Ti.App.size(100),
+			backgroundSelectedColor : Ti.App.Color.nauden,
+			backgroundColor : 'transparent',
+			top : 0,
+			left : 0,
+			layout : 'horizontal',
+			scrollType : 'horizontal',
+			showHorizontalScrollIndicator : false,
+			horizontalWrap : false,
+			contentWidth : Ti.UI.FILL,
+			disableBounce : true,
+			scrollingEnabled : true
+		});
+
+	} else {
+		sv.ui.footer_bongda = Ti.UI.createScrollView({
+			width : Ti.UI.FILL,
+			height : Ti.App.size(100),
+			backgroundSelectedColor : Ti.App.Color.nauden,
+			backgroundColor : 'transparent',
+			top : 0,
+			left : 0,
+			layout : 'horizontal',
+			disableBounce : true,
+			scrollingEnabled : true
+		});
+	}
 	for (var i = 0; i < 4; i++) {
 		sv.arr.viewchucnangbongda[i] = Ti.UI.createView({
 			width : Ti.App.size(360),
 			height : Ti.App.size(100),
 			backgroundSelectedColor : Ti.App.Color.nauden,
 			backgroundColor : set(i),
-			left : Ti.App.size(i * 360),
+			// left : Ti.App.size(i * 360),
 			top : 0,
 		});
 
-		sv.arr.icon_footer1[i] = Ti.UI.createImageView({
-			image : sv.arr.img_footer1[i].bg,
-			width : Ti.App.size(34),
-			height : Ti.App.size(34),
-			touchEnabled : false,
-			left : Ti.App.size(20),
-			backgroundSelectedImage : sv.arr.img_footer1[i].press
-		});
-		sv.arr.lbl_icon_footer1[i] = Titanium.UI.createLabel({
-			text : sv.arr.img_footer1[i].title,
-			color : Ti.App.Color.nauden,
-			font : {
-				fontSize : Ti.App.size(30)
-			},
-			left : Ti.App.size(60),
-			textAlign : 'left',
-			width : Ti.UI.SIZE,
-			height : Ti.UI.SIZE,
-			backgroundColor : 'transparent',
-			touchEnabled : false
-		});
+		if (i == 1) {
+			sv.arr.icon_footer1[i] = Ti.UI.createImageView({
+				image : sv.arr.img_footer1[i].bg,
+				width : Ti.App.size(105),
+				height : Ti.App.size(54),
+				touchEnabled : false,
+				left : Ti.App.size(20),
+				backgroundSelectedImage : sv.arr.img_footer1[i].press
+			});
+			sv.arr.lbl_icon_footer1[i] = Titanium.UI.createLabel({
+				text : sv.arr.img_footer1[i].title,
+				color : set_color(i),
+				font : {
+					fontSize : Ti.App.size(30)
+				},
+				left : Ti.App.size(140),
+				textAlign : 'left',
+				width : Ti.UI.SIZE,
+				height : Ti.UI.SIZE,
+				backgroundColor : 'transparent',
+				touchEnabled : false
+			});
+		} else {
+			sv.arr.icon_footer1[i] = Ti.UI.createImageView({
+				image : sv.arr.img_footer1[i].bg,
+				width : Ti.App.size(64),
+				height : Ti.App.size(64),
+				touchEnabled : false,
+				left : Ti.App.size(20),
+				backgroundSelectedImage : sv.arr.img_footer1[i].press,
 
+			});
+			sv.arr.lbl_icon_footer1[i] = Titanium.UI.createLabel({
+				text : sv.arr.img_footer1[i].title,
+				color : set_color(i),
+				font : {
+					fontSize : Ti.App.size(30)
+				},
+				left : Ti.App.size(100),
+				textAlign : 'left',
+				width : Ti.UI.SIZE,
+				height : Ti.UI.SIZE,
+				backgroundColor : 'transparent',
+				touchEnabled : false
+			});
+		}
 		sv.ui.footer_bongda.add(sv.arr.viewchucnangbongda[i]);
-
 		sv.arr.viewchucnangbongda[i].add(sv.arr.icon_footer1[i]);
 		sv.arr.viewchucnangbongda[i].add(sv.arr.lbl_icon_footer1[i]);
 	};
