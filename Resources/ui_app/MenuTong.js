@@ -329,6 +329,7 @@ function taosukien(sv) {
 		sv.ui.ViewFooter.visible = true;
 		sv.ui.ViewTong.bottom = Ti.App.size(100);
 		sv.vari.footer.ui.footer_bongda.visible = true;
+		sv.vari.footer.ui.footer_bongda.setCurrentPage(0);
 		sv.vari.footer.ui.footer_soxo.visible = false;
 		sv.vari.footer.arr.lbl_icon_footer1[0].color = Ti.App.Color.superwhite;
 		sv.vari.footer.arr.viewchucnangbongda[0].backgroundColor = Ti.App.Color.nauden;

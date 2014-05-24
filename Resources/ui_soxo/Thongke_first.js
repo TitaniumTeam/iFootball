@@ -196,9 +196,6 @@ function tao_ui(sv) {
 function createUI_Event(sv) {
 	sv.fu.evt_scroll = function(e) {
 		sv.ui.View_icon_search.top = (e.y) / 4;
-		if (sv.ui.View_icon_search.top <= Ti.App.size(70)) {
-			sv.ui.View_icon_search.top = Ti.App.size(70);
-		} 
 	};
 	sv.fu.evt_search_icon = function(e) {
 		sv.vari.view_thongke2 = new sv.vari.thongke2();

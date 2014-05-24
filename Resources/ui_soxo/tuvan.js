@@ -65,7 +65,7 @@ function taoui(sv) {
 		showScrollbars : true,
 		scalesPageToFit : true,
 		touchEnabled : true,
-		enableZoomControls : true
+		enableZoomControls : false
 	});
 	tao_sukien(sv);
 	sv.ui.tbl1.addEventListener('click', sv.fu.evt_tblrow_click);
