@@ -77,18 +77,18 @@ vIndicatorWindow.prototype.openIndicator = function(_curWindow) {
 		return;
 	var curWindow = _curWindow || Ti.UI.currentWindow;
 	this.activityIndicator.show();
+	curWindow.setTouchEnabled(false);
 	curWindow.add(this.background1);
 	curWindow.add(this.background);
-	curWindow.touchEnabled = false;
 };
 vIndicatorWindow.prototype.openIndicator4AddView = function(_curWindow) {
 	if (_curWindow == null)
 		return;
 	var curWindow = _curWindow || Ti.UI.getCurrentWindow();
 	this.activityIndicator.show();
+	curWindow.setTouchEnabled(false);
 	curWindow.add(this.background1);
 	curWindow.add(this.background);
-	curWindow.touchEnabled = false;
 };
 
 vIndicatorWindow.prototype.closeIndicator = function(_curWindow) {
@@ -96,10 +96,9 @@ vIndicatorWindow.prototype.closeIndicator = function(_curWindow) {
 		return;
 	this.activityIndicator.hide();
 	var curWindow = _curWindow || Ti.UI.currentWindow;
-	curWindow.touchEnabled = true;
+	curWindow.setTouchEnabled(true);
 	curWindow.remove(this.background1);
 	curWindow.remove(this.background);
-
 };
 
 module.exports = vIndicatorWindow;

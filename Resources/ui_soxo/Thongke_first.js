@@ -37,7 +37,7 @@ function tao_ui(sv) {
 		height : Ti.App.size(70),
 		backgroundColor : Ti.App.Color.xanhnhat,
 		left : 0,
-		top :0,
+		top : 0,
 		touchEnabled : false,
 		text : 'Xổ xố miền Bắc ngày 22-5-2014 (Hà Nội)',
 		font : {
@@ -56,7 +56,7 @@ function tao_ui(sv) {
 		backgroundColor : 'green',
 		borderRadius : 5,
 		zIndex : 10,
-		top : 0
+		top : Ti.App.size(70)
 	});
 	sv.ui.icon_search = Titanium.UI.createImageView({
 		width : Ti.App.size(60),
@@ -196,6 +196,9 @@ function tao_ui(sv) {
 function createUI_Event(sv) {
 	sv.fu.evt_scroll = function(e) {
 		sv.ui.View_icon_search.top = (e.y) / 4;
+		if (sv.ui.View_icon_search.top <= Ti.App.size(70)) {
+			sv.ui.View_icon_search.top = Ti.App.size(70);
+		} 
 	};
 	sv.fu.evt_search_icon = function(e) {
 		sv.vari.view_thongke2 = new sv.vari.thongke2();
