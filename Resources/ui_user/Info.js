@@ -19,6 +19,7 @@ module.exports = function() {
 function createVariable(sv) {
 	sv.vari.consodachoi = new (require('/ui_user/ConSoDaChoi'))();
 	sv.vari.lichsugiaodich = new (require('/ui_user/LichSuGiaoDich'))();
+	
 	sv.arr.datanapxu = [];
 	sv.arr.event_napxu = [];
 	sv.arr.title = [{
@@ -474,7 +475,8 @@ function createUI(sv) {
 
 function createUI_Event(sv) {
 	sv.fu.event_napxu = function(e) {
-		sv.ui.view_napxu.visible = true;
+		sv.vari.PopUpNapTien = new (require('/ui_user/PopUpNapTien'))();
+		sv.vari.PopUpNapTien.open();
 	};
 	sv.fu.event_consodachoi = function(e) {
 		sv.ui.ViewTong.removeAllChildren();
