@@ -148,18 +148,12 @@ function taoui(sv) {
 		left : 0,
 		top : 0
 	});
-	sv.ui.footer_soxo = Ti.UI.createScrollView({
+	sv.ui.footer_soxo = Ti.UI.createView({
 		top : 0,
 		lef : 0,
-		layout : 'horizontal',
 		backgroundColor : 'transparent',
-		width : Ti.UI.FILL,
-		height : '200dp',
-		showHorizontalScrollIndicator : false,
-		scrollingEnabled : true,
-		scrollType : 'horizontal',
-		contentWidth : Ti.UI.FILL,
-		horizontalWrap : false
+		width : Ti.App.size(720),
+		height : Ti.App.size(100),
 	});
 	for (var i = 0; i < 3; i++) {
 		sv.arr.viewchucnangsoxo[i] = Ti.UI.createView({
@@ -168,6 +162,7 @@ function taoui(sv) {
 			backgroundSelectedColor : Ti.App.Color.nauden,
 			backgroundColor : 'transparent',
 			top : 0,
+			left:Ti.App.size(240*i)
 		});
 		sv.ui.footer_soxo.add(sv.arr.viewchucnangsoxo[i]);
 		sv.arr.icon_footer3[i] = Ti.UI.createImageView({
