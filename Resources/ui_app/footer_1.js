@@ -53,46 +53,43 @@ function taobien(sv) {
 	}];
 };
 function taoui(sv) {
-	sv.ui.footer_bongda = {};
-	if (Ti.Platform.osname == 'android') {
-		sv.ui.footer_bongda = Ti.UI.createScrollView({
-			width : Ti.UI.FILL,
-			height : Ti.App.size(100),
-			backgroundSelectedColor : Ti.App.Color.nauden,
-			backgroundColor : 'transparent',
-			top : 0,
-			left : 0,
-			layout : 'horizontal',
-			scrollType : 'horizontal',
-			showHorizontalScrollIndicator : false,
-			horizontalWrap : false,
-			contentWidth : Ti.UI.FILL,
-			disableBounce : true,
-			scrollingEnabled : true
-		});
-
-	} else {
-		sv.ui.footer_bongda = Ti.UI.createScrollView({
-			width : Ti.UI.FILL,
-			height : Ti.App.size(100),
-			backgroundSelectedColor : Ti.App.Color.nauden,
-			backgroundColor : 'transparent',
-			top : 0,
-			left : 0,
-			layout : 'horizontal',
-			disableBounce : true,
-			scrollingEnabled : true
-		});
-	}
+	sv.ui.footer_bongda1 = Ti.UI.createView({
+		width : Ti.App.size(720),
+		height : Ti.App.size(100),
+		top : 0,
+		backgroundColor : 'transparent',
+	});
+	sv.ui.footer_bongda2 = Ti.UI.createView({
+		width : Ti.App.size(720),
+		height : Ti.App.size(100),
+		top : 0,
+		backgroundColor : 'transparent',
+	});
 	for (var i = 0; i < 4; i++) {
-		sv.arr.viewchucnangbongda[i] = Ti.UI.createView({
-			width : Ti.App.size(360),
-			height : Ti.App.size(100),
-			backgroundSelectedColor : Ti.App.Color.nauden,
-			backgroundColor : set(i),
-			// left : Ti.App.size(i * 360),
-			top : 0,
-		});
+		if (i == 0 || i == 1) {
+			sv.arr.viewchucnangbongda[i] = Ti.UI.createView({
+				width : Ti.App.size(360),
+				height : Ti.App.size(100),
+				backgroundSelectedColor : Ti.App.Color.nauden,
+				backgroundColor : set(i),
+				left : Ti.App.size(i * 360),
+				top : 0,
+			});
+			sv.ui.footer_bongda1.add(sv.arr.viewchucnangbongda[i]);
+		} else {
+			if (i == 2 || i == 3) {
+				sv.arr.viewchucnangbongda[i] = Ti.UI.createView({
+					width : Ti.App.size(360),
+					height : Ti.App.size(100),
+					backgroundSelectedColor : Ti.App.Color.nauden,
+					backgroundColor : set(i),
+					left : Ti.App.size((i-2) * 360),
+					top : 0,
+				});
+				sv.ui.footer_bongda2.add(sv.arr.viewchucnangbongda[i]);
+			}
+
+		}
 
 		if (i == 1) {
 			sv.arr.icon_footer1[i] = Ti.UI.createImageView({
@@ -140,11 +137,17 @@ function taoui(sv) {
 				touchEnabled : false
 			});
 		}
-		sv.ui.footer_bongda.add(sv.arr.viewchucnangbongda[i]);
 		sv.arr.viewchucnangbongda[i].add(sv.arr.icon_footer1[i]);
 		sv.arr.viewchucnangbongda[i].add(sv.arr.lbl_icon_footer1[i]);
 	};
-
+	sv.ui.footer_bongda = Titanium.UI.createScrollableView({
+		views : [sv.ui.footer_bongda1, sv.ui.footer_bongda2],
+		showPagingControl : false,
+		width : Ti.UI.FILL,
+		height : Ti.UI.FILL,
+		left : 0,
+		top : 0
+	});
 	sv.ui.footer_soxo = Ti.UI.createScrollView({
 		top : 0,
 		lef : 0,

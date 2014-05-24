@@ -34,7 +34,6 @@ function taoui(sv) {
 		left : 0,
 		width : Ti.App.size(720),
 		height : Ti.UI.FILL,
-		backgroundColor : Ti.App.Color.magenta,
 	});
 	for (var i = 0; i < sv.arr.data.length; i++) {
 		sv.ui.row = Ti.UI.createTableViewRow({
@@ -47,8 +46,8 @@ function taoui(sv) {
 				fontSize : Ti.App.size(30)
 			},
 			title : sv.arr.data[i].title,
-			id:i,
-			hasChild:true
+			id : i,
+			hasChild : true
 		});
 		sv.arr.rows.push(sv.ui.row);
 	}
@@ -56,7 +55,8 @@ function taoui(sv) {
 		width : Ti.UI.FILL,
 		height : Ti.UI.SIZE,
 		data : sv.arr.rows,
-		top:0
+		top : 0,
+		separatorColor : Ti.App.Color.xanhnhat
 	});
 	sv.ui.ViewTong.add(sv.ui.tbl1);
 	sv.ui.webview = Ti.UI.createWebView({
@@ -64,8 +64,8 @@ function taoui(sv) {
 		height : Ti.UI.FILL,
 		showScrollbars : true,
 		scalesPageToFit : true,
-		touchEnabled:true,
-		enableZoomControls:true
+		touchEnabled : true,
+		enableZoomControls : true
 	});
 	tao_sukien(sv);
 	sv.ui.tbl1.addEventListener('click', sv.fu.evt_tblrow_click);
