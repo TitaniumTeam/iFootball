@@ -30,25 +30,33 @@ function taobien(sv) {
 		press : "/assets/images/icon/icon-thongke_press.png",
 		title : "Thống kê"
 	}, {
+		bg : "/assets/images/icon/icon-ketqua.png",
+		press : "/assets/images/icon/icon-ketqua_press.png",
+		title : "Kết quả"
+	}, {
 		bg : "/assets/images/icon/icon-tuvan.png",
 		press : "/assets/images/icon/icon-tuvan_press.png",
 		title : "Tư vấn"
 	}, {
-		bg : "/assets/images/icon/icon-3.png",
-		press : "/assets/images/icon/icon-3.png",
+		bg : "/assets/images/icon/icon-vip.png",
+		press : "/assets/images/icon/icon-vip_press.png",
 		title : "VIP"
 	}];
-	sv.arr.img_footer3 = [{
-		bg : "/assets/images/icon/icon-thongke.png",
-		press : "/assets/images/icon/icon-thongke_press.png",
-		title : "Thống kê"
+	sv.arr.img_footer1 = [{
+		bg : "/assets/images/icon/icon-calander.png",
+		press : "/assets/images/icon/icon-calander_press.png",
+		title : "Lịch thi đấu"
 	}, {
 		bg : "/assets/images/icon/icon-tuvan.png",
 		press : "/assets/images/icon/icon-tuvan_press.png",
+		title : "Tu van"
+	}, {
+		bg : "/assets/images/icon/icon-tintuc.png",
+		press : "/assets/images/icon/icon-tintuc_press.png",
 		title : "Tư vấn"
 	}, {
-		bg : "/assets/images/icon/icon-3.png",
-		press : "/assets/images/icon/icon-3.png",
+		bg : "/assets/images/icon/icon-vip.png",
+		press : "/assets/images/icon/icon-vip_press.png",
 		title : "VIP"
 	}];
 	////cac mang so xo
@@ -68,6 +76,14 @@ function taoui(sv) {
 		left : 0
 	});
 	sv.ui.win.add(sv.ui.ViewHeader);
+	sv.ui.line_header = Titanium.UI.createView({
+		width : Ti.App.size(720),
+		height : Ti.App.size(5),
+		backgroundColor : Ti.App.Color.xanhnhat,
+		bottom : 0,
+		zIndex : 10
+	});
+	sv.ui.ViewHeader.add(sv.ui.line_header);
 	sv.ui.View_icon_bongda = Ti.UI.createView({
 		width : Ti.App.size(240),
 		height : Ti.App.size(100),
@@ -134,24 +150,25 @@ function taoui(sv) {
 	sv.ui.ViewFooter = Ti.UI.createView({
 		height : Ti.App.size(100),
 		backgroundColor : Ti.App.Color.superwhite,
-		left : 0,
 		bottom : 0,
-		width : Ti.App.size(720)
+		left:0,
+		right:0
 	});
 	sv.ui.win.add(sv.ui.ViewFooter);
 	sv.ui.line_vfoot = Titanium.UI.createView({
 		width : Ti.App.size(720),
-		height : Ti.App.size(3),
+		height : Ti.App.size(5),
 		backgroundColor : Ti.App.Color.xanhnhat,
 		top : 0,
-		zIndex : 10
+		zIndex : 10,
+		left:0
 	});
 	sv.ui.ViewFooter.add(sv.ui.line_vfoot);
 	//sv.ui.ViewFooter.add(sv.vari.footer.ui.footer_soxo);
 	/////
 	taosukien(sv);
 
-	for (var i = 0; i < 3; i++) {
+	for (var i = 0; i < 4; i++) {
 		sv.vari.footer.arr.viewchucnangsoxo[i].addEventListener('click', sv.arr.evt_chucnangsoxo[i]);
 	}
 	for (var i = 0; i < 4; i++) {
@@ -177,18 +194,19 @@ function taosukien(sv) {
 	 * footer
 	 **/
 	///su kien khi click vao footer so xo
-	for (var i = 0; i < 3; i++) {
+	for (var i = 0; i < 4; i++) {
 		if (i == 0) {
 			sv.arr.evt_chucnangsoxo[i] = function(e) {
-				sv.vari.footer.arr.lbl_icon_footer3[0].color = Ti.App.Color.superwhite;
-				sv.vari.footer.arr.viewchucnangsoxo[0].backgroundColor = Ti.App.Color.nauden;
-				sv.vari.footer.arr.icon_footer3[0].image = '/assets/images/icon/icon-thongke_press.png';
-				sv.vari.footer.arr.lbl_icon_footer3[1].color = Ti.App.Color.nauden;
-				sv.vari.footer.arr.viewchucnangsoxo[1].backgroundColor = Ti.App.Color.superwhite;
-				sv.vari.footer.arr.icon_footer3[1].image = '/assets/images/icon/icon-tuvan.png';
-				sv.vari.footer.arr.lbl_icon_footer3[2].color = Ti.App.Color.nauden;
-				sv.vari.footer.arr.viewchucnangsoxo[2].backgroundColor = Ti.App.Color.superwhite;
-				sv.vari.footer.arr.icon_footer3[2].image = '/assets/images/icon/icon-3.png';
+				for (var j = 0; j < 4; j++) {
+					if (j == 0) {
+						sv.vari.footer.arr.viewchucnangsoxo[j].backgroundColor = Ti.App.Color.nauden;
+						sv.vari.footer.arr.icon_footer3[j].image = sv.arr.img_footer3[j].press;
+					} else {
+						sv.vari.footer.arr.viewchucnangsoxo[j].backgroundColor = Ti.App.Color.superwhite;
+						sv.vari.footer.arr.icon_footer3[j].image = sv.arr.img_footer3[j].bg;
+					}
+
+				}
 				sv.ui.ViewTong.removeAllChildren();
 				sv.vari.wdthongke1 = new sv.vari.thongke1();
 				sv.ui.ViewTong.add(sv.vari.wdthongke1.ui.ViewTong);
@@ -202,15 +220,16 @@ function taosukien(sv) {
 		}
 		if (i == 1) {
 			sv.arr.evt_chucnangsoxo[i] = function(e) {
-				sv.vari.footer.arr.lbl_icon_footer3[0].color = Ti.App.Color.nauden;
-				sv.vari.footer.arr.viewchucnangsoxo[0].backgroundColor = Ti.App.Color.superwhite;
-				sv.vari.footer.arr.icon_footer3[0].image = '/assets/images/icon/icon-thongke.png';
-				sv.vari.footer.arr.lbl_icon_footer3[1].color = Ti.App.Color.superwhite;
-				sv.vari.footer.arr.viewchucnangsoxo[1].backgroundColor = Ti.App.Color.nauden;
-				sv.vari.footer.arr.icon_footer3[1].image = '/assets/images/icon/icon-tuvan_press.png';
-				sv.vari.footer.arr.lbl_icon_footer3[2].color = Ti.App.Color.nauden;
-				sv.vari.footer.arr.viewchucnangsoxo[2].backgroundColor = Ti.App.Color.superwhite;
-				sv.vari.footer.arr.icon_footer3[2].image = '/assets/images/icon/icon-3.png';
+				for (var j = 0; j < 4; j++) {
+					if (j == 1) {
+						sv.vari.footer.arr.viewchucnangsoxo[j].backgroundColor = Ti.App.Color.nauden;
+						sv.vari.footer.arr.icon_footer3[j].image = sv.arr.img_footer3[j].press;
+					} else {
+						sv.vari.footer.arr.viewchucnangsoxo[j].backgroundColor = Ti.App.Color.superwhite;
+						sv.vari.footer.arr.icon_footer3[j].image = sv.arr.img_footer3[j].bg;
+					}
+
+				}
 				sv.ui.ViewTong.removeAllChildren();
 				sv.vari.view_tuvan = new sv.vari.tuvan();
 				sv.ui.ViewTong.add(sv.vari.view_tuvan.ui.ViewTong);
@@ -223,15 +242,16 @@ function taosukien(sv) {
 		}
 		if (i == 2) {
 			sv.arr.evt_chucnangsoxo[i] = function(e) {
-				sv.vari.footer.arr.lbl_icon_footer3[0].color = Ti.App.Color.nauden;
-				sv.vari.footer.arr.viewchucnangsoxo[0].backgroundColor = Ti.App.Color.superwhite;
-				sv.vari.footer.arr.icon_footer3[0].image = '/assets/images/icon/icon-thongke.png';
-				sv.vari.footer.arr.lbl_icon_footer3[2].color = Ti.App.Color.superwhite;
-				sv.vari.footer.arr.viewchucnangsoxo[2].backgroundColor = Ti.App.Color.nauden;
-				sv.vari.footer.arr.icon_footer3[2].image = '/assets/images/icon/icon-tuvan_press.png';
-				sv.vari.footer.arr.lbl_icon_footer3[1].color = Ti.App.Color.nauden;
-				sv.vari.footer.arr.viewchucnangsoxo[1].backgroundColor = Ti.App.Color.superwhite;
-				sv.vari.footer.arr.icon_footer3[1].image = '/assets/images/icon/icon-3.png';
+				for (var j = 0; j < 4; j++) {
+					if (j == 2) {
+						sv.vari.footer.arr.viewchucnangsoxo[j].backgroundColor = Ti.App.Color.nauden;
+						sv.vari.footer.arr.icon_footer3[j].image = sv.arr.img_footer3[j].press;
+					} else {
+						sv.vari.footer.arr.viewchucnangsoxo[j].backgroundColor = Ti.App.Color.superwhite;
+						sv.vari.footer.arr.icon_footer3[j].image = sv.arr.img_footer3[j].bg;
+					}
+
+				}
 				sv.ui.ViewTong.removeAllChildren();
 				sv.vari.view_tuvan = new sv.vari.tuvan();
 				sv.ui.ViewTong.add(sv.vari.view_tuvan.ui.ViewTong);
@@ -241,24 +261,37 @@ function taosukien(sv) {
 				}, 2000);
 			};
 		}
+		if (i == 3) {
+			sv.arr.evt_chucnangsoxo[i] = function(e) {
+				for (var j = 0; j < 4; j++) {
+					if (j == 3) {
+						sv.vari.footer.arr.viewchucnangsoxo[j].backgroundColor = Ti.App.Color.nauden;
+						sv.vari.footer.arr.icon_footer3[j].image = sv.arr.img_footer3[j].press;
+					} else {
+						sv.vari.footer.arr.viewchucnangsoxo[j].backgroundColor = Ti.App.Color.superwhite;
+						sv.vari.footer.arr.icon_footer3[j].image = sv.arr.img_footer3[j].bg;
+					}
+
+				}
+				sv.ui.ViewTong.removeAllChildren();
+			};
+		}
 	};
 	// ///su kien khi click footer bong da
 
 	for (var i = 0; i < 4; i++) {
 		if (i == 0) {
 			sv.arr.evt_chucnangbongda[0] = function(e) {
-				sv.vari.footer.arr.lbl_icon_footer1[0].color = Ti.App.Color.superwhite;
-				sv.vari.footer.arr.viewchucnangbongda[0].backgroundColor = Ti.App.Color.nauden;
-				sv.vari.footer.arr.icon_footer1[0].image = '/assets/images/icon/icon-calander_press.png';
-				sv.vari.footer.arr.lbl_icon_footer1[1].color = Ti.App.Color.nauden;
-				sv.vari.footer.arr.viewchucnangbongda[1].backgroundColor = Ti.App.Color.superwhite;
-				sv.vari.footer.arr.icon_footer1[1].image = '/assets/images/icon/icon-xephang.png';
-				sv.vari.footer.arr.lbl_icon_footer1[2].color = Ti.App.Color.nauden;
-				sv.vari.footer.arr.viewchucnangbongda[2].backgroundColor = Ti.App.Color.superwhite;
-				sv.vari.footer.arr.icon_footer1[2].image = '/assets/images/icon/icon-tuvan.png';
-				sv.vari.footer.arr.lbl_icon_footer1[3].color = Ti.App.Color.nauden;
-				sv.vari.footer.arr.viewchucnangbongda[3].backgroundColor = Ti.App.Color.superwhite;
-				sv.vari.footer.arr.icon_footer1[3].image = '/assets/images/icon/icon-3.png';
+				for (var j = 0; j < 4; j++) {
+					if (j == 0) {
+						sv.vari.footer.arr.viewchucnangbongda[j].backgroundColor = Ti.App.Color.nauden;
+						sv.vari.footer.arr.icon_footer1[j].image = sv.arr.img_footer1[j].press;
+					} else {
+						sv.vari.footer.arr.viewchucnangbongda[j].backgroundColor = Ti.App.Color.superwhite;
+						sv.vari.footer.arr.icon_footer1[j].image = sv.arr.img_footer1[j].bg;
+					}
+
+				}
 				sv.ui.ViewTong.removeAllChildren();
 				sv.vari.wdTTTD = new sv.vari.TTTD();
 				sv.ui.ViewTong.add(sv.vari.wdTTTD.ui.ViewTong);
@@ -270,52 +303,59 @@ function taosukien(sv) {
 		}
 		if (i == 1) {
 			sv.arr.evt_chucnangbongda[1] = function(e) {
-				sv.vari.footer.arr.lbl_icon_footer1[0].color = Ti.App.Color.nauden;
-				sv.vari.footer.arr.viewchucnangbongda[0].backgroundColor = Ti.App.Color.superwhite;
-				sv.vari.footer.arr.icon_footer1[0].image = '/assets/images/icon/icon-calander.png';
-				sv.vari.footer.arr.lbl_icon_footer1[1].color = Ti.App.Color.superwhite;
-				sv.vari.footer.arr.viewchucnangbongda[1].backgroundColor = Ti.App.Color.nauden;
-				sv.vari.footer.arr.icon_footer1[1].image = '/assets/images/icon/icon-xephang_press.png';
-				sv.vari.footer.arr.lbl_icon_footer1[2].color = Ti.App.Color.nauden;
-				sv.vari.footer.arr.viewchucnangbongda[2].backgroundColor = Ti.App.Color.superwhite;
-				sv.vari.footer.arr.icon_footer1[2].image = '/assets/images/icon/icon-tuvan.png';
-				sv.vari.footer.arr.lbl_icon_footer1[3].color = Ti.App.Color.nauden;
-				sv.vari.footer.arr.viewchucnangbongda[3].backgroundColor = Ti.App.Color.superwhite;
-				sv.vari.footer.arr.icon_footer1[3].image = '/assets/images/icon/icon-3.png';
+				for (var j = 0; j < 4; j++) {
+					if (j == 1) {
+						sv.vari.footer.arr.viewchucnangbongda[j].backgroundColor = Ti.App.Color.nauden;
+						sv.vari.footer.arr.icon_footer1[j].image = sv.arr.img_footer1[j].press;
+					} else {
+						sv.vari.footer.arr.viewchucnangbongda[j].backgroundColor = Ti.App.Color.superwhite;
+						sv.vari.footer.arr.icon_footer1[j].image = sv.arr.img_footer1[j].bg;
+					}
+
+				}
 				sv.ui.ViewTong.removeAllChildren();
 				sv.vari.bxh = new sv.vari.bangxephang();
 				sv.ui.ViewTong.add(sv.vari.bxh.ui.ViewTong);
 				// Ti.App.vIndicatorWindow.openIndicator(sv.vari.bxh.ui.ViewTong);
 				// setTimeout(function() {
-					// Ti.App.vIndicatorWindow.closeIndicator(sv.vari.bxh.ui.ViewTong);
+				// Ti.App.vIndicatorWindow.closeIndicator(sv.vari.bxh.ui.ViewTong);
 				// }, 2000);
 			};
 		}
 		if (i == 2) {
 			sv.arr.evt_chucnangbongda[2] = function(e) {
-				sv.vari.footer.arr.lbl_icon_footer1[0].color = Ti.App.Color.nauden;
-				sv.vari.footer.arr.viewchucnangbongda[0].backgroundColor = Ti.App.Color.superwhite;
-				sv.vari.footer.arr.icon_footer1[0].image = '/assets/images/icon/icon-calander.png';
-				sv.vari.footer.arr.lbl_icon_footer1[1].color = Ti.App.Color.nauden;
-				sv.vari.footer.arr.viewchucnangbongda[1].backgroundColor = Ti.App.Color.superwhite;
-				sv.vari.footer.arr.icon_footer1[1].image = '/assets/images/icon/icon-xephang.png';
-				sv.vari.footer.arr.lbl_icon_footer1[2].color = Ti.App.Color.superwhite;
-				sv.vari.footer.arr.viewchucnangbongda[2].backgroundColor = Ti.App.Color.nauden;
-				sv.vari.footer.arr.icon_footer1[2].image = '/assets/images/icon/icon-tuvan_press.png';
-				sv.vari.footer.arr.lbl_icon_footer1[3].color = Ti.App.Color.nauden;
-				sv.vari.footer.arr.viewchucnangbongda[3].backgroundColor = Ti.App.Color.superwhite;
-				sv.vari.footer.arr.icon_footer1[3].image = '/assets/images/icon/icon-3.png';
+				for (var j = 0; j < 4; j++) {
+					if (j == 2) {
+						sv.vari.footer.arr.viewchucnangbongda[j].backgroundColor = Ti.App.Color.nauden;
+						sv.vari.footer.arr.icon_footer1[j].image = sv.arr.img_footer1[j].press;
+					} else {
+						sv.vari.footer.arr.viewchucnangbongda[j].backgroundColor = Ti.App.Color.superwhite;
+						sv.vari.footer.arr.icon_footer1[j].image = sv.arr.img_footer1[j].bg;
+					}
+
+				}
 				sv.ui.ViewTong.removeAllChildren();
 				sv.ui.ViewTong.add(sv.vari.Betting.ui.ViewTong);
 				// Ti.App.vIndicatorWindow.openIndicator(sv.vari.Betting.ui.ViewTong);
 				// setTimeout(function() {
-					// Ti.App.vIndicatorWindow.closeIndicator(sv.vari.Betting.ui.ViewTong);
+				// Ti.App.vIndicatorWindow.closeIndicator(sv.vari.Betting.ui.ViewTong);
 				// }, 2000);
 			};
 		}
 		if (i == 3) {
 			sv.arr.evt_chucnangbongda[i] = function(e) {
-				Ti.API.info('chuc nang vip');
+				for (var j = 0; j < 4; j++) {
+					if (j == 3) {
+						sv.vari.footer.arr.viewchucnangbongda[j].backgroundColor = Ti.App.Color.nauden;
+						sv.vari.footer.arr.icon_footer1[j].image = sv.arr.img_footer1[j].press;
+					} else {
+						sv.vari.footer.arr.viewchucnangbongda[j].backgroundColor = Ti.App.Color.superwhite;
+						sv.vari.footer.arr.icon_footer1[j].image = sv.arr.img_footer1[j].bg;
+					}
+
+				}
+				Ti.API.info('chuc nangvip');
+				sv.ui.ViewTong.removeAllChildren();
 			};
 		}
 	};
@@ -325,24 +365,20 @@ function taosukien(sv) {
 	 * **/
 	///su kien khi click vao header bong da
 	sv.fu.evt_icon_bongda = function(e) {
+		for (var i = 0; i < 4; i++) {
+			if (i == 0) {
+				sv.vari.footer.arr.viewchucnangbongda[i].backgroundColor = Ti.App.Color.nauden;
+				sv.vari.footer.arr.icon_footer1[i].image = sv.arr.img_footer1[i].press;
+			} else {
+				sv.vari.footer.arr.viewchucnangbongda[i].backgroundColor = Ti.App.Color.superwhite;
+				sv.vari.footer.arr.icon_footer1[i].image = sv.arr.img_footer1[i].bg;
+			}
+		}
 		set_maubg(sv.ui.View_icon_bongda, sv.ui.View_icon_soxo, sv.ui.View_icon_user);
 		sv.ui.ViewFooter.visible = true;
 		sv.ui.ViewTong.bottom = Ti.App.size(100);
 		sv.vari.footer.ui.footer_bongda.visible = true;
-		sv.vari.footer.ui.footer_bongda.setCurrentPage(0);
 		sv.vari.footer.ui.footer_soxo.visible = false;
-		sv.vari.footer.arr.lbl_icon_footer1[0].color = Ti.App.Color.superwhite;
-		sv.vari.footer.arr.viewchucnangbongda[0].backgroundColor = Ti.App.Color.nauden;
-		sv.vari.footer.arr.icon_footer1[0].image = '/assets/images/icon/icon-calander_press.png';
-		sv.vari.footer.arr.lbl_icon_footer1[1].color = Ti.App.Color.nauden;
-		sv.vari.footer.arr.viewchucnangbongda[1].backgroundColor = Ti.App.Color.superwhite;
-		sv.vari.footer.arr.icon_footer1[1].image = '/assets/images/icon/icon-xephang.png';
-		sv.vari.footer.arr.lbl_icon_footer1[2].color = Ti.App.Color.nauden;
-		sv.vari.footer.arr.viewchucnangbongda[2].backgroundColor = Ti.App.Color.superwhite;
-		sv.vari.footer.arr.icon_footer1[2].image = '/assets/images/icon/icon-tuvan.png';
-		sv.vari.footer.arr.lbl_icon_footer1[3].color = Ti.App.Color.nauden;
-		sv.vari.footer.arr.viewchucnangbongda[3].backgroundColor = Ti.App.Color.superwhite;
-		sv.vari.footer.arr.icon_footer1[3].image = '/assets/images/icon/icon-3.png';
 		sv.ui.ViewTong.removeAllChildren();
 		sv.vari.wdTTTD = new sv.vari.TTTD();
 		sv.ui.ViewTong.add(sv.vari.wdTTTD.ui.ViewTong);
@@ -367,8 +403,7 @@ function taosukien(sv) {
 
 	///su kien khi click vao header soxo
 	sv.fu.evt_icon_soxo = function(e) {
-		for (var i = 0; i < 3; i++) {
-			sv.vari.footer.arr.lbl_icon_footer3[i].color = Ti.App.Color.nauden;
+		for (var i = 0; i < 4; i++) {
 			sv.vari.footer.arr.viewchucnangsoxo[i].backgroundColor = Ti.App.Color.superwhite;
 			sv.vari.footer.arr.icon_footer3[i].image = sv.arr.img_footer3[i].bg;
 		}
@@ -390,8 +425,8 @@ function taosukien(sv) {
 	sv.fu.evt_win_open = function(e) {
 		Ti.API.info('win open');
 		set_maubg(sv.ui.View_icon_soxo, sv.ui.View_icon_bongda, sv.ui.View_icon_user);
-		sv.ui.ViewFooter.add(sv.vari.footer.ui.footer_bongda);
 		sv.ui.ViewFooter.add(sv.vari.footer.ui.footer_soxo);
+		sv.ui.ViewFooter.add(sv.vari.footer.ui.footer_bongda);
 		sv.vari.footer.ui.footer_bongda.visible = false;
 		sv.vari.footer.ui.footer_soxo.visible = true;
 		sv.vari.wdKQSX = new sv.vari.KQSX();
@@ -404,7 +439,7 @@ function taosukien(sv) {
 	sv.fu.evt_win_close = function(e) {
 		sv.ui.win.removeEventListener('open', sv.fu.evt_win_open);
 		sv.ui.win.removeEventListener('close', sv.fu.evt_win_close);
-		for (var i = 0; i < 3; i++) {
+		for (var i = 0; i < 4; i++) {
 			sv.vari.footer.arr.viewchucnangsoxo[i].removeEventListener('click', sv.arr.evt_chucnangsoxo[i]);
 		}
 		for (var i = 0; i < 4; i++) {
