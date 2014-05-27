@@ -16,13 +16,13 @@ function taobien(sv) {
 	sv.arr.viewchucnangsoxo = [];
 	sv.arr.icon_footer3 = [];
 	sv.arr.img_footer3 = [{
-		bg : "/assets/images/icon/icon-thongke.png",
-		press : "/assets/images/icon/icon-thongke_press.png",
-		title : "Thống kê"
-	}, {
 		bg : "/assets/images/icon/icon-ketqua.png",
 		press : "/assets/images/icon/icon-ketqua_press.png",
 		title : "Kết quả"
+	}, {
+		bg : "/assets/images/icon/icon-thongke.png",
+		press : "/assets/images/icon/icon-thongke_press.png",
+		title : "Thống kê"
 	}, {
 		bg : "/assets/images/icon/icon-tuvan.png",
 		press : "/assets/images/icon/icon-tuvan_press.png",

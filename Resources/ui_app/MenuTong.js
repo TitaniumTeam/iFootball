@@ -20,18 +20,18 @@ function taobien(sv) {
 	////////
 	sv.vari.TTTD = require('/ui_bongda/ThongTinTranDau');
 	sv.vari.tintuc = require('/ui_bongda/News');
-	sv.vari.tuvan_bongda=require('/ui_bongda/TuVan');
+	sv.vari.tuvan_bongda = require('/ui_bongda/TuVan');
 	/////
 
 	sv.arr.param = ['09808', '09808', '09808', '09808', '09808', '09990', '09788', '04358', '09899', '09111', '0978', '0435', '0981', '0911', '0978', '0435', '0981', '0911', '0978', '0435', '091', '091', '097', '04', '09', '01', '09'];
 	sv.arr.img_footer3 = [{
-		bg : "/assets/images/icon/icon-thongke.png",
-		press : "/assets/images/icon/icon-thongke_press.png",
-		title : "Thống kê"
-	}, {
 		bg : "/assets/images/icon/icon-ketqua.png",
 		press : "/assets/images/icon/icon-ketqua_press.png",
 		title : "Kết quả"
+	}, {
+		bg : "/assets/images/icon/icon-thongke.png",
+		press : "/assets/images/icon/icon-thongke_press.png",
+		title : "Thống kê"
 	}, {
 		bg : "/assets/images/icon/icon-tuvan.png",
 		press : "/assets/images/icon/icon-tuvan_press.png",
@@ -142,8 +142,8 @@ function taoui(sv) {
 		height : Ti.App.size(100),
 		backgroundColor : Ti.App.Color.superwhite,
 		bottom : 0,
-		left:0,
-		right:0
+		left : 0,
+		right : 0
 	});
 	sv.ui.win.add(sv.ui.ViewFooter);
 	sv.ui.line_vfoot = Titanium.UI.createView({
@@ -152,7 +152,7 @@ function taoui(sv) {
 		backgroundColor : Ti.App.Color.xanhnhat,
 		top : 0,
 		zIndex : 10,
-		left:0
+		left : 0
 	});
 	sv.ui.ViewFooter.add(sv.ui.line_vfoot);
 	//sv.ui.ViewFooter.add(sv.vari.footer.ui.footer_soxo);
@@ -203,8 +203,8 @@ function taosukien(sv) {
 				sv.ui.ViewTong.add(sv.vari.wdthongke1.ui.ViewTong);
 				// Ti.App.vIndicatorWindow.openIndicator(sv.vari.wdthongke1.ui.ViewTong);
 				// setTimeout(function() {
-					// sv.vari.wdthongke1.setParam(sv.arr.param);
-					// Ti.App.vIndicatorWindow.closeIndicator(sv.vari.wdthongke1.ui.ViewTong);
+				// sv.vari.wdthongke1.setParam(sv.arr.param);
+				// Ti.App.vIndicatorWindow.closeIndicator(sv.vari.wdthongke1.ui.ViewTong);
 				// }, 2000);
 
 			};
@@ -242,7 +242,7 @@ function taosukien(sv) {
 				sv.ui.ViewTong.add(sv.vari.view_tuvan.ui.ViewTong);
 				// Ti.App.vIndicatorWindow.openIndicator(sv.vari.view_tuvan.ui.ViewTong);
 				// setTimeout(function() {
-					// Ti.App.vIndicatorWindow.closeIndicator(sv.vari.view_tuvan.ui.ViewTong);
+				// Ti.App.vIndicatorWindow.closeIndicator(sv.vari.view_tuvan.ui.ViewTong);
 				// }, 2000);
 			};
 		}
@@ -294,7 +294,7 @@ function taosukien(sv) {
 					}
 
 				}
-				sv.ui.view_tuvan=new sv.vari.tuvan_bongda();
+				sv.ui.view_tuvan = new sv.vari.tuvan_bongda();
 				sv.ui.ViewTong.removeAllChildren();
 				sv.ui.ViewTong.add(sv.ui.view_tuvan.ui.ViewTong);
 			};
@@ -312,7 +312,7 @@ function taosukien(sv) {
 
 				}
 				sv.ui.ViewTong.removeAllChildren();
-				sv.ui.tintuc=new sv.vari.tintuc();
+				sv.ui.tintuc = new sv.vari.tintuc();
 				sv.ui.ViewTong.add(sv.ui.tintuc.ui.ViewTong);
 				// Ti.App.vIndicatorWindow.openIndicator(sv.vari.Betting.ui.ViewTong);
 				// setTimeout(function() {
@@ -362,7 +362,7 @@ function taosukien(sv) {
 		sv.ui.ViewTong.add(sv.vari.wdTTTD.ui.ViewTong);
 		// Ti.App.vIndicatorWindow.openIndicator(sv.vari.wdTTTD.ui.ViewTong);
 		// setTimeout(function() {
-			// Ti.App.vIndicatorWindow.closeIndicator(sv.vari.wdTTTD.ui.ViewTong);
+		// Ti.App.vIndicatorWindow.closeIndicator(sv.vari.wdTTTD.ui.ViewTong);
 		// }, 2000);
 	};
 
@@ -375,7 +375,7 @@ function taosukien(sv) {
 		sv.ui.ViewTong.add(sv.vari.Info.ui.ViewTong);
 		// Ti.App.vIndicatorWindow.openIndicator(sv.vari.Info.ui.ViewTong);
 		// setTimeout(function() {
-			// Ti.App.vIndicatorWindow.closeIndicator(sv.vari.Info.ui.ViewTong);
+		// Ti.App.vIndicatorWindow.closeIndicator(sv.vari.Info.ui.ViewTong);
 		// }, 2000);
 	};
 
@@ -395,7 +395,7 @@ function taosukien(sv) {
 		sv.ui.ViewTong.add(sv.vari.wdKQSX.ui.ViewTong);
 		// Ti.App.vIndicatorWindow.openIndicator(sv.vari.wdKQSX.ui.ViewTong);
 		// setTimeout(function() {
-			// Ti.App.vIndicatorWindow.closeIndicator(sv.vari.wdKQSX.ui.ViewTong);
+		// Ti.App.vIndicatorWindow.closeIndicator(sv.vari.wdKQSX.ui.ViewTong);
 		// }, 2000);
 	};
 	/**su kien cua window
@@ -411,7 +411,7 @@ function taosukien(sv) {
 		sv.ui.ViewTong.add(sv.vari.wdKQSX.ui.ViewTong);
 		// Ti.App.vIndicatorWindow.openIndicator(sv.vari.wdKQSX.ui.ViewTong);
 		// setTimeout(function() {
-			// Ti.App.vIndicatorWindow.closeIndicator(sv.vari.wdKQSX.ui.ViewTong);
+		// Ti.App.vIndicatorWindow.closeIndicator(sv.vari.wdKQSX.ui.ViewTong);
 		// }, 2000);
 	};
 	sv.fu.evt_win_close = function(e) {

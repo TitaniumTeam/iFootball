@@ -16,8 +16,7 @@ module.exports = function() {
 function tao_bien(sv) {
 	sv.vari.viewTTTD = require('/ui_bongda/viewTTTD');
 	sv.vari.bxh = require('/ui_bongda/BangXepHang');
-	sv.vari.TTTD_cuthe=require('/ui_bongda/ThongTinTranDau_CuThe');
-	sv.arr.trandau = [];
+	sv.vari.TTTD_cuthe = require('/ui_bongda/ThongTinTranDau_CuThe');
 	sv.arr.param1 = [{
 		thoigian : '22:10',
 		ngay : '22/7',
@@ -38,8 +37,9 @@ function tao_bien(sv) {
 	sv.arr.rows = [];
 	sv.arr.viewrows = [];
 	sv.arr.viewarrows = [];
-	sv.vari.row_height = Ti.App.size(100);
 	sv.arr.arrow = [];
+	sv.arr.trandau = [];
+	sv.vari.row_height = Ti.App.size(100);
 	sv.vari.trans = Titanium.UI.create2DMatrix();
 	sv.vari.trans1 = sv.vari.trans.rotate(90);
 	sv.vari.trans2 = sv.vari.trans.rotate(270);
@@ -174,14 +174,16 @@ function tao_ui(sv) {
 	for (var i = 0; i < sv.arr.data.length; i++) {
 		sv.arr.viewrows[i].addEventListener('click', sv.arr.event_clickGD[i]);
 	}
+	// for (var i = 0; i < sv.arr.data.length; i++) {
+		for (var j = 0; j < sv.arr.data.length*3; j++) {
+			sv.arr.trandau[j].addEventListener('click', function(e) {
+				sv.ui.TTTD = new sv.vari.TTTD_cuthe();
+				sv.ui.ViewTong.removeAllChildren();
+				sv.ui.ViewTong.add(sv.ui.TTTD.ui.ViewTong);
+			});
+		}
+	// }
 
-	for (var j = 0; j < 3; j++) {
-		sv.arr.trandau[j].addEventListener('click', function(e) {
-			sv.ui.TTTD=new sv.vari.TTTD_cuthe();
-			sv.ui.ViewTong.removeAllChildren();
-			sv.ui.ViewTong.add(sv.ui.TTTD.ui.ViewTong);
-		});
-	}
 	sv.ui.tbl = Ti.UI.createTableView({
 		data : sv.arr.rows,
 		// height : Ti.UI.FILL,
