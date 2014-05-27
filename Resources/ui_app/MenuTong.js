@@ -16,12 +16,11 @@ function taobien(sv) {
 	sv.vari.footer = new (require('/ui_app/footer_1'));
 	sv.vari.KQSX = require('/ui_soxo/WindowRealTime');
 	sv.vari.thongke1 = require('/ui_soxo/Thongke_first');
-	sv.vari.tuvan = require('/ui_soxo/tuvan');
+	sv.vari.tuvan_soxo = require('/ui_soxo/tuvan');
 	////////
-	sv.vari.bangxephang = (require('/ui_bongda/Home'));
 	sv.vari.TTTD = require('/ui_bongda/ThongTinTranDau');
-	sv.vari.TranNgonAn = new (require('/ui_bongda/TranNgonAn'))();
-	sv.vari.Betting = new (require('/ui_bongda/Betting'))();
+	sv.vari.tintuc = require('/ui_bongda/News');
+	sv.vari.tuvan_bongda=require('/ui_bongda/TuVan');
 	/////
 
 	sv.arr.param = ['09808', '09808', '09808', '09808', '09808', '09990', '09788', '04358', '09899', '09111', '0978', '0435', '0981', '0911', '0978', '0435', '0981', '0911', '0978', '0435', '091', '091', '097', '04', '09', '01', '09'];
@@ -76,14 +75,6 @@ function taoui(sv) {
 		left : 0
 	});
 	sv.ui.win.add(sv.ui.ViewHeader);
-	sv.ui.line_header = Titanium.UI.createView({
-		width : Ti.App.size(720),
-		height : Ti.App.size(5),
-		backgroundColor : Ti.App.Color.xanhnhat,
-		bottom : 0,
-		zIndex : 10
-	});
-	sv.ui.ViewHeader.add(sv.ui.line_header);
 	sv.ui.View_icon_bongda = Ti.UI.createView({
 		width : Ti.App.size(240),
 		height : Ti.App.size(100),
@@ -210,11 +201,11 @@ function taosukien(sv) {
 				sv.ui.ViewTong.removeAllChildren();
 				sv.vari.wdthongke1 = new sv.vari.thongke1();
 				sv.ui.ViewTong.add(sv.vari.wdthongke1.ui.ViewTong);
-				Ti.App.vIndicatorWindow.openIndicator(sv.vari.wdthongke1.ui.ViewTong);
-				setTimeout(function() {
-					sv.vari.wdthongke1.setParam(sv.arr.param);
-					Ti.App.vIndicatorWindow.closeIndicator(sv.vari.wdthongke1.ui.ViewTong);
-				}, 2000);
+				// Ti.App.vIndicatorWindow.openIndicator(sv.vari.wdthongke1.ui.ViewTong);
+				// setTimeout(function() {
+					// sv.vari.wdthongke1.setParam(sv.arr.param);
+					// Ti.App.vIndicatorWindow.closeIndicator(sv.vari.wdthongke1.ui.ViewTong);
+				// }, 2000);
 
 			};
 		}
@@ -231,12 +222,6 @@ function taosukien(sv) {
 
 				}
 				sv.ui.ViewTong.removeAllChildren();
-				sv.vari.view_tuvan = new sv.vari.tuvan();
-				sv.ui.ViewTong.add(sv.vari.view_tuvan.ui.ViewTong);
-				Ti.App.vIndicatorWindow.openIndicator(sv.vari.view_tuvan.ui.ViewTong);
-				setTimeout(function() {
-					Ti.App.vIndicatorWindow.closeIndicator(sv.vari.view_tuvan.ui.ViewTong);
-				}, 2000);
 
 			};
 		}
@@ -253,12 +238,12 @@ function taosukien(sv) {
 
 				}
 				sv.ui.ViewTong.removeAllChildren();
-				sv.vari.view_tuvan = new sv.vari.tuvan();
+				sv.vari.view_tuvan = new sv.vari.tuvan_soxo();
 				sv.ui.ViewTong.add(sv.vari.view_tuvan.ui.ViewTong);
-				Ti.App.vIndicatorWindow.openIndicator(sv.vari.view_tuvan.ui.ViewTong);
-				setTimeout(function() {
-					Ti.App.vIndicatorWindow.closeIndicator(sv.vari.view_tuvan.ui.ViewTong);
-				}, 2000);
+				// Ti.App.vIndicatorWindow.openIndicator(sv.vari.view_tuvan.ui.ViewTong);
+				// setTimeout(function() {
+					// Ti.App.vIndicatorWindow.closeIndicator(sv.vari.view_tuvan.ui.ViewTong);
+				// }, 2000);
 			};
 		}
 		if (i == 3) {
@@ -295,10 +280,6 @@ function taosukien(sv) {
 				sv.ui.ViewTong.removeAllChildren();
 				sv.vari.wdTTTD = new sv.vari.TTTD();
 				sv.ui.ViewTong.add(sv.vari.wdTTTD.ui.ViewTong);
-				Ti.App.vIndicatorWindow.openIndicator(sv.vari.wdTTTD.ui.ViewTong);
-				setTimeout(function() {
-					Ti.App.vIndicatorWindow.closeIndicator(sv.vari.wdTTTD.ui.ViewTong);
-				}, 2000);
 			};
 		}
 		if (i == 1) {
@@ -313,13 +294,9 @@ function taosukien(sv) {
 					}
 
 				}
+				sv.ui.view_tuvan=new sv.vari.tuvan_bongda();
 				sv.ui.ViewTong.removeAllChildren();
-				sv.vari.bxh = new sv.vari.bangxephang();
-				sv.ui.ViewTong.add(sv.vari.bxh.ui.ViewTong);
-				// Ti.App.vIndicatorWindow.openIndicator(sv.vari.bxh.ui.ViewTong);
-				// setTimeout(function() {
-				// Ti.App.vIndicatorWindow.closeIndicator(sv.vari.bxh.ui.ViewTong);
-				// }, 2000);
+				sv.ui.ViewTong.add(sv.ui.view_tuvan.ui.ViewTong);
 			};
 		}
 		if (i == 2) {
@@ -335,7 +312,8 @@ function taosukien(sv) {
 
 				}
 				sv.ui.ViewTong.removeAllChildren();
-				sv.ui.ViewTong.add(sv.vari.Betting.ui.ViewTong);
+				sv.ui.tintuc=new sv.vari.tintuc();
+				sv.ui.ViewTong.add(sv.ui.tintuc.ui.ViewTong);
 				// Ti.App.vIndicatorWindow.openIndicator(sv.vari.Betting.ui.ViewTong);
 				// setTimeout(function() {
 				// Ti.App.vIndicatorWindow.closeIndicator(sv.vari.Betting.ui.ViewTong);
@@ -382,10 +360,10 @@ function taosukien(sv) {
 		sv.ui.ViewTong.removeAllChildren();
 		sv.vari.wdTTTD = new sv.vari.TTTD();
 		sv.ui.ViewTong.add(sv.vari.wdTTTD.ui.ViewTong);
-		Ti.App.vIndicatorWindow.openIndicator(sv.vari.wdTTTD.ui.ViewTong);
-		setTimeout(function() {
-			Ti.App.vIndicatorWindow.closeIndicator(sv.vari.wdTTTD.ui.ViewTong);
-		}, 2000);
+		// Ti.App.vIndicatorWindow.openIndicator(sv.vari.wdTTTD.ui.ViewTong);
+		// setTimeout(function() {
+			// Ti.App.vIndicatorWindow.closeIndicator(sv.vari.wdTTTD.ui.ViewTong);
+		// }, 2000);
 	};
 
 	sv.fu.EvtClickView_icon_user = function(e) {
@@ -395,10 +373,10 @@ function taosukien(sv) {
 		sv.ui.ViewTong.removeAllChildren();
 		sv.vari.Info = new (require('/ui_user/Info'))();
 		sv.ui.ViewTong.add(sv.vari.Info.ui.ViewTong);
-		Ti.App.vIndicatorWindow.openIndicator(sv.vari.Info.ui.ViewTong);
-		setTimeout(function() {
-			Ti.App.vIndicatorWindow.closeIndicator(sv.vari.Info.ui.ViewTong);
-		}, 2000);
+		// Ti.App.vIndicatorWindow.openIndicator(sv.vari.Info.ui.ViewTong);
+		// setTimeout(function() {
+			// Ti.App.vIndicatorWindow.closeIndicator(sv.vari.Info.ui.ViewTong);
+		// }, 2000);
 	};
 
 	///su kien khi click vao header soxo
@@ -415,10 +393,10 @@ function taosukien(sv) {
 		sv.ui.ViewTong.removeAllChildren();
 		sv.vari.wdKQSX = new sv.vari.KQSX();
 		sv.ui.ViewTong.add(sv.vari.wdKQSX.ui.ViewTong);
-		Ti.App.vIndicatorWindow.openIndicator(sv.vari.wdKQSX.ui.ViewTong);
-		setTimeout(function() {
-			Ti.App.vIndicatorWindow.closeIndicator(sv.vari.wdKQSX.ui.ViewTong);
-		}, 2000);
+		// Ti.App.vIndicatorWindow.openIndicator(sv.vari.wdKQSX.ui.ViewTong);
+		// setTimeout(function() {
+			// Ti.App.vIndicatorWindow.closeIndicator(sv.vari.wdKQSX.ui.ViewTong);
+		// }, 2000);
 	};
 	/**su kien cua window
 	 * **/
@@ -431,10 +409,10 @@ function taosukien(sv) {
 		sv.vari.footer.ui.footer_soxo.visible = true;
 		sv.vari.wdKQSX = new sv.vari.KQSX();
 		sv.ui.ViewTong.add(sv.vari.wdKQSX.ui.ViewTong);
-		Ti.App.vIndicatorWindow.openIndicator(sv.vari.wdKQSX.ui.ViewTong);
-		setTimeout(function() {
-			Ti.App.vIndicatorWindow.closeIndicator(sv.vari.wdKQSX.ui.ViewTong);
-		}, 2000);
+		// Ti.App.vIndicatorWindow.openIndicator(sv.vari.wdKQSX.ui.ViewTong);
+		// setTimeout(function() {
+			// Ti.App.vIndicatorWindow.closeIndicator(sv.vari.wdKQSX.ui.ViewTong);
+		// }, 2000);
 	};
 	sv.fu.evt_win_close = function(e) {
 		sv.ui.win.removeEventListener('open', sv.fu.evt_win_open);

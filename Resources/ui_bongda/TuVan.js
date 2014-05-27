@@ -156,7 +156,7 @@ function tao_ui(sv) {
 		for ( j = 0; j < 3; j++) {
 			sv.ui.vThongtinTD = new sv.vari.viewTTTD();
 			sv.ui.vThongtinTD.setParam(Ti.App.size(140 * j), sv.arr.param1[0]);
-			sv.ui.vThongtinTD.setTuVan(false);
+			sv.ui.vThongtinTD.setTuVan(true);
 			sv.ui.viewBack.add(sv.ui.vThongtinTD.ui.Vcontent);
 			sv.arr.trandau.push(sv.ui.vThongtinTD.ui.Vcontent);
 		}
