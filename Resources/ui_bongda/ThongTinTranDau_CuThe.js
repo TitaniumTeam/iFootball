@@ -177,6 +177,7 @@ function createUI(sv) {
 			fontFamily : 'Aria',
 			textAlign : 'left'
 		},
+		color:Ti.App.Color.nauden
 	});
 
 	sv.ui.ViewKeo = Ti.UI.createView({

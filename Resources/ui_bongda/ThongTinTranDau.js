@@ -120,7 +120,7 @@ function tao_ui(sv) {
 			width : Ti.App.size(20),
 			height : Ti.App.size(40),
 			image : '/assets/images/icon/arrow-left.png',
-			transform : sv.vari.trans2,
+			transform : sv.vari.trans1,
 			touchEnabled : false
 		});
 
@@ -202,25 +202,25 @@ function tao_event(sv) {
 			if (e.source.expanded) {
 				e.source.expanded = false;
 				sv.arr.rows[e.source.id].setHeight(Ti.App.size(380));
-				sv.arr.arrow[e.source.id].transform = sv.vari.trans2;
+				sv.arr.arrow[e.source.id].transform = sv.vari.trans1;
 				sv.arr.arrow[e.source.id].top = Ti.App.size(25);
 				for (var j = 0; j < sv.arr.data.length; j++) {
 					if (j != (e.source.id)) {
 						sv.arr.rows[j].expanded = false;
 						sv.arr.rows[j].setHeight(Ti.App.size(380));
-						sv.arr.arrow[j].transform = sv.vari.trans2;
+						sv.arr.arrow[j].transform = sv.vari.trans1;
 						sv.arr.arrow[j].top = Ti.App.size(25);
 					}
 				}
 			} else {
 				e.source.expanded = true;
 				sv.arr.rows[e.source.id].setHeight(Ti.App.size(520));
-				sv.arr.arrow[e.source.id].transform = sv.vari.trans1;
+				sv.arr.arrow[e.source.id].transform = sv.vari.trans2;
 				sv.arr.arrow[e.source.id].top = Ti.App.size(20);
 				for (var j = 0; j < sv.arr.data.length; j++) {
 					if (j != (e.source.id)) {
 						sv.arr.rows[j].expanded = false;
-						sv.arr.arrow[j].transform = sv.vari.trans2;
+						sv.arr.arrow[j].transform = sv.vari.trans1;
 						sv.arr.arrow[j].top = Ti.App.size(25);
 						sv.arr.rows[j].setHeight(Ti.App.size(100));
 					};
