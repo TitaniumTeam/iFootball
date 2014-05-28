@@ -406,18 +406,18 @@ function taosukien(sv) {
 	 * **/
 	sv.fu.evt_win_open = function(e) {
 		Ti.API.info('win open');
-		sv.vari.ketquatrave = fn_updateImage2Server("searchlottery", {
-			"startdate" : "24/05/2014"
-		});
+		// sv.vari.ketquatrave = fn_updateImage2Server("searchlottery", {
+			// "startdate" : "24/05/2014"
+		// });
 		set_maubg(sv.ui.View_icon_soxo, sv.ui.View_icon_bongda, sv.ui.View_icon_user);
 		sv.ui.ViewFooter.add(sv.vari.footer.ui.footer_soxo);
 		sv.ui.ViewFooter.add(sv.vari.footer.ui.footer_bongda);
 		sv.vari.footer.ui.footer_bongda.visible = false;
 		sv.vari.footer.ui.footer_soxo.visible = true;
 		sv.vari.wdKQSX = new sv.vari.KQSX();
-		sv.vari.wdKQSX.ui.ViewHeader.text = "So xo " + sv.vari.ketquatrave.tengiai[2] + "ngay" + sv.vari.ketquatrave.ngaythang[2];
+		// sv.vari.wdKQSX.ui.ViewHeader.text = "So xo " + sv.vari.ketquatrave.tengiai[2] + "ngay" + sv.vari.ketquatrave.ngaythang[2];
 		//sv.vari.wdKQSX.setParam(sv.vari.ketquatrave.ketqua[2]);
-		Ti.API.info('' + sv.vari.ketquatrave.ketqua[0]);
+		// Ti.API.info('' + sv.vari.ketquatrave.ketqua[0]);
 
 		sv.ui.ViewTong.add(sv.vari.wdKQSX.ui.ViewTong);
 		// Ti.App.vIndicatorWindow.openIndicator(sv.vari.wdKQSX.ui.ViewTong);
