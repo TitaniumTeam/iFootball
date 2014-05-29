@@ -17,7 +17,6 @@ function taobien(sv) {
 	sv.vari.flag = false;
 	sv.arr.datarow = [];
 	sv.arr.height = [Ti.App.size(120), Ti.App.size(200)];
-	sv.arr.tinhthanh = ['HÀ NỘI', 'HỒ CHÍ MINH', 'HẢI DƯƠNG', 'HÀ NỘI', 'HỒ CHÍ MINH', 'HẢI DƯƠNG', 'HÀ NỘI', 'HỒ CHÍ MINH', 'HẢI DƯƠNG'];
 	////view day so lau ve
 	sv.arr.view_solauve = [];
 	sv.arr.solauve = [];
@@ -53,7 +52,6 @@ function tao_ui(sv) {
 		left : 0,
 		top : 0,
 		width : Ti.App.size(720),
-		text : "THỐNG KÊ MIỀN BẮC",
 		color : Ti.App.Color.nauden,
 		font : {
 			fontSize : Ti.App.size(40),
@@ -61,6 +59,7 @@ function tao_ui(sv) {
 		},
 		textAlign : 'center',
 		backgroundColor : Ti.App.Color.magenta,
+		text:"Thống kê Miền Bắc"
 	});
 	sv.ui.ViewTong.add(sv.ui.View_header);
 	sv.ui.View_icon_search = Titanium.UI.createView({
@@ -79,9 +78,7 @@ function tao_ui(sv) {
 	});
 	sv.ui.View_icon_search.add(sv.ui.icon_search);
 	sv.ui.ViewTong.add(sv.ui.View_icon_search);
-
-	sv.ui.view_choose = new sv.vari.combobox(Ti.App.size(60), 'Tỉnh thành', 0, Ti.App.size(580),Ti.App.size(160));
-	sv.ui.view_choose.setTable(sv.arr.tinhthanh);
+	sv.ui.view_choose = new sv.vari.combobox(Ti.App.size(60), 'MIỀN BẮC', 0, Ti.App.size(580), Ti.App.size(160));
 	sv.ui.lblfirst = sv.ui.view_choose.getLblFirst();
 	sv.ui.table_view = sv.ui.view_choose.getTableView();
 	sv.ui.ViewTong.add(sv.ui.view_choose);
@@ -101,7 +98,7 @@ function tao_ui(sv) {
 		disableBounce : true,
 		horizontalBounce : true,
 		height : Ti.UI.FILL,
-		bottom:Ti.App.size(50)
+		bottom : Ti.App.size(50)
 	});
 	sv.ui.ViewTong.add(sv.ui.scrollView);
 	////
@@ -364,16 +361,23 @@ function tao_ui(sv) {
 	createUI_Event(sv);
 	sv.ui.view_choose.addEventListener('click', sv.fu.event_click_view);
 	sv.ui.table_view.addEventListener('click', sv.fu.event_clicktbl);
-	sv.ui.scrollView.addEventListener('click', function(e) {
+	sv.ui.View_icon_search.addEventListener('click',sv.fu.event_clicktimkiem);
+	sv.ui.scrollView.addEventListener('click',sv.fu.event_clickscrollview);
+};
+function createUI_Event(sv) {
+	sv.fu.event_clicktimkiem=function(e){
+		sv.ui.View_header.text="Thống kê "+sv.ui.lblfirst.text;
+	};
+	sv.fu.event_clickscrollview = function(e) {
 		sv.vari.flag = false;
 		if (sv.vari.flag == false) {
 			sv.ui.table_view.visible = false;
+			sv.ui.ViewPicker.visible = false;
 		};
-	});
-};
-function createUI_Event(sv) {
+	};
 	sv.fu.event_click_view = function(e) {
 		sv.vari.flag = true;
+		fn_updateImage2Server("getprovide", {}, sv);
 		sv.ui.table_view.visible = true;
 	};
 	sv.fu.event_clicktbl = function(e) {
@@ -381,7 +385,78 @@ function createUI_Event(sv) {
 		tbl_click(e, sv.ui.lblfirst, sv.ui.table_view, sv);
 	};
 };
+function fn_updateImage2Server(_cmd, data, sv) {
+	var xhr = Titanium.Network.createHTTPClient();
+	xhr.onsendstream = function(e) {
+		//ind.value = e.progress;
+		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
+	};
+	// open the client
+	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=' + _cmd);
+	xhr.setRequestHeader("Content-Type", "application/json-rpc");
+	Ti.API.info(JSON.stringify(data));
+	xhr.send(JSON.stringify(data));
+	xhr.onerror = function(e) {
+		Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
+	};
+	xhr.onload = function() {
+		Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
+		var dl = JSON.parse(this.responseText);
+		var jsonResuilt = JSON.parse(dl);
+		if (jsonResuilt != null) {
+			if (_cmd == "searchlottery") {
+				var ketqua = [];
+				var mangstring;
+				var mangkq = [];
+				for (var i = 0; i < jsonResuilt.resulttable.length; i++) {
+					if (jsonResuilt.resulttable[i] == null) {
+						alert('khong co du lieu');
+					} else {
+						Ti.API.info('ten giai: ' + jsonResuilt.resulttable[i].provide.name);
+						Ti.API.info('ngay thang: ' + jsonResuilt.resulttable[i].resultdate);
+						for (var j = 0; j < jsonResuilt.resulttable[i].lines.length; j++) {
+							Ti.API.info('Thu tu: ' + jsonResuilt.resulttable[i].lines[j].name);
+							Ti.API.info('ket qua: ' + jsonResuilt.resulttable[i].lines[j].result);
+							ketqua.push(jsonResuilt.resulttable[i].lines[j].result);
+						};
+						for (var i = 0; i < (ketqua.length); i++) {
+							mangstring = (ketqua[i].toString()).split(',');
+							for (var j = 0; j < (mangstring.length); j++) {
+								Ti.API.info('mang string:' + mangstring[j]);
+								mangkq.push(mangstring[j]);
+							};
+						}
+					}
+				}
 
+				sv.ui.bangkq.setKQ(mangkq);
+			} else {
+				if (_cmd == "getprovide") {
+					var ketqua;
+					var mangkq = [];
+					for (var i = 0; i < jsonResuilt.provides.length; i++) {
+						Ti.API.info('ten giai: ' + jsonResuilt.provides[i].name);
+						Ti.API.info('ten giai: ' + jsonResuilt.provides[i].id);
+						mangkq.push(jsonResuilt.provides[i]);
+					}
+					for (var i = 0; i < (mangkq.length); i++) {
+						Ti.API.info('mang kq' + mangkq[i].name);
+						Ti.API.info('mang kq' + mangkq[i].id);
+					}
+					sv.ui.view_choose.setTable(mangkq);
+					
+				}
+
+			}
+
+		} else {
+			Ti.API.info('khong co du lieu');
+
+		}
+
+	};
+
+};
 function tbl_click(e, _lbl, _tbl, sv) {
 	if (sv.vari.flag == true) {
 		_lbl.text = e.row.tenrow;

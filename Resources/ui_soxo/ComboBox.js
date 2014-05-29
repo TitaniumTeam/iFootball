@@ -21,8 +21,8 @@ module.exports = function(_top,_textlbl, _left,_width,_toptbl) {
 		},
 		text : _textlbl,
 		left : Ti.App.size(20),
+		id:"MB"
 	});
-	lblfirst.id=1;
 	view_contain.add(lblfirst);
 	var arrowup = Titanium.UI.createImageView({
 		backgroundImage : '/assets/images/icon/arrow-top.png',
