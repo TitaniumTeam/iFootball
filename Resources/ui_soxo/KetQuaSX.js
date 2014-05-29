@@ -53,8 +53,8 @@ function tao_ui(sv) {
 	sv.ui.View_icon_search.add(sv.ui.icon_search);
 	sv.ui.ViewTong.add(sv.ui.View_icon_search);
 
-	sv.ui.view_choose = new sv.vari.combobox('Tỉnh thành', 0);
-	sv.ui.view_choose1 = new sv.vari.combobox('Ngày', Ti.App.size(290));
+	sv.ui.view_choose = new sv.vari.combobox(0, 'Tỉnh thành', 0, Ti.App.size(290), Ti.App.size(100));
+	sv.ui.view_choose1 = new sv.vari.combobox(0, 'Ngày', Ti.App.size(290), Ti.App.size(290), Ti.App.size(100));
 	sv.ui.view_choose.setTable(sv.arr.tinhthanh);
 	sv.ui.view_choose1.setTable(sv.arr.ngay);
 	sv.ui.lblfirst = sv.ui.view_choose.getLblFirst();
@@ -205,19 +205,19 @@ function tao_ui(sv) {
 function createUI_Event(sv) {
 	sv.fu.event_click_view = function(e) {
 		sv.vari.flag = true;
-		view_click(sv.ui.table_view, sv.ui.table_view1,sv);
+		view_click(sv.ui.table_view, sv.ui.table_view1, sv);
 	};
 	sv.fu.event_clicktbl = function(e) {
 		sv.vari.flag = true;
-		tbl_click(e, sv.ui.lblfirst, sv.ui.table_view,sv);
+		tbl_click(e, sv.ui.lblfirst, sv.ui.table_view, sv);
 	};
 	sv.fu.event_click_view1 = function(e) {
 		sv.vari.flag = true;
-		view_click(sv.ui.table_view1, sv.ui.table_view,sv);
+		view_click(sv.ui.table_view1, sv.ui.table_view, sv);
 	};
 	sv.fu.event_clicktbl1 = function(e) {
 		sv.vari.flag = true;
-		tbl_click(e, sv.ui.lblfirst1, sv.ui.table_view1,sv);
+		tbl_click(e, sv.ui.lblfirst1, sv.ui.table_view1, sv);
 	};
 };
 function setkq(sv) {
@@ -243,14 +243,14 @@ function setleft(j, _left) {
 	} else
 		return Ti.App.size(74 * j);
 };
-function tbl_click(e, _lbl, _tbl,sv) {
+function tbl_click(e, _lbl, _tbl, sv) {
 	if (sv.vari.flag == true) {
 		_lbl.text = e.row.tenrow;
 		_tbl.visible = false;
 	}
 }
 
-function view_click(_tbl1, _tbl2,sv) {
+function view_click(_tbl1, _tbl2, sv) {
 	if (sv.vari.flag == true) {
 		_tbl1.visible = true;
 		_tbl2.visible = false;

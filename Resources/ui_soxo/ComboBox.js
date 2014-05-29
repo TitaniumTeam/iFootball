@@ -1,9 +1,9 @@
-module.exports = function(_textlbl, _left) {
+module.exports = function(_top,_textlbl, _left,_width,_toptbl) {
 	var view_contain = Titanium.UI.createView({
-		top : 0,
-		width : Ti.App.size(290),
+		top : _top,
+		width : _width,
 		height : Ti.App.size(100),
-		backgroundColor : Ti.App.Color.xanhnhat,
+		backgroundColor :Ti.App.Color.xanhnhat,
 		left : _left
 	});
 	var line_view=Ti.UI.createView({
@@ -45,8 +45,8 @@ module.exports = function(_textlbl, _left) {
 	//
 	var tableview = Ti.UI.createTableView({
 		separatorColor : Ti.App.Color.nauden,
-		top : Ti.App.size(100),
-		width : Ti.App.size(290),
+		top : _toptbl,
+		width : _width,
 		left : _left,
 		right : Ti.App.size(25),
 		visible : false,
@@ -66,7 +66,7 @@ module.exports = function(_textlbl, _left) {
 				height : Ti.App.size(93),
 				left : Ti.App.size(20),
 				top : Ti.App.size(26),
-				width : Ti.App.size(290),
+				width : _width,
 				tenrow : _tinh[i],
 			});
 			var tinhthanh = Ti.UI.createLabel({

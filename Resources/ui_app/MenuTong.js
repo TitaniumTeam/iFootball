@@ -14,9 +14,10 @@ module.exports = function() {
 };
 function taobien(sv) {
 	sv.vari.footer = new (require('/ui_app/footer_1'));
-	sv.vari.KQSX = require('/ui_soxo/WindowRealTime');
-	sv.vari.thongke1 = require('/ui_soxo/Thongke_first');
+	sv.vari.ketqua_tructiep = require('/ui_soxo/WindowRealTime');
+	sv.vari.ketquasx = require('/ui_soxo/KetQuaSX');
 	sv.vari.tuvan_soxo = require('/ui_soxo/tuvan');
+	sv.vari.thongke = require('/ui_soxo/ThongKe');
 	////////
 	sv.vari.TTTD = require('/ui_bongda/ThongTinTranDau');
 	sv.vari.tintuc = require('/ui_bongda/News');
@@ -203,8 +204,8 @@ function taosukien(sv) {
 
 				}
 				sv.ui.ViewTong.removeAllChildren();
-				sv.vari.wdthongke1 = new sv.vari.thongke1();
-				sv.ui.ViewTong.add(sv.vari.wdthongke1.ui.ViewTong);
+				sv.vari.view_kqsx = new sv.vari.ketquasx();
+				sv.ui.ViewTong.add(sv.vari.view_kqsx.ui.ViewTong);
 				// Ti.App.vIndicatorWindow.openIndicator(sv.vari.wdthongke1.ui.ViewTong);
 				// setTimeout(function() {
 				// sv.vari.wdthongke1.setParam(sv.arr.param);
@@ -226,7 +227,8 @@ function taosukien(sv) {
 
 				}
 				sv.ui.ViewTong.removeAllChildren();
-
+				sv.ui.view_thongke = new sv.vari.thongke();
+				sv.ui.ViewTong.add(sv.ui.view_thongke.ui.ViewTong);
 			};
 		}
 		if (i == 2) {
@@ -395,7 +397,7 @@ function taosukien(sv) {
 		sv.vari.footer.ui.footer_bongda.visible = false;
 		sv.vari.footer.ui.footer_soxo.visible = true;
 		sv.ui.ViewTong.removeAllChildren();
-		sv.vari.wdKQSX = new sv.vari.KQSX();
+		sv.vari.wdKQSX = new sv.vari.ketquatructiep();
 		sv.ui.ViewTong.add(sv.vari.wdKQSX.ui.ViewTong);
 		// Ti.App.vIndicatorWindow.openIndicator(sv.vari.wdKQSX.ui.ViewTong);
 		// setTimeout(function() {
@@ -415,7 +417,7 @@ function taosukien(sv) {
 		sv.ui.ViewFooter.add(sv.vari.footer.ui.footer_bongda);
 		sv.vari.footer.ui.footer_bongda.visible = false;
 		sv.vari.footer.ui.footer_soxo.visible = true;
-		sv.vari.wdKQSX = new sv.vari.KQSX();
+		sv.vari.wdKQSX = new sv.vari.ketqua_tructiep();
 		// sv.vari.wdKQSX.ui.ViewHeader.text = "So xo " + sv.vari.ketquatrave[2].provide.name + "ngay" + sv.vari.ketquatrave[2].resultdate;
 		//sv.vari.wdKQSX.setParam(sv.vari.ketquatrave.ketqua[2]);
 		// Ti.API.info('' + sv.vari.ketquatrave.ketqua[0]);
