@@ -202,7 +202,7 @@ function createUI(sv) {
 	});
 
 	sv.ui.LabelHeaderKeoChauA = Ti.UI.createLabel({
-		text : 'Ty le Chau A',
+		text : 'Tỷ lệ Châu Á',
 		font : {
 			fontSize : Ti.App.size(24),
 			fontWeight : 'bold',
@@ -272,7 +272,7 @@ function createUI(sv) {
 	});
 
 	sv.ui.LabelHeaderTongSoBanThang = Ti.UI.createLabel({
-		text : 'Tong so ban thang',
+		text : 'Tổng số bàn thắng',
 		font : {
 			fontSize : Ti.App.size(24),
 			fontWeight : 'bold',
@@ -342,7 +342,7 @@ function createUI(sv) {
 	});
 
 	sv.ui.LabelHeaderTyLeChauAu = Ti.UI.createLabel({
-		text : 'Ty le Chau Au',
+		text : 'Tỷ lệ Châu Âu',
 		font : {
 			fontSize : Ti.App.size(24),
 			fontWeight : 'bold',
@@ -412,7 +412,7 @@ function createUI(sv) {
 	});
 
 	sv.ui.LabelHeaderTyLeAn1 = Ti.UI.createLabel({
-		text : 'Chu nha thang',
+		text : 'Chủ nhà thắng',
 		left : Ti.App.size(35),
 		font : {
 			fontSize : Ti.App.size(24),
@@ -423,7 +423,7 @@ function createUI(sv) {
 	});
 
 	sv.ui.LabelHeaderTyLeAn2 = Ti.UI.createLabel({
-		text : 'Hoa',
+		text : 'Hoà',
 		//left : Ti.App.size(330),
 		font : {
 			fontSize : Ti.App.size(24),
@@ -434,7 +434,7 @@ function createUI(sv) {
 	});
 
 	sv.ui.LabelHeaderTyLeAn3 = Ti.UI.createLabel({
-		text : 'Khach thang',
+		text : 'Khách thắng',
 		left : Ti.App.size(460),
 		font : {
 			fontSize : Ti.App.size(24),
@@ -511,7 +511,7 @@ function createUI(sv) {
 	});
 
 	sv.ui.LabelHeaderCacCuocTySo1 = Ti.UI.createLabel({
-		text : 'Ty so',
+		text : 'Tỷ số',
 		font : {
 			fontSize : Ti.App.size(24),
 			fontWeight : 'bold',
@@ -528,7 +528,7 @@ function createUI(sv) {
 	});
 
 	sv.ui.LabelHeaderCacCuocTySo2 = Ti.UI.createLabel({
-		text : 'Ty le cuoc',
+		text : 'Tỷ lệ cược',
 		font : {
 			fontSize : Ti.App.size(24),
 			fontWeight : 'bold',
