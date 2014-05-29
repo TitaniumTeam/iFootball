@@ -71,7 +71,7 @@ function tao_ui(sv) {
 	sv.ui.picker = Ti.UI.createPicker({
 		type : Titanium.UI.PICKER_TYPE_DATE,
 		minDate : new Date(2009, 0, 1),
-		maxDate : new Date(2014,29,5),
+		maxDate : new Date(),
 		top : 50,
 		value : new Date(),
 	});

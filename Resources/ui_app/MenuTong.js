@@ -395,7 +395,7 @@ function taosukien(sv) {
 		sv.vari.footer.ui.footer_bongda.visible = false;
 		sv.vari.footer.ui.footer_soxo.visible = true;
 		sv.ui.ViewTong.removeAllChildren();
-		sv.vari.wdKQSX = new sv.vari.ketquatructiep();
+		sv.vari.wdKQSX = new sv.vari.ketqua_tructiep();
 		sv.ui.ViewTong.add(sv.vari.wdKQSX.ui.ViewTong);
 		// Ti.App.vIndicatorWindow.openIndicator(sv.vari.wdKQSX.ui.ViewTong);
 		// setTimeout(function() {
