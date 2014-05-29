@@ -396,11 +396,12 @@ function taosukien(sv) {
 		sv.vari.footer.ui.footer_soxo.visible = true;
 		sv.ui.ViewTong.removeAllChildren();
 		sv.vari.wdKQSX = new sv.vari.ketqua_tructiep();
+		sv.vari.wdKQSX.ui.ViewHeader.text = "KẾT QUẢ SỔ XỐ MIỀN BẮC NGÀY :" + currDate();
 		sv.ui.ViewTong.add(sv.vari.wdKQSX.ui.ViewTong);
-		// Ti.App.vIndicatorWindow.openIndicator(sv.vari.wdKQSX.ui.ViewTong);
-		// setTimeout(function() {
-		// Ti.App.vIndicatorWindow.closeIndicator(sv.vari.wdKQSX.ui.ViewTong);
-		// }, 2000);
+		fn_updateImage2Server("searchlottery", {
+			"provideid" : "MB",
+			"startdate" : currDate()
+		}, sv, 0);
 	};
 	/**su kien cua window
 	 * **/
@@ -461,9 +462,7 @@ function fn_updateImage2Server(_cmd, data, sv, _choose) {
 		var mangstring;
 		var mangkq = [];
 		for (var i = 0; i < jsonResuilt.resulttable.length; i++) {
-			if (jsonResuilt.resulttable[i] == null) {
-				alert('khong co du lieu');
-			} else {
+			if (jsonResuilt.resulttable[i].provide) {
 				Ti.API.info('ten giai: ' + jsonResuilt.resulttable[i].provide.name);
 				Ti.API.info('ngay thang: ' + jsonResuilt.resulttable[i].resultdate);
 				for (var j = 0; j < jsonResuilt.resulttable[i].lines.length; j++) {
@@ -478,6 +477,9 @@ function fn_updateImage2Server(_cmd, data, sv, _choose) {
 						mangkq.push(mangstring[j]);
 					};
 				}
+				
+			} else {
+				alert('khong co du lieu');
 			}
 		}
 		if (_choose == 0) {
