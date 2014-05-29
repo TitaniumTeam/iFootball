@@ -57,7 +57,7 @@ function createUI(sv) {
 		width : Ti.App.WidthScreen,
 		height : Ti.App.size(120),
 		top : 0,
-		backgroundColor : Ti.App.Color.red
+		backgroundColor : Ti.App.Color.red_press
 	});
 
 	sv.ui.ViewIconLeft = Ti.UI.createView({
@@ -99,7 +99,7 @@ function createUI(sv) {
 		left : Ti.App.size(0),
 		borderWidth : Ti.App.size(1),
 		borderColor : Ti.App.Color.magenta,
-		backgroundColor:Ti.App.Color.red
+		backgroundColor:Ti.App.Color.red_press
 	});
 
 	sv.ui.ViewToolBarDiem = Ti.UI.createView({

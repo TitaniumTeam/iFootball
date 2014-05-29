@@ -14,10 +14,10 @@ module.exports = function() {
 function taobien(sv) {
 	sv.vari.soluongmenu = 3;
 	sv.arr.data = [{
-		title : "Dãy số hay về",
+		title : "Cầu bạch thủ",
 		url : "http://google.com.vn"
 	}, {
-		title : "Dãy số lâu về",
+		title : "Cầu 2 nháy",
 		url : "http://dantri.com.vn"
 	}, {
 		title : "Soi cầu",
@@ -47,16 +47,17 @@ function taoui(sv) {
 			},
 			title : sv.arr.data[i].title,
 			id : i,
-			hasChild : true
+			// hasChild : true
 		});
 		sv.arr.rows.push(sv.ui.row);
 	}
 	sv.ui.tbl1 = Ti.UI.createTableView({
-		width : Ti.UI.FILL,
+		width : Ti.App.size(680),
 		height : Ti.UI.SIZE,
 		data : sv.arr.rows,
 		top : 0,
-		separatorColor : Ti.App.Color.xanhnhat
+		separatorColor : Ti.App.Color.xanhnhat,
+		left:Ti.App.size(20)
 	});
 	sv.ui.ViewTong.add(sv.ui.tbl1);
 	sv.ui.webview = Ti.UI.createWebView({
@@ -65,7 +66,7 @@ function taoui(sv) {
 		showScrollbars : true,
 		scalesPageToFit : true,
 		touchEnabled : true,
-		enableZoomControls : true
+		enableZoomControls : false
 	});
 	tao_sukien(sv);
 	sv.ui.tbl1.addEventListener('click', sv.fu.evt_tblrow_click);

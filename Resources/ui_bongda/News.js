@@ -11,7 +11,7 @@ module.exports = function() {
 		createUI(sv);
 	})();
 
-	return sv.ui.Window;
+	return sv;
 };
 /**
  * Khởi tạo biến
@@ -33,43 +33,15 @@ function createVariable(sv) {
 }
 
 function createUI(sv) {
-	sv.ui.Window = Ti.UI.createWindow({
-		navBarHidden : true,
-		keepScreenOn : true,
-		top : 0,
-		orientationModes : [Ti.UI.PORTRAIT],
-
-	});
 
 	sv.ui.ViewTong = Ti.UI.createView({
 		backgroundColor : Ti.App.Color.white,
 		// width : Ti.App.widthScreen,
 		// height : Ti.App.heightScreen,
-		top : Ti.App.size(120),
+		top :0,
 		left : 0
 	});
 
-	sv.ui.ViewHeader = Ti.UI.createView({
-		backgroundColor : Ti.App.Color.red,
-		width : Ti.App.WidthScreen,
-		height : Ti.App.size(120),
-		top : 0
-	});
-
-	sv.ui.ViewIconLeft = Ti.UI.createView({
-		width : Ti.App.size(120),
-		height : Ti.App.size(120),
-		left : Ti.App.size(0),
-		top : Ti.App.size(0)
-	});
-
-	sv.ui.IconLeft = Ti.UI.createImageView({
-		image : '/assets/images/icon/arrow.png',
-		top : Ti.App.size(35),
-		left : Ti.App.size(30),
-		right : Ti.App.size(30),
-		bottom : Ti.App.size(35)
-	});
 
 	sv.ui.ViewLabelHeader = Ti.UI.createView({
 		height : Ti.App.size(120),
@@ -194,18 +166,7 @@ function createUI(sv) {
 		sv.arr.ViewTinTuc[i].addEventListener('click', sv.arr.eventClickViewTinTuc[i]);
 	}
 
-	sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
-	sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
 
-	sv.ui.ViewIconLeft.addEventListener('click', sv.fu.eventClickIconLeft);
-
-	sv.ui.Window.add(sv.ui.ViewHeader);
-	sv.ui.Window.add(sv.ui.ViewTong);
-
-	sv.ui.ViewHeader.add(sv.ui.ViewIconLeft);
-	sv.ui.ViewHeader.add(sv.ui.ViewLabelHeader);
-
-	sv.ui.ViewIconLeft.add(sv.ui.IconLeft);
 	sv.ui.ViewLabelHeader.add(sv.ui.LabelHeader);
 
 	sv.ui.ViewTong.add(sv.ui.BGHeader);
@@ -235,13 +196,11 @@ function createUI_Event(sv) {
 	for (var i = 0; i < sv.vari.SoTinTuc; i++) {
 		sv.arr.eventClickViewTinTuc[i] = function() {
 			var newWindow = new (require('/ui_bongda/NewsContent'))();
-			newWindow.open();
+			sv.ui.ViewTong.removeAllChildren();
+			sv.ui.ViewTong.add(newWindow.ui.ViewTong);
 		};
 	}
 
-	sv.fu.eventOpenWindow = function() {
-		Ti.API.info('Opened window');
-	};
 
 	sv.fu.eventCloseWindow = function(e) {
 		sv.ui.Window.removeEventListener('open', sv.fu.eventOpenWindow);

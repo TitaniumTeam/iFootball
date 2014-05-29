@@ -7,6 +7,7 @@ module.exports = function() {
 	(function() {
 		taobien(sv);
 		tao_ui(sv);
+		setParam(sv);
 	})();
 	return sv;
 };
@@ -18,6 +19,7 @@ function taobien(sv) {
 	sv.arr.height = [Ti.App.size(120), Ti.App.size(200)];
 	sv.arr.dayso1 = ['12', '12', '12', '12', '12', '12', '12', '12', '12'];
 	sv.arr.param = ['09808', '09808', '09808', '09808', '09808', '09990', '09788', '04358', '09899', '09111', '0978', '0435', '0981', '0911', '0978', '0435', '0981', '0911', '0978', '0435', '091', '091', '097', '04', '09', '01', '09'];
+	sv.vari.ketqua = {};
 }
 
 /*
@@ -38,7 +40,7 @@ function tao_ui(sv) {
 		left : 0,
 		top : 0,
 		touchEnabled : false,
-		text : 'Xổ xố miền Bắc ngày 22-5-2014 (Hà Nội)',
+	//	text : 'Xổ xố miền Bắc ngày 22-5-2014 (Hà Nội)',
 		font : {
 			fontSize : Ti.App.size(30)
 		},
@@ -64,7 +66,6 @@ function tao_ui(sv) {
 	sv.ui.ViewTong.add(sv.ui.scrollView);
 	sv.ui.bangkq = bangketqua();
 	sv.ui.scrollView.add(sv.ui.bangkq);
-	sv.ui.bangkq.setKQ(sv.arr.param);
 	sv.ui.vDaysove = Ti.UI.createView({
 		width : Ti.App.size(720),
 		height : Ti.App.size(300),
@@ -168,27 +169,13 @@ function tao_ui(sv) {
 	}
 
 	;
-	////
-	// createUI_Event(sv);
 };
-function createUI_Event(sv) {
-	sv.fu.event_btnclose = function(e) {
-		sv.ui.Viewtong.close();
+function setParam(sv){
+	sv.setParam=function(param){
+		sv.ui.bangkq.setKQ(param);
 	};
-	sv.fu.event_openwin = function(e) {
-		Ti.API.info('open');
-	};
-	sv.fu.event_closewin = function(e) {
-		sv.ui.ViewIconLeft.removeEventListener('click', sv.fu.event_btnclose);
-		sv.ui.Viewtong.removeEventListener('open', sv.fu.event_openwin);
-		sv.ui.Viewtong.removeEventListener('close', sv.fu.event_closewin);
-		sv.vari = null;
-		sv.arr = null;
-		sv.ui = null;
-		sv.fu = null;
-		sv = null;
-	};
-};
+}
+
 
 function setbg(i, _bg) {
 	if (i == _bg) {

@@ -16,7 +16,8 @@ module.exports = function() {
 function tao_bien(sv) {
 	sv.vari.viewTTTD = require('/ui_bongda/viewTTTD');
 	sv.vari.bxh = require('/ui_bongda/BangXepHang');
-	sv.vari.TTTD_cuthe = require('/ui_bongda/ThongTinTranDau_CuThe');
+	sv.vari.TTTD_cuthe=require('/ui_bongda/ThongTinTranDau_CuThe');
+	sv.arr.trandau = [];
 	sv.arr.param1 = [{
 		thoigian : '22:10',
 		ngay : '22/7',
@@ -37,9 +38,8 @@ function tao_bien(sv) {
 	sv.arr.rows = [];
 	sv.arr.viewrows = [];
 	sv.arr.viewarrows = [];
-	sv.arr.arrow = [];
-	sv.arr.trandau = [];
 	sv.vari.row_height = Ti.App.size(100);
+	sv.arr.arrow = [];
 	sv.vari.trans = Titanium.UI.create2DMatrix();
 	sv.vari.trans1 = sv.vari.trans.rotate(90);
 	sv.vari.trans2 = sv.vari.trans.rotate(270);
@@ -120,7 +120,7 @@ function tao_ui(sv) {
 			width : Ti.App.size(20),
 			height : Ti.App.size(40),
 			image : '/assets/images/icon/arrow-left.png',
-			transform : sv.vari.trans1,
+			transform : sv.vari.trans2,
 			touchEnabled : false
 		});
 
@@ -156,7 +156,7 @@ function tao_ui(sv) {
 		for ( j = 0; j < 3; j++) {
 			sv.ui.vThongtinTD = new sv.vari.viewTTTD();
 			sv.ui.vThongtinTD.setParam(Ti.App.size(140 * j), sv.arr.param1[0]);
-			sv.ui.vThongtinTD.setTuVan(false);
+			sv.ui.vThongtinTD.setTuVan(true);
 			sv.ui.viewBack.add(sv.ui.vThongtinTD.ui.Vcontent);
 			sv.arr.trandau.push(sv.ui.vThongtinTD.ui.Vcontent);
 		}
@@ -174,16 +174,14 @@ function tao_ui(sv) {
 	for (var i = 0; i < sv.arr.data.length; i++) {
 		sv.arr.viewrows[i].addEventListener('click', sv.arr.event_clickGD[i]);
 	}
-	// for (var i = 0; i < sv.arr.data.length; i++) {
-		for (var j = 0; j < sv.arr.data.length*3; j++) {
-			sv.arr.trandau[j].addEventListener('click', function(e) {
-				sv.ui.TTTD = new sv.vari.TTTD_cuthe();
-				sv.ui.ViewTong.removeAllChildren();
-				sv.ui.ViewTong.add(sv.ui.TTTD.ui.ViewTong);
-			});
-		}
-	// }
 
+	for (var j = 0; j < 3; j++) {
+		sv.arr.trandau[j].addEventListener('click', function(e) {
+			sv.ui.TTTD=new sv.vari.TTTD_cuthe();
+			sv.ui.ViewTong.removeAllChildren();
+			sv.ui.ViewTong.add(sv.ui.TTTD.ui.ViewTong);
+		});
+	}
 	sv.ui.tbl = Ti.UI.createTableView({
 		data : sv.arr.rows,
 		// height : Ti.UI.FILL,
@@ -202,25 +200,25 @@ function tao_event(sv) {
 			if (e.source.expanded) {
 				e.source.expanded = false;
 				sv.arr.rows[e.source.id].setHeight(Ti.App.size(380));
-				sv.arr.arrow[e.source.id].transform = sv.vari.trans1;
+				sv.arr.arrow[e.source.id].transform = sv.vari.trans2;
 				sv.arr.arrow[e.source.id].top = Ti.App.size(25);
 				for (var j = 0; j < sv.arr.data.length; j++) {
 					if (j != (e.source.id)) {
 						sv.arr.rows[j].expanded = false;
 						sv.arr.rows[j].setHeight(Ti.App.size(380));
-						sv.arr.arrow[j].transform = sv.vari.trans1;
+						sv.arr.arrow[j].transform = sv.vari.trans2;
 						sv.arr.arrow[j].top = Ti.App.size(25);
 					}
 				}
 			} else {
 				e.source.expanded = true;
 				sv.arr.rows[e.source.id].setHeight(Ti.App.size(520));
-				sv.arr.arrow[e.source.id].transform = sv.vari.trans2;
+				sv.arr.arrow[e.source.id].transform = sv.vari.trans1;
 				sv.arr.arrow[e.source.id].top = Ti.App.size(20);
 				for (var j = 0; j < sv.arr.data.length; j++) {
 					if (j != (e.source.id)) {
 						sv.arr.rows[j].expanded = false;
-						sv.arr.arrow[j].transform = sv.vari.trans1;
+						sv.arr.arrow[j].transform = sv.vari.trans2;
 						sv.arr.arrow[j].top = Ti.App.size(25);
 						sv.arr.rows[j].setHeight(Ti.App.size(100));
 					};

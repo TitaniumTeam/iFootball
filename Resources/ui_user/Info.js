@@ -55,7 +55,7 @@ function createUI(sv) {
 		top : 0,
 		left : 0,
 		height : Ti.App.size(500),
-		backgroundColor : Ti.App.Color.red
+		backgroundColor : Ti.App.Color.red_press
 	});
 	sv.ui.circle = Titanium.UI.createImageView({
 		image : '/assets/images/icon/xxxjav.png',

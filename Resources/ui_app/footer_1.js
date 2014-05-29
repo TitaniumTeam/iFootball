@@ -12,11 +12,14 @@ module.exports = function() {
 	return sv;
 };
 function taobien(sv) {
-	sv.arr.so_chucnang_soxo = 3;
+	sv.arr.so_chucnang_soxo = 4;
 	sv.arr.viewchucnangsoxo = [];
 	sv.arr.icon_footer3 = [];
-	sv.arr.lbl_icon_footer3 = [];
 	sv.arr.img_footer3 = [{
+		bg : "/assets/images/icon/icon-ketqua.png",
+		press : "/assets/images/icon/icon-ketqua_press.png",
+		title : "Kết quả"
+	}, {
 		bg : "/assets/images/icon/icon-thongke.png",
 		press : "/assets/images/icon/icon-thongke_press.png",
 		title : "Thống kê"
@@ -25,174 +28,86 @@ function taobien(sv) {
 		press : "/assets/images/icon/icon-tuvan_press.png",
 		title : "Tư vấn"
 	}, {
-		bg : "/assets/images/icon/icon-3.png",
-		press : "/assets/images/icon/icon-3.png",
+		bg : "/assets/images/icon/icon-vip.png",
+		press : "/assets/images/icon/icon-vip_press.png",
 		title : "VIP"
 	}];
 	////cac mang bong da
 	sv.arr.so_chucnang_bongda = 4;
 	sv.arr.viewchucnangbongda = [];
 	sv.arr.icon_footer1 = [];
-	sv.arr.lbl_icon_footer1 = [];
 	sv.arr.img_footer1 = [{
 		bg : "/assets/images/icon/icon-calander.png",
 		press : "/assets/images/icon/icon-calander_press.png",
 		title : "Lịch thi đấu"
 	}, {
-		bg : "/assets/images/icon/icon-xephang.png",
-		press : "/assets/images/icon/icon-xephang.png",
-		title : "Bảng xếp hạng"
-	}, {
 		bg : "/assets/images/icon/icon-tuvan.png",
 		press : "/assets/images/icon/icon-tuvan_press.png",
+		title : "Tu van"
+	}, {
+		bg : "/assets/images/icon/icon-tintuc.png",
+		press : "/assets/images/icon/icon-tintuc_press.png",
 		title : "Tư vấn"
 	}, {
-		bg : "/assets/images/icon/icon-3.png",
-		press : "/assets/images/icon/icon-3.png",
+		bg : "/assets/images/icon/icon-vip.png",
+		press : "/assets/images/icon/icon-vip_press.png",
 		title : "VIP"
 	}];
 };
 function taoui(sv) {
-	sv.ui.footer_bongda1 = Ti.UI.createView({
-		width : Ti.App.size(720),
-		height : Ti.App.size(100),
-		top : 0,
-		backgroundColor : 'transparent',
-	});
-	sv.ui.footer_bongda2 = Ti.UI.createView({
-		width : Ti.App.size(720),
-		height : Ti.App.size(100),
-		top : 0,
-		backgroundColor : 'transparent',
-	});
-	for (var i = 0; i < 4; i++) {
-		if (i == 0 || i == 1) {
-			sv.arr.viewchucnangbongda[i] = Ti.UI.createView({
-				width : Ti.App.size(360),
-				height : Ti.App.size(100),
-				backgroundSelectedColor : Ti.App.Color.nauden,
-				backgroundColor : set(i),
-				left : Ti.App.size(i * 360),
-				top : 0,
-			});
-			sv.ui.footer_bongda1.add(sv.arr.viewchucnangbongda[i]);
-		} else {
-			if (i == 2 || i == 3) {
-				sv.arr.viewchucnangbongda[i] = Ti.UI.createView({
-					width : Ti.App.size(360),
-					height : Ti.App.size(100),
-					backgroundSelectedColor : Ti.App.Color.nauden,
-					backgroundColor : set(i),
-					left : Ti.App.size((i-2) * 360),
-					top : 0,
-				});
-				sv.ui.footer_bongda2.add(sv.arr.viewchucnangbongda[i]);
-			}
-
-		}
-
-		if (i == 1) {
-			sv.arr.icon_footer1[i] = Ti.UI.createImageView({
-				image : sv.arr.img_footer1[i].bg,
-				width : Ti.App.size(105),
-				height : Ti.App.size(54),
-				touchEnabled : false,
-				left : Ti.App.size(20),
-				backgroundSelectedImage : sv.arr.img_footer1[i].press
-			});
-			sv.arr.lbl_icon_footer1[i] = Titanium.UI.createLabel({
-				text : sv.arr.img_footer1[i].title,
-				color : set_color(i),
-				font : {
-					fontSize : Ti.App.size(30)
-				},
-				left : Ti.App.size(140),
-				textAlign : 'left',
-				width : Ti.UI.SIZE,
-				height : Ti.UI.SIZE,
-				backgroundColor : 'transparent',
-				touchEnabled : false
-			});
-		} else {
-			sv.arr.icon_footer1[i] = Ti.UI.createImageView({
-				image : sv.arr.img_footer1[i].bg,
-				width : Ti.App.size(64),
-				height : Ti.App.size(64),
-				touchEnabled : false,
-				left : Ti.App.size(20),
-				backgroundSelectedImage : sv.arr.img_footer1[i].press,
-
-			});
-			sv.arr.lbl_icon_footer1[i] = Titanium.UI.createLabel({
-				text : sv.arr.img_footer1[i].title,
-				color : set_color(i),
-				font : {
-					fontSize : Ti.App.size(30)
-				},
-				left : Ti.App.size(100),
-				textAlign : 'left',
-				width : Ti.UI.SIZE,
-				height : Ti.UI.SIZE,
-				backgroundColor : 'transparent',
-				touchEnabled : false
-			});
-		}
-		sv.arr.viewchucnangbongda[i].add(sv.arr.icon_footer1[i]);
-		sv.arr.viewchucnangbongda[i].add(sv.arr.lbl_icon_footer1[i]);
-	};
-	sv.ui.footer_bongda = Titanium.UI.createScrollableView({
-		views : [sv.ui.footer_bongda1, sv.ui.footer_bongda2],
-		showPagingControl : false,
-		width : Ti.UI.FILL,
-		height : Ti.UI.FILL,
-		left : 0,
-		top : 0
-	});
-	sv.ui.footer_soxo = Ti.UI.createScrollView({
+	sv.ui.footer_bongda = Ti.UI.createView({
 		top : 0,
 		lef : 0,
-		layout : 'horizontal',
 		backgroundColor : 'transparent',
-		width : Ti.UI.FILL,
-		height : '200dp',
-		showHorizontalScrollIndicator : false,
-		scrollingEnabled : true,
-		scrollType : 'horizontal',
-		contentWidth : Ti.UI.FILL,
-		horizontalWrap : false
+		height : Ti.App.size(100),
+		right : 0
 	});
-	for (var i = 0; i < 3; i++) {
+	for (var i = 0; i < 4; i++) {
+		sv.arr.viewchucnangbongda[i] = Ti.UI.createView({
+			width : Ti.App.size(180),
+			height : Ti.App.size(100),
+			backgroundSelectedColor : Ti.App.Color.nauden,
+			backgroundColor : set(i),
+			left : Ti.App.size(180 * i),
+			top : 0,
+		});
+
+		sv.arr.icon_footer1[i] = Ti.UI.createImageView({
+			image : sv.arr.img_footer1[i].bg,
+			width : Ti.App.size(60),
+			height : Ti.App.size(60),
+			touchEnabled : false,
+			backgroundSelectedImage : sv.arr.img_footer1[i].press,
+
+		});
+		sv.arr.viewchucnangbongda[i].add(sv.arr.icon_footer1[i]);
+		sv.ui.footer_bongda.add(sv.arr.viewchucnangbongda[i]);
+	};
+	sv.ui.footer_soxo = Ti.UI.createView({
+		top : 0,
+		lef : 0,
+		backgroundColor : 'transparent',
+		height : Ti.App.size(100),
+		right : 0
+	});
+	for (var i = 0; i < 4; i++) {
 		sv.arr.viewchucnangsoxo[i] = Ti.UI.createView({
-			width : Ti.App.size(240),
+			width : Ti.App.size(180),
 			height : Ti.App.size(100),
 			backgroundSelectedColor : Ti.App.Color.nauden,
 			backgroundColor : 'transparent',
 			top : 0,
+			left : Ti.App.size(180 * i)
 		});
-		sv.ui.footer_soxo.add(sv.arr.viewchucnangsoxo[i]);
 		sv.arr.icon_footer3[i] = Ti.UI.createImageView({
 			image : sv.arr.img_footer3[i].bg,
-			width : Ti.App.size(34),
-			height : Ti.App.size(34),
+			width : Ti.App.size(60),
+			height : Ti.App.size(60),
 			touchEnabled : false,
-			left : Ti.App.size(20),
 			backgroundSelectedImage : sv.arr.img_footer3[i].press
 		});
-		sv.arr.lbl_icon_footer3[i] = Titanium.UI.createLabel({
-			text : sv.arr.img_footer3[i].title,
-			color : Ti.App.Color.nauden,
-			font : {
-				fontSize : Ti.App.size(30)
-			},
-			left : Ti.App.size(60),
-			textAlign : 'left',
-			width : Ti.UI.SIZE,
-			height : Ti.UI.SIZE,
-			backgroundColor : 'transparent',
-			touchEnabled : false
-		});
 		sv.arr.viewchucnangsoxo[i].add(sv.arr.icon_footer3[i]);
-		sv.arr.viewchucnangsoxo[i].add(sv.arr.lbl_icon_footer3[i]);
+		sv.ui.footer_soxo.add(sv.arr.viewchucnangsoxo[i]);
 	}
 
 };
