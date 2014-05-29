@@ -8,7 +8,7 @@ module.exports = function() {
 		taobien(sv);
 		tao_ui(sv);
 		removeAllEvent(sv);
-		setkq(sv);
+		// setkq(sv);
 	})();
 	return sv;
 };
@@ -19,10 +19,7 @@ function taobien(sv) {
 	sv.vari.flag = false;
 	sv.arr.datarow = [];
 	sv.arr.height = [Ti.App.size(120), Ti.App.size(200)];
-	sv.arr.tinhthanh = ['HÀ NỘI', 'HỒ CHÍ MINH', 'HẢI DƯƠNG', 'HÀ NỘI', 'HỒ CHÍ MINH', 'HẢI DƯƠNG', 'HÀ NỘI', 'HỒ CHÍ MINH', 'HẢI DƯƠNG'];
-	sv.arr.ngay = ['6/9/2014', '1/1/2014'];
-	sv.arr.dayso1 = ['12', '12', '12', '12', '12', '12', '12', '12', '12'];
-	sv.arr.param = ['09808', '09808', '09808', '09808', '09808', '09990', '09788', '04358', '09899', '09111', '0978', '0435', '0981', '0911', '0978', '0435', '0981', '0911', '0978', '0435', '091', '091', '097', '04', '09', '01', '09'];
+	sv.arr.ngay = [{name:'29/05/2014'}];
 }
 
 /*
@@ -55,7 +52,7 @@ function tao_ui(sv) {
 
 	sv.ui.view_choose = new sv.vari.combobox(0, 'Tỉnh thành', 0, Ti.App.size(290), Ti.App.size(100));
 	sv.ui.view_choose1 = new sv.vari.combobox(0, 'Ngày', Ti.App.size(290), Ti.App.size(290), Ti.App.size(100));
-	sv.ui.view_choose.setTable(sv.arr.tinhthanh);
+	// sv.ui.view_choose.setTable(sv.arr.tinhthanh);
 	sv.ui.view_choose1.setTable(sv.arr.ngay);
 	sv.ui.lblfirst = sv.ui.view_choose.getLblFirst();
 	sv.ui.lblfirst1 = sv.ui.view_choose1.getLblFirst();
@@ -190,6 +187,12 @@ function tao_ui(sv) {
 	;
 	////
 	createUI_Event(sv);
+	sv.ui.View_icon_search.addEventListener('click', function() {
+		fn_updateImage2Server("searchlottery", {
+			"provideid" : sv.ui.lblfirst.id,
+			"startdate" : sv.ui.lblfirst1.text
+		}, sv);
+	});
 	sv.ui.view_choose.addEventListener('click', sv.fu.event_click_view);
 	sv.ui.table_view.addEventListener('click', sv.fu.event_clicktbl);
 	sv.ui.view_choose1.addEventListener('click', sv.fu.event_click_view1);
@@ -205,6 +208,7 @@ function tao_ui(sv) {
 function createUI_Event(sv) {
 	sv.fu.event_click_view = function(e) {
 		sv.vari.flag = true;
+		fn_updateImage2Server("getprovide", {}, sv);
 		view_click(sv.ui.table_view, sv.ui.table_view1, sv);
 	};
 	sv.fu.event_clicktbl = function(e) {
@@ -220,12 +224,73 @@ function createUI_Event(sv) {
 		tbl_click(e, sv.ui.lblfirst1, sv.ui.table_view1, sv);
 	};
 };
-function setkq(sv) {
-	sv.setParam = function(param) {
-		sv.ui.bangkq.setKQ(param);
+// function setkq(sv) {
+// sv.setParam = function(param) {
+// sv.ui.bangkq.setKQ(param);
+// };
+// }
+function fn_updateImage2Server(_cmd, data, sv) {
+	var xhr = Titanium.Network.createHTTPClient();
+	var dulieutrave;
+	xhr.onsendstream = function(e) {
+		//ind.value = e.progress;
+		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
 	};
-}
+	// open the client
+	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=' + _cmd);
+	xhr.setRequestHeader("Content-Type", "application/json-rpc");
+	Ti.API.info(JSON.stringify(data));
+	xhr.send(JSON.stringify(data));
+	xhr.onerror = function(e) {
+		Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
+	};
+	xhr.onload = function() {
+		Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
+		var dl = JSON.parse(this.responseText);
+		var jsonResuilt = JSON.parse(dl);
+		if (_cmd == "searchlottery") {
+			var ketqua = [];
+			var mangstring;
+			var mangkq = [];
+			for (var i = 0; i < jsonResuilt.resulttable.length; i++) {
+				Ti.API.info('ten giai: ' + jsonResuilt.resulttable[i].provide.name);
+				Ti.API.info('ngay thang: ' + jsonResuilt.resulttable[i].resultdate);
+				for (var j = 0; j < jsonResuilt.resulttable[i].lines.length; j++) {
+					Ti.API.info('Thu tu: ' + jsonResuilt.resulttable[i].lines[j].name);
+					Ti.API.info('ket qua: ' + jsonResuilt.resulttable[i].lines[j].result);
+					ketqua.push(jsonResuilt.resulttable[i].lines[j].result);
+				};
 
+			}
+			for (var i = 0; i < (ketqua.length); i++) {
+				mangstring = (ketqua[i].toString()).split(',');
+				for (var j = 0; j < (mangstring.length); j++) {
+					Ti.API.info('mang string:' + mangstring[j]);
+					mangkq.push(mangstring[j]);
+				};
+			}
+			sv.ui.bangkq.setKQ(mangkq);
+		} else {
+			if (_cmd == "getprovide") {
+				var ketqua;
+				var mangkq = [];
+				for (var i = 0; i < jsonResuilt.provides.length; i++) {
+					Ti.API.info('ten giai: ' + jsonResuilt.provides[i].name);
+					Ti.API.info('ten giai: ' + jsonResuilt.provides[i].id);
+					mangkq.push(jsonResuilt.provides[i]);
+				}
+				for (var i = 0; i < (mangkq.length); i++) {
+					Ti.API.info('mang kq' + mangkq[i].name);
+					Ti.API.info('mang kq' + mangkq[i].id);
+				}
+				sv.ui.view_choose.setTable(mangkq);
+			}
+
+		}
+
+	};
+
+};
 function removeAllEvent(sv) {
 	sv.removeAllEvent = function(e) {
 		sv.ui.scrollView.removeEventListener('scroll', sv.fu.evt_scroll);
@@ -245,8 +310,15 @@ function setleft(j, _left) {
 };
 function tbl_click(e, _lbl, _tbl, sv) {
 	if (sv.vari.flag == true) {
-		_lbl.text = e.row.tenrow;
-		_tbl.visible = false;
+		if (_lbl.id) {
+			_lbl.id = e.row.id;
+			alert(_lbl.id);
+			_lbl.text = e.row.tenrow;
+			_tbl.visible = false;
+		} else {
+			_lbl.text = e.row.tenrow;
+			_tbl.visible = false;
+		}
 	}
 }
 

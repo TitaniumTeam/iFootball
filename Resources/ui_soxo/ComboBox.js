@@ -20,8 +20,9 @@ module.exports = function(_top,_textlbl, _left,_width,_toptbl) {
 			fontSize : Ti.App.size(30)
 		},
 		text : _textlbl,
-		left : Ti.App.size(20)
+		left : Ti.App.size(20),
 	});
+	lblfirst.id=1;
 	view_contain.add(lblfirst);
 	var arrowup = Titanium.UI.createImageView({
 		backgroundImage : '/assets/images/icon/arrow-top.png',
@@ -67,16 +68,17 @@ module.exports = function(_top,_textlbl, _left,_width,_toptbl) {
 				left : Ti.App.size(20),
 				top : Ti.App.size(26),
 				width : _width,
-				tenrow : _tinh[i],
+				tenrow : _tinh[i].name,
+				id:_tinh[i].id
 			});
 			var tinhthanh = Ti.UI.createLabel({
 				color : Ti.App.Color.nauden,
 				font : {
 					fontSize : Ti.App.size(30)
 				},
-				text : _tinh[i],
+				text : _tinh[i].name,
 				backgroundSelectedColor : 'yellow',
-				left : Ti.App.size(20)
+				left : Ti.App.size(20),
 			});
 
 			rowTbl.add(tinhthanh);

@@ -368,7 +368,6 @@ function tao_ui(sv) {
 		sv.vari.flag = false;
 		if (sv.vari.flag == false) {
 			sv.ui.table_view.visible = false;
-			sv.ui.table_view1.visible = false;
 		};
 	});
 };
