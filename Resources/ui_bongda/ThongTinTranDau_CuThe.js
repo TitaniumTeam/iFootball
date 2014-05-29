@@ -13,7 +13,13 @@ module.exports = function() {
 	return sv;
 };
 function createVariable(sv) {
-
+	sv.arr.data = [];
+	sv.arr.ViewLabelTySo = [];
+	sv.arr.ViewLabelTyLeCuoc = [];
+	sv.arr.LabelTySo = [];
+	sv.arr.LabelTyLeCuoc = [];
+	sv.arr.ParamTySo = ['2 - 1'];
+	sv.arr.ParamTyLeCuoc = ['3.8'];
 };
 function createUI(sv) {
 	sv.ui.ViewTong = Ti.UI.createScrollView({
@@ -177,191 +183,432 @@ function createUI(sv) {
 			fontFamily : 'Aria',
 			textAlign : 'left'
 		},
-		color:Ti.App.Color.nauden
+		color : Ti.App.Color.nauden
 	});
 
-	sv.ui.ViewKeo = Ti.UI.createView({
-		top : Ti.App.size(525),
-		height : Ti.App.size(300),
+	sv.ui.ViewKeoChauA = Ti.UI.createView({
+		top : Ti.App.size(515),
+		width : Ti.App.size(640),
+		height : Ti.App.size(165),
 		left : Ti.App.size(40),
-		right : Ti.App.size(40),
-		borderColor : Ti.App.Color.xanhnhat,
-		backgroundColor : Ti.App.Color.superwhite,
-		borderWidth : 1,
 	});
 
-	sv.ui.KeoChauA = Ti.UI.createLabel({
-		text : 'Châu Á',
-		top : Ti.App.size(40),
-		left : Ti.App.size(20),
-		font : {
-			fontSize : Ti.App.size(22)
-		},
-		color : Ti.App.Color.nauden,
+	sv.ui.ViewHeaderKeoChauA = Ti.UI.createView({
+		backgroundColor : Ti.App.Color.nauden,
+		top : Ti.App.size(0),
+		width : Ti.App.size(640),
+		height : Ti.App.size(60),
+		left : Ti.App.size(0),
 	});
 
-	sv.ui.Label11 = Ti.UI.createLabel({
-		text : '1.5',
-		top : Ti.App.size(15),
-		left : Ti.App.size(205),
+	sv.ui.LabelHeaderKeoChauA = Ti.UI.createLabel({
+		text : 'Tỷ lệ Châu Á',
 		font : {
-			fontSize : Ti.App.size(26),
+			fontSize : Ti.App.size(24),
 			fontWeight : 'bold',
+			fontFamily : 'Aria',
+			textAlign : 'center'
 		},
-		color : Ti.App.Color.xanhnhat,
+		color : Ti.App.Color.white
 	});
 
-	sv.ui.Label12 = Ti.UI.createLabel({
-		text : '1.09',
-		left : Ti.App.size(205),
+	sv.ui.ViewThongTinKeoChauA = Ti.UI.createView({
+		backgroundColor : Ti.App.Color.white,
 		top : Ti.App.size(60),
+		width : Ti.App.size(640),
+		height : Ti.App.size(105),
+		left : Ti.App.size(0),
+	});
+
+	sv.ui.LabelThongTinKeoChauA1 = Ti.UI.createLabel({
+		text : '1.975',
+		left : Ti.App.size(90),
 		font : {
 			fontSize : Ti.App.size(26),
-			fontWeight : 'bold',
-		},
-		color : Ti.App.Color.red,
-	});
-
-	sv.ui.Label13 = Ti.UI.createLabel({
-		text : '0.83',
-		top : Ti.App.size(60),
-		left : Ti.App.size(500),
-		font : {
-			fontSize : Ti.App.size(26),
-			fontWeight : 'bold',
-		},
-		color : Ti.App.Color.nauden,
-	});
-
-	sv.ui.Line1 = Ti.UI.createImageView({
-		width : Ti.App.size(630),
-		height : Ti.App.size(1),
-		top : Ti.App.size(99),
-		backgroudnColor : Ti.App.Color.xanhnhat,
-	});
-
-	sv.ui.KeoTaiXiu = Ti.UI.createLabel({
-		text : 'Tài Xỉu',
-		top : Ti.App.size(140),
-		left : Ti.App.size(20),
-		font : {
-			fontSize : Ti.App.size(22)
-		},
-		color : Ti.App.Color.nauden,
-	});
-
-	sv.ui.Label21 = Ti.UI.createLabel({
-		text : '1.5',
-		top : Ti.App.size(115),
-		left : Ti.App.size(205),
-		font : {
-			fontSize : Ti.App.size(26),
-			fontWeight : 'bold',
-		},
-		color : Ti.App.Color.xanhnhat,
-	});
-
-	sv.ui.Label22 = Ti.UI.createLabel({
-		text : '1.00',
-		left : Ti.App.size(205),
-		top : Ti.App.size(160),
-		font : {
-			fontSize : Ti.App.size(26),
-			fontWeight : 'bold',
-		},
-		color : Ti.App.Color.red,
-	});
-
-	sv.ui.Label23 = Ti.UI.createLabel({
-		text : '0.90',
-		top : Ti.App.size(160),
-		left : Ti.App.size(500),
-		font : {
-			fontSize : Ti.App.size(26),
-			fontWeight : 'bold',
-		},
-		color : Ti.App.Color.nauden,
-	});
-
-	sv.ui.Label24 = Ti.UI.createLabel({
-		text : 'u',
-		top : Ti.App.size(115),
-		left : Ti.App.size(500),
-		font : {
-			fontSize : Ti.App.size(26),
-			fontWeight : 'bold',
-		},
-		color : Ti.App.Color.xanhnhat,
-	});
-
-	sv.ui.Line2 = Ti.UI.createImageView({
-		width : Ti.App.size(630),
-		height : Ti.App.size(1),
-		top : Ti.App.size(199),
-		backgroudnColor : Ti.App.Color.xanhnhat,
-	});
-
-	sv.ui.KeoChauAu = Ti.UI.createLabel({
-		text : 'Châu Âu',
-		top : Ti.App.size(240),
-		left : Ti.App.size(20),
-		font : {
-			fontSize : Ti.App.size(22),
-		},
-		color : Ti.App.Color.nauden,
-	});
-
-	sv.ui.Label31 = Ti.UI.createLabel({
-		text : '1.34',
-		top : Ti.App.size(240),
-		left : Ti.App.size(205),
-		font : {
-			fontSize : Ti.App.size(26),
-			fontWeight : 'bold',
-		},
-		color : Ti.App.Color.xanhnhat,
-	});
-
-	sv.ui.Label32 = Ti.UI.createLabel({
-		text : '4.56',
-		left : Ti.App.size(360),
-		top : Ti.App.size(240),
-		font : {
-			fontSize : Ti.App.size(26),
-			fontWeight : 'bold',
-		},
-		color : Ti.App.Color.red,
-	});
-
-	sv.ui.Label33 = Ti.UI.createLabel({
-		text : '8.69',
-		top : Ti.App.size(240),
-		left : Ti.App.size(500),
-		font : {
-			fontSize : Ti.App.size(26),
-			fontWeight : 'bold',
-		},
-		color : Ti.App.Color.nauden,
-	});
-
-	sv.ui.LbThongTinCuoc = Ti.UI.createLabel({
-		text : 'Thông tin cược',
-		top : Ti.App.size(825),
-		height : Ti.App.size(95),
-		left : Ti.App.size(40),
-		right : Ti.App.size(40),
-		font : {
-			fontSize : Ti.App.size(28),
 			fontWeight : 'bold',
 			fontFamily : 'Aria',
 			textAlign : 'left'
 		},
+		color : Ti.App.Color.nauden
 	});
+
+	sv.ui.LabelThongTinKeoChauA2 = Ti.UI.createLabel({
+		text : '0:3/4',
+		left : Ti.App.size(305),
+		font : {
+			fontSize : Ti.App.size(26),
+			fontWeight : 'bold',
+			fontFamily : 'Aria',
+			textAlign : 'left'
+		},
+		color : Ti.App.Color.nauden
+	});
+
+	sv.ui.LabelThongTinKeoChauA3 = Ti.UI.createLabel({
+		text : '1.925',
+		left : Ti.App.size(520),
+		font : {
+			fontSize : Ti.App.size(26),
+			fontWeight : 'bold',
+			fontFamily : 'Aria',
+			textAlign : 'left'
+		},
+		color : Ti.App.Color.nauden
+	});
+
+	sv.ui.ViewTongSoBanThang = Ti.UI.createView({
+		top : Ti.App.size(700),
+		width : Ti.App.size(640),
+		height : Ti.App.size(165),
+		left : Ti.App.size(40),
+	});
+
+	sv.ui.ViewHeaderTongSoBanThang = Ti.UI.createView({
+		backgroundColor : Ti.App.Color.nauden,
+		top : Ti.App.size(0),
+		width : Ti.App.size(640),
+		height : Ti.App.size(60),
+		left : Ti.App.size(0),
+	});
+
+	sv.ui.LabelHeaderTongSoBanThang = Ti.UI.createLabel({
+		text : 'Tổng số bàn thắng',
+		font : {
+			fontSize : Ti.App.size(24),
+			fontWeight : 'bold',
+			fontFamily : 'Aria',
+			textAlign : 'center'
+		},
+		color : Ti.App.Color.white
+	});
+
+	sv.ui.ViewThongTinTongSoBanThang = Ti.UI.createView({
+		backgroundColor : Ti.App.Color.white,
+		top : Ti.App.size(60),
+		width : Ti.App.size(640),
+		height : Ti.App.size(105),
+		left : Ti.App.size(0),
+	});
+
+	sv.ui.LabelThongTinTongSoBanThang1 = Ti.UI.createLabel({
+		text : '2 1/4',
+		left : Ti.App.size(90),
+		font : {
+			fontSize : Ti.App.size(26),
+			fontWeight : 'bold',
+			fontFamily : 'Aria',
+			textAlign : 'left'
+		},
+		color : Ti.App.Color.nauden
+	});
+
+	sv.ui.LabelThongTinTongSoBanThang2 = Ti.UI.createLabel({
+		text : '1.975',
+		left : Ti.App.size(305),
+		font : {
+			fontSize : Ti.App.size(26),
+			fontWeight : 'bold',
+			fontFamily : 'Aria',
+			textAlign : 'left'
+		},
+		color : Ti.App.Color.nauden
+	});
+
+	sv.ui.LabelThongTinTongSoBanThang3 = Ti.UI.createLabel({
+		text : '1.925',
+		left : Ti.App.size(520),
+		font : {
+			fontSize : Ti.App.size(26),
+			fontWeight : 'bold',
+			fontFamily : 'Aria',
+			textAlign : 'left'
+		},
+		color : Ti.App.Color.nauden
+	});
+
+	sv.ui.ViewKeoChauAu = Ti.UI.createView({
+		top : Ti.App.size(885),
+		width : Ti.App.size(640),
+		height : Ti.App.size(165),
+		left : Ti.App.size(40),
+	});
+
+	sv.ui.ViewHeaderTyLeChauAu = Ti.UI.createView({
+		backgroundColor : Ti.App.Color.nauden,
+		top : Ti.App.size(0),
+		width : Ti.App.size(640),
+		height : Ti.App.size(60),
+		left : Ti.App.size(0),
+	});
+
+	sv.ui.LabelHeaderTyLeChauAu = Ti.UI.createLabel({
+		text : 'Tỷ lệ Châu Âu',
+		font : {
+			fontSize : Ti.App.size(24),
+			fontWeight : 'bold',
+			fontFamily : 'Aria',
+			textAlign : 'center'
+		},
+		color : Ti.App.Color.white
+	});
+
+	sv.ui.ViewThongTinKeoChauAu = Ti.UI.createView({
+		backgroundColor : Ti.App.Color.white,
+		top : Ti.App.size(60),
+		width : Ti.App.size(640),
+		height : Ti.App.size(105),
+		left : Ti.App.size(0),
+	});
+
+	sv.ui.LabelThongTinKeoChauAu1 = Ti.UI.createLabel({
+		text : '1.65',
+		left : Ti.App.size(90),
+		font : {
+			fontSize : Ti.App.size(26),
+			fontWeight : 'bold',
+			fontFamily : 'Aria',
+			textAlign : 'left'
+		},
+		color : Ti.App.Color.nauden
+	});
+
+	sv.ui.LabelThongTinKeoChauAu2 = Ti.UI.createLabel({
+		text : '3.57',
+		left : Ti.App.size(305),
+		font : {
+			fontSize : Ti.App.size(26),
+			fontWeight : 'bold',
+			fontFamily : 'Aria',
+			textAlign : 'left'
+		},
+		color : Ti.App.Color.nauden
+	});
+
+	sv.ui.LabelThongTinKeoChauAu3 = Ti.UI.createLabel({
+		text : '5.34',
+		left : Ti.App.size(520),
+		font : {
+			fontSize : Ti.App.size(26),
+			fontWeight : 'bold',
+			fontFamily : 'Aria',
+			textAlign : 'left'
+		},
+		color : Ti.App.Color.nauden
+	});
+
+	sv.ui.ViewTyLeAn = Ti.UI.createView({
+		top : Ti.App.size(1075),
+		width : Ti.App.size(640),
+		height : Ti.App.size(165),
+		left : Ti.App.size(40),
+	});
+
+	sv.ui.ViewHeaderTyLeAn = Ti.UI.createView({
+		backgroundColor : Ti.App.Color.nauden,
+		top : Ti.App.size(0),
+		width : Ti.App.size(640),
+		height : Ti.App.size(60),
+		left : Ti.App.size(0),
+	});
+
+	sv.ui.LabelHeaderTyLeAn1 = Ti.UI.createLabel({
+		text : 'Chủ nhà thắng',
+		left : Ti.App.size(35),
+		font : {
+			fontSize : Ti.App.size(24),
+			fontWeight : 'bold',
+			fontFamily : 'Aria',
+		},
+		color : Ti.App.Color.white
+	});
+
+	sv.ui.LabelHeaderTyLeAn2 = Ti.UI.createLabel({
+		text : 'Hoà',
+		//left : Ti.App.size(330),
+		font : {
+			fontSize : Ti.App.size(24),
+			fontWeight : 'bold',
+			fontFamily : 'Aria',
+		},
+		color : Ti.App.Color.white
+	});
+
+	sv.ui.LabelHeaderTyLeAn3 = Ti.UI.createLabel({
+		text : 'Khách thắng',
+		left : Ti.App.size(460),
+		font : {
+			fontSize : Ti.App.size(24),
+			fontWeight : 'bold',
+			fontFamily : 'Aria',
+		},
+		color : Ti.App.Color.white
+	});
+
+	sv.ui.ViewThongTinTyLeAn = Ti.UI.createView({
+		backgroundColor : Ti.App.Color.white,
+		top : Ti.App.size(60),
+		width : Ti.App.size(640),
+		height : Ti.App.size(105),
+		left : Ti.App.size(0),
+	});
+
+	sv.ui.LabelThongTinTyLeAn1 = Ti.UI.createLabel({
+		text : '2',
+		left : Ti.App.size(90),
+		font : {
+			fontSize : Ti.App.size(26),
+			fontWeight : 'bold',
+			fontFamily : 'Aria',
+			textAlign : 'left'
+		},
+		color : Ti.App.Color.nauden
+	});
+
+	sv.ui.LabelThongTinTyLeAn2 = Ti.UI.createLabel({
+		text : '2.62',
+		//left : Ti.App.size(305),
+		font : {
+			fontSize : Ti.App.size(26),
+			fontWeight : 'bold',
+			fontFamily : 'Aria',
+			textAlign : 'left'
+		},
+		color : Ti.App.Color.nauden
+	});
+
+	sv.ui.LabelThongTinTyLeAn3 = Ti.UI.createLabel({
+		text : '5.5',
+		left : Ti.App.size(520),
+		font : {
+			fontSize : Ti.App.size(26),
+			fontWeight : 'bold',
+			fontFamily : 'Aria',
+			textAlign : 'left'
+		},
+		color : Ti.App.Color.nauden
+	});
+
+	sv.ui.ViewCaCuocTySo = Ti.UI.createView({
+		top : Ti.App.size(1260),
+		width : Ti.App.size(640),
+		height : Ti.App.size(460),
+		left : Ti.App.size(40),
+	});
+
+	sv.ui.ViewHeaderCaCuocTySo = Ti.UI.createView({
+		backgroundColor : Ti.App.Color.red,
+		top : Ti.App.size(0),
+		width : Ti.App.size(640),
+		height : Ti.App.size(60),
+		left : Ti.App.size(0),
+	});
+
+	sv.ui.ViewLabelHeaderCacCuocTySo1 = Ti.UI.createView({
+		top : Ti.App.size(0),
+		width : Ti.App.size(320),
+		height : Ti.App.size(60),
+		left : Ti.App.size(0),
+	});
+
+	sv.ui.LabelHeaderCacCuocTySo1 = Ti.UI.createLabel({
+		text : 'Tỷ số',
+		font : {
+			fontSize : Ti.App.size(24),
+			fontWeight : 'bold',
+			fontFamily : 'Aria',
+		},
+		color : Ti.App.Color.white
+	});
+
+	sv.ui.ViewLabelHeaderCacCuocTySo2 = Ti.UI.createView({
+		top : Ti.App.size(0),
+		width : Ti.App.size(320),
+		height : Ti.App.size(60),
+		left : Ti.App.size(320),
+	});
+
+	sv.ui.LabelHeaderCacCuocTySo2 = Ti.UI.createLabel({
+		text : 'Tỷ lệ cược',
+		font : {
+			fontSize : Ti.App.size(24),
+			fontWeight : 'bold',
+			fontFamily : 'Aria',
+		},
+		color : Ti.App.Color.white
+	});
+
+	sv.ui.TableViewThongTinCaCuocTySo = Ti.UI.createTableView({
+		backgroundColor : Ti.App.Color.white,
+		top : Ti.App.size(60),
+		left : 0
+	});
+
+	for (var i = 0; i < 10; i++) {
+		var row = Ti.UI.createTableViewRow({
+			width : Ti.App.size(640),
+			height : Ti.App.size(80),
+			left : 0,
+			id : i,
+			backgroundSelectedColor : 'black'
+		});
+
+		sv.arr.ViewLabelTySo[i] = Ti.UI.createView({
+			top : Ti.App.size(0),
+			width : Ti.App.size(320),
+			height : Ti.App.size(80),
+			left : Ti.App.size(0),
+		});
+
+		row.add(sv.arr.ViewLabelTySo[i]);
+
+		sv.arr.LabelTySo[i] = Ti.UI.createLabel({
+			text : sv.arr.ParamTySo[0],
+			font : {
+				fontSize : Ti.App.size(26),
+				fontWeight : 'bold',
+				fontFamily : 'Aria',
+			},
+			color : Ti.App.Color.nauden
+		});
+
+		sv.arr.ViewLabelTySo[i].add(sv.arr.LabelTySo[i]);
+
+		sv.arr.ViewLabelTyLeCuoc[i] = Ti.UI.createView({
+			top : Ti.App.size(0),
+			width : Ti.App.size(320),
+			height : Ti.App.size(80),
+			left : Ti.App.size(320),
+		});
+
+		row.add(sv.arr.ViewLabelTyLeCuoc[i]);
+
+		sv.arr.LabelTyLeCuoc[i] = Ti.UI.createLabel({
+			text : sv.arr.ParamTyLeCuoc[0],
+			font : {
+				fontSize : Ti.App.size(26),
+				fontWeight : 'bold',
+				fontFamily : 'Aria',
+			},
+			color : Ti.App.Color.nauden
+		});
+
+		sv.arr.ViewLabelTyLeCuoc[i].add(sv.arr.LabelTyLeCuoc[i]);
+
+		sv.arr.data.push(row);
+	}
+	sv.ui.TableViewThongTinCaCuocTySo.setData(sv.arr.data);
+
+	/*
+	 *
+	 */
 
 	sv.ui.ViewTong.add(sv.ui.BGHeader);
 	sv.ui.ViewTong.add(sv.ui.LbThongTinKeo);
-	sv.ui.ViewTong.add(sv.ui.ViewKeo);
-	sv.ui.ViewTong.add(sv.ui.LbThongTinCuoc);
+	sv.ui.ViewTong.add(sv.ui.ViewKeoChauA);
+	sv.ui.ViewTong.add(sv.ui.ViewTongSoBanThang);
+	sv.ui.ViewTong.add(sv.ui.ViewKeoChauAu);
+	sv.ui.ViewTong.add(sv.ui.ViewTyLeAn);
+	sv.ui.ViewTong.add(sv.ui.ViewCaCuocTySo);
 
 	sv.ui.BGHeader.add(sv.ui.LbNgayThang);
 	sv.ui.BGHeader.add(sv.ui.LbGioPhut);
@@ -378,20 +625,40 @@ function createUI(sv) {
 	sv.ui.ViewTenDoiChuNha.add(sv.ui.LbTenDoiChuNha);
 	sv.ui.ViewTenDoiKhach.add(sv.ui.LbTenDoiKhach);
 
-	sv.ui.ViewKeo.add(sv.ui.KeoChauA);
-	sv.ui.ViewKeo.add(sv.ui.Label11);
-	sv.ui.ViewKeo.add(sv.ui.Label12);
-	sv.ui.ViewKeo.add(sv.ui.Label13);
-	sv.ui.ViewKeo.add(sv.ui.Line1);
-	sv.ui.ViewKeo.add(sv.ui.KeoTaiXiu);
-	sv.ui.ViewKeo.add(sv.ui.Label21);
-	sv.ui.ViewKeo.add(sv.ui.Label22);
-	sv.ui.ViewKeo.add(sv.ui.Label23);
-	sv.ui.ViewKeo.add(sv.ui.Label24);
-	sv.ui.ViewKeo.add(sv.ui.Line2);
-	sv.ui.ViewKeo.add(sv.ui.KeoChauAu);
-	sv.ui.ViewKeo.add(sv.ui.Label31);
-	sv.ui.ViewKeo.add(sv.ui.Label32);
-	sv.ui.ViewKeo.add(sv.ui.Label33);
+	sv.ui.ViewKeoChauA.add(sv.ui.ViewHeaderKeoChauA);
+	sv.ui.ViewKeoChauA.add(sv.ui.ViewThongTinKeoChauA);
+	sv.ui.ViewHeaderKeoChauA.add(sv.ui.LabelHeaderKeoChauA);
+	sv.ui.ViewThongTinKeoChauA.add(sv.ui.LabelThongTinKeoChauA1);
+	sv.ui.ViewThongTinKeoChauA.add(sv.ui.LabelThongTinKeoChauA2);
+	sv.ui.ViewThongTinKeoChauA.add(sv.ui.LabelThongTinKeoChauA3);
 
+	sv.ui.ViewTongSoBanThang.add(sv.ui.ViewHeaderTongSoBanThang);
+	sv.ui.ViewTongSoBanThang.add(sv.ui.ViewThongTinTongSoBanThang);
+	sv.ui.ViewHeaderTongSoBanThang.add(sv.ui.LabelHeaderTongSoBanThang);
+	sv.ui.ViewThongTinTongSoBanThang.add(sv.ui.LabelThongTinTongSoBanThang1);
+	sv.ui.ViewThongTinTongSoBanThang.add(sv.ui.LabelThongTinTongSoBanThang2);
+	sv.ui.ViewThongTinTongSoBanThang.add(sv.ui.LabelThongTinTongSoBanThang3);
+
+	sv.ui.ViewKeoChauAu.add(sv.ui.ViewHeaderTyLeChauAu);
+	sv.ui.ViewKeoChauAu.add(sv.ui.ViewThongTinKeoChauAu);
+	sv.ui.ViewHeaderTyLeChauAu.add(sv.ui.LabelHeaderTyLeChauAu);
+	sv.ui.ViewThongTinKeoChauAu.add(sv.ui.LabelThongTinKeoChauAu1);
+	sv.ui.ViewThongTinKeoChauAu.add(sv.ui.LabelThongTinKeoChauAu2);
+	sv.ui.ViewThongTinKeoChauAu.add(sv.ui.LabelThongTinKeoChauAu3);
+
+	sv.ui.ViewTyLeAn.add(sv.ui.ViewHeaderTyLeAn);
+	sv.ui.ViewTyLeAn.add(sv.ui.ViewThongTinTyLeAn);
+	sv.ui.ViewHeaderTyLeAn.add(sv.ui.LabelHeaderTyLeAn1);
+	sv.ui.ViewHeaderTyLeAn.add(sv.ui.LabelHeaderTyLeAn2);
+	sv.ui.ViewHeaderTyLeAn.add(sv.ui.LabelHeaderTyLeAn3);
+	sv.ui.ViewThongTinTyLeAn.add(sv.ui.LabelThongTinTyLeAn1);
+	sv.ui.ViewThongTinTyLeAn.add(sv.ui.LabelThongTinTyLeAn2);
+	sv.ui.ViewThongTinTyLeAn.add(sv.ui.LabelThongTinTyLeAn3);
+
+	sv.ui.ViewCaCuocTySo.add(sv.ui.ViewHeaderCaCuocTySo);
+	sv.ui.ViewCaCuocTySo.add(sv.ui.TableViewThongTinCaCuocTySo);
+	sv.ui.ViewHeaderCaCuocTySo.add(sv.ui.ViewLabelHeaderCacCuocTySo1);
+	sv.ui.ViewHeaderCaCuocTySo.add(sv.ui.ViewLabelHeaderCacCuocTySo2);
+	sv.ui.ViewLabelHeaderCacCuocTySo1.add(sv.ui.LabelHeaderCacCuocTySo1);
+	sv.ui.ViewLabelHeaderCacCuocTySo2.add(sv.ui.LabelHeaderCacCuocTySo2);
 }

@@ -15,7 +15,7 @@ module.exports = function() {
 };
 
 function createVariable(sv) {
-
+	sv.vari.sms = require('/ui-controller/showSmsDialog');
 }
 
 function createUI(sv) {
