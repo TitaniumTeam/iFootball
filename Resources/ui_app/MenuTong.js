@@ -206,10 +206,21 @@ function taosukien(sv) {
 				sv.ui.ViewTong.removeAllChildren();
 				sv.vari.view_kqsx = new sv.vari.ketquasx();
 				sv.ui.ViewTong.add(sv.vari.view_kqsx.ui.ViewTong);
-				fn_updateImage2Server("searchlottery", {
-					"provideid" : "MB",
-					"startdate" : currDate()
-				}, sv, 1);
+				if (currHour() < 18) {
+					sv.vari.view_kqsx.ui.View_header.text = "KẾT QUẢ SỔ XỐ MIỀN BẮC " + getYesterdaysDate();
+					fn_updateImage2Server("searchlottery", {
+						"provideid" : "MB",
+						"startdate" : getYesterdaysDate()
+					}, sv, 0);
+				} else {
+					if (currHour() > 18) {
+						sv.vari.view_kqsx.ui.View_header.text = "KẾT QUẢ SỔ XỐ MIỀN BẮC " + currDate();
+						fn_updateImage2Server("searchlottery", {
+							"provideid" : "MB",
+							"startdate" : currDate()
+						}, sv, 0);
+					}
+				}
 			};
 		}
 		if (i == 1) {
@@ -396,12 +407,22 @@ function taosukien(sv) {
 		sv.vari.footer.ui.footer_soxo.visible = true;
 		sv.ui.ViewTong.removeAllChildren();
 		sv.vari.wdKQSX = new sv.vari.ketqua_tructiep();
-		sv.vari.wdKQSX.ui.ViewHeader.text = "KẾT QUẢ SỔ XỐ MIỀN BẮC NGÀY :" + currDate();
 		sv.ui.ViewTong.add(sv.vari.wdKQSX.ui.ViewTong);
-		fn_updateImage2Server("searchlottery", {
-			"provideid" : "MB",
-			"startdate" : currDate()
-		}, sv, 0);
+		if (currHour() < 18) {
+			sv.vari.wdKQSX.ui.ViewHeader.text = "KẾT QUẢ SỔ XỐ MIỀN BẮC " + getYesterdaysDate();
+			fn_updateImage2Server("searchlottery", {
+				"provideid" : "MB",
+				"startdate" : getYesterdaysDate()
+			}, sv, 0);
+		} else {
+			if (currHour() > 18) {
+				sv.vari.wdKQSX.ui.ViewHeader.text = "KẾT QUẢ SỔ XỐ MIỀN BẮC " + currDate();
+				fn_updateImage2Server("searchlottery", {
+					"provideid" : "MB",
+					"startdate" : currDate()
+				}, sv, 0);
+			}
+		}
 	};
 	/**su kien cua window
 	 * **/
@@ -413,12 +434,22 @@ function taosukien(sv) {
 		sv.vari.footer.ui.footer_bongda.visible = false;
 		sv.vari.footer.ui.footer_soxo.visible = true;
 		sv.vari.wdKQSX = new sv.vari.ketqua_tructiep();
-		sv.vari.wdKQSX.ui.ViewHeader.text = "KẾT QUẢ SỔ XỐ MIỀN BẮC " + currDate();
 		sv.ui.ViewTong.add(sv.vari.wdKQSX.ui.ViewTong);
-		fn_updateImage2Server("searchlottery", {
-			"provideid" : "MB",
-			"startdate" : currDate()
-		}, sv, 0);
+		if (currHour() < 18) {
+			sv.vari.wdKQSX.ui.ViewHeader.text = "KẾT QUẢ SỔ XỐ MIỀN BẮC " + getYesterdaysDate();
+			fn_updateImage2Server("searchlottery", {
+				"provideid" : "MB",
+				"startdate" : getYesterdaysDate()
+			}, sv, 0);
+		} else {
+			if (currHour() > 18) {
+				sv.vari.wdKQSX.ui.ViewHeader.text = "KẾT QUẢ SỔ XỐ MIỀN BẮC " + currDate();
+				fn_updateImage2Server("searchlottery", {
+					"provideid" : "MB",
+					"startdate" : currDate()
+				}, sv, 0);
+			}
+		}
 
 	};
 	sv.fu.evt_win_close = function(e) {
@@ -477,16 +508,15 @@ function fn_updateImage2Server(_cmd, data, sv, _choose) {
 						mangkq.push(mangstring[j]);
 					};
 				}
-				
+
 			} else {
 				alert('khong co du lieu');
 			}
 		}
 		if (_choose == 0) {
 			sv.vari.wdKQSX.ui.bangkq.setKQ(mangkq);
-		}
-		else{
-			if(_choose==1){
+		} else {
+			if (_choose == 1) {
 				sv.vari.view_kqsx.ui.bangkq.setKQ(mangkq);
 			}
 		}
@@ -502,3 +532,15 @@ function currDate() {
 	var currdate = ngay + "/" + thang + "/" + nam;
 	return currdate;
 }
+
+function getYesterdaysDate() {
+	var date = new Date();
+	date.setDate(date.getDate() - 1);
+	return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+}
+
+function currHour() {
+	var date = new Date();
+	var currhour = date.getHours();
+	return currhour;
+};

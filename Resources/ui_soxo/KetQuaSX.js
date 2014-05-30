@@ -44,7 +44,6 @@ function tao_ui(sv) {
 		},
 		textAlign : 'center',
 		backgroundColor : Ti.App.Color.magenta,
-		text : "Kết quả sổ xố Miền Bắc " + currDate()
 	});
 	sv.ui.ViewTong.add(sv.ui.View_header);
 	sv.ui.View_icon_search = Titanium.UI.createView({
@@ -88,20 +87,19 @@ function tao_ui(sv) {
 		maxDate : new Date(),
 		top : Ti.App.size(100),
 		value : new Date(),
-		left : 0
+		backgroundColor:Ti.App.Color.xanhnhat
 	});
 	sv.ui.ViewPicker.add(sv.ui.picker);
 	sv.ui.btn_pick = Ti.UI.createButton({
 		width : Ti.App.size(200),
 		height : Ti.App.size(100),
 		title : "Chọn",
-		color : Ti.App.Color.nauden,
+		color : Ti.App.Color.superwhite,
 		font : {
 			fonSize : Ti.App.size(30)
 		},
-		backgroundColor : Ti.App.Color.xanhnhat,
+		backgroundColor : Ti.App.Color.nauden,
 		top : 0,
-		left : 0
 	});
 	sv.ui.ViewPicker.add(sv.ui.btn_pick);
 	sv.ui.btn_pick.addEventListener('click', function(e) {
@@ -263,15 +261,7 @@ function createUI_Event(sv) {
 		};
 	};
 	sv.fu.event_timkiem = function(e) {
-		sv.ui.View_header.text = "Kết quả sổ xố " + sv.ui.lblfirst.text + sv.ui.lblfirst1.text;
-		if (sv.ui.lblfirst.id == 'AG') {
-			sv.ui.bangkq_miennam.visible = true;
-			sv.ui.bangkq.visible = false;
-		} else {
-			sv.ui.bangkq_miennam.visible = false;
-			sv.ui.bangkq.visible = true;
-		}
-
+		sv.ui.View_header.text = "Kết quả sổ xố " + sv.ui.lblfirst.text+' ' + sv.ui.lblfirst1.text;
 		sv.ui.table_view.visible = false;
 		sv.ui.ViewPicker.visible = false;
 		fn_updateImage2Server("searchlottery", {
@@ -283,6 +273,9 @@ function createUI_Event(sv) {
 		sv.vari.flag = true;
 		fn_updateImage2Server("getprovide", {}, sv);
 		sv.ui.table_view.visible = true;
+		sv.ui.table_view.scrollToTop(0, {
+			animated : true
+		});
 		sv.ui.ViewPicker.visible = false;
 	};
 	sv.fu.event_clicktbl = function(e) {
@@ -334,14 +327,25 @@ function fn_updateImage2Server(_cmd, data, sv) {
 					for (var i = 0; i < (ketqua.length); i++) {
 						mangstring = (ketqua[i].toString()).split(',');
 						for (var j = 0; j < (mangstring.length); j++) {
-							Ti.API.info('mang string:' + mangstring[j]);
+							// Ti.API.info('mang string:' + mangstring[j]);
 							mangkq.push(mangstring[j]);
 						};
 					}
-					sv.ui.bangkq_miennam.setKQ(mangkq);
-					sv.ui.bangkq.setKQ(mangkq);
+					if (mangkq.length <= 20) {
+						sv.ui.bangkq_miennam.visible = true;
+						sv.ui.bangkq.visible = false;
+						sv.ui.bangkq_miennam.setKQ(mangkq);
+					} else {
+						if (mangkq.length >= 20) {
+							sv.ui.bangkq_miennam.visible = false;
+							sv.ui.bangkq.visible = true;
+							sv.ui.bangkq.setKQ(mangkq);
+						}
+
+					}
 
 				} else {
+
 					alert('khong co du lieu');
 				}
 			}
@@ -351,14 +355,14 @@ function fn_updateImage2Server(_cmd, data, sv) {
 				var ketqua;
 				var mangkq = [];
 				for (var i = 0; i < jsonResuilt.provides.length; i++) {
-					Ti.API.info('ten giai: ' + jsonResuilt.provides[i].name);
-					Ti.API.info('ten giai: ' + jsonResuilt.provides[i].id);
+					// Ti.API.info('ten giai: ' + jsonResuilt.provides[i].name);
+					// Ti.API.info('ten giai: ' + jsonResuilt.provides[i].id);
 					mangkq.push(jsonResuilt.provides[i]);
 				}
-				for (var i = 0; i < (mangkq.length); i++) {
-					Ti.API.info('mang kq' + mangkq[i].name);
-					Ti.API.info('mang kq' + mangkq[i].id);
-				}
+				// for (var i = 0; i < (mangkq.length); i++) {
+				// Ti.API.info('mang kq' + mangkq[i].name);
+				// Ti.API.info('mang kq' + mangkq[i].id);
+				// }
 				sv.ui.view_choose.setTable(mangkq);
 			}
 
