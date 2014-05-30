@@ -17,7 +17,7 @@ function taobien(sv) {
 	sv.vari.ketqua_tructiep = require('/ui_soxo/WindowRealTime');
 	sv.vari.ketquasx = require('/ui_soxo/KetQuaSX');
 	sv.vari.tuvan_soxo = require('/ui_soxo/tuvan');
-	sv.vari.thongke = require('/ui_soxo/ThongKe');
+	sv.vari.thongke = require('/ui_soxo/ThongKe_dynamic');
 	////////
 	sv.vari.TTTD = require('/ui_bongda/ThongTinTranDau');
 	sv.vari.tintuc = require('/ui_bongda/News');
@@ -211,14 +211,14 @@ function taosukien(sv) {
 					fn_updateImage2Server("searchlottery", {
 						"provideid" : "MB",
 						"startdate" : getYesterdaysDate()
-					}, sv, 0);
+					}, sv, 1);
 				} else {
 					if (currHour() > 18) {
 						sv.vari.view_kqsx.ui.View_header.text = "KẾT QUẢ SỔ XỐ MIỀN BẮC " + currDate();
 						fn_updateImage2Server("searchlottery", {
 							"provideid" : "MB",
 							"startdate" : currDate()
-						}, sv, 0);
+						}, sv, 1);
 					}
 				}
 			};
@@ -273,7 +273,8 @@ function taosukien(sv) {
 					}
 
 				}
-				sv.ui.ViewTong.removeAllChildren();
+				alert('Chức năng đang được xây dựng');
+				// sv.ui.ViewTong.removeAllChildren();
 			};
 		}
 	};
@@ -347,8 +348,9 @@ function taosukien(sv) {
 					}
 
 				}
-				Ti.API.info('chuc nangvip');
-				sv.ui.ViewTong.removeAllChildren();
+				alert('Chức năng đang được xây dựng');
+				// Ti.API.info('chuc nangvip');
+				// sv.ui.ViewTong.removeAllChildren();
 			};
 		}
 	};
@@ -415,7 +417,7 @@ function taosukien(sv) {
 				"startdate" : getYesterdaysDate()
 			}, sv, 0);
 		} else {
-			if (currHour() > 18) {
+			if (currHour() >= 18) {
 				sv.vari.wdKQSX.ui.ViewHeader.text = "KẾT QUẢ SỔ XỐ MIỀN BẮC " + currDate();
 				fn_updateImage2Server("searchlottery", {
 					"provideid" : "MB",
@@ -442,7 +444,7 @@ function taosukien(sv) {
 				"startdate" : getYesterdaysDate()
 			}, sv, 0);
 		} else {
-			if (currHour() > 18) {
+			if (currHour() >= 18) {
 				sv.vari.wdKQSX.ui.ViewHeader.text = "KẾT QUẢ SỔ XỐ MIỀN BẮC " + currDate();
 				fn_updateImage2Server("searchlottery", {
 					"provideid" : "MB",
