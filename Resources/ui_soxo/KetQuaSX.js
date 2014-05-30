@@ -12,7 +12,6 @@ module.exports = function() {
 };
 
 function taobien(sv) {
-	sv.vari.arrow = require('/ui_soxo/vArrow');
 	sv.vari.combobox = require('/ui_soxo/ComboBox');
 	sv.vari.flag = false;
 	sv.arr.datarow = [];
@@ -83,22 +82,22 @@ function tao_ui(sv) {
 	sv.ui.ViewTong.add(sv.ui.ViewPicker);
 	sv.ui.picker = Ti.UI.createPicker({
 		type : Titanium.UI.PICKER_TYPE_DATE,
-		minDate : new Date(2009, 0, 1),
+		minDate : new Date(2013, 0, 1),
 		maxDate : new Date(),
 		top : Ti.App.size(100),
 		value : new Date(),
-		backgroundColor : Ti.App.Color.xanhnhat
+		backgroundColor : Ti.App.Color.gray
 	});
 	sv.ui.ViewPicker.add(sv.ui.picker);
 	sv.ui.btn_pick = Ti.UI.createButton({
 		width : Ti.App.size(200),
 		height : Ti.App.size(100),
 		title : "Chọn",
-		color : Ti.App.Color.superwhite,
+		color : Ti.App.Color.nauden,
 		font : {
 			fonSize : Ti.App.size(30)
 		},
-		backgroundColor : Ti.App.Color.nauden,
+		backgroundColor : Ti.App.Color.gray,
 		top : 0,
 	});
 	sv.ui.ViewPicker.add(sv.ui.btn_pick);
@@ -195,6 +194,7 @@ function createUI_Event(sv) {
 // };
 // }
 function fn_updateImage2Server(_cmd, data, sv) {
+	sv.ui.scrollView.scrollTo(0, 0);
 	var xhr = Titanium.Network.createHTTPClient();
 	xhr.onsendstream = function(e) {
 		//ind.value = e.progress;
@@ -246,7 +246,9 @@ function fn_updateImage2Server(_cmd, data, sv) {
 					}
 
 				} else {
-
+					sv.ui.bangkq.visible = true;
+					sv.ui.bangkq_miennam.visible = false;
+					sv.ui.bangkq.setKQ("");
 					alert('khong co du lieu');
 				}
 			}

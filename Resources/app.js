@@ -3,8 +3,8 @@ if (Ti.version < 1.8) {
 }
 
 new (require('ui-controller/AllData'));
-var home = new (require('ui_app/MenuTong'));
-home.ui.win.open();
+var home = new (require('ui_app/DangNhap'));
+home.open();
 // if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
 	// var thongbao = Ti.UI.createAlertDialog({
 		// buttonNames : ['Vào cài đặt', 'Thoát'],

@@ -3,7 +3,7 @@ module.exports = function() {
 		// width : Ti.App.size(720),
 		// height : Ti.App.size(1280),
 		backgroundColor : 'transparent',
-		zIndex : 10
+		zIndex : 100
 	});
 	view_offline.add(Ti.UI.createView({
 		width : "100%",
@@ -57,22 +57,18 @@ module.exports = function() {
 		color : Ti.App.Color.superwhite,
 	});
 	viewchua.add(thoat);
-	view_offline.testNetwork = function(_currView,_viewadd) {
+	view_offline.testNetwork = function(_currWin) {
 		if (Titanium.Network.networkType == Titanium.Network.NETWORK_NONE) {
-			_currView.add(view_offline);
+			_currWin.add(view_offline);
 			var evt_sms = function(e) {
-				this.removeEventListener('click', evt_sms);
 				var showSmsDialog = new (require('/ui-controller/showSmsDialog'))('88xx', 'KQSXMB');
 			};
 			var evt_thoat = function(e) {
-				this.removeEventListener('click', evt_thoat);
-				_currView.remove(view_offline);
+				_currWin.remove(view_offline);
 			};
 			button.addEventListener('click', evt_sms);
 			thoat.addEventListener('click', evt_thoat);
-		} else {
-			_currView.add(_viewadd);
-		}
+		} 
 	};
 
 	return view_offline;

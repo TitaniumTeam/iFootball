@@ -46,13 +46,6 @@ function createUI(sv) {
 		top : 0,
 	});
 
-	sv.ui.iconmenu = Ti.UI.createView({
-		backgroundImage : '/assets/images/icon/menu.png',
-		left : Ti.App.size(30),
-		top : Ti.App.size(40),
-		bottom : Ti.App.size(40),
-		right : Ti.App.size(630)
-	});
 
 	sv.ui.headerdangnhap = Ti.UI.createLabel({
 		text : 'ĐĂNG NHẬP',
@@ -66,13 +59,6 @@ function createUI(sv) {
 		bottom : Ti.App.size(40),
 	});
 
-	sv.ui.iconuser = Ti.UI.createView({
-		backgroundImage : '/assets/images/icon/user.png',
-		top : Ti.App.size(30),
-		bottom : Ti.App.size(30),
-		left : Ti.App.size(635),
-		right : Ti.App.size(35)
-	});
 
 	//tao view dang nhap bang facebook
 	sv.ui.viewdnface = Ti.UI.createView({
@@ -198,7 +184,7 @@ function createUI(sv) {
 		font : {
 			fontSize : Ti.App.size(20),
 			fontFamily : 'Aria',
-			fontColor : Ti.App.Color.magenta,
+			fontColor : Ti.App.Color.nauden,
 		},
 	});
 
@@ -213,7 +199,7 @@ function createUI(sv) {
 		font : {
 			fontSize : Ti.App.size(20),
 			fontFamily : 'Aria',
-			fontColor : Ti.App.Color.magenta,
+			fontColor : Ti.App.Color.nauden,
 		},
 	});
 	//tao view dang nhap, view dang ky
@@ -293,9 +279,7 @@ function createUI(sv) {
 	sv.ui.viewtong.add(sv.ui.viewdangky);
 	sv.ui.viewtong.add(sv.ui.viewquenpass);
 
-	sv.ui.viewheader.add(sv.ui.iconmenu);
 	sv.ui.viewheader.add(sv.ui.headerdangnhap);
-	sv.ui.viewheader.add(sv.ui.iconuser);
 
 	sv.ui.viewdnface.add(sv.ui.iconface);
 	sv.ui.viewdnface.add(sv.ui.iconlinednface);
@@ -320,22 +304,18 @@ function createUI_Event(sv) {
 	sv.fu = {};
 
 	sv.fu.eventClickviewdnface = function(e) {
-		var newWindow = new (require('ui/LichSuGiaoDich'))();
-		newWindow.open();
 	};
 
 	sv.fu.eventClickviewdngmail = function(e) {
-		var newWindow = new (require('ui/ThongTinCaNhan'))();
-		newWindow.open();
 	};
 
 	sv.fu.eventClickviewdangnhap = function(e) {
-		var newWindow = new (require('ui/Info'))();
-		newWindow.open();
+		fn_updateImage2Server("login",{"username":sv.ui.tfid.value,"password":sv.ui.tfpass.value},sv);
 	};
 
 	sv.fu.eventClickviewdangky = function(e) {
-		alert('Click viewdangky');
+		var windk=new (require('/ui_app/WindowDk'));
+		windk.open();
 	};
 
 	sv.fu.eventOpenWindow = function(e) {
@@ -360,3 +340,28 @@ function createUI_Event(sv) {
 		Ti.API.info('Closed window, sv=' + sv);
 	};
 }
+function fn_updateImage2Server(_cmd, data, sv) {
+	var xhr = Titanium.Network.createHTTPClient();
+	xhr.onsendstream = function(e) {
+		//ind.value = e.progress;
+		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
+	};
+	// open the client
+	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=' + _cmd);
+	xhr.setRequestHeader("Content-Type", "application/json-rpc");
+	Ti.API.info(JSON.stringify(data));
+	xhr.send(JSON.stringify(data));
+	xhr.onerror = function(e) {
+		Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
+	};
+	xhr.onload = function() {
+		Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
+		var dl = JSON.parse(this.responseText);
+		var jsonResuilt = JSON.parse(dl);
+		for(var i=0;i<(jsonResuilt.length);i++){
+			Ti.API.info('json'+jsonResuilt[i]);
+		}
+
+	};
+
+};

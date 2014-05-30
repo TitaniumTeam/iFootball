@@ -12,7 +12,6 @@ module.exports = function() {
 };
 
 function taobien(sv) {
-	sv.vari.arrow = require('/ui_soxo/vArrow');
 	sv.vari.combobox = require('/ui_soxo/ComboBox');
 	sv.vari.flag = false;
 	sv.arr.datarow = [];

@@ -13,6 +13,8 @@ module.exports = function() {
 
 };
 function taobien(sv) {
+	sv.vari.kqoff=require('/ui_app/kq_offline');
+	////
 	sv.vari.footer = new (require('/ui_app/footer_1'));
 	sv.vari.ketqua_tructiep = require('/ui_soxo/WindowRealTime');
 	sv.vari.ketquasx = require('/ui_soxo/KetQuaSX');
@@ -475,55 +477,61 @@ function taosukien(sv) {
 
 function fn_updateImage2Server(_cmd, data, sv, _choose) {
 	var xhr = Titanium.Network.createHTTPClient();
-	xhr.onsendstream = function(e) {
-		//ind.value = e.progress;
-		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
-	};
-	// open the client
-	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=' + _cmd);
-	xhr.setRequestHeader("Content-Type", "application/json-rpc");
-	Ti.API.info(JSON.stringify(data));
-	xhr.send(JSON.stringify(data));
-	xhr.onerror = function(e) {
-		Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
-	};
-	xhr.onload = function() {
-		Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
-		var dl = JSON.parse(this.responseText);
-		var jsonResuilt = JSON.parse(dl);
-		var ketqua = [];
-		var mangstring;
-		var mangkq = [];
-		for (var i = 0; i < jsonResuilt.resulttable.length; i++) {
-			if (jsonResuilt.resulttable[i].provide) {
-				Ti.API.info('ten giai: ' + jsonResuilt.resulttable[i].provide.name);
-				Ti.API.info('ngay thang: ' + jsonResuilt.resulttable[i].resultdate);
-				for (var j = 0; j < jsonResuilt.resulttable[i].lines.length; j++) {
-					Ti.API.info('Thu tu: ' + jsonResuilt.resulttable[i].lines[j].name);
-					Ti.API.info('ket qua: ' + jsonResuilt.resulttable[i].lines[j].result);
-					ketqua.push(jsonResuilt.resulttable[i].lines[j].result);
-				};
-				for (var i = 0; i < (ketqua.length); i++) {
-					mangstring = (ketqua[i].toString()).split(',');
-					for (var j = 0; j < (mangstring.length); j++) {
-						Ti.API.info('mang string:' + mangstring[j]);
-						mangkq.push(mangstring[j]);
+	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
+		sv.ui.view_off=new sv.vari.kqoff();
+		sv.ui.view_off.testNetwork(sv.ui.win);
+
+	} else {
+		xhr.onsendstream = function(e) {
+			//ind.value = e.progress;
+			Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
+		};
+		// open the client
+		xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=' + _cmd);
+		xhr.setRequestHeader("Content-Type", "application/json-rpc");
+		Ti.API.info(JSON.stringify(data));
+		xhr.send(JSON.stringify(data));
+		xhr.onerror = function(e) {
+			Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
+		};
+		xhr.onload = function() {
+			Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
+			var dl = JSON.parse(this.responseText);
+			var jsonResuilt = JSON.parse(dl);
+			var ketqua = [];
+			var mangstring;
+			var mangkq = [];
+			for (var i = 0; i < jsonResuilt.resulttable.length; i++) {
+				if (jsonResuilt.resulttable[i].provide) {
+					Ti.API.info('ten giai: ' + jsonResuilt.resulttable[i].provide.name);
+					Ti.API.info('ngay thang: ' + jsonResuilt.resulttable[i].resultdate);
+					for (var j = 0; j < jsonResuilt.resulttable[i].lines.length; j++) {
+						Ti.API.info('Thu tu: ' + jsonResuilt.resulttable[i].lines[j].name);
+						Ti.API.info('ket qua: ' + jsonResuilt.resulttable[i].lines[j].result);
+						ketqua.push(jsonResuilt.resulttable[i].lines[j].result);
 					};
+					for (var i = 0; i < (ketqua.length); i++) {
+						mangstring = (ketqua[i].toString()).split(',');
+						for (var j = 0; j < (mangstring.length); j++) {
+							Ti.API.info('mang string:' + mangstring[j]);
+							mangkq.push(mangstring[j]);
+						};
+					}
+
+				} else {
+					alert('khong co du lieu');
 				}
-
+			}
+			if (_choose == 0) {
+				sv.vari.wdKQSX.ui.bangkq.setKQ(mangkq);
 			} else {
-				alert('khong co du lieu');
+				if (_choose == 1) {
+					sv.vari.view_kqsx.ui.bangkq.setKQ(mangkq);
+				}
 			}
-		}
-		if (_choose == 0) {
-			sv.vari.wdKQSX.ui.bangkq.setKQ(mangkq);
-		} else {
-			if (_choose == 1) {
-				sv.vari.view_kqsx.ui.bangkq.setKQ(mangkq);
-			}
-		}
 
-	};
+		};
+	}
 
 };
 function currDate() {
