@@ -58,7 +58,7 @@ function tao_ui(sv) {
 		height : Ti.UI.FILL
 	});
 	sv.ui.ViewTong.add(sv.ui.scrollView);
-	sv.ui.bangkq = new sv.vari.bangkq();
+	sv.ui.bangkq = new sv.vari.bangkq(1);
 	sv.ui.scrollView.add(sv.ui.bangkq);
 	sv.ui.vDaysove = Ti.UI.createView({
 		width : Ti.App.size(720),

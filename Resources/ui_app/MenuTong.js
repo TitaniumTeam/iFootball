@@ -413,7 +413,7 @@ function taosukien(sv) {
 		sv.vari.footer.ui.footer_bongda.visible = false;
 		sv.vari.footer.ui.footer_soxo.visible = true;
 		sv.vari.wdKQSX = new sv.vari.ketqua_tructiep();
-		sv.vari.wdKQSX.ui.ViewHeader.text = "KẾT QUẢ SỔ XỐ MIỀN BẮC NGÀY :" + currDate();
+		sv.vari.wdKQSX.ui.ViewHeader.text = "KẾT QUẢ SỔ XỐ MIỀN BẮC " + currDate();
 		sv.ui.ViewTong.add(sv.vari.wdKQSX.ui.ViewTong);
 		fn_updateImage2Server("searchlottery", {
 			"provideid" : "MB",

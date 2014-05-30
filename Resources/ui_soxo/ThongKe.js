@@ -66,7 +66,7 @@ function tao_ui(sv) {
 		width : Ti.App.size(140),
 		height : Ti.App.size(100),
 		backgroundSelectedColor : Ti.App.Color.xanhnhat,
-		backgroundColor : 'green',
+		backgroundColor :Ti.App.Color.green,
 		top : Ti.App.size(60),
 		right : 0
 	});

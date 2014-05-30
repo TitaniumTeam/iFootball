@@ -17,7 +17,7 @@ function taobien(sv) {
 	sv.vari.flag = false;
 	sv.arr.datarow = [];
 	sv.arr.height = [Ti.App.size(120), Ti.App.size(200)];
-	sv.vari.newdate;
+	sv.vari.newdate
 	sv.vari.bangkq = require('/ui_soxo/bangketquasx');
 }
 
@@ -32,12 +32,27 @@ function tao_ui(sv) {
 		lef : 0,
 		backgroundColor : 'transparent'
 	});
+	sv.ui.View_header = Titanium.UI.createLabel({
+		height : Ti.App.size(60),
+		left : 0,
+		top : 0,
+		width : Ti.App.size(720),
+		color : Ti.App.Color.nauden,
+		font : {
+			fontSize : Ti.App.size(35),
+			fontWeight : 'bold'
+		},
+		textAlign : 'center',
+		backgroundColor : Ti.App.Color.magenta,
+		text : "Kết quả sổ xố Miền Bắc " + currDate()
+	});
+	sv.ui.ViewTong.add(sv.ui.View_header);
 	sv.ui.View_icon_search = Titanium.UI.createView({
 		width : Ti.App.size(140),
 		height : Ti.App.size(100),
 		backgroundSelectedColor : Ti.App.Color.xanhnhat,
-		backgroundColor : 'green',
-		top : 0,
+		backgroundColor : Ti.App.Color.green,
+		top : Ti.App.size(60),
 		right : 0
 	});
 	sv.ui.icon_search = Titanium.UI.createImageView({
@@ -48,8 +63,8 @@ function tao_ui(sv) {
 	});
 	sv.ui.View_icon_search.add(sv.ui.icon_search);
 	sv.ui.ViewTong.add(sv.ui.View_icon_search);
-	sv.ui.view_choose = new sv.vari.combobox(0, 'MIỀN BẮC', 0, Ti.App.size(290), Ti.App.size(100));
-	sv.ui.view_choose1 = new sv.vari.combobox(0, currDate(), Ti.App.size(290), Ti.App.size(290), Ti.App.size(100));
+	sv.ui.view_choose = new sv.vari.combobox(Ti.App.size(60), 'MIỀN BẮC', 0, Ti.App.size(290), Ti.App.size(160));
+	sv.ui.view_choose1 = new sv.vari.combobox(Ti.App.size(60), currDate(), Ti.App.size(290), Ti.App.size(290), Ti.App.size(160));
 
 	sv.ui.lblfirst = sv.ui.view_choose.getLblFirst();
 	sv.ui.lblfirst1 = sv.ui.view_choose1.getLblFirst();
@@ -61,8 +76,7 @@ function tao_ui(sv) {
 	//////date picker
 	sv.ui.ViewPicker = Titanium.UI.createView({
 		width : Ti.App.size(720),
-		height : Ti.App.size(500),
-		backgroundColor : Ti.App.Color.nauden,
+		height : Ti.App.size(400),
 		visible : false,
 		bottom : 0,
 		zIndex : 10,
@@ -72,20 +86,22 @@ function tao_ui(sv) {
 		type : Titanium.UI.PICKER_TYPE_DATE,
 		minDate : new Date(2009, 0, 1),
 		maxDate : new Date(),
-		top : 50,
+		top : Ti.App.size(100),
 		value : new Date(),
+		left : 0
 	});
 	sv.ui.ViewPicker.add(sv.ui.picker);
 	sv.ui.btn_pick = Ti.UI.createButton({
-		width : Ti.App.size(100),
-		height : Ti.App.size(50),
-		top : 0,
-		title : "Chon",
+		width : Ti.App.size(200),
+		height : Ti.App.size(100),
+		title : "Chọn",
 		color : Ti.App.Color.nauden,
 		font : {
 			fonSize : Ti.App.size(30)
 		},
-		backgroundColor : Ti.App.Color.xanhnhat
+		backgroundColor : Ti.App.Color.xanhnhat,
+		top : 0,
+		left : 0
 	});
 	sv.ui.ViewPicker.add(sv.ui.btn_pick);
 	sv.ui.btn_pick.addEventListener('click', function(e) {
@@ -98,11 +114,10 @@ function tao_ui(sv) {
 		sv.vari.month = sv.vari.date.getMonth() + 1;
 		sv.vari.year = sv.vari.date.getFullYear();
 		sv.vari.newdate = sv.vari.day + "/" + sv.vari.month + "/" + sv.vari.year;
-		Ti.API.info("Date :" + sv.vari.newdate);
 	});
 	////////////////////
 	sv.ui.scrollView = Ti.UI.createScrollView({
-		top : Ti.App.size(100),
+		top : Ti.App.size(160),
 		width : Ti.App.size(720),
 		left : 0,
 		right : 0,
@@ -118,12 +133,25 @@ function tao_ui(sv) {
 	});
 	sv.ui.ViewTong.add(sv.ui.scrollView);
 	////
-	sv.ui.bangkq = new sv.vari.bangkq();
-	sv.ui.scrollView.add(sv.ui.bangkq);
+	sv.ui.ViewChua = Titanium.UI.createView({
+		top : 0,
+		width : Ti.UI.FILL,
+		height : Ti.UI.FILL,
+		left : 0,
+		backgroundColor : 'transparent',
+		touchEnabled : false
+	});
+	sv.ui.scrollView.add(sv.ui.ViewChua);
+	sv.ui.bangkq = new sv.vari.bangkq(1);
+	sv.ui.bangkq_miennam = new sv.vari.bangkq(2);
+	sv.ui.bangkq_miennam.visible = false;
+	sv.ui.ViewChua.add(sv.ui.bangkq);
+	sv.ui.ViewChua.add(sv.ui.bangkq_miennam);
 	sv.ui.vDaysove = Ti.UI.createView({
 		width : Ti.App.size(720),
 		height : Ti.App.size(300),
-		backgroundColor : 'transparent'
+		backgroundColor : 'transparent',
+		top : Ti.App.size(1160),
 	});
 	sv.ui.lbl_dsve = Ti.UI.createLabel({
 		width : Ti.App.size(200),
@@ -162,11 +190,12 @@ function tao_ui(sv) {
 		// sv.ui.rowc3.setText(sv.arr.dayso1[i]);
 		sv.ui.vConsove.add(sv.ui.rowc3);
 	}
-	sv.ui.scrollView.add(sv.ui.vDaysove);
+	sv.ui.ViewChua.add(sv.ui.vDaysove);
 	////
 	sv.ui.vdau_sau = Ti.UI.createView({
 		width : Ti.App.size(720),
 		height : Ti.App.size(70),
+		top : Ti.App.size(1460),
 	});
 
 	sv.ui.lbl_dsve_saudau = Ti.UI.createLabel({
@@ -195,22 +224,17 @@ function tao_ui(sv) {
 		textAlign : 'left'
 	});
 	sv.ui.vdau_sau.add(sv.ui.lbl_dsve_sau);
-	sv.ui.scrollView.add(sv.ui.vdau_sau);
+	sv.ui.ViewChua.add(sv.ui.vdau_sau);
 	////
 	for (var i = 0; i < 8; i++) {
 		sv.ui.vds_sovesau = Ti.UI.createView({
 			width : Ti.App.size(670),
 			height : Ti.App.size(70),
 			left : Ti.App.size(20),
-			// top : Ti.App.size(75) * i,
+			top : Ti.App.size(1550 + (80 * i)),
 			borderColor : Ti.App.Color.magenta,
 			borderWidth : 1,
 			borderRadius : 2
-		});
-		sv.ui.space = Ti.UI.createView({
-			width : Ti.App.size(670),
-			height : Ti.App.size(5),
-			left : Ti.App.size(20),
 		});
 		for (var j = 0; j < 4; j++) {
 			sv.ui.rowchild_vds = rowchild(Ti.App.size(1), setleft(j, 0), Ti.App.size(67), Ti.App.size(67), false, false, false, setbg(j, 0));
@@ -218,8 +242,7 @@ function tao_ui(sv) {
 			sv.ui.vds_sovesau.add(sv.ui.rowchild_vds);
 
 		}
-		sv.ui.scrollView.add(sv.ui.space);
-		sv.ui.scrollView.add(sv.ui.vds_sovesau);
+		sv.ui.ViewChua.add(sv.ui.vds_sovesau);
 	}
 
 	;
@@ -240,6 +263,15 @@ function createUI_Event(sv) {
 		};
 	};
 	sv.fu.event_timkiem = function(e) {
+		sv.ui.View_header.text = "Kết quả sổ xố " + sv.ui.lblfirst.text + sv.ui.lblfirst1.text;
+		if (sv.ui.lblfirst.id == 'AG') {
+			sv.ui.bangkq_miennam.visible = true;
+			sv.ui.bangkq.visible = false;
+		} else {
+			sv.ui.bangkq_miennam.visible = false;
+			sv.ui.bangkq.visible = true;
+		}
+
 		sv.ui.table_view.visible = false;
 		sv.ui.ViewPicker.visible = false;
 		fn_updateImage2Server("searchlottery", {
@@ -306,7 +338,9 @@ function fn_updateImage2Server(_cmd, data, sv) {
 							mangkq.push(mangstring[j]);
 						};
 					}
+					sv.ui.bangkq_miennam.setKQ(mangkq);
 					sv.ui.bangkq.setKQ(mangkq);
+
 				} else {
 					alert('khong co du lieu');
 				}

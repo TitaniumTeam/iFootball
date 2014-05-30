@@ -14,5 +14,6 @@ module.exports = function() {
 	sv.superwhite = '#FFFFFF';
 	sv.blue = '#3A5B9A';
 	sv.xanhnhat = '#CCCCCC';
+	sv.green='#6AFB92';
 	return sv;
 };
