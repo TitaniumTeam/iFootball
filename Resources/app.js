@@ -3,33 +3,31 @@ if (Ti.version < 1.8) {
 }
 
 new (require('ui-controller/AllData'));
-var home = new (require('ui_app/DangNhap'));
-home.open();
-// if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
-	// var thongbao = Ti.UI.createAlertDialog({
-		// buttonNames : ['Vào cài đặt', 'Thoát'],
-		// message : 'Máy bạn hiện tại không có mạng, vui lòng vào cài đặt để thiết lập',
-		// title : 'Thong bao',
-	// });
-	// thongbao.addEventListener('click', function(e) {
-		// if(e.index==0){
-			// if (Ti.Platform.osname == 'android') {
-			// var intent = Ti.Android.createIntent({
-				// action : "android.settings.WIRELESS_SETTINGS"
-			// });
-			// Ti.Android.currentActivity.startActivity(intent);
-		// } else {
-			// Ti.API.info('khong co mang');
-		// }
-		// }
-		// else{
-			// Ti.API.info('ke may');
-		// }
-	// });
-// }
-// else{
-	// home.ui.win.open();
-// }
+var home = new (require('ui_app/MenuTong'));
+//home.open();
+if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
+	var thongbao = Ti.UI.createAlertDialog({
+		buttonNames : ['Vào cài đặt', 'Thoát'],
+		message : 'Máy bạn hiện tại không có mạng, vui lòng vào cài đặt để thiết lập',
+		title : 'Thong bao',
+	});
+	thongbao.addEventListener('click', function(e) {
+		if (e.index == 0) {
+			if (Ti.Platform.osname == 'android') {
+				var intent = Ti.Android.createIntent({
+					action : "android.settings.WIRELESS_SETTINGS"
+				});
+				Ti.Android.currentActivity.startActivity(intent);
+			} else {
+				Ti.API.info('khong co mang');
+			}
+		} else {
+			Ti.API.info('ke may');
+		}
+	});
+} else {
+	home.ui.win.open();
+}
 /*
  function isiOS4Plus() {
  if (Titanium.Platform.name == 'iPhone OS') {

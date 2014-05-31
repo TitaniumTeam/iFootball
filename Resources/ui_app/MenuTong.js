@@ -13,7 +13,7 @@ module.exports = function() {
 
 };
 function taobien(sv) {
-	sv.vari.kqoff=require('/ui_app/kq_offline');
+	sv.vari.kqoff = require('/ui_app/kq_offline');
 	////
 	sv.vari.footer = new (require('/ui_app/footer_1'));
 	sv.vari.ketqua_tructiep = require('/ui_soxo/WindowRealTime');
@@ -379,14 +379,7 @@ function taosukien(sv) {
 		sv.ui.ViewTong.removeAllChildren();
 		sv.vari.wdTTTD = new sv.vari.TTTD();
 		sv.ui.ViewTong.add(sv.vari.wdTTTD.ui.ViewTong);
-		GetTour(sv, "getmatchratio", {
-			"matchid" : "1"
-		});
-		CapNhatLichThiDau(sv, "getmatchlist", {
-			"tourid" : "NHA",
-			"startdate" : "20/05/2014",
-			"enddate" : "30/05/2014"
-		});
+		
 		// Ti.App.vIndicatorWindow.openIndicator(sv.vari.wdTTTD.ui.ViewTong);
 		// setTimeout(function() {
 		// Ti.App.vIndicatorWindow.closeIndicator(sv.vari.wdTTTD.ui.ViewTong);
@@ -483,52 +476,14 @@ function taosukien(sv) {
 	};
 };
 
-function GetTour(sv, _cmd, data) {
-	var xhr = Titanium.Network.createHTTPClient();
-	xhr.onsendstream = function(e) {
-		//ind.value = e.progress;
-		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
-	};
-	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=' + _cmd);
-	xhr.setRequestHeader("Content-Type", "application/json-rpc");
-	Ti.API.info(JSON.stringify(data));
-	xhr.send(JSON.stringify(data));
-	xhr.onerror = function(e) {
-		Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
-	};
-	xhr.onload = function() {
-		Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
-		var dl = JSON.parse(this.responseText);
-		var jsonResuilt = JSON.parse(dl);
-		Ti.API.info('Kèo  : ', jsonResuilt.match);
-	};
-}
 
-function CapNhatLichThiDau(sv, _cmd, data) {
-	var xhr = Titanium.Network.createHTTPClient();
-	xhr.onsendstream = function(e) {
-		//ind.value = e.progress;
-		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
-	};
-	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=' + _cmd);
-	xhr.setRequestHeader("Content-Type", "application/json-rpc");
-	Ti.API.info(JSON.stringify(data));
-	xhr.send(JSON.stringify(data));
-	xhr.onerror = function(e) {
-		Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
-	};
-	xhr.onload = function() {
-		Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
-		var dl = JSON.parse(this.responseText);
-		var jsonResuilt = JSON.parse(dl);
-		Ti.API.info('du lieu la : ', jsonResuilt.matchs);
-	};
-};
+
+
 
 function fn_updateImage2Server(_cmd, data, sv, _choose) {
 	var xhr = Titanium.Network.createHTTPClient();
 	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
-		sv.ui.view_off=new sv.vari.kqoff();
+		sv.ui.view_off = new sv.vari.kqoff();
 		sv.ui.view_off.testNetwork(sv.ui.win);
 
 	} else {
