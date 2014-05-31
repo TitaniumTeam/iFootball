@@ -39,28 +39,6 @@ function tao_ui(sv) {
 		scrollsToTop : false,
 		horizontalBounce : true,
 	});
-	sv.ui.view_menu_icon = Ti.UI.createView({
-		width : Ti.App.size(120),
-		height : Ti.App.size(120),
-		left : 0,
-		top : 0,
-	});
-	sv.ui.menu_icon = Ti.UI.createImageView({
-		width : Ti.App.size(56),
-		heigth : Ti.App.size(37),
-		image : '/assets/images/icon/menu.png',
-	});
-	sv.ui.view_user_icon = Ti.UI.createView({
-		width : Ti.App.size(120),
-		height : Ti.App.size(120),
-		right : 0,
-		top : 0,
-	});
-	sv.ui.user_icon = Ti.UI.createImageView({
-		width : Ti.App.size(46),
-		height : Ti.App.size(58),
-		image : '/assets/images/icon/user.png',
-	});
 	sv.ui.lbl_Login = Ti.UI.createLabel({
 		width : Ti.App.size(280),
 		height : Ti.App.size(50),
@@ -173,17 +151,12 @@ function tao_ui(sv) {
 	/////////////
 	tao_event(sv);
 	sv.ui.btn_dangki.addEventListener('click',sv.fu.eventWindowChoose);
-	sv.ui.view_menu_icon.addEventListener('click', sv.fu.eventBackHome);
 	sv.ui.WindowDK.addEventListener('open', sv.fu.openWindow);
 	sv.ui.WindowDK.addEventListener('close', sv.fu.closeWindow);
 	////////////////
 	sv.ui.WindowDK.add(sv.ui.btn_dangki);
 	sv.ui.WindowDK.add(sv.ui.txtPassword);
 	sv.ui.WindowDK.add(sv.ui.txtUser);
-	sv.ui.view_menu_icon.add(sv.ui.menu_icon);
-	sv.ui.WindowDK.add(sv.ui.view_menu_icon);
-	sv.ui.view_user_icon.add(sv.ui.user_icon);
-	sv.ui.WindowDK.add(sv.ui.view_user_icon);
 	sv.ui.WindowDK.add(sv.ui.lbl_Login);
 	sv.ui.WindowDK.add(sv.ui.circle1);
 	sv.ui.WindowDK.add(sv.ui.circle2);
@@ -200,12 +173,10 @@ function tao_event(sv) {
 		Ti.API.info('open window');
 	};
 	sv.fu.eventWindowChoose=function(e){
-		var windowchoose=new (require('/ui/WindowChoose'))();
-		windowchoose.open();
+		sv.ui.WindowDK.close();
 	};
 	sv.fu.closeWindow = function(e) {
 		sv.ui.btn_dangki.removeEventListener('click',sv.fu.eventWindowChoose);
-		sv.ui.view_menu_icon.removeEventListener('click', sv.fu.eventBackHome);
 		sv.ui.WindowDK.removeEventListener('open', sv.fu.openWindow);
 		sv.ui.WindowDK.removeEventListener('close', sv.fu.closeWindow);
 		sv.vari = null;

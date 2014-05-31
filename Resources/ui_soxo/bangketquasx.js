@@ -299,8 +299,15 @@ module.exports = function(_loai) {
 		view8.add(data_lbl[26]);
 		///////
 		viewchua.setKQ = function(param) {
-			for (var i = 0; i < param.length; i++) {
-				data_lbl[i].text = param[i];
+			if (param === "") {
+				for(var i=0;i<27;i++){
+					data_lbl[i].text = "";
+				}
+				
+			} else {
+				for (var i = 0; i < param.length; i++) {
+					data_lbl[i].text = param[i];
+				}
 			}
 
 		};
@@ -599,6 +606,7 @@ module.exports = function(_loai) {
 			view9.add(data_lbl[17]);
 			////////
 			viewchua.setKQ = function(param) {
+
 				for (var i = 0; i < param.length; i++) {
 					data_lbl[i].text = param[i];
 				}

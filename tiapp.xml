@@ -6,6 +6,11 @@
 	<property name="acs-oauth-secret-production" type="string">KwsvxQYnfQrSQn0PCUETubzrgraRBezz</property>
 	<property name="acs-oauth-key-production" type="string">5do2LgDKgolbbawL3Q2pMYypMW3Bev7l</property>
 	<property name="acs-api-key-production" type="string">iSnjVjZfhJl0bJ31VKJHed9FN11ExA3d</property>
+	 <!-- Property to configure push notifications -->
+    <!-- By default, GCM is used if this property is not specified -->
+    <property name="acs-push-type-development" type="string">gcm</property>
+    <property name="acs-push-type-production" type="string">gcm</property>
+    <property name="acs-push-type" type="string">gcm</property>
 	<id>com.ifootball</id>
 	<name>iFootball</name>
 	<version>1.0</version>
