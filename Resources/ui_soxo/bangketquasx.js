@@ -300,16 +300,33 @@ module.exports = function(_loai) {
 		///////
 		viewchua.setKQ = function(param) {
 			if (param === "") {
-				for(var i=0;i<27;i++){
+				for (var i = 0; i < 27; i++) {
 					data_lbl[i].text = "";
 				}
-				
+
 			} else {
 				for (var i = 0; i < param.length; i++) {
 					data_lbl[i].text = param[i];
 				}
 			}
 
+		};
+		viewchua.setKQ_tructiep = function(param) {
+			if (param === "") {
+				for (var i = 0; i < 27; i++) {
+					data_lbl[i].text = "";
+				}
+			} else {
+				if (param.length <= 26) {
+					for (var i = 1; i = (param.length); i++) {
+						data_lbl[i].text = param[i];
+					}
+				} else {
+					for (var i = 0; i < param.length; i++) {
+						data_lbl[i].text = param[i];
+					}
+				}
+			}
 		};
 
 		/////

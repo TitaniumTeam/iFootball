@@ -1,4 +1,4 @@
-module.exports = function() {
+module.exports = function(_currWin) {
 	var sv = {};
 	sv.vari = {};
 	sv.arr = {};
@@ -8,36 +8,34 @@ module.exports = function() {
 
 	(function() {
 		createVariable(sv);
-		createUI(sv);
+		createUI(sv, _currWin);
 	})();
 
 	return sv.ui.Window;
 };
 
 function createVariable(sv) {
-
+	sv.vari.dangki = require('/ui_app/WindowDK');
+	sv.vari.wd_dn = require('/ui_app/DangNhap');
 }
 
-function createUI(sv) {
+function createUI(sv, _currWin) {
 	sv.ui.Window = Ti.UI.createWindow({
 		//backgroundColor : Ti.App.Color.nauden,
 		navBarHidden : true,
-		fullscreen : true,
 		keepScreenOn : true,
-		top : 0,
 	});
 
-	sv.ui.ViewTong = Ti.UI.createView({
+	sv.ui.Window.add(Ti.UI.createView({
 		backgroundColor : Ti.App.Color.nauden,
-		top : 0,
-		opacity : 0.78,
-	});
-
+		opacity : 0.3,
+		width : "100%",
+		height : "100%"
+	}));
 	sv.ui.ViewPopUp = Ti.UI.createView({
-		top : Ti.App.size(320),
-		height : Ti.App.size(560),
-		left : Ti.App.size(80),
-		right : Ti.App.size(80),
+		height : Ti.App.size(700),
+		backgroundColor : Ti.App.Color.superwhite,
+		width : Ti.App.size(560)
 	});
 
 	sv.ui.ViewIcon = Ti.UI.createView({
@@ -56,65 +54,89 @@ function createUI(sv) {
 		bottom : Ti.App.size(45),
 	});
 
-	sv.ui.ViewThongBao = Ti.UI.createView({
-		height : Ti.App.size(345),
-		bottom : Ti.App.size(0),
-		left : Ti.App.size(0),
-		right : Ti.App.size(0),
-		backgroundColor : Ti.App.Color.white
-	});
-
 	sv.ui.ThongBao1 = Ti.UI.createLabel({
-		text : 'CHỨC NĂNG BỊ KHOÁ',
-		top : Ti.App.size(50),
-		bottom : Ti.App.size(255),
+		text : 'CHỨC NĂNG BỊ KHÓA',
+		top : Ti.App.size(230),
 		font : {
-			fontSize : Ti.App.size(32),
+			fontSize : Ti.App.size(40),
 			fontWeight : 'bold',
-			fontFamily : 'Aria',
-			textAlign : 'center'
 		},
-	});
-
-	sv.ui.ViewThongBao2 = Ti.UI.createLabel({
-		top : Ti.App.size(110),
-		left : Ti.App.size(75),
-		right : Ti.App.size(75)
+		textAlign : 'center'
 	});
 
 	sv.ui.ThongBao2 = Ti.UI.createLabel({
-		text : 'Nâng cấp tài khoản để có thể sử dụng chức năng này',
+		text : 'Đăng kí hoặc đăng nhập tài khoản để có thể sử dụng',
 		font : {
-			fontSize : Ti.App.size(18),
-			fontFamily : 'Aria',
-			textAlign : 'center'
+			fontSize : Ti.App.size(30)
 		},
+		color : Ti.App.Color.nauden,
+		width : Ti.UI.SIZE,
+		top : Ti.App.size(330),
+		textAlign : 'center'
+	});
+	sv.ui.button_dk = Ti.UI.createLabel({
+		backgroundColor : Ti.App.Color.magenta,
+		width : Ti.App.size(300),
+		height : Ti.App.size(95),
+		text : "ĐĂNG KÝ",
+		textAlign : "center",
+		bottom : Ti.App.size(150),
+		font : {
+			fontSize : Ti.App.size(30)
+		},
+		borderRadius : Ti.App.size(5),
+		color : Ti.App.Color.nauden
 	});
 
-	createUI_Event(sv);
+	sv.ui.button_dn = Ti.UI.createLabel({
+		backgroundColor : Ti.App.Color.xanhnhat,
+		width : Ti.App.size(300),
+		height : Ti.App.size(95),
+		text : "ĐĂNG NHẬP",
+		textAlign : "center",
+		bottom : Ti.App.size(30),
+		font : {
+			fontSize : Ti.App.size(30)
+		},
+		borderRadius : Ti.App.size(5),
+		color : Ti.App.Color.nauden
+	});
+
+	createUI_Event(sv, _currWin);
 
 	sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
 	sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
 	sv.ui.Icon.addEventListener('click', sv.fu.eventClickIcon);
+	sv.ui.button_dk.addEventListener('click', sv.fu.evt_dangki);
+	sv.ui.button_dn.addEventListener('click', sv.fu.evt_dangnhap);
 
-	sv.ui.Window.add(sv.ui.ViewTong);
 	sv.ui.Window.add(sv.ui.ViewPopUp);
 
-	sv.ui.ViewPopUp.add(sv.ui.ViewThongBao);
 	sv.ui.ViewPopUp.add(sv.ui.ViewIcon);
 
 	sv.ui.ViewIcon.add(sv.ui.Icon);
+	sv.ui.ViewPopUp.add(sv.ui.button_dk);
+	sv.ui.ViewPopUp.add(sv.ui.button_dn);
+	sv.ui.ViewPopUp.add(sv.ui.ThongBao1);
+	sv.ui.ViewPopUp.add(sv.ui.ThongBao2);
 
-	sv.ui.ViewThongBao.add(sv.ui.ThongBao1);
-	sv.ui.ViewThongBao.add(sv.ui.ViewThongBao2);
-
-	sv.ui.ViewThongBao2.add(sv.ui.ThongBao2);
+	sv.ui.ViewPopUp.add(sv.ui.ThongBao2);
 
 }
 
-function createUI_Event(sv) {
-	sv.fu = {};
-
+function createUI_Event(sv, _currWin) {
+	sv.fu.evt_dangki = function(e) {
+		sv.vari.wd_dk = new sv.vari.dangki();
+		sv.vari.wd_dk.open();
+		sv.ui.Window.close();
+		_currWin.close();
+	};
+	sv.fu.evt_dangnhap = function(e) {
+		sv.vari.wd_dangnhap = new sv.vari.wd_dn();
+		sv.vari.wd_dangnhap.open();
+		sv.ui.Window.close();
+		_currWin.close();
+	};
 	sv.fu.eventClickIcon = function() {
 		sv.ui.Window.close();
 	};
@@ -126,7 +148,9 @@ function createUI_Event(sv) {
 	sv.fu.eventCloseWindow = function(e) {
 		sv.ui.Window.removeEventListener('open', sv.fu.eventOpenWindow);
 		sv.ui.Window.removeEventListener('close', sv.fu.eventCloseWindow);
-
+		sv.ui.Icon.removeEventListener('click', sv.fu.eventClickIcon);
+		sv.ui.button_dk.removeEventListener('click', sv.fu.evt_dangki);
+		sv.ui.button_dn.removeEventListener('click', sv.fu.evt_dangnhap);
 		sv.vari = null;
 		sv.arr = null;
 		sv.ui = null;

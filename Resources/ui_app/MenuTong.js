@@ -1,4 +1,4 @@
-module.exports = function() {
+module.exports = function(_quyen, _dauso) {
 	var sv = {};
 	sv.fu = {};
 	sv.ui = {};
@@ -6,14 +6,15 @@ module.exports = function() {
 	sv.vari = {};
 	(function() {
 		taobien(sv);
-		taoui(sv);
+		taoui(sv, _quyen, _dauso);
 	})();
 
 	return sv;
 
 };
 function taobien(sv) {
-	sv.vari.kqoff=require('/ui_app/kq_offline');
+	sv.vari.kqoff = require('/ui_app/kq_offline');
+	sv.vari.popup = require('/ui_bongda/PopUpFalse');
 	////
 	sv.vari.footer = new (require('/ui_app/footer_1'));
 	sv.vari.ketqua_tructiep = require('/ui_soxo/WindowRealTime');
@@ -68,11 +69,13 @@ function taobien(sv) {
 	//////
 
 };
-function taoui(sv) {
+function taoui(sv, _quyen, _dauso) {
 	sv.ui.win = Ti.UI.createWindow({
 		backgroundColor : Ti.App.Color.superwhite,
 		navBarHidden : true,
-		exitOnClose : true
+		exitOnClose : true,
+		orientationModes : [Ti.UI.PORTRAIT],
+		keepScreenOn : true,
 	});
 	sv.ui.ViewHeader = Ti.UI.createView({
 		width : Ti.App.size(720),
@@ -164,7 +167,7 @@ function taoui(sv) {
 	sv.ui.ViewFooter.add(sv.ui.line_vfoot);
 	//sv.ui.ViewFooter.add(sv.vari.footer.ui.footer_soxo);
 	/////
-	taosukien(sv);
+	taosukien(sv, _quyen, _dauso);
 
 	for (var i = 0; i < 4; i++) {
 		sv.vari.footer.arr.viewchucnangsoxo[i].addEventListener('click', sv.arr.evt_chucnangsoxo[i]);
@@ -186,7 +189,7 @@ function set_maubg(t1, t2, t3) {
 	t3.backgroundColor = Ti.App.Color.red;
 };
 
-function taosukien(sv) {
+function taosukien(sv, _quyen, _dauso) {
 
 	/**
 	 * footer
@@ -213,33 +216,41 @@ function taosukien(sv) {
 					fn_updateImage2Server("searchlottery", {
 						"provideid" : "MB",
 						"startdate" : getYesterdaysDate()
-					}, sv, 1);
+					}, sv, 1, _dauso[1]);
 				} else {
-					if (currHour() > 18) {
+					if (currHour() >= 18) {
 						sv.vari.view_kqsx.ui.View_header.text = "KẾT QUẢ SỔ XỐ MIỀN BẮC " + currDate();
 						fn_updateImage2Server("searchlottery", {
 							"provideid" : "MB",
 							"startdate" : currDate()
-						}, sv, 1);
+						}, sv, 1, _dauso[1]);
 					}
 				}
 			};
 		}
 		if (i == 1) {
 			sv.arr.evt_chucnangsoxo[i] = function(e) {
-				for (var j = 0; j < 4; j++) {
-					if (j == 1) {
-						sv.vari.footer.arr.viewchucnangsoxo[j].backgroundColor = Ti.App.Color.nauden;
-						sv.vari.footer.arr.icon_footer3[j].image = sv.arr.img_footer3[j].press;
-					} else {
-						sv.vari.footer.arr.viewchucnangsoxo[j].backgroundColor = Ti.App.Color.superwhite;
-						sv.vari.footer.arr.icon_footer3[j].image = sv.arr.img_footer3[j].bg;
-					}
+				if (_quyen == "free") {
+					sv.vari.wd_popup = new sv.vari.popup(sv.ui.win);
+					sv.vari.wd_popup.open({
+						modal : Ti.Platform.osname == 'android' ? true : false
+					});
+				} else {
+					for (var j = 0; j < 4; j++) {
+						if (j == 1) {
+							sv.vari.footer.arr.viewchucnangsoxo[j].backgroundColor = Ti.App.Color.nauden;
+							sv.vari.footer.arr.icon_footer3[j].image = sv.arr.img_footer3[j].press;
+						} else {
+							sv.vari.footer.arr.viewchucnangsoxo[j].backgroundColor = Ti.App.Color.superwhite;
+							sv.vari.footer.arr.icon_footer3[j].image = sv.arr.img_footer3[j].bg;
+						}
 
+					}
+					sv.ui.ViewTong.removeAllChildren();
+					sv.ui.view_thongke = new sv.vari.thongke();
+					sv.ui.ViewTong.add(sv.ui.view_thongke.ui.ViewTong);
 				}
-				sv.ui.ViewTong.removeAllChildren();
-				sv.ui.view_thongke = new sv.vari.thongke();
-				sv.ui.ViewTong.add(sv.ui.view_thongke.ui.ViewTong);
+
 			};
 		}
 		if (i == 2) {
@@ -417,14 +428,14 @@ function taosukien(sv) {
 			fn_updateImage2Server("searchlottery", {
 				"provideid" : "MB",
 				"startdate" : getYesterdaysDate()
-			}, sv, 0);
+			}, sv, 0, _dauso[1]);
 		} else {
 			if (currHour() >= 18) {
-				sv.vari.wdKQSX.ui.ViewHeader.text = "KẾT QUẢ SỔ XỐ MIỀN BẮC " + currDate();
+				sv.vari.wdKQSX.ui.ViewHeader.text = "ĐANG QUAY TRỰC TIẾP KQSXMB " + currDate();
 				fn_updateImage2Server("searchlottery", {
 					"provideid" : "MB",
 					"startdate" : currDate()
-				}, sv, 0);
+				}, sv, 0, _dauso[1]);
 			}
 		}
 	};
@@ -444,29 +455,31 @@ function taosukien(sv) {
 			fn_updateImage2Server("searchlottery", {
 				"provideid" : "MB",
 				"startdate" : getYesterdaysDate()
-			}, sv, 0);
+			}, sv, 0, _dauso[1]);
 		} else {
 			if (currHour() >= 18) {
-				sv.vari.wdKQSX.ui.ViewHeader.text = "KẾT QUẢ SỔ XỐ MIỀN BẮC " + currDate();
+				sv.vari.wdKQSX.ui.ViewHeader.text = "ĐANG QUAY TRỰC TIẾP KQSXMB " + currDate();
 				fn_updateImage2Server("searchlottery", {
 					"provideid" : "MB",
 					"startdate" : currDate()
-				}, sv, 0);
+				}, sv, 0, _dauso[1]);
 			}
 		}
 
 	};
 	sv.fu.evt_win_close = function(e) {
-		sv.ui.win.removeEventListener('open', sv.fu.evt_win_open);
-		sv.ui.win.removeEventListener('close', sv.fu.evt_win_close);
 		for (var i = 0; i < 4; i++) {
 			sv.vari.footer.arr.viewchucnangsoxo[i].removeEventListener('click', sv.arr.evt_chucnangsoxo[i]);
 		}
 		for (var i = 0; i < 4; i++) {
 			sv.vari.footer.arr.viewchucnangbongda[i].removeEventListener('click', sv.arr.evt_chucnangbongda[i]);
 		};
+
 		sv.ui.View_icon_bongda.removeEventListener('click', sv.fu.evt_icon_bongda);
 		sv.ui.View_icon_soxo.removeEventListener('click', sv.fu.evt_icon_soxo);
+		sv.ui.View_icon_user.removeEventListener('click', sv.fu.EvtClickView_icon_user);
+		sv.ui.win.removeEventListener('open', sv.fu.evt_win_open);
+		sv.ui.win.removeEventListener('close', sv.fu.evt_win_close);
 		sv.ui = null;
 		sv.arr = null;
 		sv.vari = null;
@@ -474,12 +487,14 @@ function taosukien(sv) {
 		sv = null;
 	};
 };
-
-function fn_updateImage2Server(_cmd, data, sv, _choose) {
+/////cmd:ten ham, data: param,sv,_choose:1-view quay truc tiep- 2- view so ket qua, _dauso: dau so cua tin nhan off line
+function fn_updateImage2Server(_cmd, data, sv, _choose, _dauso) {
 	var xhr = Titanium.Network.createHTTPClient();
 	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
-		sv.ui.view_off=new sv.vari.kqoff();
-		sv.ui.view_off.testNetwork(sv.ui.win);
+		sv.ui.view_off = new sv.vari.kqoff(_dauso);
+		sv.ui.view_off.open({
+			modal : Ti.Platform.osname == 'android' ? true : false
+		});
 
 	} else {
 		xhr.onsendstream = function(e) {
@@ -523,7 +538,7 @@ function fn_updateImage2Server(_cmd, data, sv, _choose) {
 				}
 			}
 			if (_choose == 0) {
-				sv.vari.wdKQSX.ui.bangkq.setKQ(mangkq);
+				sv.vari.wdKQSX.ui.bangkq.setKQ_tructiep(mangkq);
 			} else {
 				if (_choose == 1) {
 					sv.vari.view_kqsx.ui.bangkq.setKQ(mangkq);
