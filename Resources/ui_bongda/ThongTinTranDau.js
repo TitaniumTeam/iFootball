@@ -47,6 +47,7 @@ function tao_bien(sv) {
 	///event
 	sv.arr.event_clickrow = [];
 	sv.arr.event_clickGD = [];
+	sv.arr.event_clickTTCuthe = [];
 };
 function tao_ui(sv) {
 
@@ -119,12 +120,12 @@ function GetTour(sv, _cmd, data) {
 			sv.arr.sotran = [];
 			if (jsonResuilt1.matchs.length == 1) {
 				sv.vari.height_viewthongtin = Ti.App.size(140);
-				sv.vari.height_viewrow = Ti.App.size(240);
-				sv.vari.height_viewthongtin_expand = Ti.App.size(140);
+				sv.vari.height_viewrow = Ti.App.size(380);
+				sv.vari.height_viewthongtin_expand = Ti.App.size(240);
 			} else {
 				if (jsonResuilt1.matchs.length >= 2) {
-					sv.vari.height_viewthongtin = Ti.App.size(140 * 2);
-					sv.vari.height_viewthongtin_expand = Ti.App.size(jsonResuilt1.matchs.length * 140);
+					sv.vari.height_viewthongtin = Ti.App.size(jsonResuilt1.matchs.length * 140);
+					sv.vari.height_viewthongtin_expand = Ti.App.size(jsonResuilt1.matchs.length * 140 + 100);
 					sv.vari.height_viewrow = Ti.App.size(380);
 				}
 			}
@@ -240,11 +241,11 @@ function GetTour(sv, _cmd, data) {
 					// bottom:1
 				});
 				for ( j = 0; j < jsonResuilt1.matchs.length; j++) {
-					sv.ui.vThongtinTD = new sv.vari.viewTTTD(Ti.App.size(720));
+					sv.ui.vThongtinTD = new sv.vari.viewTTTD();
 					sv.ui.vThongtinTD.setParam(Ti.App.size(140 * j), sv.arr.sotran[i]);
 					sv.ui.vThongtinTD.setTuVan(false);
 					sv.ui.viewBack.add(sv.ui.vThongtinTD.ui.Vcontent);
-					sv.arr.trandau.push(sv.ui.vThongtinTD.ui.Vcontent);
+					sv.arr.trandau.push(sv.ui.vThongtinTD.ui.Viewthongtin);
 				}
 				sv.arr.ViewChua[i].add(sv.ui.viewBack);
 			}
@@ -263,31 +264,35 @@ function GetTour(sv, _cmd, data) {
 			}
 
 			for (var i = 0; i < jsonResuilt.tournaments.length; i++) {
-				sv.arr.event_clickGD[i] = function(e) {
-					Ti.API.info('thu tu ' + e.source.idGD);
-					sv.vari.view_bxh = new sv.vari.bxh();
-					sv.ui.ViewTong.removeAllChildren();
-					sv.ui.ViewTong.add(sv.vari.view_bxh.ui.ViewTong);
-				};
-			}
-
-			for (var i = 0; i < jsonResuilt.tournaments.length; i++) {
 				sv.arr.viewrows[i].addEventListener('click', sv.arr.event_clickGD[i]);
 			}
-			// for (var i = 0; i < sv.arr.data.length; i++) {
 
 			for (var j = 0; j < jsonResuilt1.matchs.length; j++) {
-				sv.arr.trandau[j].addEventListener('click', function(e) {
-					sv.ui.TTTD = new sv.vari.TTTD_cuthe();
-					sv.ui.ViewTong.removeAllChildren();
-					sv.ui.ViewTong.add(sv.ui.TTTD.ui.ViewTong);
-				});
+				sv.arr.trandau[j].addEventListener('click', sv.arr.event_clickTTCuthe[j]);
 			}
-			// }
 
 			///////event
 			function tao_event(sv) {
 
+				////event click thong tin tran dau
+				for (var j = 0; j < jsonResuilt1.matchs.length; j++) {
+					sv.arr.event_clickTTCuthe[j] = function(e) {
+						sv.ui.TTTD = new sv.vari.TTTD_cuthe();
+						sv.ui.ViewTong.removeAllChildren();
+						sv.ui.ViewTong.add(sv.ui.TTTD.ui.ViewTong);
+					};
+				}
+
+				//event click bang xep hang
+				for (var i = 0; i < jsonResuilt.tournaments.length; i++) {
+					sv.arr.event_clickGD[i] = function(e) {
+						Ti.API.info('thu tu ' + e.source.idGD);
+						sv.vari.view_bxh = new sv.vari.bxh();
+						sv.ui.ViewTong.removeAllChildren();
+						sv.ui.ViewTong.add(sv.vari.view_bxh.ui.ViewTong);
+					};
+				}
+				///event click menu so xuong
 				for (var i = 0; i < jsonResuilt1.matchs.length; i++) {
 					sv.arr.event_clickrow[i] = function(e) {
 						if (e.source.expanded) {

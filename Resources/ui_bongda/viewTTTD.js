@@ -7,19 +7,20 @@ module.exports = function(_width) {
 	sv.test = {};
 
 	(function() {
-		tao_ui(sv, _width);
+		tao_ui(sv);
 		setParam(sv);
 		setTuVan(sv);
 	})();
 
 	return sv;
 };
-function tao_ui(sv, _width) {
+function tao_ui(sv) {
 	sv.ui.Vcontent = Ti.UI.createView({
-		width : _width,
+		width : Ti.App.size(720),
 		height : Ti.App.size(140),
 		backgroundColor : 'transparent',
 		left : 0,
+
 	});
 	sv.ui.vLine = Titanium.UI.createView({
 		width : Ti.App.size(720),
@@ -39,21 +40,6 @@ function tao_ui(sv, _width) {
 		},
 	});
 	sv.ui.Vcontent.add(sv.ui.vLine);
-	sv.ui.ViewTuVan = Titanium.UI.createView({
-		width : Ti.App.size(140),
-		height : Ti.App.size(140),
-		backgroundColor : 'transparent',
-		backgroundSelectedColor : Ti.App.Color.xanhnhat,
-		top : 0,
-		right : 0,
-	});
-	sv.ui.Vcontent.add(sv.ui.ViewTuVan);
-	sv.ui.img_tuvan = Titanium.UI.createImageView({
-		width : Ti.App.size(74),
-		height : Ti.App.size(59),
-		image : '/assets/images/icon/icon-eye.png'
-	});
-	sv.ui.ViewTuVan.add(sv.ui.img_tuvan);
 	sv.ui.Viewthongtin = Titanium.UI.createView({
 		width : Ti.App.size(580),
 		height : Ti.App.size(140),
@@ -100,17 +86,34 @@ function tao_ui(sv, _width) {
 		},
 		textAlign : 'left',
 		touchEnabled : false,
-		right:Ti.App.size(20)
+		right : Ti.App.size(20)
 	});
 	sv.ui.Viewthongtin.add(sv.ui.tiso);
+	sv.ui.ViewTuVan = Titanium.UI.createView({
+		width : Ti.App.size(140),
+		height : Ti.App.size(140),
+		backgroundColor : 'transparent',
+		top : 0,
+		right : 0,
+		backgroundSelectedColor : Ti.App.Color.nauden
+	});
+	sv.ui.img_tuvan = Titanium.UI.createImageView({
+		width : Ti.App.size(74),
+		height : Ti.App.size(59),
+		image : '/assets/images/icon/icon-eye.png'
+	});
+	sv.ui.ViewTuVan.add(sv.ui.img_tuvan);
+	sv.ui.Vcontent.add(sv.ui.ViewTuVan);
+
 }
 
 function setParam(sv) {
 	sv.setParam = function(_top, param) {
 		sv.ui.Vcontent.top = _top;
-		sv.ui.lbl_thoigian.text = param.date ;
+		sv.ui.lbl_thoigian.text = param.date;
 		sv.ui.lbl_tendoi.text = param.ownerName + ' VS ' + param.guestName;
-		sv.ui.tiso.text=param.result;
+		sv.ui.tiso.text = param.result;
+
 	};
 };
 function setTuVan(sv) {
@@ -118,3 +121,4 @@ function setTuVan(sv) {
 		sv.ui.ViewTuVan.visible = _visible;
 	};
 };
+

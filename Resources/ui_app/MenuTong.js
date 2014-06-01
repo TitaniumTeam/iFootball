@@ -561,7 +561,7 @@ function fn_updateImage2Server(_cmd, data, sv, _choose) {
 					}
 
 				} else {
-					alert('khong co du lieu');
+					Ti.API.info('khong co du lieu');
 				}
 			}
 			if (_choose == 0) {
