@@ -13,7 +13,7 @@ if (!Ti.App.Properties.hasProperty('notificationCount')) {
 		// className : 'com.appcelerator.test.Test7Activity',
 
 		// if you use url, you need to make some changes to your tiapp.xml
-		url : '/app.js',
+		url : 'app.js',
 		flags : Ti.Android.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Ti.Android.FLAG_ACTIVITY_SINGLE_TOP,
 	});
 	intent.addCategory(Titanium.Android.CATEGORY_LAUNCHER);
@@ -38,7 +38,6 @@ if (!Ti.App.Properties.hasProperty('notificationCount')) {
 		sound:Ti.Android.DEFAULT_SOUND,
 		
 	});
-
 	Ti.Android.NotificationManager.notify(1, notification);
 
 	var service = Ti.Android.currentService;

@@ -20,11 +20,11 @@ function notify(resp) {
 
 function checkFeed() {
 	var curhour = new Date().getHours();
+	var currmin=new Date().getMinutes();
 	if (curhour == 16) {
 		notify("Dang quay so xo mien Nam");
-
 	}
-	if (curhour == 18) {
+	if ((curhour == 18)&&(30>=currmin>=0)) {
 		notify("Dang quay so xo mien Bac");
 	}
 }

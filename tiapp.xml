@@ -54,7 +54,7 @@
 			<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 		</manifest>
 		 <services>
-            <service type="interval" url="/ui_app/android_bgservice.js"/>
+            <service type="interval" url="android_bgservice.js"/>
         </services>
 	</android>
 	<mobileweb>

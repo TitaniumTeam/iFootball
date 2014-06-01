@@ -99,7 +99,7 @@ function tao_ui(sv) {
 		borderWidth : Ti.App.size(5),
 		textAlign : 'center',
 		color : Ti.App.Color.nauden,
-		backgroundColor :Ti.App.Color.superwhite,
+		backgroundColor : Ti.App.Color.superwhite,
 		font : {
 			fontSize : Ti.App.size(40)
 		},

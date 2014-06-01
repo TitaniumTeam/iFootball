@@ -430,12 +430,21 @@ function taosukien(sv, _quyen, _dauso) {
 				"startdate" : getYesterdaysDate()
 			}, sv, 0, _dauso[1]);
 		} else {
-			if (currHour() >= 18) {
+			if (currHour() == 18 && (0 <= currMin() <= 30)) {
 				sv.vari.wdKQSX.ui.ViewHeader.text = "ĐANG QUAY TRỰC TIẾP KQSXMB " + currDate();
 				fn_updateImage2Server("searchlottery", {
 					"provideid" : "MB",
 					"startdate" : currDate()
 				}, sv, 0, _dauso[1]);
+			} else {
+				if (currHour() > 18) {
+					sv.vari.wdKQSX.ui.ViewHeader.text = "KẾT QUẢ SỔ XỐ MIỀN BẮC " + currDate();
+					fn_updateImage2Server("searchlottery", {
+						"provideid" : "MB",
+						"startdate" : currDate()
+					}, sv, 0, _dauso[1]);
+				}
+
 			}
 		}
 	};
@@ -457,12 +466,20 @@ function taosukien(sv, _quyen, _dauso) {
 				"startdate" : getYesterdaysDate()
 			}, sv, 0, _dauso[1]);
 		} else {
-			if (currHour() >= 18) {
+			if (currHour() == 18 && (0 <= currMin() <= 30)) {
 				sv.vari.wdKQSX.ui.ViewHeader.text = "ĐANG QUAY TRỰC TIẾP KQSXMB " + currDate();
 				fn_updateImage2Server("searchlottery", {
 					"provideid" : "MB",
 					"startdate" : currDate()
 				}, sv, 0, _dauso[1]);
+			} else {
+				if (currHour() > 18) {
+					sv.vari.wdKQSX.ui.ViewHeader.text = "KẾT QUẢ SỔ XỐ MIỀN BẮC " + currDate();
+					fn_updateImage2Server("searchlottery", {
+						"provideid" : "MB",
+						"startdate" : currDate()
+					}, sv, 0, _dauso[1]);
+				}
 			}
 		}
 
@@ -568,4 +585,9 @@ function currHour() {
 	var date = new Date();
 	var currhour = date.getHours();
 	return currhour;
+};
+function currMin() {
+	var date = new Date();
+	var currmin = date.getMinutes();
+	return currmin;
 };

@@ -348,6 +348,7 @@ function createUI_Event(sv) {
 }
 
 function fn_updateImage2Server(_cmd, data, sv) {
+	var db = Ti.Database.open('userinfo');
 	var xhr = Titanium.Network.createHTTPClient();
 	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
 		alert('Kiểm tra kết nối mạng');
@@ -370,19 +371,25 @@ function fn_updateImage2Server(_cmd, data, sv) {
 			var jsonResuilt = JSON.parse(dl);
 			Ti.API.info('ket qua' + dl);
 			Ti.API.info('json' + jsonResuilt.result.code);
+			var username = jsonResuilt.info.username;
+			var type = jsonResuilt.info.type;
+			var balance = jsonResuilt.info.balance;
 			if (jsonResuilt.result.code == "0") {
 				fn_updateImage2Server_Dangnhap("getmenu", {
-					"username" : ""
-				},sv);
-				
+					"username" : username
+				}, sv);
+
 				Ti.API.info('dang nhap thanh cong');
+				db.execute('INSERT INTO SaveInfo(username,type,balance) VALUES(?,?,?)', username, type, balance);
 			} else {
 				alert('Sai username hoặc password');
 			}
 		};
 	}
 };
-function fn_updateImage2Server_Dangnhap(_cmd, data,sv) {
+function fn_updateImage2Server_Dangnhap(_cmd, data, sv) {
+	var db = Ti.Database.open('userinfo');
+	var sql = db.execute("SELECT * FROM SaveInfo");
 	var xhr = Titanium.Network.createHTTPClient();
 	xhr.onsendstream = function(e) {
 		//ind.value = e.progress;
@@ -402,16 +409,17 @@ function fn_updateImage2Server_Dangnhap(_cmd, data,sv) {
 		Ti.API.info('du lieu' + dl);
 		var jsonResuilt = JSON.parse(dl);
 		var mang_dauso = [];
+
 		for (var i = 0; i < (jsonResuilt.menus.length); i++) {
 			mang_dauso.push(jsonResuilt.menus[i].action);
 		}
 		for (var i = 0; i < (mang_dauso.length); i++) {
 			Ti.API.info('dau so: ' + mang_dauso[i]);
 		};
+		var username = sql.fieldByName("username");
 		var menutong = (require('ui_app/MenuTong'));
-		var home = new menutong("user", mang_dauso);
+		var home = new menutong(username, mang_dauso);
 		home.ui.win.open();
 		sv.ui.Window.close();
 	};
-
 };
