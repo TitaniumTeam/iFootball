@@ -25,7 +25,6 @@ function tao_bien(sv) {
 		"enddate" : "30/05/2014"
 	});
 
-
 	sv.vari.viewTTTD = require('/ui_bongda/viewTTTD');
 	sv.vari.bxh = require('/ui_bongda/BangXepHang');
 	sv.vari.TTTD_cuthe = require('/ui_bongda/ThongTinTranDau_CuThe');
@@ -63,7 +62,7 @@ function tao_ui(sv) {
 		showVerticalScrollIndicator : 'true',
 		height : Ti.UI.FILL,
 		contentHeight : Ti.UI.FILL,
-		
+
 	});
 
 };
@@ -97,7 +96,7 @@ function GetTour(sv, _cmd, data) {
 		for (var i = 0; i < (jsonResuilt.tournaments).length; i++) {
 			sv.arr.data.push(jsonResuilt.tournaments[i].name);
 		}
-		for (var i = 0; i < sv.arr.data.length; i++) {
+		for (var i = 0; i < jsonResuilt.tournaments.length; i++) {
 			sv.ui.row = Ti.UI.createTableViewRow({
 				height : Ti.App.size(380),
 				width : Ti.App.size(720),
@@ -180,13 +179,14 @@ function GetTour(sv, _cmd, data) {
 			sv.arr.viewarrows.push(sv.ui.viewArow);
 			sv.arr.rows.push(sv.ui.row);
 			sv.arr.arrow.push(sv.ui.arrow);
+
 		}
 		//GetMatchList(sv,"getmatchlist",{"matchid":"1"});
-		CapNhatLichThiDau(sv, "getmatchlist", {
+		var data1 = {
 			"tourid" : "NHA",
 			"startdate" : "10/04/2014",
 			"enddate" : "30/05/2014"
-		});
+		};
 
 		sv.ui.tbl = Ti.UI.createTableView({
 			data : sv.arr.rows,
@@ -198,131 +198,131 @@ function GetTour(sv, _cmd, data) {
 		});
 		sv.ui.ViewTong.add(sv.ui.tbl);
 
+		var xhr = Titanium.Network.createHTTPClient();
+		xhr.onsendstream = function(e) {
+			//ind.value = e.progress;
+			Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
+		};
+		xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=' + "getmatchlist");
+		xhr.setRequestHeader("Content-Type", "application/json-rpc");
+		Ti.API.info(JSON.stringify(data1));
+		xhr.send(JSON.stringify(data1));
+		xhr.onerror = function(e) {
+			Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
+		};
+		xhr.onload = function() {
+			Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
+			var dl1 = JSON.parse(this.responseText);
+			var jsonResuilt1 = JSON.parse(dl1);
+			Ti.API.info('du lieu la : ', jsonResuilt1.matchs);
+			sv.arr.sotran = [];
+			sv.vari.height_viewthongtin = Ti.App.size(jsonResuilt1.matchs.length * 140);
+			if (jsonResuilt1.matchs.length == 0) {
+				sv.arr.sotran = "";
+			} else {
+				for (var i = 0; i < (jsonResuilt1.matchs).length; i++) {
+					sv.arr.sotran.push(jsonResuilt1.matchs[i]);
+				}
+			}
+			////
+
+			for (var i = 0; i < (jsonResuilt1.matchs.length); i++) {
+				sv.ui.viewBack = Ti.UI.createView({
+					left : 0,
+					height : sv.vari.height_viewthongtin,
+					top : sv.vari.row_height,
+					width : Ti.App.size(720),
+					backgroundGradient : {
+						type : 'linear',
+						colors : [{
+							color : Ti.App.Color.superwhite,
+							position : 0.5
+						}, {
+							color : Ti.App.Color.superwhite,
+							position : 0.5
+						}]
+					},
+					// bottom:1
+				});
+				for ( j = 0; j < jsonResuilt1.matchs.length; j++) {
+					sv.ui.vThongtinTD = new sv.vari.viewTTTD();
+					sv.ui.vThongtinTD.setParam(Ti.App.size(140 * j), sv.arr.sotran[0], Ti.App.size(720));
+					sv.ui.vThongtinTD.setTuVan(false);
+					sv.ui.viewBack.add(sv.ui.vThongtinTD.ui.Vcontent);
+					sv.arr.trandau.push(sv.ui.vThongtinTD.ui.Vcontent);
+				}
+				sv.arr.ViewChua[i].add(sv.ui.viewBack);
+			}
+
+			tao_event(sv);
+			for (var i = 0; i < jsonResuilt1.matchs.length; i++) {
+				sv.arr.viewarrows[i].addEventListener('click', sv.arr.event_clickrow[i]);
+			}
+			for (var i = 0; i < jsonResuilt.matchs.length; i++) {
+				sv.arr.viewrows[i].addEventListener('click', sv.arr.event_clickGD[i]);
+			}
+			// for (var i = 0; i < sv.arr.data.length; i++) {
+
+			for (var j = 0; j < jsonResuilt1.matchs.length; j++) {
+				sv.arr.trandau[j].addEventListener('click', function(e) {
+					sv.ui.TTTD = new sv.vari.TTTD_cuthe();
+					sv.ui.ViewTong.removeAllChildren();
+					sv.ui.ViewTong.add(sv.ui.TTTD.ui.ViewTong);
+				});
+			}
+			// }
+
+			///////event
+			function tao_event(sv) {
+
+				for (var i = 0; i < jsonResuilt1.matchs.length; i++) {
+					sv.arr.event_clickrow[i] = function(e) {
+						if (e.source.expanded) {
+							e.source.expanded = false;
+							sv.arr.rows[e.source.id].setHeight(Ti.App.size(380));
+							sv.arr.arrow[e.source.id].transform = sv.vari.trans1;
+							sv.arr.arrow[e.source.id].top = Ti.App.size(25);
+							for (var j = 0; j < sv.arr.data.length; j++) {
+								if (j != (e.source.id)) {
+									sv.arr.rows[j].expanded = false;
+									sv.arr.rows[j].setHeight(Ti.App.size(380));
+									sv.arr.arrow[j].transform = sv.vari.trans1;
+									sv.arr.arrow[j].top = Ti.App.size(25);
+								}
+							}
+						} else {
+							e.source.expanded = true;
+							sv.arr.rows[e.source.id].setHeight(Ti.App.size(520));
+							sv.arr.arrow[e.source.id].transform = sv.vari.trans2;
+							sv.arr.arrow[e.source.id].top = Ti.App.size(20);
+							for (var j = 0; j < sv.arr.data.length; j++) {
+								if (j != (e.source.id)) {
+									sv.arr.rows[j].expanded = false;
+									sv.arr.arrow[j].transform = sv.vari.trans1;
+									sv.arr.arrow[j].top = Ti.App.size(25);
+									sv.arr.rows[j].setHeight(Ti.App.size(100));
+								};
+							}
+						}
+
+					};
+
+				}
+
+				for (var i = 0; i < jsonResuilt.matchs.length; i++) {
+					sv.arr.event_clickGD[i] = function(e) {
+						Ti.API.info('thu tu ' + e.source.idGD);
+						sv.vari.view_bxh = new sv.vari.bxh();
+						sv.ui.ViewTong.removeAllChildren();
+						sv.ui.ViewTong.add(sv.vari.view_bxh.ui.ViewTong);
+					};
+				}
+			};
+
+		};
+
 	};
 }
 
 function CapNhatLichThiDau(sv, _cmd, data) {
-	var xhr = Titanium.Network.createHTTPClient();
-	xhr.onsendstream = function(e) {
-		//ind.value = e.progress;
-		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
-	};
-	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=' + _cmd);
-	xhr.setRequestHeader("Content-Type", "application/json-rpc");
-	Ti.API.info(JSON.stringify(data));
-	xhr.send(JSON.stringify(data));
-	xhr.onerror = function(e) {
-		Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
-	};
-	xhr.onload = function() {
-		Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
-		var dl = JSON.parse(this.responseText);
-		var jsonResuilt = JSON.parse(dl);
-		Ti.API.info('du lieu la : ', jsonResuilt.matchs);
-		sv.arr.sotran = [];
-		sv.vari.height_viewthongtin=Ti.App.size(jsonResuilt.matchs.length*140);
-		if(jsonResuilt.matchs.length==0){
-			sv.arr.sotran="";
-		}
-		else{
-			for (var i = 0; i < (jsonResuilt.matchs).length; i++) {
-			sv.arr.sotran.push(jsonResuilt.matchs[i]);
-		}
-		}
-		////
-
-		for (var i = 0; i < (sv.arr.data.length); i++) {
-			sv.ui.viewBack = Ti.UI.createView({
-				left : 0,
-				height : sv.vari.height_viewthongtin,
-				top : sv.vari.row_height,
-				width : Ti.App.size(720),
-				backgroundGradient : {
-					type : 'linear',
-					colors : [{
-						color : Ti.App.Color.superwhite,
-						position : 0.5
-					}, {
-						color : Ti.App.Color.superwhite,
-						position : 0.5
-					}]
-				},
-				// bottom:1
-			});
-			for ( j = 0; j < sv.arr.sotran.length; j++) {
-				sv.ui.vThongtinTD = new sv.vari.viewTTTD();
-				sv.ui.vThongtinTD.setParam(Ti.App.size(140 * j), sv.arr.sotran[0], Ti.App.size(720));
-				sv.ui.vThongtinTD.setTuVan(false);
-				sv.ui.viewBack.add(sv.ui.vThongtinTD.ui.Vcontent);
-				sv.arr.trandau.push(sv.ui.vThongtinTD.ui.Vcontent);
-			}
-			sv.arr.ViewChua[i].add(sv.ui.viewBack);
-		}
-
-		tao_event(sv);
-		for (var i = 0; i < sv.arr.data.length; i++) {
-			sv.arr.viewarrows[i].addEventListener('click', sv.arr.event_clickrow[i]);
-		}
-		for (var i = 0; i < sv.arr.data.length; i++) {
-			sv.arr.viewrows[i].addEventListener('click', sv.arr.event_clickGD[i]);
-		}
-		// for (var i = 0; i < sv.arr.data.length; i++) {
-
-		// for (var j = 0; j < sv.arr.data.length * 3; j++) {
-		// sv.arr.trandau[j].addEventListener('click', function(e) {
-		// sv.ui.TTTD = new sv.vari.TTTD_cuthe();
-		// sv.ui.ViewTong.removeAllChildren();
-		// sv.ui.ViewTong.add(sv.ui.TTTD.ui.ViewTong);
-		// });
-		// }
-		// }
-
-		///////event
-		function tao_event(sv) {
-
-			for (var i = 0; i < sv.arr.data.length; i++) {
-				sv.arr.event_clickrow[i] = function(e) {
-					if (e.source.expanded) {
-						e.source.expanded = false;
-						sv.arr.rows[e.source.id].setHeight(Ti.App.size(380));
-						sv.arr.arrow[e.source.id].transform = sv.vari.trans1;
-						sv.arr.arrow[e.source.id].top = Ti.App.size(25);
-						for (var j = 0; j < sv.arr.data.length; j++) {
-							if (j != (e.source.id)) {
-								sv.arr.rows[j].expanded = false;
-								sv.arr.rows[j].setHeight(Ti.App.size(380));
-								sv.arr.arrow[j].transform = sv.vari.trans1;
-								sv.arr.arrow[j].top = Ti.App.size(25);
-							}
-						}
-					} else {
-						e.source.expanded = true;
-						sv.arr.rows[e.source.id].setHeight(Ti.App.size(520));
-						sv.arr.arrow[e.source.id].transform = sv.vari.trans2;
-						sv.arr.arrow[e.source.id].top = Ti.App.size(20);
-						for (var j = 0; j < sv.arr.data.length; j++) {
-							if (j != (e.source.id)) {
-								sv.arr.rows[j].expanded = false;
-								sv.arr.arrow[j].transform = sv.vari.trans1;
-								sv.arr.arrow[j].top = Ti.App.size(25);
-								sv.arr.rows[j].setHeight(Ti.App.size(100));
-							};
-						}
-					}
-
-				};
-
-			}
-
-			for (var i = 0; i < sv.arr.data.length; i++) {
-				sv.arr.event_clickGD[i] = function(e) {
-					Ti.API.info('thu tu ' + e.source.idGD);
-					sv.vari.view_bxh = new sv.vari.bxh();
-					sv.ui.ViewTong.removeAllChildren();
-					sv.ui.ViewTong.add(sv.vari.view_bxh.ui.ViewTong);
-				};
-			}
-		};
-
-	};
 };
