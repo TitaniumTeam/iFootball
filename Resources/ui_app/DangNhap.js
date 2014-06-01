@@ -348,11 +348,12 @@ function createUI_Event(sv) {
 }
 
 function fn_updateImage2Server(_cmd, data, sv) {
-	var db = Ti.Database.open('userinfo');
-	var xhr = Titanium.Network.createHTTPClient();
+
 	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
 		alert('Kiểm tra kết nối mạng');
 	} else {
+
+		var xhr = Titanium.Network.createHTTPClient();
 		xhr.onsendstream = function(e) {
 			//ind.value = e.progress;
 			Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
@@ -371,25 +372,28 @@ function fn_updateImage2Server(_cmd, data, sv) {
 			var jsonResuilt = JSON.parse(dl);
 			Ti.API.info('ket qua' + dl);
 			Ti.API.info('json' + jsonResuilt.result.code);
-			var username = jsonResuilt.info.username;
-			var type = jsonResuilt.info.type;
-			var balance = jsonResuilt.info.balance;
 			if (jsonResuilt.result.code == "0") {
+				var db = Ti.Database.open('userinfo');
+				var sql = db.execute("SELECT * FROM SaveInfo");
+
+				var username = jsonResuilt.info.username;
+				var type = jsonResuilt.info.type;
+				var balance = jsonResuilt.info.balance;
+				Ti.API.info('dang nhap thanh cong');
+				db.execute('INSERT INTO SaveInfo(username,type,balance) VALUES(?,?,?)', username, type, balance);
 				fn_updateImage2Server_Dangnhap("getmenu", {
 					"username" : username
 				}, sv);
-
-				Ti.API.info('dang nhap thanh cong');
-				db.execute('INSERT INTO SaveInfo(username,type,balance) VALUES(?,?,?)', username, type, balance);
+				// sql.close();
+				// db.close();
 			} else {
 				alert('Sai username hoặc password');
 			}
 		};
+
 	}
 };
 function fn_updateImage2Server_Dangnhap(_cmd, data, sv) {
-	var db = Ti.Database.open('userinfo');
-	var sql = db.execute("SELECT * FROM SaveInfo");
 	var xhr = Titanium.Network.createHTTPClient();
 	xhr.onsendstream = function(e) {
 		//ind.value = e.progress;
@@ -409,17 +413,37 @@ function fn_updateImage2Server_Dangnhap(_cmd, data, sv) {
 		Ti.API.info('du lieu' + dl);
 		var jsonResuilt = JSON.parse(dl);
 		var mang_dauso = [];
-
+		var mang_tendichvu = [];
 		for (var i = 0; i < (jsonResuilt.menus.length); i++) {
 			mang_dauso.push(jsonResuilt.menus[i].action);
+			mang_tendichvu.push(jsonResuilt.menus[i].name);
+			if (jsonResuilt.menus[i].params) {
+				Ti.API.info('param' + jsonResuilt.menus[i].params);
+			}
 		}
 		for (var i = 0; i < (mang_dauso.length); i++) {
 			Ti.API.info('dau so: ' + mang_dauso[i]);
 		};
+		var db = Ti.Database.open('userinfo');
+		var sql = db.execute("SELECT * FROM SaveInfo");
 		var username = sql.fieldByName("username");
+		Ti.API.info('username' + username);
+		// if (sql.isValidRow()) {
+		//
+		// db.execute('UPDATE SaveInfo set action1=? where username)', mang_dauso[0], username);
+		// db.execute('UPDATE SaveInfo set action2=? where username)', mang_dauso[1], username);
+		// db.execute('UPDATE SaveInfo set action3=? where username)', mang_dauso[2], username);
+		// db.execute('UPDATE SaveInfo set action4=? where username)', mang_dauso[3], username);
+		// db.execute('UPDATE SaveInfo set dv1=? where username)', mang_tendichvu[0], username);
+		// db.execute('UPDATE SaveInfo set dv2=? where username)', mang_tendichvu[1], username);
+		// db.execute('UPDATE SaveInfo set dv3=? where username)', mang_tendichvu[2], username);
+		// db.execute('UPDATE SaveInfo set dv4=? where username)', mang_tendichvu[3], username);
+		// }
 		var menutong = (require('ui_app/MenuTong'));
-		var home = new menutong(username, mang_dauso);
+		var home = new menutong(username);
 		home.ui.win.open();
 		sv.ui.Window.close();
+		// sql.close();
+		// db.close();
 	};
 };

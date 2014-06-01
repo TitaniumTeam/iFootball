@@ -25,7 +25,7 @@ function checkFeed() {
 		notify("Dang quay so xo mien Nam");
 	}
 	if ((curhour == 18)&&(30>=currmin>=0)) {
-		notify("Dang quay so xo mien Bac");
+		notify("Đang quay sổ xố miền Bắc");
 	}
 }
 

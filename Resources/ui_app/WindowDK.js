@@ -14,27 +14,6 @@ module.exports = function() {
 ///tao bien
 function tao_bien(sv) {
 	sv.vari.wd_dn = require('/ui_app/DangNhap');
-	// sv.vari.txt1 = 'Nhập tài khoản';
-	// sv.vari.txt2 = 'Nhập mật khẩu';
-	// if(Ti.Platform.osname=="iPad"||Ti.Platform.osname=="iPhone OS"){
-	// sv.vari.attr1 = Titanium.UI.iOS.createAttributedString({
-	// text : sv.vari.txt1,
-	// attributes :[{
-	// type : Titanium.UI.iOS.ATTRIBUTE_FOREGROUND_COLOR,
-	// value : 'white',
-	// range : [0, sv.vari.txt1.length]
-	// },]
-	// });
-	// sv.vari.attr2 = Titanium.UI.iOS.createAttributedString({
-	// text : sv.vari.txt2,
-	// attributes :[{
-	// type : Titanium.UI.iOS.ATTRIBUTE_FOREGROUND_COLOR,
-	// value : 'white',
-	// range : [0, sv.vari.txt2.length]
-	// },]
-	//
-	// });
-	// }
 
 };
 

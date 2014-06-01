@@ -4,14 +4,14 @@ if (Ti.version < 1.8) {
 var menutong = (require('ui_app/MenuTong'));
 new (require('ui-controller/AllData'));
 var db = Ti.Database.open('userinfo');
-db.execute('CREATE TABLE IF NOT EXISTS SaveInfo(username TEXT PRIMARY KEY, password TEXT,type TEXT,balance TEXT,action1 TEXT,action2 TEXT);');
+db.execute('CREATE TABLE IF NOT EXISTS SaveInfo(username TEXT PRIMARY KEY, password TEXT,type INTERGER,balance INTERGER);');
 var sql = db.execute("SELECT * FROM SaveInfo");
 Ti.API.info('du lieu' + sql.getRowCount());
 if (sql.isValidRow()) {
 	var username = sql.fieldByName("username");
 	fn_updateImage2Server("getmenu", {
 		"username" : username.toString()
-	}, username.toString());
+	}, username);
 	sql.close();
 	db.close();
 } else {
@@ -35,9 +35,7 @@ function fn_updateImage2Server(_cmd, data, _quyen) {
 	xhr.send(JSON.stringify(data));
 	xhr.onerror = function(e) {
 		Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
-
-		var mangdauso = ["b2", "kq"];
-		var home = new menutong("free", mangdauso);
+		var home = new menutong("free");
 		home.ui.win.open();
 
 	};
@@ -46,18 +44,28 @@ function fn_updateImage2Server(_cmd, data, _quyen) {
 		var dl = JSON.parse(this.responseText);
 		Ti.API.info('du lieu' + dl);
 		var jsonResuilt = JSON.parse(dl);
-		var mang_dauso = [];
+		var mangdv={};
+		mangdv.name=[];
+		mangdv.dauso=[];
+		mangdv.param=[];
 		for (var i = 0; i < (jsonResuilt.menus.length); i++) {
-			mang_dauso.push(jsonResuilt.menus[i].action);
+			mangdv.dauso.push(jsonResuilt.menus[i].action);
+			mangdv.name.push(jsonResuilt.menus[i].name);
+			if (jsonResuilt.menus[i].params) {
+				Ti.API.info('param' + jsonResuilt.menus[i].params);
+				mangdv.param[i]=jsonResuilt.menus[i].params;
+			}
+			else{
+				mangdv.param[i]="";
+			}
 		}
-		for (var i = 0; i < (mang_dauso.length); i++) {
-			Ti.API.info('dau so: ' + mang_dauso[i]);
-		};
-		var home = new menutong(_quyen, mang_dauso);
+		for(var i=0;i<(mangdv.name.length);i++){
+			Ti.API.info('name dich vu:  '+mangdv.name[i]+i);
+			Ti.API.info('name dich vu:  '+mangdv.dauso[i]+i);
+			Ti.API.info('name dich vu:  '+mangdv.param[i]+i);
+		}
+		var home = new menutong(_quyen,mangdv);
 		home.ui.win.open();
-		if (sql.isValidRow()) {
-			db.execute('INSERT INTO SaveInfo(action1,action2) VALUES(?,?)', mang_dauso[0], mang_dauso[1]);
-		}
 	};
 
 };
@@ -108,13 +116,13 @@ if (Ti.Platform.osname == "android") {
 	var deltaMS = delta - now;
 	var service = Titanium.Android.createService(intent);
 	var curhour = new Date().getHours();
-	var currmin=new Date().getMinutes();
-	// if ((curhour == 18)&&(30>=currmin>=0)) {
+	var currmin = new Date().getMinutes();
+	if ((curhour == 18) && (30 >= currmin >= 0)) {
 		service.start();
-	// }
+	}
 	service.addEventListener('pause', function(e) {
 		intent.putExtra('interval', deltaMS);
-		intent.putExtra('message', 'This is that little extra');
+		intent.putExtra('message', 'Back ground service');
 	});
 
 }

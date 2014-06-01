@@ -1,4 +1,4 @@
-module.exports = function() {
+module.exports = function(_mangdv) {
 	var sv = {};
 	sv.fu = {};
 	sv.ui = {};
@@ -6,36 +6,23 @@ module.exports = function() {
 	sv.vari = {};
 	(function() {
 		taobien(sv);
-		taoui(sv);
+		taoui(sv,_mangdv);
 	})();
 
 	return sv;
 };
 function taobien(sv) {
 	sv.vari.soluongmenu = 3;
-	sv.arr.data = [{
-		title : "Dãy số lâu về",
-		url : "http://google.com.vn"
-	}, {
-		title : "Dãy số hay về",
-		url : "http://dantri.com.vn"
-	}, {
-		title : "Cặp số về liên tục",
-		url : "http://haivl.com"
-	}, {
-		title : "Cặp số lâu về",
-		url : "http://ketqua.net"
-	}];
 	sv.arr.rows = [];
 };
-function taoui(sv) {
+function taoui(sv,_mangdv) {
 	sv.ui.ViewTong = Ti.UI.createView({
 		top : 0,
 		left : 0,
 		width : Ti.App.size(720),
 		height : Ti.UI.FILL,
 	});
-	for (var i = 0; i < sv.arr.data.length; i++) {
+	for (var i = 0; i < (_mangdv.name.length); i++) {
 		sv.ui.row = Ti.UI.createTableViewRow({
 			width : Ti.App.size(640),
 			left : 0,
@@ -45,7 +32,7 @@ function taoui(sv) {
 			font : {
 				fontSize : Ti.App.size(30)
 			},
-			title : sv.arr.data[i].title,
+			title : _mangdv.dauso[i],
 			id : i,
 			// hasChild : true
 		});
@@ -57,7 +44,7 @@ function taoui(sv) {
 		data : sv.arr.rows,
 		top : 0,
 		separatorColor : Ti.App.Color.xanhnhat,
-		left:Ti.App.size(20)
+		left : Ti.App.size(20)
 	});
 	sv.ui.ViewTong.add(sv.ui.tbl1);
 	sv.ui.webview = Ti.UI.createWebView({
@@ -78,4 +65,42 @@ function tao_sukien(sv) {
 		sv.ui.ViewTong.add(sv.ui.webview);
 		sv.ui.webview.setUrl(sv.arr.data[e.row.id].url);
 	};
+};
+function fn_updateImage2Server(_cmd, data) {
+	var xhr = Titanium.Network.createHTTPClient();
+	xhr.onsendstream = function(e) {
+		//ind.value = e.progress;
+		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
+	};
+	// open the client
+	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=' + _cmd);
+	xhr.setRequestHeader("Content-Type", "application/json-rpc");
+	Ti.API.info(JSON.stringify(data));
+	xhr.send(JSON.stringify(data));
+	xhr.onerror = function(e) {
+		Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
+		var home = new menutong("free");
+		home.ui.win.open();
+
+	};
+	xhr.onload = function() {
+		Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
+		var dl = JSON.parse(this.responseText);
+		Ti.API.info('du lieu' + dl);
+		var jsonResuilt = JSON.parse(dl);
+		var mang_dauso = [];
+		var mang_tendichvu = [];
+		for (var i = 0; i < (jsonResuilt.menus.length); i++) {
+			mang_dauso.push(jsonResuilt.menus[i].action);
+			mang_tendichvu.push(jsonResuilt.menus[i].name);
+			if (jsonResuilt.menus[i].params) {
+				Ti.API.info('param' + jsonResuilt.menus[i].params);
+			}
+		}
+		for (var i = 0; i < (mang_dauso.length); i++) {
+			Ti.API.info('dau so: ' + mang_dauso[i]);
+		};
+		
+	};
+
 };
