@@ -57,22 +57,18 @@ function createUI(sv) {
 		height : Ti.App.size(500),
 		backgroundColor : Ti.App.Color.red_press
 	});
-	sv.ui.circle = Titanium.UI.createImageView({
-		image : '/assets/images/icon/xxxjav.png',
+	sv.ui.circle = Titanium.UI.createView({
+		backgroundImage : '/assets/images/icon/xxxjav.png',
 		top : Ti.App.size(60),
-		width : Ti.App.size(420),
-		height : Ti.App.size(420),
-		left : Ti.App.size(150),
+		width : Ti.App.size(320),
+		height : Ti.App.size(320),
 		zIndex : 10
 	});
 	sv.ui.Avatar = Ti.UI.createImageView({
 		image : '/assets/images/icon/avatar-defaut.png',
 		top : Ti.App.size(45),
-		// right : Ti.App.size(250),
-		left : Ti.App.size(265),
-		//bottom : Ti.App.size(280),
-		height : Ti.App.size(190),
-		width : Ti.App.size(190),
+		height : Ti.App.size(150),
+		width : Ti.App.size(150),
 		zIndex : 10
 	});
 	sv.ui.LabelName = Ti.UI.createLabel({
@@ -82,9 +78,8 @@ function createUI(sv) {
 			fontWeight : 'bold',
 		},
 		// top : Ti.App.size(260),
-		bottom : Ti.App.size(0),
 		color : Ti.App.Color.superwhite,
-		top : Ti.App.size(20)
+		top : Ti.App.size(400)
 	});
 
 	sv.ui.LabelThongTin = Ti.UI.createLabel({
@@ -92,133 +87,17 @@ function createUI(sv) {
 		font : {
 			fontSize : Ti.App.size(25),
 		},
-		top : Ti.App.size(300),
-		bottom : Ti.App.size(170),
+		top : Ti.App.size(450),
 		color : Ti.App.Color.superwhite
 	});
 
 	sv.ui.ViewBut = Ti.UI.createImageView({
 		image : '/assets/images/icon/icon-5.png',
-		top : Ti.App.size(325),
+		top : Ti.App.size(450),
 		right : Ti.App.size(25),
 		left : Ti.App.size(665),
-		bottom : Ti.App.size(145),
 	});
 
-	sv.ui.ViewThongSo = Ti.UI.createView({
-		backgroundColor : Ti.App.Color.nauden,
-		opacity : 0.3,
-		height : Ti.App.size(120),
-		bottom : Ti.App.size(0),
-		left : Ti.App.size(0),
-		right : Ti.App.size(0),
-		top : Ti.App.size(380),
-		zIndex : 0
-	});
-	sv.ui.Viewcontain = Ti.UI.createView({
-		height : Ti.App.size(120),
-		bottom : Ti.App.size(0),
-		left : Ti.App.size(0),
-		right : Ti.App.size(0),
-		top : Ti.App.size(380),
-		zIndex : 1,
-		backgroundColor : 'transparent'
-	});
-	sv.ui.vThongso1 = Titanium.UI.createView({
-		width : Ti.App.size(235),
-		height : Ti.App.size(120),
-		left : 0,
-		top : 0
-	});
-	sv.ui.Viewcontain.add(sv.ui.vThongso1);
-	sv.ui.lbltest = Titanium.UI.createLabel({
-		text : "Tỷ lệ trúng loto",
-		color : Ti.App.Color.white,
-		font : {
-			fontSize : Ti.App.size(25)
-		},
-		top : Ti.App.size(10),
-		textAlign : 'center'
-	});
-	sv.ui.lbl_tyle = Titanium.UI.createLabel({
-		top : Ti.App.size(60),
-		backgroundColor : Ti.App.Color.nauden,
-		borderRadius : 5,
-		textAlign : 'center',
-		font : {
-			fontSize : Ti.App.size(25)
-		},
-		text : '20%',
-		color : Ti.App.Color.superwhite,
-		width : Ti.App.size(135),
-		height : Ti.App.size(40)
-	});
-	sv.ui.vThongso1.add(sv.ui.lbltest);
-	sv.ui.vThongso1.add(sv.ui.lbl_tyle);
-	//
-	sv.ui.vThongso2 = Titanium.UI.createView({
-		width : Ti.App.size(235),
-		height : Ti.App.size(120),
-		left : Ti.App.size(235),
-		top : 0
-	});
-	sv.ui.Viewcontain.add(sv.ui.vThongso2);
-	sv.ui.lbl_soxu = Titanium.UI.createLabel({
-		text : "Số xu hiện tại",
-		color : Ti.App.Color.white,
-		font : {
-			fontSize : Ti.App.size(25)
-		},
-		top : Ti.App.size(10),
-		textAlign : 'center'
-	});
-	sv.ui.lbl_xu = Titanium.UI.createLabel({
-		top : Ti.App.size(60),
-		backgroundColor : Ti.App.Color.nauden,
-		borderRadius : 5,
-		textAlign : 'center',
-		font : {
-			fontSize : Ti.App.size(25)
-		},
-		text : '10.000Xu',
-		color : Ti.App.Color.superwhite,
-		width : Ti.App.size(135),
-		height : Ti.App.size(40)
-	});
-	sv.ui.vThongso2.add(sv.ui.lbl_soxu);
-	sv.ui.vThongso2.add(sv.ui.lbl_xu);
-	//
-	sv.ui.vThongso3 = Titanium.UI.createView({
-		width : Ti.App.size(235),
-		height : Ti.App.size(120),
-		left : Ti.App.size(470),
-		top : 0
-	});
-	sv.ui.Viewcontain.add(sv.ui.vThongso3);
-	sv.ui.tyletrungdb = Titanium.UI.createLabel({
-		text : "Tỷ lệ trúng đặc biệt",
-		color : Ti.App.Color.white,
-		font : {
-			fontSize : Ti.App.size(25)
-		},
-		top : Ti.App.size(10),
-		textAlign : 'center'
-	});
-	sv.ui.tyle_db = Titanium.UI.createLabel({
-		top : Ti.App.size(60),
-		backgroundColor : Ti.App.Color.nauden,
-		borderRadius : 5,
-		textAlign : 'center',
-		font : {
-			fontSize : Ti.App.size(25)
-		},
-		text : '0%',
-		color : Ti.App.Color.superwhite,
-		width : Ti.App.size(135),
-		height : Ti.App.size(40)
-	});
-	sv.ui.vThongso3.add(sv.ui.tyletrungdb);
-	sv.ui.vThongso3.add(sv.ui.tyle_db);
 
 	//tao view ung dung
 	sv.ui.ViewUngDung = Ti.UI.createView({
@@ -431,13 +310,11 @@ function createUI(sv) {
 	sv.ui.scrollview.add(sv.ui.ViewUngDung);
 	sv.ui.ViewTong.add(sv.ui.scrollview);
 	sv.ui.ViewTong.add(sv.ui.viewAvatar);
-	// sv.ui.viewAvatar.add(sv.ui.Avatar);
-	sv.ui.viewAvatar.add(sv.ui.LabelName);
-	sv.ui.viewAvatar.add(sv.ui.LabelThongTin);
-	sv.ui.viewAvatar.add(sv.ui.ViewBut);
-	sv.ui.viewAvatar.add(sv.ui.ViewThongSo);
-	sv.ui.viewAvatar.add(sv.ui.Viewcontain);
-	sv.ui.viewAvatar.add(sv.ui.Avatar);
+	sv.ui.circle.add(sv.ui.Avatar);
+	sv.ui.ViewTong.add(sv.ui.LabelName);
+	sv.ui.ViewTong.add(sv.ui.LabelThongTin);
+	sv.ui.ViewTong.add(sv.ui.ViewBut);
+	sv.ui.ViewTong.add(sv.ui.circle);
 	sv.ui.ViewUngDung.add(sv.ui.UngDung);
 
 	sv.ui.UngDung.add(sv.ui.Row1);
