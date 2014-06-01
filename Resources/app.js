@@ -60,9 +60,9 @@ function fn_updateImage2Server(_cmd, data, _quyen) {
 			}
 		}
 		for(var i=0;i<(mangdv.name.length);i++){
-			Ti.API.info('name dich vu:  '+mangdv.name[i]+i);
-			Ti.API.info('name dich vu:  '+mangdv.dauso[i]+i);
-			Ti.API.info('name dich vu:  '+mangdv.param[i]+i);
+			Ti.API.info('name dich vu:  '+mangdv.name[i]);
+			Ti.API.info('dauso dich vu:  '+mangdv.dauso[i]);
+			Ti.API.info('param dich vu:  '+mangdv.param[i]);
 		}
 		var home = new menutong(_quyen,mangdv);
 		home.ui.win.open();

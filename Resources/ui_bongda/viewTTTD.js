@@ -1,4 +1,4 @@
-module.exports = function() {
+module.exports = function(_width) {
 	var sv = {};
 	sv.vari = {};
 	sv.arr = {};
@@ -7,16 +7,16 @@ module.exports = function() {
 	sv.test = {};
 
 	(function() {
-		tao_ui(sv);
+		tao_ui(sv, _width);
 		setParam(sv);
 		setTuVan(sv);
 	})();
 
 	return sv;
 };
-function tao_ui(sv) {
+function tao_ui(sv, _width) {
 	sv.ui.Vcontent = Ti.UI.createView({
-		width : Ti.App.size(720),
+		width : _width,
 		height : Ti.App.size(140),
 		backgroundColor : 'transparent',
 		left : 0,
@@ -33,25 +33,25 @@ function tao_ui(sv) {
 				color : Ti.App.Color.xanhnhat,
 				position : 0.5
 			}, {
-				color :Ti.App.Color.xanhnhat,
+				color : Ti.App.Color.xanhnhat,
 				position : 0.5
 			}]
 		},
 	});
 	sv.ui.Vcontent.add(sv.ui.vLine);
-	sv.ui.ViewTuVan=Titanium.UI.createView({
+	sv.ui.ViewTuVan = Titanium.UI.createView({
 		width : Ti.App.size(140),
 		height : Ti.App.size(140),
 		backgroundColor : 'transparent',
 		backgroundSelectedColor : Ti.App.Color.xanhnhat,
 		top : 0,
-		right:0,
+		right : 0,
 	});
 	sv.ui.Vcontent.add(sv.ui.ViewTuVan);
-	sv.ui.img_tuvan=Titanium.UI.createImageView({
-		width:Ti.App.size(74),
-		height:Ti.App.size(59),
-		image:'/assets/images/icon/icon-eye.png'
+	sv.ui.img_tuvan = Titanium.UI.createImageView({
+		width : Ti.App.size(74),
+		height : Ti.App.size(59),
+		image : '/assets/images/icon/icon-eye.png'
 	});
 	sv.ui.ViewTuVan.add(sv.ui.img_tuvan);
 	sv.ui.Viewthongtin = Titanium.UI.createView({
@@ -89,17 +89,32 @@ function tao_ui(sv) {
 		touchEnabled : false
 	});
 	sv.ui.Viewthongtin.add(sv.ui.lbl_tendoi);
+
+	sv.ui.tiso = Ti.UI.createLabel({
+		top : Ti.App.size(70),
+		width : Ti.UI.SIZE,
+		height : Ti.UI.SIZE,
+		color : 'black',
+		font : {
+			fontSize : Ti.App.size(30)
+		},
+		textAlign : 'left',
+		touchEnabled : false,
+		right:Ti.App.size(20)
+	});
+	sv.ui.Viewthongtin.add(sv.ui.tiso);
 }
 
 function setParam(sv) {
 	sv.setParam = function(_top, param) {
 		sv.ui.Vcontent.top = _top;
-		sv.ui.lbl_thoigian.text = param.thoigian + '-' + param.ngay;
-		sv.ui.lbl_tendoi.text = param.tendoi1 + ' VS ' + param.tendoi2;
+		sv.ui.lbl_thoigian.text = param.date ;
+		sv.ui.lbl_tendoi.text = param.ownerName + ' VS ' + param.guestName;
+		sv.ui.tiso.text=param.result;
 	};
 };
-function setTuVan(sv){
-	sv.setTuVan=function(_visible){
-		sv.ui.ViewTuVan.visible=_visible;
+function setTuVan(sv) {
+	sv.setTuVan = function(_visible) {
+		sv.ui.ViewTuVan.visible = _visible;
 	};
 };

@@ -233,7 +233,10 @@ function taosukien(sv, _quyen,_mangdv) {
 				var db = Ti.Database.open('userinfo');
 				var sql = db.execute("SELECT * FROM SaveInfo");
 				Ti.API.info('du lieu:' + sql.getRowCount());
-				Ti.API.info('ket qua:' + sql.fieldByName("username") + sql.fieldByName("type") + sql.fieldByName("balance"));
+				if(sql.isValidRow()){
+					Ti.API.info('ket qua:' + sql.fieldByName("username") + sql.fieldByName("type") + sql.fieldByName("balance"));
+				}
+				
 				sql.close();
 				db.close();
 
