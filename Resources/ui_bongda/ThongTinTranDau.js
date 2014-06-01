@@ -20,7 +20,7 @@ function tao_bien(sv) {
 	//GetMatchList(sv,"getmatchlist",{"matchid":"1"});
 	CapNhatLichThiDau(sv, "getmatchlist", {
 		"tourid" : "NHA",
-		"startdate" : "20/05/2014",
+		"startdate" : "10/4/2014",
 		"enddate" : "30/05/2014"
 	});
 	sv.vari.viewTTTD = require('/ui_bongda/viewTTTD');
@@ -66,6 +66,7 @@ function tao_ui(sv) {
 		showVerticalScrollIndicator : 'true',
 		height : Ti.UI.FILL,
 		contentHeight : Ti.UI.FILL,
+		
 	});
 	for (var i = 0; i < sv.arr.data.length; i++) {
 		sv.ui.row = Ti.UI.createTableViewRow({
