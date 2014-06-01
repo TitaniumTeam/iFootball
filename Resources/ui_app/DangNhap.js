@@ -412,38 +412,30 @@ function fn_updateImage2Server_Dangnhap(_cmd, data, sv) {
 		var dl = JSON.parse(this.responseText);
 		Ti.API.info('du lieu' + dl);
 		var jsonResuilt = JSON.parse(dl);
-		var mang_dauso = [];
-		var mang_tendichvu = [];
-		for (var i = 0; i < (jsonResuilt.menus.length); i++) {
-			mang_dauso.push(jsonResuilt.menus[i].action);
-			mang_tendichvu.push(jsonResuilt.menus[i].name);
-			if (jsonResuilt.menus[i].params) {
-				Ti.API.info('param' + jsonResuilt.menus[i].params);
-			}
-		}
-		for (var i = 0; i < (mang_dauso.length); i++) {
-			Ti.API.info('dau so: ' + mang_dauso[i]);
-		};
 		var db = Ti.Database.open('userinfo');
 		var sql = db.execute("SELECT * FROM SaveInfo");
 		var username = sql.fieldByName("username");
 		Ti.API.info('username' + username);
-		// if (sql.isValidRow()) {
-		//
-		// db.execute('UPDATE SaveInfo set action1=? where username)', mang_dauso[0], username);
-		// db.execute('UPDATE SaveInfo set action2=? where username)', mang_dauso[1], username);
-		// db.execute('UPDATE SaveInfo set action3=? where username)', mang_dauso[2], username);
-		// db.execute('UPDATE SaveInfo set action4=? where username)', mang_dauso[3], username);
-		// db.execute('UPDATE SaveInfo set dv1=? where username)', mang_tendichvu[0], username);
-		// db.execute('UPDATE SaveInfo set dv2=? where username)', mang_tendichvu[1], username);
-		// db.execute('UPDATE SaveInfo set dv3=? where username)', mang_tendichvu[2], username);
-		// db.execute('UPDATE SaveInfo set dv4=? where username)', mang_tendichvu[3], username);
-		// }
-		var menutong = (require('ui_app/MenuTong'));
-		var home = new menutong(username);
+		var mangdv = {};
+		mangdv.name = [];
+		mangdv.dauso = [];
+		mangdv.param = [];
+		for (var i = 0; i < (jsonResuilt.menus.length); i++) {
+			mangdv.dauso.push(jsonResuilt.menus[i].action);
+			mangdv.name.push(jsonResuilt.menus[i].name);
+			if (jsonResuilt.menus[i].params) {
+				Ti.API.info('param' + jsonResuilt.menus[i].params);
+				mangdv.param[i] = jsonResuilt.menus[i].params;
+			} else {
+				mangdv.param[i] = "";
+			}
+		}
+		for (var i = 0; i < (mangdv.name.length); i++) {
+			Ti.API.info('name dich vu:  ' + mangdv.name[i]);
+			Ti.API.info('dauso dich vu:  ' + mangdv.dauso[i]);
+			Ti.API.info('param dich vu:  ' + mangdv.param[i]);
+		}
+		var home = new menutong(username, mangdv);
 		home.ui.win.open();
-		sv.ui.Window.close();
-		// sql.close();
-		// db.close();
 	};
 };
