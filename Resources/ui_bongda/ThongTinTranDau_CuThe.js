@@ -21,10 +21,10 @@ function createVariable(sv) {
 	sv.arr.LabelTyLeCuoc = [];
 	sv.arr.ParamTySo = ['2 - 1'];
 	sv.arr.ParamTyLeCuoc = ['3.8'];
-	sv.vari.LabelNameKeo1 = 'Tỷ lệ Châu Á';
-	sv.vari.LabelThongTinKeo11 = '1.975';
-	sv.vari.LabelThongTinKeo12 = '0:3/4';
-	sv.vari.LabelThongTinKeo13 = '1.925';
+	sv.vari.LabelNameKeo1 = null;
+	sv.vari.LabelThongTinKeo11 = null;
+	sv.vari.LabelThongTinKeo12 = null;
+	sv.vari.LabelThongTinKeo13 = null;
 	sv.vari.LabelNameKeo2 = 'Tổng số bàn thắng';
 	sv.vari.LabelThongTinKeo21 = '2 1/4';
 	sv.vari.LabelThongTinKeo22 = '1.975';
@@ -40,10 +40,7 @@ function createVariable(sv) {
 	sv.vari.LabelNameKeo5 = '';
 	sv.vari.LabelThongTinKeo51 = '';
 	sv.vari.LabelThongTinKeo52 = '';
-
-	GetMatchRatio(sv, "getmatchratio", {
-		"matchid" : "1"
-	});
+	sv.vari.SoLuongParamResultBet = 0;
 
 };
 function createUI(sv) {
@@ -568,60 +565,11 @@ function createUI(sv) {
 		left : 0
 	});
 
-	for (var i = 0; i < 10; i++) {
-		var row = Ti.UI.createTableViewRow({
-			width : Ti.App.size(640),
-			height : Ti.App.size(80),
-			left : 0,
-			id : i,
-			backgroundSelectedColor : 'black'
-		});
-
-		sv.arr.ViewLabelTySo[i] = Ti.UI.createView({
-			top : Ti.App.size(0),
-			width : Ti.App.size(320),
-			height : Ti.App.size(80),
-			left : Ti.App.size(0),
-		});
-
-		row.add(sv.arr.ViewLabelTySo[i]);
-
-		sv.arr.LabelTySo[i] = Ti.UI.createLabel({
-			text : sv.arr.ParamTySo[0],
-			font : {
-				fontSize : Ti.App.size(26),
-				fontWeight : 'bold',
-				fontFamily : 'Aria',
-			},
-			color : Ti.App.Color.nauden
-		});
-
-		sv.arr.ViewLabelTySo[i].add(sv.arr.LabelTySo[i]);
-
-		sv.arr.ViewLabelTyLeCuoc[i] = Ti.UI.createView({
-			top : Ti.App.size(0),
-			width : Ti.App.size(320),
-			height : Ti.App.size(80),
-			left : Ti.App.size(320),
-		});
-
-		row.add(sv.arr.ViewLabelTyLeCuoc[i]);
-
-		sv.arr.LabelTyLeCuoc[i] = Ti.UI.createLabel({
-			text : sv.arr.ParamTyLeCuoc[0],
-			font : {
-				fontSize : Ti.App.size(26),
-				fontWeight : 'bold',
-				fontFamily : 'Aria',
-			},
-			color : Ti.App.Color.nauden
-		});
-
-		sv.arr.ViewLabelTyLeCuoc[i].add(sv.arr.LabelTyLeCuoc[i]);
-
-		sv.arr.data.push(row);
-	}
-	sv.ui.TableViewThongTinCaCuocTySo.setData(sv.arr.data);
+	GetMatchRatio(sv, "getmatchratio", {
+		"matchid" : "1"
+	});
+	Ti.API.info('SoLuongParamResultBet : ', sv.vari.SoLuongParamResultBet);
+	Ti.API.info('than xuan son');
 
 	/*
 	 *
@@ -706,6 +654,93 @@ function GetMatchRatio(sv, _cmd, data) {
 		var dl = JSON.parse(this.responseText);
 		var jsonResuilt = JSON.parse(dl);
 		Ti.API.info('du lieu la : ', jsonResuilt.match);
+
+		sv.ui.LabelHeaderKeoChauA.text = jsonResuilt.match.aisia_onl_betting[0].betname.toString();
+		sv.ui.LabelThongTinKeoChauA1.text = jsonResuilt.match.aisia_onl_betting[0].guest.toString();
+		sv.ui.LabelThongTinKeoChauA2.text = jsonResuilt.match.aisia_onl_betting[0].owner.toString();
+		sv.ui.LabelThongTinKeoChauA3.text = jsonResuilt.match.aisia_onl_betting[0].ratio.toString();
+
+		sv.ui.LabelHeaderTongSoBanThang.text = jsonResuilt.match.aisiabe_betting[0].betname.toString();
+		sv.ui.LabelThongTinTongSoBanThang1.text = jsonResuilt.match.aisiabe_betting[0].guest.toString();
+		sv.ui.LabelThongTinTongSoBanThang2.text = jsonResuilt.match.aisiabe_betting[0].owner.toString();
+		sv.ui.LabelThongTinTongSoBanThang3.text = jsonResuilt.match.aisiabe_betting[0].ratio.toString();
+
+		sv.ui.LabelHeaderTyLeChauAu.text = jsonResuilt.match.euro_betting[0].betname.toString();
+		sv.ui.LabelThongTinKeoChauAu1.text = jsonResuilt.match.euro_betting[0].guest.toString();
+		sv.ui.LabelThongTinKeoChauAu2.text = jsonResuilt.match.euro_betting[0].owner.toString();
+		sv.ui.LabelThongTinKeoChauAu3.text = jsonResuilt.match.euro_betting[0].ratio.toString();
+
+		sv.ui.LabelHeaderTyLeChauAu.text = jsonResuilt.match.euro_betting[0].betname.toString();
+		sv.ui.LabelThongTinKeoChauAu1.text = jsonResuilt.match.euro_betting[0].guest.toString();
+		sv.ui.LabelThongTinKeoChauAu2.text = jsonResuilt.match.euro_betting[0].owner.toString();
+		sv.ui.LabelThongTinKeoChauAu3.text = jsonResuilt.match.euro_betting[0].ratio.toString();
+
+		sv.ui.LabelThongTinTyLeAn1.text = jsonResuilt.match.taixiu[0].tai.toString();
+		sv.ui.LabelThongTinTyLeAn2.text = jsonResuilt.match.taixiu[0].totalgoal.toString();
+		sv.ui.LabelThongTinTyLeAn3.text = jsonResuilt.match.taixiu[0].xiu.toString();
+		sv.vari.SoLuongParamResultBet = jsonResuilt.match.resultbet.length;
+		Ti.API.info('SoLuongParamResultBet : ', sv.vari.SoLuongParamResultBet);
+
+		for (var i = 0; i < sv.vari.SoLuongParamResultBet; i++) {
+			sv.arr.ParamTySo[i] = jsonResuilt.match.resultbet[i].ti_so.toString();
+			sv.arr.ParamTyLeCuoc[i] = jsonResuilt.match.resultbet[i].ti_le.toString();
+			Ti.API.info('Param : ', i, ' ', sv.arr.ParamTySo[i], ' ', sv.arr.ParamTyLeCuoc[i]);
+		}
+		for (var i = 0; i < sv.vari.SoLuongParamResultBet; i++) {
+			var row = Ti.UI.createTableViewRow({
+				width : Ti.App.size(640),
+				height : Ti.App.size(80),
+				left : 0,
+				id : i,
+				backgroundSelectedColor : 'black'
+			});
+
+			sv.arr.ViewLabelTySo[i] = Ti.UI.createView({
+				top : Ti.App.size(0),
+				width : Ti.App.size(320),
+				height : Ti.App.size(80),
+				left : Ti.App.size(0),
+			});
+
+			row.add(sv.arr.ViewLabelTySo[i]);
+
+			sv.arr.LabelTySo[i] = Ti.UI.createLabel({
+				text : sv.arr.ParamTySo[0],
+				font : {
+					fontSize : Ti.App.size(26),
+					fontWeight : 'bold',
+					fontFamily : 'Aria',
+				},
+				color : Ti.App.Color.nauden
+			});
+
+			sv.arr.ViewLabelTySo[i].add(sv.arr.LabelTySo[i]);
+
+			sv.arr.ViewLabelTyLeCuoc[i] = Ti.UI.createView({
+				top : Ti.App.size(0),
+				width : Ti.App.size(320),
+				height : Ti.App.size(80),
+				left : Ti.App.size(320),
+			});
+
+			row.add(sv.arr.ViewLabelTyLeCuoc[i]);
+
+			sv.arr.LabelTyLeCuoc[i] = Ti.UI.createLabel({
+				text : sv.arr.ParamTyLeCuoc[0],
+				font : {
+					fontSize : Ti.App.size(26),
+					fontWeight : 'bold',
+					fontFamily : 'Aria',
+				},
+				color : Ti.App.Color.nauden
+			});
+
+			sv.arr.ViewLabelTyLeCuoc[i].add(sv.arr.LabelTyLeCuoc[i]);
+
+			sv.arr.data.push(row);
+		}
+		sv.ui.TableViewThongTinCaCuocTySo.setData(sv.arr.data);
+
 	};
 }
 
