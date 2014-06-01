@@ -13,6 +13,7 @@ module.exports = function() {
 	return sv;
 };
 function createVariable(sv) {
+
 	sv.arr.data = [];
 	sv.arr.ViewLabelTySo = [];
 	sv.arr.ViewLabelTyLeCuoc = [];
@@ -20,6 +21,30 @@ function createVariable(sv) {
 	sv.arr.LabelTyLeCuoc = [];
 	sv.arr.ParamTySo = ['2 - 1'];
 	sv.arr.ParamTyLeCuoc = ['3.8'];
+	sv.vari.LabelNameKeo1 = 'Tỷ lệ Châu Á';
+	sv.vari.LabelThongTinKeo11 = '1.975';
+	sv.vari.LabelThongTinKeo12 = '0:3/4';
+	sv.vari.LabelThongTinKeo13 = '1.925';
+	sv.vari.LabelNameKeo2 = 'Tổng số bàn thắng';
+	sv.vari.LabelThongTinKeo21 = '2 1/4';
+	sv.vari.LabelThongTinKeo22 = '1.975';
+	sv.vari.LabelThongTinKeo23 = '1.925';
+	sv.vari.LabelNameKeo3 = 'Tỷ lệ Châu ';
+	sv.vari.LabelThongTinKeo31 = '1.65';
+	sv.vari.LabelThongTinKeo32 = '3.57';
+	sv.vari.LabelThongTinKeo33 = '5.34';
+	sv.vari.LabelNameKeo4 = '';
+	sv.vari.LabelThongTinKeo41 = '';
+	sv.vari.LabelThongTinKeo42 = '';
+	sv.vari.LabelThongTinKeo43 = '';
+	sv.vari.LabelNameKeo5 = '';
+	sv.vari.LabelThongTinKeo51 = '';
+	sv.vari.LabelThongTinKeo52 = '';
+
+	GetMatchRatio(sv, "getmatchratio", {
+		"matchid" : "1"
+	});
+
 };
 function createUI(sv) {
 	sv.ui.ViewTong = Ti.UI.createScrollView({
@@ -202,7 +227,7 @@ function createUI(sv) {
 	});
 
 	sv.ui.LabelHeaderKeoChauA = Ti.UI.createLabel({
-		text : 'Tỷ lệ Châu Á',
+		text : sv.vari.LabelNameKeo1,
 		font : {
 			fontSize : Ti.App.size(24),
 			fontWeight : 'bold',
@@ -221,7 +246,7 @@ function createUI(sv) {
 	});
 
 	sv.ui.LabelThongTinKeoChauA1 = Ti.UI.createLabel({
-		text : '1.975',
+		text : sv.vari.LabelThongTinKeo11,
 		left : Ti.App.size(90),
 		font : {
 			fontSize : Ti.App.size(26),
@@ -233,7 +258,7 @@ function createUI(sv) {
 	});
 
 	sv.ui.LabelThongTinKeoChauA2 = Ti.UI.createLabel({
-		text : '0:3/4',
+		text : sv.vari.LabelThongTinKeo12,
 		left : Ti.App.size(305),
 		font : {
 			fontSize : Ti.App.size(26),
@@ -245,7 +270,7 @@ function createUI(sv) {
 	});
 
 	sv.ui.LabelThongTinKeoChauA3 = Ti.UI.createLabel({
-		text : '1.925',
+		text : sv.vari.LabelThongTinKeo13,
 		left : Ti.App.size(520),
 		font : {
 			fontSize : Ti.App.size(26),
@@ -272,7 +297,7 @@ function createUI(sv) {
 	});
 
 	sv.ui.LabelHeaderTongSoBanThang = Ti.UI.createLabel({
-		text : 'Tổng số bàn thắng',
+		text : sv.vari.LabelNameKeo2,
 		font : {
 			fontSize : Ti.App.size(24),
 			fontWeight : 'bold',
@@ -291,7 +316,7 @@ function createUI(sv) {
 	});
 
 	sv.ui.LabelThongTinTongSoBanThang1 = Ti.UI.createLabel({
-		text : '2 1/4',
+		text : sv.vari.LabelThongTinKeo21,
 		left : Ti.App.size(90),
 		font : {
 			fontSize : Ti.App.size(26),
@@ -303,7 +328,7 @@ function createUI(sv) {
 	});
 
 	sv.ui.LabelThongTinTongSoBanThang2 = Ti.UI.createLabel({
-		text : '1.975',
+		text : sv.vari.LabelThongTinKeo22,
 		left : Ti.App.size(305),
 		font : {
 			fontSize : Ti.App.size(26),
@@ -315,7 +340,7 @@ function createUI(sv) {
 	});
 
 	sv.ui.LabelThongTinTongSoBanThang3 = Ti.UI.createLabel({
-		text : '1.925',
+		text : sv.vari.LabelThongTinKeo23,
 		left : Ti.App.size(520),
 		font : {
 			fontSize : Ti.App.size(26),
@@ -342,7 +367,7 @@ function createUI(sv) {
 	});
 
 	sv.ui.LabelHeaderTyLeChauAu = Ti.UI.createLabel({
-		text : 'Tỷ lệ Châu Âu',
+		text : sv.vari.LabelNameKeo3,
 		font : {
 			fontSize : Ti.App.size(24),
 			fontWeight : 'bold',
@@ -361,7 +386,7 @@ function createUI(sv) {
 	});
 
 	sv.ui.LabelThongTinKeoChauAu1 = Ti.UI.createLabel({
-		text : '1.65',
+		text : sv.vari.LabelThongTinKeo31,
 		left : Ti.App.size(90),
 		font : {
 			fontSize : Ti.App.size(26),
@@ -373,7 +398,7 @@ function createUI(sv) {
 	});
 
 	sv.ui.LabelThongTinKeoChauAu2 = Ti.UI.createLabel({
-		text : '3.57',
+		text : sv.vari.LabelThongTinKeo32,
 		left : Ti.App.size(305),
 		font : {
 			fontSize : Ti.App.size(26),
@@ -385,7 +410,7 @@ function createUI(sv) {
 	});
 
 	sv.ui.LabelThongTinKeoChauAu3 = Ti.UI.createLabel({
-		text : '5.34',
+		text : sv.vari.LabelThongTinKeo33,
 		left : Ti.App.size(520),
 		font : {
 			fontSize : Ti.App.size(26),
@@ -662,3 +687,25 @@ function createUI(sv) {
 	sv.ui.ViewLabelHeaderCacCuocTySo1.add(sv.ui.LabelHeaderCacCuocTySo1);
 	sv.ui.ViewLabelHeaderCacCuocTySo2.add(sv.ui.LabelHeaderCacCuocTySo2);
 }
+
+function GetMatchRatio(sv, _cmd, data) {
+	var xhr = Titanium.Network.createHTTPClient();
+	xhr.onsendstream = function(e) {
+		//ind.value = e.progress;
+		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
+	};
+	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=' + _cmd);
+	xhr.setRequestHeader("Content-Type", "application/json-rpc");
+	Ti.API.info(JSON.stringify(data));
+	xhr.send(JSON.stringify(data));
+	xhr.onerror = function(e) {
+		Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
+	};
+	xhr.onload = function() {
+		Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
+		var dl = JSON.parse(this.responseText);
+		var jsonResuilt = JSON.parse(dl);
+		Ti.API.info('du lieu la : ', jsonResuilt.match);
+	};
+}
+

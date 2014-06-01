@@ -17,6 +17,9 @@ module.exports = function() {
  * Khởi tạo biến
  */
 function createVariable(sv) {
+	GetMatchNews(sv, "getmatchnews", {
+		"matchid" : "0",
+	});
 	sv.vari = {};
 	sv.arr = {};
 
@@ -38,10 +41,9 @@ function createUI(sv) {
 		backgroundColor : Ti.App.Color.white,
 		// width : Ti.App.widthScreen,
 		// height : Ti.App.heightScreen,
-		top :0,
+		top : 0,
 		left : 0
 	});
-
 
 	sv.ui.ViewLabelHeader = Ti.UI.createView({
 		height : Ti.App.size(120),
@@ -166,7 +168,6 @@ function createUI(sv) {
 		sv.arr.ViewTinTuc[i].addEventListener('click', sv.arr.eventClickViewTinTuc[i]);
 	}
 
-
 	sv.ui.ViewLabelHeader.add(sv.ui.LabelHeader);
 
 	sv.ui.ViewTong.add(sv.ui.BGHeader);
@@ -201,7 +202,6 @@ function createUI_Event(sv) {
 		};
 	}
 
-
 	sv.fu.eventCloseWindow = function(e) {
 		sv.ui.Window.removeEventListener('open', sv.fu.eventOpenWindow);
 		sv.ui.Window.removeEventListener('close', sv.fu.eventCloseWindow);
@@ -221,4 +221,25 @@ function createUI_Event(sv) {
 		Ti.API.info('Closed window, sv=' + sv);
 	};
 
+}
+
+function GetMatchNews(sv, _cmd, data) {
+	var xhr = Titanium.Network.createHTTPClient();
+	xhr.onsendstream = function(e) {
+		//ind.value = e.progress;
+		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
+	};
+	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=' + _cmd);
+	xhr.setRequestHeader("Content-Type", "application/json-rpc");
+	Ti.API.info(JSON.stringify(data));
+	xhr.send(JSON.stringify(data));
+	xhr.onerror = function(e) {
+		Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
+	};
+	xhr.onload = function() {
+		Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
+		var dl = JSON.parse(this.responseText);
+		var jsonResuilt = JSON.parse(dl);
+		Ti.API.info('Cac Tin Tuc : ', jsonResuilt.news);
+	};
 }
