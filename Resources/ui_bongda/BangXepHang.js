@@ -16,7 +16,8 @@ module.exports = function() {
 
 function createVariable(sv) {
 	GetLeagueRate(sv, "getleaguerate", {
-		"tourid" : "NHA"
+		"tourid" : "NHA",
+		"season" : "2013-2014"
 	});
 	sv.vari.STTDoiBong = 1;
 	sv.vari.SoDoi = 20;
@@ -42,6 +43,12 @@ function createVariable(sv) {
 }
 
 function createUI(sv) {
+
+	var jsonResuilt;
+	var data = {
+		"tourid" : "NHA",
+		"season" : "2013-2014"
+	};
 
 	sv.ui.ViewTong = Ti.UI.createView({
 		backgroundColor : Ti.App.Color.magenta,
@@ -218,178 +225,197 @@ function createUI(sv) {
 		color : Ti.App.Color.white,
 	});
 
-	for (var i = 0; i < 15; i++) {
-
-		sv.vari.STTDoiBong = i % 3;
-
-		var row = Ti.UI.createTableViewRow({
-			width : Ti.App.size(720),
-			height : Ti.App.size(95),
-			left : 0,
-			id : i,
-			backgroundSelectedColor : 'black'
-		});
-
-		if (i < 3) {
-			sv.arr.HinhTron[i] = Ti.UI.createView({
-				backgroundImage : '/assets/images/icon/circle-red.png',
-				width : Ti.App.size(50),
-				height : Ti.App.size(50),
-				left : Ti.App.size(40),
-			});
-		} else {
-			sv.arr.HinhTron[i] = Ti.UI.createView({
-				backgroundImage : '/assets/images/icon/circle-black.png',
-				left : Ti.App.size(40),
-				width : Ti.App.size(50),
-				height : Ti.App.size(50),
-			});
-		}
-
-		sv.arr.STT[i] = Ti.UI.createLabel({
-			text : sv.arr.DaySo[i],
-			font : {
-				fontSize : Ti.App.size(26),
-				fontWeight : 'bold',
-				fontFamily : 'Aria',
-			},
-			color : Ti.App.Color.white,
-		});
-
-		sv.arr.HinhTron[i].add(sv.arr.STT[i]);
-		row.add(sv.arr.HinhTron[i]);
-
-		sv.arr.ViewTenDoi[i] = Ti.UI.createView({
-			left : Ti.App.size(100),
-			width : Ti.App.size(250),
-			height : Ti.App.size(50),
-		});
-
-		sv.arr.LabelTenDoi[i] = Ti.UI.createLabel({
-			text : sv.arr.TenDoi[sv.vari.STTDoiBong],
-			font : {
-				fontSize : Ti.App.size(22),
-				fontFamily : 'Aria',
-
-			},
-			textAlign : 'left',
-			color : Ti.App.Color.nauden,
-		});
-
-		sv.arr.ViewTenDoi[i].add(sv.arr.LabelTenDoi[i]);
-		row.add(sv.arr.ViewTenDoi[i]);
-
-		sv.arr.ViewST[i] = Ti.UI.createView({
-			right : Ti.App.size(320),
-			width : Ti.App.size(35),
-			height : Ti.App.size(50),
-		});
-
-		sv.arr.LabelST[i] = Ti.UI.createLabel({
-			text : '69',
-			font : {
-				fontSize : Ti.App.size(22),
-				fontFamily : 'Aria',
-			},
-			color : Ti.App.Color.nauden,
-		});
-
-		sv.arr.ViewST[i].add(sv.arr.LabelST[i]);
-		row.add(sv.arr.ViewST[i]);
-
-		sv.arr.ViewT[i] = Ti.UI.createView({
-			right : Ti.App.size(270),
-			width : Ti.App.size(35),
-			height : Ti.App.size(50),
-		});
-
-		sv.arr.LabelT[i] = Ti.UI.createLabel({
-			text : '69',
-			font : {
-				fontSize : Ti.App.size(22),
-				fontFamily : 'Aria',
-			},
-			color : Ti.App.Color.nauden,
-		});
-
-		sv.arr.ViewT[i].add(sv.arr.LabelT[i]);
-		row.add(sv.arr.ViewT[i]);
-
-		sv.arr.ViewH[i] = Ti.UI.createView({
-			right : Ti.App.size(220),
-			width : Ti.App.size(35),
-			height : Ti.App.size(50),
-		});
-
-		sv.arr.LabelH[i] = Ti.UI.createLabel({
-			text : '69',
-			font : {
-				fontSize : Ti.App.size(22),
-				fontFamily : 'Aria',
-			},
-			color : Ti.App.Color.nauden,
-		});
-
-		sv.arr.ViewH[i].add(sv.arr.LabelH[i]);
-		row.add(sv.arr.ViewH[i]);
-
-		sv.arr.ViewB[i] = Ti.UI.createView({
-			right : Ti.App.size(170),
-			width : Ti.App.size(35),
-			height : Ti.App.size(50),
-		});
-
-		sv.arr.LabelB[i] = Ti.UI.createLabel({
-			text : '69',
-			font : {
-				fontSize : Ti.App.size(22),
-				fontFamily : 'Aria',
-			},
-			color : Ti.App.Color.nauden,
-		});
-
-		sv.arr.ViewB[i].add(sv.arr.LabelB[i]);
-		row.add(sv.arr.ViewB[i]);
-
-		sv.arr.ViewHS[i] = Ti.UI.createView({
-			right : Ti.App.size(120),
-			width : Ti.App.size(35),
-			height : Ti.App.size(50),
-		});
-
-		sv.arr.LabelHS[i] = Ti.UI.createLabel({
-			text : '69',
-			font : {
-				fontSize : Ti.App.size(22),
-				fontFamily : 'Aria',
-			},
-			color : Ti.App.Color.nauden,
-		});
-
-		sv.arr.ViewHS[i].add(sv.arr.LabelHS[i]);
-		row.add(sv.arr.ViewHS[i]);
-
-		sv.arr.ViewDiem[i] = Ti.UI.createView({
-			right : Ti.App.size(40),
-			width : Ti.App.size(60),
-			height : Ti.App.size(50),
-		});
-
-		sv.arr.LabelDiem[i] = Ti.UI.createLabel({
-			text : '999',
-			font : {
-				fontSize : Ti.App.size(22),
-				fontFamily : 'Aria',
-			},
-			color : Ti.App.Color.nauden,
-		});
-
-		sv.arr.ViewDiem[i].add(sv.arr.LabelDiem[i]);
-		row.add(sv.arr.ViewDiem[i]);
-
-		sv.arr.data.push(row);
+	var xhr = Titanium.Network.createHTTPClient();
+	xhr.onsendstream = function(e) {
+		//ind.value = e.progress;
+		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
 	};
-	sv.ui.ViewListTeam.setData(sv.arr.data);
+	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=' + "getleaguerate");
+	xhr.setRequestHeader("Content-Type", "application/json-rpc");
+	Ti.API.info(JSON.stringify(data));
+	xhr.send(JSON.stringify(data));
+	xhr.onerror = function(e) {
+		Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
+	};
+	xhr.onload = function() {
+		Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
+		var dl = JSON.parse(this.responseText);
+		jsonResuilt = JSON.parse(dl);
+		Ti.API.info('du lieu la : ', jsonResuilt.ratetable);
+
+		for (var i = 0; i < jsonResuilt.ratetable.length; i++) {
+
+			sv.vari.STTDoiBong = i % 3;
+
+			var row = Ti.UI.createTableViewRow({
+				width : Ti.App.size(720),
+				height : Ti.App.size(95),
+				left : 0,
+				id : i,
+				backgroundSelectedColor : 'black'
+			});
+
+			if (i < 3) {
+				sv.arr.HinhTron[i] = Ti.UI.createView({
+					backgroundImage : '/assets/images/icon/circle-red.png',
+					width : Ti.App.size(50),
+					height : Ti.App.size(50),
+					left : Ti.App.size(40),
+				});
+			} else {
+				sv.arr.HinhTron[i] = Ti.UI.createView({
+					backgroundImage : '/assets/images/icon/circle-black.png',
+					left : Ti.App.size(40),
+					width : Ti.App.size(50),
+					height : Ti.App.size(50),
+				});
+			}
+
+			sv.arr.STT[i] = Ti.UI.createLabel({
+				text : sv.arr.DaySo[i],
+				font : {
+					fontSize : Ti.App.size(26),
+					fontWeight : 'bold',
+					fontFamily : 'Aria',
+				},
+				color : Ti.App.Color.white,
+			});
+
+			sv.arr.HinhTron[i].add(sv.arr.STT[i]);
+			row.add(sv.arr.HinhTron[i]);
+
+			sv.arr.ViewTenDoi[i] = Ti.UI.createView({
+				left : Ti.App.size(100),
+				width : Ti.App.size(250),
+				height : Ti.App.size(50),
+			});
+
+			sv.arr.LabelTenDoi[i] = Ti.UI.createLabel({
+				text : jsonResuilt.ratetable[i].clubname.toString(),
+				font : {
+					fontSize : Ti.App.size(22),
+					fontFamily : 'Aria',
+
+				},
+				textAlign : 'left',
+				color : Ti.App.Color.nauden,
+			});
+
+			sv.arr.ViewTenDoi[i].add(sv.arr.LabelTenDoi[i]);
+			row.add(sv.arr.ViewTenDoi[i]);
+
+			sv.arr.ViewST[i] = Ti.UI.createView({
+				right : Ti.App.size(320),
+				width : Ti.App.size(35),
+				height : Ti.App.size(50),
+			});
+
+			sv.arr.LabelST[i] = Ti.UI.createLabel({
+				text : jsonResuilt.ratetable[i].totalmatch.toString(),
+				font : {
+					fontSize : Ti.App.size(22),
+					fontFamily : 'Aria',
+				},
+				color : Ti.App.Color.nauden,
+			});
+
+			sv.arr.ViewST[i].add(sv.arr.LabelST[i]);
+			row.add(sv.arr.ViewST[i]);
+
+			sv.arr.ViewT[i] = Ti.UI.createView({
+				right : Ti.App.size(270),
+				width : Ti.App.size(35),
+				height : Ti.App.size(50),
+			});
+
+			sv.arr.LabelT[i] = Ti.UI.createLabel({
+				text : (jsonResuilt.ratetable[i].thang_san_khach + jsonResuilt.ratetable[i].thang_san_nha).toString(),
+				font : {
+					fontSize : Ti.App.size(22),
+					fontFamily : 'Aria',
+				},
+				color : Ti.App.Color.nauden,
+			});
+
+			sv.arr.ViewT[i].add(sv.arr.LabelT[i]);
+			row.add(sv.arr.ViewT[i]);
+
+			sv.arr.ViewH[i] = Ti.UI.createView({
+				right : Ti.App.size(220),
+				width : Ti.App.size(35),
+				height : Ti.App.size(50),
+			});
+
+			sv.arr.LabelH[i] = Ti.UI.createLabel({
+				text : (jsonResuilt.ratetable[i].hoa_san_khach + jsonResuilt.ratetable[i].hoa_san_nha).toString(),
+				font : {
+					fontSize : Ti.App.size(22),
+					fontFamily : 'Aria',
+				},
+				color : Ti.App.Color.nauden,
+			});
+
+			sv.arr.ViewH[i].add(sv.arr.LabelH[i]);
+			row.add(sv.arr.ViewH[i]);
+
+			sv.arr.ViewB[i] = Ti.UI.createView({
+				right : Ti.App.size(170),
+				width : Ti.App.size(35),
+				height : Ti.App.size(50),
+			});
+
+			sv.arr.LabelB[i] = Ti.UI.createLabel({
+				text : (jsonResuilt.ratetable[i].thua_san_khach + jsonResuilt.ratetable[i].thua_san_nha).toString(),
+				font : {
+					fontSize : Ti.App.size(22),
+					fontFamily : 'Aria',
+				},
+				color : Ti.App.Color.nauden,
+			});
+
+			sv.arr.ViewB[i].add(sv.arr.LabelB[i]);
+			row.add(sv.arr.ViewB[i]);
+
+			sv.arr.ViewHS[i] = Ti.UI.createView({
+				right : Ti.App.size(120),
+				width : Ti.App.size(35),
+				height : Ti.App.size(50),
+			});
+
+			sv.arr.LabelHS[i] = Ti.UI.createLabel({
+				text : (jsonResuilt.ratetable[i].banthang_san_khach + jsonResuilt.ratetable[i].banthang_san_nha - jsonResuilt.ratetable[i].banthua_san_khach - jsonResuilt.ratetable[i].banthua_san_nha).toString(),
+				font : {
+					fontSize : Ti.App.size(22),
+					fontFamily : 'Aria',
+				},
+				color : Ti.App.Color.nauden,
+			});
+
+			sv.arr.ViewHS[i].add(sv.arr.LabelHS[i]);
+			row.add(sv.arr.ViewHS[i]);
+
+			sv.arr.ViewDiem[i] = Ti.UI.createView({
+				right : Ti.App.size(40),
+				width : Ti.App.size(60),
+				height : Ti.App.size(50),
+			});
+
+			sv.arr.LabelDiem[i] = Ti.UI.createLabel({
+				text : jsonResuilt.ratetable[i].point.toString(),
+				font : {
+					fontSize : Ti.App.size(22),
+					fontFamily : 'Aria',
+				},
+				color : Ti.App.Color.nauden,
+			});
+
+			sv.arr.ViewDiem[i].add(sv.arr.LabelDiem[i]);
+			row.add(sv.arr.ViewDiem[i]);
+
+			sv.arr.data.push(row);
+		};
+		sv.ui.ViewListTeam.setData(sv.arr.data);
+	};
 
 	createUI_Event(sv);
 
@@ -443,22 +469,5 @@ function createUI_Event(sv) {
 }
 
 function GetLeagueRate(sv, _cmd, data) {
-	var xhr = Titanium.Network.createHTTPClient();
-	xhr.onsendstream = function(e) {
-		//ind.value = e.progress;
-		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
-	};
-	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=' + _cmd);
-	xhr.setRequestHeader("Content-Type", "application/json-rpc");
-	Ti.API.info(JSON.stringify(data));
-	xhr.send(JSON.stringify(data));
-	xhr.onerror = function(e) {
-		Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
-	};
-	xhr.onload = function() {
-		Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
-		var dl = JSON.parse(this.responseText);
-		var jsonResuilt = JSON.parse(dl);
-		Ti.API.info('du lieu la : ', jsonResuilt);
-	};
+
 };
