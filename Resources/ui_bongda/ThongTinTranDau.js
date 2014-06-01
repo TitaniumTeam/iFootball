@@ -19,11 +19,6 @@ function tao_bien(sv) {
 	});
 
 	//GetMatchList(sv,"getmatchlist",{"matchid":"1"});
-	CapNhatLichThiDau(sv, "getmatchlist", {
-		"tourid" : "NHA",
-		"startdate" : "10/4/2014",
-		"enddate" : "30/05/2014"
-	});
 
 	sv.vari.viewTTTD = require('/ui_bongda/viewTTTD');
 	sv.vari.bxh = require('/ui_bongda/BangXepHang');
@@ -96,91 +91,7 @@ function GetTour(sv, _cmd, data) {
 		for (var i = 0; i < (jsonResuilt.tournaments).length; i++) {
 			sv.arr.data.push(jsonResuilt.tournaments[i].name);
 		}
-		for (var i = 0; i < jsonResuilt.tournaments.length; i++) {
-			sv.ui.row = Ti.UI.createTableViewRow({
-				height : Ti.App.size(380),
-				width : Ti.App.size(720),
-				backgroundColor : Ti.App.Color.magenta,
-			});
 
-			sv.ui.ViewChua = Ti.UI.createView({
-				height : Ti.UI.FILL,
-				width : Ti.App.size(720),
-			});
-
-			sv.ui.viewRow = Ti.UI.createView({
-				height : sv.vari.row_height,
-				top : 0,
-				width : Ti.App.size(720),
-				borderColor : Ti.App.Color.xanhnhat,
-				borderWidth : set_border(i, sv),
-				left : 0,
-			});
-			sv.ui.viewGD = Titanium.UI.createView({
-				height : sv.vari.row_height,
-				top : 0,
-				width : Ti.App.size(610),
-				left : 0,
-				backgroundColor : 'transparent',
-				backgroundSelectedColor : Ti.App.Color.xanhnhat,
-				idGD : i
-			});
-			sv.ui.lbl_tennc = Ti.UI.createLabel({
-				left : Ti.App.size(120),
-				text : sv.arr.data[i],
-				width : Ti.App.size(720),
-				font : {
-					fontSize : Ti.App.size(30),
-					fontWeight : 'bold'
-				},
-				color : 'black',
-				touchEnabled : false
-			});
-
-			sv.ui.lbl_co = Titanium.UI.createImageView({
-				width : Ti.App.size(65),
-				height : Ti.App.size(45),
-				image : '/assets/images/icon/0' + (i + 1) + '.png',
-				left : Ti.App.size(40),
-				touchEnabled : false
-			});
-			sv.ui.viewArow = Titanium.UI.createView({
-				width : Ti.App.size(110),
-				height : sv.vari.row_height,
-				backgroundColor : 'transparent',
-				backgroundSelectedColor : Ti.App.Color.xanhnhat,
-				right : 0,
-				top : 0,
-				expanded : false,
-				id : i
-			});
-			sv.ui.arrow = Titanium.UI.createImageView({
-				width : Ti.App.size(20),
-				height : Ti.App.size(40),
-				image : '/assets/images/icon/arrow-left.png',
-				transform : sv.vari.trans1,
-				touchEnabled : false
-			});
-
-			//////////////
-
-			sv.ui.row.add(sv.ui.ViewChua);
-			sv.ui.ViewChua.add(sv.ui.viewRow);
-
-			sv.ui.viewGD.add(sv.ui.lbl_tennc);
-			sv.ui.viewGD.add(sv.ui.lbl_co);
-
-			sv.ui.viewArow.add(sv.ui.arrow);
-			sv.ui.viewRow.add(sv.ui.viewGD);
-			sv.ui.viewRow.add(sv.ui.viewArow);
-
-			sv.arr.ViewChua.push(sv.ui.ViewChua);
-			sv.arr.viewrows.push(sv.ui.viewGD);
-			sv.arr.viewarrows.push(sv.ui.viewArow);
-			sv.arr.rows.push(sv.ui.row);
-			sv.arr.arrow.push(sv.ui.arrow);
-
-		}
 		//GetMatchList(sv,"getmatchlist",{"matchid":"1"});
 		var data1 = {
 			"tourid" : "NHA",
@@ -188,35 +99,35 @@ function GetTour(sv, _cmd, data) {
 			"enddate" : "30/05/2014"
 		};
 
-		sv.ui.tbl = Ti.UI.createTableView({
-			data : sv.arr.rows,
-			// height : Ti.UI.FILL,
-			width : Ti.App.size(720),
-			top : 0,
-			separatorColor : 'transparent',
-			backgroundColor : Ti.App.Color.magenta,
-		});
-		sv.ui.ViewTong.add(sv.ui.tbl);
-
-		var xhr = Titanium.Network.createHTTPClient();
-		xhr.onsendstream = function(e) {
+		var xhr1 = Titanium.Network.createHTTPClient();
+		xhr1.onsendstream = function(e) {
 			//ind.value = e.progress;
 			Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
 		};
-		xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=' + "getmatchlist");
-		xhr.setRequestHeader("Content-Type", "application/json-rpc");
+		xhr1.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=' + "getmatchlist");
+		xhr1.setRequestHeader("Content-Type", "application/json-rpc");
 		Ti.API.info(JSON.stringify(data1));
-		xhr.send(JSON.stringify(data1));
-		xhr.onerror = function(e) {
+		xhr1.send(JSON.stringify(data1));
+		xhr1.onerror = function(e) {
 			Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
 		};
-		xhr.onload = function() {
+		xhr1.onload = function() {
 			Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
 			var dl1 = JSON.parse(this.responseText);
 			var jsonResuilt1 = JSON.parse(dl1);
 			Ti.API.info('du lieu la : ', jsonResuilt1.matchs);
 			sv.arr.sotran = [];
-			sv.vari.height_viewthongtin = Ti.App.size(jsonResuilt1.matchs.length * 140);
+			if (jsonResuilt1.matchs.length == 1) {
+				sv.vari.height_viewthongtin = Ti.App.size(140);
+				sv.vari.height_viewrow = Ti.App.size(240);
+				sv.vari.height_viewthongtin_expand = Ti.App.size(140);
+			} else {
+				if (jsonResuilt1.matchs.length >= 2) {
+					sv.vari.height_viewthongtin = Ti.App.size(140 * 2);
+					sv.vari.height_viewthongtin_expand = Ti.App.size(jsonResuilt1.matchs.length * 140);
+					sv.vari.height_viewrow = Ti.App.size(380);
+				}
+			}
 			if (jsonResuilt1.matchs.length == 0) {
 				sv.arr.sotran = "";
 			} else {
@@ -225,11 +136,95 @@ function GetTour(sv, _cmd, data) {
 				}
 			}
 			////
+			for (var i = 0; i < jsonResuilt.tournaments.length; i++) {
+				sv.ui.row = Ti.UI.createTableViewRow({
+					height : sv.vari.height_viewrow,
+					width : Ti.App.size(720),
+					backgroundColor : Ti.App.Color.magenta,
+				});
 
+				sv.ui.ViewChua = Ti.UI.createView({
+					height : Ti.UI.FILL,
+					width : Ti.App.size(720),
+				});
+
+				sv.ui.viewRow = Ti.UI.createView({
+					height : sv.vari.row_height,
+					top : 0,
+					width : Ti.App.size(720),
+					borderColor : Ti.App.Color.xanhnhat,
+					borderWidth : set_border(i, sv),
+					left : 0,
+				});
+				sv.ui.viewGD = Titanium.UI.createView({
+					height : sv.vari.row_height,
+					top : 0,
+					width : Ti.App.size(610),
+					left : 0,
+					backgroundColor : 'transparent',
+					backgroundSelectedColor : Ti.App.Color.xanhnhat,
+					idGD : i
+				});
+				sv.ui.lbl_tennc = Ti.UI.createLabel({
+					left : Ti.App.size(120),
+					text : sv.arr.data[i],
+					width : Ti.App.size(720),
+					font : {
+						fontSize : Ti.App.size(30),
+						fontWeight : 'bold'
+					},
+					color : 'black',
+					touchEnabled : false
+				});
+
+				sv.ui.lbl_co = Titanium.UI.createImageView({
+					width : Ti.App.size(65),
+					height : Ti.App.size(45),
+					image : '/assets/images/icon/0' + (i + 1) + '.png',
+					left : Ti.App.size(40),
+					touchEnabled : false
+				});
+				sv.ui.viewArow = Titanium.UI.createView({
+					width : Ti.App.size(110),
+					height : sv.vari.row_height,
+					backgroundColor : 'transparent',
+					backgroundSelectedColor : Ti.App.Color.xanhnhat,
+					right : 0,
+					top : 0,
+					expanded : false,
+					id : i
+				});
+				sv.ui.arrow = Titanium.UI.createImageView({
+					width : Ti.App.size(20),
+					height : Ti.App.size(40),
+					image : '/assets/images/icon/arrow-left.png',
+					transform : sv.vari.trans1,
+					touchEnabled : false
+				});
+
+				//////////////
+
+				sv.ui.row.add(sv.ui.ViewChua);
+				sv.ui.ViewChua.add(sv.ui.viewRow);
+
+				sv.ui.viewGD.add(sv.ui.lbl_tennc);
+				sv.ui.viewGD.add(sv.ui.lbl_co);
+
+				sv.ui.viewArow.add(sv.ui.arrow);
+				sv.ui.viewRow.add(sv.ui.viewGD);
+				sv.ui.viewRow.add(sv.ui.viewArow);
+
+				sv.arr.ViewChua.push(sv.ui.ViewChua);
+				sv.arr.viewrows.push(sv.ui.viewGD);
+				sv.arr.viewarrows.push(sv.ui.viewArow);
+				sv.arr.rows.push(sv.ui.row);
+				sv.arr.arrow.push(sv.ui.arrow);
+
+			}
 			for (var i = 0; i < (jsonResuilt1.matchs.length); i++) {
 				sv.ui.viewBack = Ti.UI.createView({
 					left : 0,
-					height : sv.vari.height_viewthongtin,
+					height : Ti.App.size(140),
 					top : sv.vari.row_height,
 					width : Ti.App.size(720),
 					backgroundGradient : {
@@ -245,15 +240,23 @@ function GetTour(sv, _cmd, data) {
 					// bottom:1
 				});
 				for ( j = 0; j < jsonResuilt1.matchs.length; j++) {
-					sv.ui.vThongtinTD = new sv.vari.viewTTTD();
-					sv.ui.vThongtinTD.setParam(Ti.App.size(140 * j), sv.arr.sotran[0], Ti.App.size(720));
+					sv.ui.vThongtinTD = new sv.vari.viewTTTD(Ti.App.size(720));
+					sv.ui.vThongtinTD.setParam(Ti.App.size(140 * j), sv.arr.sotran[i]);
 					sv.ui.vThongtinTD.setTuVan(false);
 					sv.ui.viewBack.add(sv.ui.vThongtinTD.ui.Vcontent);
 					sv.arr.trandau.push(sv.ui.vThongtinTD.ui.Vcontent);
 				}
 				sv.arr.ViewChua[i].add(sv.ui.viewBack);
 			}
-
+			sv.ui.tbl = Ti.UI.createTableView({
+				data : sv.arr.rows,
+				// height : Ti.UI.FILL,
+				width : Ti.App.size(720),
+				top : 0,
+				separatorColor : 'transparent',
+				backgroundColor : Ti.App.Color.magenta,
+			});
+			sv.ui.ViewTong.add(sv.ui.tbl);
 			tao_event(sv);
 			for (var i = 0; i < jsonResuilt1.matchs.length; i++) {
 				sv.arr.viewarrows[i].addEventListener('click', sv.arr.event_clickrow[i]);
@@ -289,20 +292,20 @@ function GetTour(sv, _cmd, data) {
 					sv.arr.event_clickrow[i] = function(e) {
 						if (e.source.expanded) {
 							e.source.expanded = false;
-							sv.arr.rows[e.source.id].setHeight(Ti.App.size(380));
+							sv.arr.rows[e.source.id].setHeight(100);
 							sv.arr.arrow[e.source.id].transform = sv.vari.trans1;
 							sv.arr.arrow[e.source.id].top = Ti.App.size(25);
 							for (var j = 0; j < sv.arr.data.length; j++) {
 								if (j != (e.source.id)) {
 									sv.arr.rows[j].expanded = false;
-									sv.arr.rows[j].setHeight(Ti.App.size(380));
+									sv.arr.rows[j].setHeight(100);
 									sv.arr.arrow[j].transform = sv.vari.trans1;
 									sv.arr.arrow[j].top = Ti.App.size(25);
 								}
 							}
 						} else {
 							e.source.expanded = true;
-							sv.arr.rows[e.source.id].setHeight(Ti.App.size(520));
+							sv.arr.rows[e.source.id].setHeight(sv.vari.height_viewthongtin_expand);
 							sv.arr.arrow[e.source.id].transform = sv.vari.trans2;
 							sv.arr.arrow[e.source.id].top = Ti.App.size(20);
 							for (var j = 0; j < sv.arr.data.length; j++) {
@@ -326,5 +329,3 @@ function GetTour(sv, _cmd, data) {
 	};
 }
 
-function CapNhatLichThiDau(sv, _cmd, data) {
-};

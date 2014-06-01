@@ -19,7 +19,7 @@ module.exports = function() {
 function createVariable(sv) {
 	sv.vari.consodachoi = new (require('/ui_user/ConSoDaChoi'))();
 	sv.vari.lichsugiaodich = new (require('/ui_user/LichSuGiaoDich'))();
-	
+
 	sv.arr.datanapxu = [];
 	sv.arr.event_napxu = [];
 	sv.arr.title = [{
@@ -66,13 +66,12 @@ function createUI(sv) {
 	});
 	sv.ui.Avatar = Ti.UI.createImageView({
 		image : '/assets/images/icon/avatar-defaut.png',
-		top : Ti.App.size(45),
 		height : Ti.App.size(150),
 		width : Ti.App.size(150),
 		zIndex : 10
 	});
+
 	sv.ui.LabelName = Ti.UI.createLabel({
-		text : 'LinhSon93',
 		font : {
 			fontSize : Ti.App.size(30),
 			fontWeight : 'bold',
@@ -81,7 +80,14 @@ function createUI(sv) {
 		color : Ti.App.Color.superwhite,
 		top : Ti.App.size(400)
 	});
-
+	sv.vari.db = Ti.Database.open('userinfo');
+	sv.vari.sql=sv.vari.db.execute("SELECT * FROM SaveInfo");
+	if(sv.vari.sql.isValidRow()){
+		sv.ui.LabelName.text=sv.vari.sql.fieldByName("username");
+	}
+	else{
+		sv.ui.LabelName.text="USER FREE";
+	}
 	sv.ui.LabelThongTin = Ti.UI.createLabel({
 		text : 'Siêu pro vừa đi chơi - ID: 9999999999',
 		font : {
@@ -97,7 +103,6 @@ function createUI(sv) {
 		right : Ti.App.size(25),
 		left : Ti.App.size(665),
 	});
-
 
 	//tao view ung dung
 	sv.ui.ViewUngDung = Ti.UI.createView({
