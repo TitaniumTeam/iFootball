@@ -18,7 +18,7 @@ module.exports = function() {
  */
 function createVariable(sv) {
 	GetMatchNews(sv, "getmatchnews", {
-		"matchid" : "0",
+		"matchid" : "2",
 	});
 	sv.vari = {};
 	sv.arr = {};

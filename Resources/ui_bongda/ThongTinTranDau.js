@@ -19,7 +19,7 @@ function tao_bien(sv) {
 	});
 	//GetMatchList(sv,"getmatchlist",{"matchid":"1"});
 	CapNhatLichThiDau(sv, "getmatchlist", {
-		"tourid" : "0",
+		"tourid" : "NHA",
 		"startdate" : "20/05/2014",
 		"enddate" : "30/05/2014"
 	});

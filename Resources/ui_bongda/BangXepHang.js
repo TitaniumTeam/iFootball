@@ -15,6 +15,9 @@ module.exports = function() {
 };
 
 function createVariable(sv) {
+	GetLeagueRate(sv, "getleaguerate", {
+		"tourid" : "NHA"
+	});
 	sv.vari.STTDoiBong = 1;
 	sv.vari.SoDoi = 20;
 	sv.arr.data = [];
@@ -39,7 +42,6 @@ function createVariable(sv) {
 }
 
 function createUI(sv) {
-
 
 	sv.ui.ViewTong = Ti.UI.createView({
 		backgroundColor : Ti.App.Color.magenta,
@@ -99,7 +101,7 @@ function createUI(sv) {
 		left : Ti.App.size(0),
 		borderWidth : Ti.App.size(1),
 		borderColor : Ti.App.Color.magenta,
-		backgroundColor:Ti.App.Color.red_press
+		backgroundColor : Ti.App.Color.red_press
 	});
 
 	sv.ui.ViewToolBarDiem = Ti.UI.createView({
@@ -391,7 +393,6 @@ function createUI(sv) {
 
 	createUI_Event(sv);
 
-
 	sv.ui.ViewTong.add(sv.ui.ViewToolBar);
 	sv.ui.ViewTong.add(sv.ui.ViewListTeam);
 
@@ -440,3 +441,24 @@ function createUI_Event(sv) {
 	};
 
 }
+
+function GetLeagueRate(sv, _cmd, data) {
+	var xhr = Titanium.Network.createHTTPClient();
+	xhr.onsendstream = function(e) {
+		//ind.value = e.progress;
+		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
+	};
+	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=' + _cmd);
+	xhr.setRequestHeader("Content-Type", "application/json-rpc");
+	Ti.API.info(JSON.stringify(data));
+	xhr.send(JSON.stringify(data));
+	xhr.onerror = function(e) {
+		Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
+	};
+	xhr.onload = function() {
+		Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
+		var dl = JSON.parse(this.responseText);
+		var jsonResuilt = JSON.parse(dl);
+		Ti.API.info('du lieu la : ', jsonResuilt);
+	};
+};
