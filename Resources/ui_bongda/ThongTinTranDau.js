@@ -258,7 +258,17 @@ function GetTour(sv, _cmd, data) {
 			for (var i = 0; i < jsonResuilt1.matchs.length; i++) {
 				sv.arr.viewarrows[i].addEventListener('click', sv.arr.event_clickrow[i]);
 			}
-			for (var i = 0; i < jsonResuilt.matchs.length; i++) {
+
+			for (var i = 0; i < jsonResuilt.tournaments.length; i++) {
+				sv.arr.event_clickGD[i] = function(e) {
+					Ti.API.info('thu tu ' + e.source.idGD);
+					sv.vari.view_bxh = new sv.vari.bxh();
+					sv.ui.ViewTong.removeAllChildren();
+					sv.ui.ViewTong.add(sv.vari.view_bxh.ui.ViewTong);
+				};
+			}
+
+			for (var i = 0; i < jsonResuilt.tournaments.length; i++) {
 				sv.arr.viewrows[i].addEventListener('click', sv.arr.event_clickGD[i]);
 			}
 			// for (var i = 0; i < sv.arr.data.length; i++) {
@@ -309,14 +319,6 @@ function GetTour(sv, _cmd, data) {
 
 				}
 
-				for (var i = 0; i < jsonResuilt.matchs.length; i++) {
-					sv.arr.event_clickGD[i] = function(e) {
-						Ti.API.info('thu tu ' + e.source.idGD);
-						sv.vari.view_bxh = new sv.vari.bxh();
-						sv.ui.ViewTong.removeAllChildren();
-						sv.ui.ViewTong.add(sv.vari.view_bxh.ui.ViewTong);
-					};
-				}
 			};
 
 		};

@@ -101,7 +101,7 @@ function createUI(sv) {
 		});
 
 		sv.ui.LabelTinHot = Ti.UI.createLabel({
-			text : 'Juventus vừa thông báo rằng chỉ sau một lượt đấu nữa sẽ là vô địch',
+			text : jsonResuilt.news[0].title.toString(),
 			font : {
 				fontSize : Ti.App.size(24),
 				fontFamily : 'Aria',
@@ -140,7 +140,7 @@ function createUI(sv) {
 			});
 
 			sv.arr.TenTinTuc[i] = Ti.UI.createLabel({
-				text : 'Juventus vừa thông báo rằng chỉ sau một lượt đấu nữa sẽ là vô địch',
+				text : jsonResuilt.news[i].title.toString(),
 				font : {
 					fontSize : Ti.App.size(22),
 					fontFamily : 'Aria',
@@ -169,7 +169,7 @@ function createUI(sv) {
 			});
 
 			sv.arr.TTTinTuc[i] = Ti.UI.createLabel({
-				text : 'Juventus vừa thông báo rằng chỉ sau một lượt đấu nữa sẽ là vô địch',
+				text : jsonResuilt.news[i].content.toString(),
 				font : {
 					fontSize : Ti.App.size(18),
 					fontFamily : 'Aria',
@@ -226,11 +226,11 @@ function createUI_Event(sv) {
 	};
 
 	// for (var i = 0; i < sv.vari.SoTinTuc; i++) {
-		// sv.arr.eventClickViewTinTuc[i] = function() {
-			// var newWindow = new (require('/ui_bongda/NewsContent'))();
-			// sv.ui.ViewTong.removeAllChildren();
-			// sv.ui.ViewTong.add(newWindow.ui.ViewTong);
-		// };
+	// sv.arr.eventClickViewTinTuc[i] = function() {
+	// var newWindow = new (require('/ui_bongda/NewsContent'))();
+	// sv.ui.ViewTong.removeAllChildren();
+	// sv.ui.ViewTong.add(newWindow.ui.ViewTong);
+	// };
 	// }
 
 	sv.fu.eventCloseWindow = function(e) {
