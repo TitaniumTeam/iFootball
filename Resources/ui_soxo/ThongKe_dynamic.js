@@ -22,33 +22,38 @@ function taoui(sv, _mangdv) {
 		width : Ti.App.size(720),
 		height : Ti.UI.FILL,
 	});
-	for (var i = 1; i < (_mangdv.name.length); i++) {
-		sv.ui.row = Ti.UI.createTableViewRow({
-			width : Ti.App.size(640),
-			left : 0,
-			backgroundColor : Ti.App.Color.superwhite,
-			height : Ti.App.size(90),
-			color : 'black',
-			font : {
-				fontSize : Ti.App.size(30)
-			},
-			title : _mangdv.name[i],
-			id : i,
-			thamso : _mangdv.param[i],
-			tendauso : _mangdv.dauso[i]
-			// hasChild : true
+	if (_mangdv == "" || _mangdv == undefined) {
+		Ti.API.info('server loi');
+	} else {
+		for (var i = 1; i < (_mangdv.name.length); i++) {
+			sv.ui.row = Ti.UI.createTableViewRow({
+				width : Ti.App.size(640),
+				left : 0,
+				backgroundColor : Ti.App.Color.superwhite,
+				height : Ti.App.size(90),
+				color : 'black',
+				font : {
+					fontSize : Ti.App.size(30)
+				},
+				title : _mangdv.name[i],
+				id : i,
+				thamso : _mangdv.param[i],
+				tendauso : _mangdv.dauso[i]
+				// hasChild : true
+			});
+			sv.arr.rows.push(sv.ui.row);
+		}
+		sv.ui.tbl1 = Ti.UI.createTableView({
+			width : Ti.App.size(680),
+			height : Ti.UI.SIZE,
+			data : sv.arr.rows,
+			top : 0,
+			separatorColor : Ti.App.Color.xanhnhat,
+			left : Ti.App.size(20)
 		});
-		sv.arr.rows.push(sv.ui.row);
+		sv.ui.ViewTong.add(sv.ui.tbl1);
 	}
-	sv.ui.tbl1 = Ti.UI.createTableView({
-		width : Ti.App.size(680),
-		height : Ti.UI.SIZE,
-		data : sv.arr.rows,
-		top : 0,
-		separatorColor : Ti.App.Color.xanhnhat,
-		left : Ti.App.size(20)
-	});
-	sv.ui.ViewTong.add(sv.ui.tbl1);
+
 	sv.ui.webview = Ti.UI.createWebView({
 		width : Ti.UI.FILL,
 		height : Ti.UI.FILL,
@@ -111,7 +116,7 @@ function fn_updateImage2Server(_cmd, data, sv) {
 		var dl = JSON.parse(this.responseText);
 		Ti.API.info('du lieu' + dl);
 		var jsonResuilt = JSON.parse(dl);
-		if (jsonResuilt.result.code==0&& jsonResuilt.advisor) {
+		if (jsonResuilt.result.code == 0 && jsonResuilt.advisor) {
 			var link = jsonResuilt.advisor;
 			sv.ui.ViewTong.removeAllChildren();
 			sv.ui.ViewTong.add(sv.ui.webview);
