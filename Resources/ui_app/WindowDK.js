@@ -5,29 +5,31 @@ module.exports = function() {
 	sv.ui = {};
 	sv.fu = {};
 	(function() {
+		tao_bien(sv);
 		tao_ui(sv);
 	})();
 	return sv.ui.WindowDK;
 };
+
+///tao bien
+function tao_bien(sv) {
+	sv.vari.wd_dn = require('/ui_app/DangNhap');
+
+};
+
 /*khoi tao UI
  */
 function tao_ui(sv) {
-	sv.vari = {};
-	sv.ui = {};
-	sv.arr = {};
-	sv.vari = {};
 	sv.ui.WindowDK = Ti.UI.createWindow({
-		backgroundColor : 'red',
+		backgroundColor : Ti.App.Color.red,
 		navBarHidden : true,
-		keepScreenOn : true,
-		top : 0,
+		exitOnClose : true,
 		orientationModes : [Ti.UI.PORTRAIT],
+		keepScreenOn : true,
 
 	});
 	sv.ui.scrollView = Ti.UI.createScrollView({
 		left : 0,
-		right : 0,
-		bottom : 0,
 		top : 0,
 		layout : 'vertical',
 		horizontalWrap : false,
@@ -39,144 +41,114 @@ function tao_ui(sv) {
 		scrollsToTop : false,
 		horizontalBounce : true,
 	});
+
+	sv.ui.WindowDK.add(sv.ui.scrollView);
 	sv.ui.lbl_Login = Ti.UI.createLabel({
 		width : Ti.App.size(280),
-		height : Ti.App.size(50),
 		text : 'ĐĂNG KÝ',
 		color : Ti.App.Color.white,
-		top : Ti.App.size(30),
 		font : {
 			fontSize : Ti.App.size(50)
 		},
+		top : Ti.App.size(30),
+		touchEnabled : false
 	});
-	sv.ui.circle1 = Ti.UI.createImageView({
-		width : Ti.App.size(400),
-		height : Ti.App.size(400),
-		borderRadius : Ti.App.size(400) / 2,
-		borderColor : 'black',
-		backgroundColor : 'transparent',
-		top : Ti.App.size(130),
-		opacity : 0.05,
-		borderWidth : 2
+	sv.ui.scrollView.add(sv.ui.lbl_Login);
+	sv.ui.view_avatar = Titanium.UI.createView({
+		width : Ti.App.size(456),
+		height : Ti.App.size(456),
+		backgroundImage : "/assets/images/icon/xxxjav.png",
+		top : Ti.App.size(30),
+		touchEnabled : false
 	});
-	sv.ui.circle2 = Ti.UI.createImageView({
-		width : Ti.App.size(320),
-		height : Ti.App.size(320),
-		borderRadius : Ti.App.size(320) / 2,
-		borderColor : 'black',
-		backgroundColor : 'transparent',
-		top : Ti.App.size(170),
-		opacity : 0.1,
-		borderWidth : 2
-	});
-	sv.ui.circle3 = Ti.UI.createImageView({
-		width : Ti.App.size(240),
-		height : Ti.App.size(240),
-		borderRadius : Ti.App.size(240) / 2,
-		borderColor : 'black',
-		backgroundColor : 'transparent',
-		top : Ti.App.size(210),
-		opacity : 0.15,
-		borderWidth : 2
-	});
+	sv.ui.scrollView.add(sv.ui.view_avatar);
 	sv.ui.avatar = Ti.UI.createImageView({
 		width : Ti.App.size(180),
 		height : Ti.App.size(180),
 		image : '/assets/images/icon/avatar-defaut.png',
-		top : Ti.App.size(240),
+		touchEnabled : false
 	});
-	sv.vari.txt1 = 'Nhập tài khoản';
-	sv.vari.txt2 = 'Nhập mật khẩu';
-	sv.vari.attr1 = Titanium.UI.iOS.createAttributedString({
-		text : sv.vari.txt1,
-		attributes :[{
-			type : Titanium.UI.iOS.ATTRIBUTE_FOREGROUND_COLOR,
-			value : 'white',
-			range : [0, sv.vari.txt1.length]
-		},]
-	});
-	sv.vari.attr2 = Titanium.UI.iOS.createAttributedString({
-		text : sv.vari.txt2,
-		attributes :[{
-			type : Titanium.UI.iOS.ATTRIBUTE_FOREGROUND_COLOR,
-			value : 'white',
-			range : [0, sv.vari.txt2.length]
-		},]
-		
-	});
+	sv.ui.view_avatar.add(sv.ui.avatar);
 	sv.ui.txtUser = Ti.UI.createTextField({
 		width : Ti.App.size(680),
 		height : Ti.App.size(90),
 		left : Ti.App.size(20),
 		right : Ti.App.size(20),
 		borderColor : Ti.App.Color.superwhite,
-		borderWidth : 2,
+		borderWidth : Ti.App.size(5),
 		textAlign : 'center',
-		color : Ti.App.Color.superwhite,
-		top : Ti.App.size(600),
-		backgroundColor : 'transparent',
-		attributedHintText : sv.vari.attr1,font : {
+		color : Ti.App.Color.nauden,
+		backgroundColor : Ti.App.Color.superwhite,
+		font : {
 			fontSize : Ti.App.size(40)
 		},
+		top : Ti.App.size(100),
+		autocorrect : false,
+		hintText : 'Nhập tài khoản',
 	});
+
+	sv.ui.scrollView.add(sv.ui.txtUser);
 	sv.ui.txtPassword = Ti.UI.createTextField({
 		width : Ti.App.size(680),
 		height : Ti.App.size(90),
 		left : Ti.App.size(20),
 		right : Ti.App.size(20),
 		borderColor : Ti.App.Color.superwhite,
-		borderWidth : 2,
-		attributedHintText : sv.vari.attr2,
+		borderWidth : Ti.App.size(5),
 		textAlign : 'center',
-		color : Ti.App.Color.superwhite,
-		top : Ti.App.size(720),
-		backgroundColor : 'transparent',font : {
+		color : Ti.App.Color.nauden,
+		backgroundColor : Ti.App.Color.superwhite,
+		font : {
 			fontSize : Ti.App.size(40)
 		},
+		top : Ti.App.size(30),
+		autocorrect : false,
+		hintText : 'Nhập mật khẩu'
 	});
-	sv.ui.btn_dangki=Ti.UI.createLabel({
-		width:Ti.App.size(680),
-		height:Ti.App.size(100),
-		backgroundColor:Ti.App.Color.gray,
-		text:'Đăng kí',
+
+	sv.ui.scrollView.add(sv.ui.txtPassword);
+	sv.ui.btn_dangki = Ti.UI.createLabel({
+		width : Ti.App.size(680),
+		height : Ti.App.size(100),
+		backgroundColor : Ti.App.Color.gray,
+		text : 'Đăng kí',
 		left : Ti.App.size(20),
 		right : Ti.App.size(20),
-		bottom:Ti.App.size(20),
-		color:Ti.App.Color.superwhite,
-		textAlign:'center',
+		color : Ti.App.Color.superwhite,
+		textAlign : 'center',
 		font : {
 			fontSize : Ti.App.size(50)
 		},
+		top : Ti.App.size(50),
+		backgroundSelectedColor : Ti.App.Color.xanhnhat
 	});
+	sv.ui.scrollView.add(sv.ui.btn_dangki);
 	/////////////
 	tao_event(sv);
-	sv.ui.btn_dangki.addEventListener('click',sv.fu.eventWindowChoose);
+	sv.ui.btn_dangki.addEventListener('click', sv.fu.event_dk);
 	sv.ui.WindowDK.addEventListener('open', sv.fu.openWindow);
 	sv.ui.WindowDK.addEventListener('close', sv.fu.closeWindow);
 	////////////////
-	sv.ui.WindowDK.add(sv.ui.btn_dangki);
-	sv.ui.WindowDK.add(sv.ui.txtPassword);
-	sv.ui.WindowDK.add(sv.ui.txtUser);
-	sv.ui.WindowDK.add(sv.ui.lbl_Login);
-	sv.ui.WindowDK.add(sv.ui.circle1);
-	sv.ui.WindowDK.add(sv.ui.circle2);
-	sv.ui.WindowDK.add(sv.ui.circle3);
-	sv.ui.WindowDK.add(sv.ui.avatar);
 }
 
 function tao_event(sv) {
-	sv.fu = {};
-	sv.fu.eventBackHome = function(e) {
-		sv.ui.WindowDK.close();
-	};
 	sv.fu.openWindow = function(e) {
 		Ti.API.info('open window');
 	};
-	sv.fu.eventWindowChoose=function(e){
-		sv.ui.WindowDK.close();
+	sv.fu.event_dk = function(e) {
+		if (sv.ui.txtUser.value == "" || sv.ui.txtPassword.value == "") {
+			alert("Bạn chưa nhập username hoặc password");
+		} else {
+			fn_updateImage2Server("register", {
+				"username" : sv.ui.txtUser.value,
+				"password" : sv.ui.txtPassword.value
+			}, sv);
+		}
+
 	};
 	sv.fu.closeWindow = function(e) {
-		sv.ui.btn_dangki.removeEventListener('click',sv.fu.eventWindowChoose);
+		Ti.API.info('close wd dang ki');
+		sv.ui.btn_dangki.removeEventListener('click', sv.fu.event_dk);
 		sv.ui.WindowDK.removeEventListener('open', sv.fu.openWindow);
 		sv.ui.WindowDK.removeEventListener('close', sv.fu.closeWindow);
 		sv.vari = null;
@@ -186,3 +158,38 @@ function tao_event(sv) {
 		sv = null;
 	};
 }
+
+function fn_updateImage2Server(_cmd, data, sv) {
+	var xhr = Titanium.Network.createHTTPClient();
+	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
+		alert('Kiểm tra kết nối mạng');
+	} else {
+		xhr.onsendstream = function(e) {
+			//ind.value = e.progress;
+			Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
+		};
+		// open the client
+		xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=' + _cmd);
+		xhr.setRequestHeader("Content-Type", "application/json-rpc");
+		Ti.API.info(JSON.stringify(data));
+		xhr.send(JSON.stringify(data));
+		xhr.onerror = function(e) {
+			Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
+		};
+		xhr.onload = function() {
+			Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
+			var dl = JSON.parse(this.responseText);
+			var jsonResuilt = JSON.parse(dl);
+			Ti.API.info('ket qua' + dl);
+			Ti.API.info('json' + jsonResuilt.code);
+			if (jsonResuilt.code == "0") {
+				sv.vari.wd_dangnhap = new sv.vari.wd_dn();
+				sv.vari.wd_dangnhap.open();
+				sv.ui.WindowDK.close();
+				Ti.API.info('dang ki thanh cong');
+			} else {
+				alert('Username đã bị sử dụng');
+			}
+		};
+	}
+};

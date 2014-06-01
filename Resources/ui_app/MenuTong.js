@@ -1,4 +1,4 @@
-module.exports = function() {
+module.exports = function(_quyen,_mangdv) {
 	var sv = {};
 	sv.fu = {};
 	sv.ui = {};
@@ -6,7 +6,7 @@ module.exports = function() {
 	sv.vari = {};
 	(function() {
 		taobien(sv);
-		taoui(sv);
+		taoui(sv, _quyen,_mangdv);
 	})();
 
 	return sv;
@@ -14,6 +14,7 @@ module.exports = function() {
 };
 function taobien(sv) {
 	sv.vari.kqoff = require('/ui_app/kq_offline');
+	sv.vari.popup = require('/ui_bongda/PopUpFalse');
 	////
 	sv.vari.footer = new (require('/ui_app/footer_1'));
 	sv.vari.ketqua_tructiep = require('/ui_soxo/WindowRealTime');
@@ -26,7 +27,6 @@ function taobien(sv) {
 	sv.vari.tuvan_bongda = require('/ui_bongda/TuVan');
 	/////
 
-	sv.arr.param = ['09808', '09808', '09808', '09808', '09808', '09990', '09788', '04358', '09899', '09111', '0978', '0435', '0981', '0911', '0978', '0435', '0981', '0911', '0978', '0435', '091', '091', '097', '04', '09', '01', '09'];
 	sv.arr.img_footer3 = [{
 		bg : "/assets/images/icon/icon-ketqua.png",
 		press : "/assets/images/icon/icon-ketqua_press.png",
@@ -68,11 +68,13 @@ function taobien(sv) {
 	//////
 
 };
-function taoui(sv) {
+function taoui(sv, _quyen,_mangdv) {
 	sv.ui.win = Ti.UI.createWindow({
 		backgroundColor : Ti.App.Color.superwhite,
 		navBarHidden : true,
-		exitOnClose : true
+		exitOnClose : true,
+		orientationModes : [Ti.UI.PORTRAIT],
+		keepScreenOn : true,
 	});
 	sv.ui.ViewHeader = Ti.UI.createView({
 		width : Ti.App.size(720),
@@ -164,7 +166,7 @@ function taoui(sv) {
 	sv.ui.ViewFooter.add(sv.ui.line_vfoot);
 	//sv.ui.ViewFooter.add(sv.vari.footer.ui.footer_soxo);
 	/////
-	taosukien(sv);
+	taosukien(sv, _quyen,_mangdv);
 
 	for (var i = 0; i < 4; i++) {
 		sv.vari.footer.arr.viewchucnangsoxo[i].addEventListener('click', sv.arr.evt_chucnangsoxo[i]);
@@ -186,7 +188,7 @@ function set_maubg(t1, t2, t3) {
 	t3.backgroundColor = Ti.App.Color.red;
 };
 
-function taosukien(sv) {
+function taosukien(sv, _quyen,_mangdv) {
 
 	/**
 	 * footer
@@ -215,7 +217,7 @@ function taosukien(sv) {
 						"startdate" : getYesterdaysDate()
 					}, sv, 1);
 				} else {
-					if (currHour() > 18) {
+					if (currHour() >= 18) {
 						sv.vari.view_kqsx.ui.View_header.text = "KẾT QUẢ SỔ XỐ MIỀN BẮC " + currDate();
 						fn_updateImage2Server("searchlottery", {
 							"provideid" : "MB",
@@ -227,6 +229,14 @@ function taosukien(sv) {
 		}
 		if (i == 1) {
 			sv.arr.evt_chucnangsoxo[i] = function(e) {
+
+				var db = Ti.Database.open('userinfo');
+				var sql = db.execute("SELECT * FROM SaveInfo");
+				Ti.API.info('du lieu:' + sql.getRowCount());
+				Ti.API.info('ket qua:' + sql.fieldByName("username") + sql.fieldByName("type") + sql.fieldByName("balance"));
+				sql.close();
+				db.close();
+
 				for (var j = 0; j < 4; j++) {
 					if (j == 1) {
 						sv.vari.footer.arr.viewchucnangsoxo[j].backgroundColor = Ti.App.Color.nauden;
@@ -238,29 +248,37 @@ function taosukien(sv) {
 
 				}
 				sv.ui.ViewTong.removeAllChildren();
-				sv.ui.view_thongke = new sv.vari.thongke();
+				sv.ui.view_thongke = new sv.vari.thongke(_mangdv);
 				sv.ui.ViewTong.add(sv.ui.view_thongke.ui.ViewTong);
+
 			};
 		}
 		if (i == 2) {
 			sv.arr.evt_chucnangsoxo[i] = function(e) {
-				for (var j = 0; j < 4; j++) {
-					if (j == 2) {
-						sv.vari.footer.arr.viewchucnangsoxo[j].backgroundColor = Ti.App.Color.nauden;
-						sv.vari.footer.arr.icon_footer3[j].image = sv.arr.img_footer3[j].press;
-					} else {
-						sv.vari.footer.arr.viewchucnangsoxo[j].backgroundColor = Ti.App.Color.superwhite;
-						sv.vari.footer.arr.icon_footer3[j].image = sv.arr.img_footer3[j].bg;
-					}
+				if (_quyen == "free") {
+					sv.vari.wd_popup = new sv.vari.popup(sv.ui.win);
+					sv.vari.wd_popup.open({
+						modal : Ti.Platform.osname == 'android' ? true : false
+					});
+				} else {
+					for (var j = 0; j < 4; j++) {
+						if (j == 2) {
+							sv.vari.footer.arr.viewchucnangsoxo[j].backgroundColor = Ti.App.Color.nauden;
+							sv.vari.footer.arr.icon_footer3[j].image = sv.arr.img_footer3[j].press;
+						} else {
+							sv.vari.footer.arr.viewchucnangsoxo[j].backgroundColor = Ti.App.Color.superwhite;
+							sv.vari.footer.arr.icon_footer3[j].image = sv.arr.img_footer3[j].bg;
+						}
 
+					}
+					sv.ui.ViewTong.removeAllChildren();
+					sv.vari.view_tuvan = new sv.vari.tuvan_soxo();
+					sv.ui.ViewTong.add(sv.vari.view_tuvan.ui.ViewTong);
+					// Ti.App.vIndicatorWindow.openIndicator(sv.vari.view_tuvan.ui.ViewTong);
+					// setTimeout(function() {
+					// Ti.App.vIndicatorWindow.closeIndicator(sv.vari.view_tuvan.ui.ViewTong);
+					// }, 2000);
 				}
-				sv.ui.ViewTong.removeAllChildren();
-				sv.vari.view_tuvan = new sv.vari.tuvan_soxo();
-				sv.ui.ViewTong.add(sv.vari.view_tuvan.ui.ViewTong);
-				// Ti.App.vIndicatorWindow.openIndicator(sv.vari.view_tuvan.ui.ViewTong);
-				// setTimeout(function() {
-				// Ti.App.vIndicatorWindow.closeIndicator(sv.vari.view_tuvan.ui.ViewTong);
-				// }, 2000);
 			};
 		}
 		if (i == 3) {
@@ -379,7 +397,6 @@ function taosukien(sv) {
 		sv.ui.ViewTong.removeAllChildren();
 		sv.vari.wdTTTD = new sv.vari.TTTD();
 		sv.ui.ViewTong.add(sv.vari.wdTTTD.ui.ViewTong);
-		
 		// Ti.App.vIndicatorWindow.openIndicator(sv.vari.wdTTTD.ui.ViewTong);
 		// setTimeout(function() {
 		// Ti.App.vIndicatorWindow.closeIndicator(sv.vari.wdTTTD.ui.ViewTong);
@@ -420,12 +437,21 @@ function taosukien(sv) {
 				"startdate" : getYesterdaysDate()
 			}, sv, 0);
 		} else {
-			if (currHour() >= 18) {
-				sv.vari.wdKQSX.ui.ViewHeader.text = "KẾT QUẢ SỔ XỐ MIỀN BẮC " + currDate();
+			if (currHour() == 18 && (0 <= currMin() <= 30)) {
+				sv.vari.wdKQSX.ui.ViewHeader.text = "ĐANG QUAY TRỰC TIẾP KQSXMB " + currDate();
 				fn_updateImage2Server("searchlottery", {
 					"provideid" : "MB",
 					"startdate" : currDate()
 				}, sv, 0);
+			} else {
+				if (currHour() > 18) {
+					sv.vari.wdKQSX.ui.ViewHeader.text = "KẾT QUẢ SỔ XỐ MIỀN BẮC " + currDate();
+					fn_updateImage2Server("searchlottery", {
+						"provideid" : "MB",
+						"startdate" : currDate()
+					}, sv, 0);
+				}
+
 			}
 		}
 	};
@@ -447,27 +473,37 @@ function taosukien(sv) {
 				"startdate" : getYesterdaysDate()
 			}, sv, 0);
 		} else {
-			if (currHour() >= 18) {
-				sv.vari.wdKQSX.ui.ViewHeader.text = "KẾT QUẢ SỔ XỐ MIỀN BẮC " + currDate();
+			if (currHour() == 18 && (0 <= currMin() <= 30)) {
+				sv.vari.wdKQSX.ui.ViewHeader.text = "ĐANG QUAY TRỰC TIẾP KQSXMB " + currDate();
 				fn_updateImage2Server("searchlottery", {
 					"provideid" : "MB",
 					"startdate" : currDate()
 				}, sv, 0);
+			} else {
+				if (currHour() > 18) {
+					sv.vari.wdKQSX.ui.ViewHeader.text = "KẾT QUẢ SỔ XỐ MIỀN BẮC " + currDate();
+					fn_updateImage2Server("searchlottery", {
+						"provideid" : "MB",
+						"startdate" : currDate()
+					}, sv, 0);
+				}
 			}
 		}
 
 	};
 	sv.fu.evt_win_close = function(e) {
-		sv.ui.win.removeEventListener('open', sv.fu.evt_win_open);
-		sv.ui.win.removeEventListener('close', sv.fu.evt_win_close);
 		for (var i = 0; i < 4; i++) {
 			sv.vari.footer.arr.viewchucnangsoxo[i].removeEventListener('click', sv.arr.evt_chucnangsoxo[i]);
 		}
 		for (var i = 0; i < 4; i++) {
 			sv.vari.footer.arr.viewchucnangbongda[i].removeEventListener('click', sv.arr.evt_chucnangbongda[i]);
 		};
+
 		sv.ui.View_icon_bongda.removeEventListener('click', sv.fu.evt_icon_bongda);
 		sv.ui.View_icon_soxo.removeEventListener('click', sv.fu.evt_icon_soxo);
+		sv.ui.View_icon_user.removeEventListener('click', sv.fu.EvtClickView_icon_user);
+		sv.ui.win.removeEventListener('open', sv.fu.evt_win_open);
+		sv.ui.win.removeEventListener('close', sv.fu.evt_win_close);
 		sv.ui = null;
 		sv.arr = null;
 		sv.vari = null;
@@ -475,16 +511,14 @@ function taosukien(sv) {
 		sv = null;
 	};
 };
-
-
-
-
-
+/////cmd:ten ham, data: param,sv,_choose:1-view quay truc tiep- 2- view so ket qua
 function fn_updateImage2Server(_cmd, data, sv, _choose) {
 	var xhr = Titanium.Network.createHTTPClient();
 	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
-		sv.ui.view_off = new sv.vari.kqoff();
-		sv.ui.view_off.testNetwork(sv.ui.win);
+		sv.ui.view_off = new sv.vari.kqoff("KQSX");
+		sv.ui.view_off.open({
+			modal : Ti.Platform.osname == 'android' ? true : false
+		});
 
 	} else {
 		xhr.onsendstream = function(e) {
@@ -528,7 +562,7 @@ function fn_updateImage2Server(_cmd, data, sv, _choose) {
 				}
 			}
 			if (_choose == 0) {
-				sv.vari.wdKQSX.ui.bangkq.setKQ(mangkq);
+				sv.vari.wdKQSX.ui.bangkq.setKQ_tructiep(mangkq);
 			} else {
 				if (_choose == 1) {
 					sv.vari.view_kqsx.ui.bangkq.setKQ(mangkq);
@@ -558,4 +592,9 @@ function currHour() {
 	var date = new Date();
 	var currhour = date.getHours();
 	return currhour;
+};
+function currMin() {
+	var date = new Date();
+	var currmin = date.getMinutes();
+	return currmin;
 };

@@ -17,17 +17,16 @@ module.exports = function() {
  * Khởi tạo biến
  */
 function createVariable(sv) {
+	sv.vari.wd_app = require('/ui_app/MenuTong');
 }
 
 function createUI(sv) {
 	sv.ui.Window = Ti.UI.createWindow({
 		backgroundColor : Ti.App.Color.white,
-		// width : Ti.App.widthScreen,
-		// height : Ti.App.heightScreen,
 		navBarHidden : true,
-		fullscreen : true,
+		exitOnClose : true,
+		orientationModes : [Ti.UI.PORTRAIT],
 		keepScreenOn : true,
-		top : 0,
 	});
 
 	sv.ui.viewtong = Ti.UI.createScrollView({
@@ -46,7 +45,6 @@ function createUI(sv) {
 		top : 0,
 	});
 
-
 	sv.ui.headerdangnhap = Ti.UI.createLabel({
 		text : 'ĐĂNG NHẬP',
 		font : {
@@ -58,7 +56,6 @@ function createUI(sv) {
 		top : Ti.App.size(40),
 		bottom : Ti.App.size(40),
 	});
-
 
 	//tao view dang nhap bang facebook
 	sv.ui.viewdnface = Ti.UI.createView({
@@ -182,10 +179,10 @@ function createUI(sv) {
 		borderColor : Ti.App.Color.magenta,
 		borderWidth : Ti.App.size(1),
 		font : {
-			fontSize : Ti.App.size(20),
-			fontFamily : 'Aria',
-			fontColor : Ti.App.Color.nauden,
+			fontSize : Ti.App.size(40),
 		},
+		autocorrect : false,
+		color : Ti.App.Color.nauden
 	});
 
 	sv.ui.tfpass = Ti.UI.createTextField({
@@ -197,10 +194,10 @@ function createUI(sv) {
 		borderColor : Ti.App.Color.magenta,
 		borderWidth : Ti.App.size(1),
 		font : {
-			fontSize : Ti.App.size(20),
-			fontFamily : 'Aria',
-			fontColor : Ti.App.Color.nauden,
+			fontSize : Ti.App.size(40),
 		},
+		autocorrect : false,
+		color : Ti.App.Color.nauden
 	});
 	//tao view dang nhap, view dang ky
 	sv.ui.viewdangnhap = Ti.UI.createView({
@@ -218,7 +215,7 @@ function createUI(sv) {
 			fontWeight : 'bold',
 			fontFamily : 'Aria'
 		},
-		color : Ti.App.Color.white,
+		color : Ti.App.Color.nauden,
 	});
 
 	sv.ui.viewdangky = Ti.UI.createView({
@@ -310,11 +307,20 @@ function createUI_Event(sv) {
 	};
 
 	sv.fu.eventClickviewdangnhap = function(e) {
-		fn_updateImage2Server("login",{"username":sv.ui.tfid.value,"password":sv.ui.tfpass.value},sv);
+		if (sv.ui.tfpass.value == "" || sv.ui.tfid == "") {
+			alert("Bạn chưa nhập username và password");
+
+		} else {
+			fn_updateImage2Server("login", {
+				"username" : sv.ui.tfid.value,
+				"password" : sv.ui.tfpass.value
+			}, sv);
+		}
+
 	};
 
 	sv.fu.eventClickviewdangky = function(e) {
-		var windk=new (require('/ui_app/WindowDk'));
+		var windk = new (require('/ui_app/WindowDk'));
 		windk.open();
 	};
 
@@ -340,7 +346,54 @@ function createUI_Event(sv) {
 		Ti.API.info('Closed window, sv=' + sv);
 	};
 }
+
 function fn_updateImage2Server(_cmd, data, sv) {
+
+	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
+		alert('Kiểm tra kết nối mạng');
+	} else {
+
+		var xhr = Titanium.Network.createHTTPClient();
+		xhr.onsendstream = function(e) {
+			//ind.value = e.progress;
+			Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
+		};
+		// open the client
+		xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=' + _cmd);
+		xhr.setRequestHeader("Content-Type", "application/json-rpc");
+		Ti.API.info(JSON.stringify(data));
+		xhr.send(JSON.stringify(data));
+		xhr.onerror = function(e) {
+			Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
+		};
+		xhr.onload = function() {
+			Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
+			var dl = JSON.parse(this.responseText);
+			var jsonResuilt = JSON.parse(dl);
+			Ti.API.info('ket qua' + dl);
+			Ti.API.info('json' + jsonResuilt.result.code);
+			if (jsonResuilt.result.code == "0") {
+				var db = Ti.Database.open('userinfo');
+				var sql = db.execute("SELECT * FROM SaveInfo");
+
+				var username = jsonResuilt.info.username;
+				var type = jsonResuilt.info.type;
+				var balance = jsonResuilt.info.balance;
+				Ti.API.info('dang nhap thanh cong');
+				db.execute('INSERT INTO SaveInfo(username,type,balance) VALUES(?,?,?)', username, type, balance);
+				fn_updateImage2Server_Dangnhap("getmenu", {
+					"username" : username
+				}, sv);
+				// sql.close();
+				// db.close();
+			} else {
+				alert('Sai username hoặc password');
+			}
+		};
+
+	}
+};
+function fn_updateImage2Server_Dangnhap(_cmd, data, sv) {
 	var xhr = Titanium.Network.createHTTPClient();
 	xhr.onsendstream = function(e) {
 		//ind.value = e.progress;
@@ -357,11 +410,40 @@ function fn_updateImage2Server(_cmd, data, sv) {
 	xhr.onload = function() {
 		Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
 		var dl = JSON.parse(this.responseText);
+		Ti.API.info('du lieu' + dl);
 		var jsonResuilt = JSON.parse(dl);
-		for(var i=0;i<(jsonResuilt.length);i++){
-			Ti.API.info('json'+jsonResuilt[i]);
+		var mang_dauso = [];
+		var mang_tendichvu = [];
+		for (var i = 0; i < (jsonResuilt.menus.length); i++) {
+			mang_dauso.push(jsonResuilt.menus[i].action);
+			mang_tendichvu.push(jsonResuilt.menus[i].name);
+			if (jsonResuilt.menus[i].params) {
+				Ti.API.info('param' + jsonResuilt.menus[i].params);
+			}
 		}
-
+		for (var i = 0; i < (mang_dauso.length); i++) {
+			Ti.API.info('dau so: ' + mang_dauso[i]);
+		};
+		var db = Ti.Database.open('userinfo');
+		var sql = db.execute("SELECT * FROM SaveInfo");
+		var username = sql.fieldByName("username");
+		Ti.API.info('username' + username);
+		// if (sql.isValidRow()) {
+		//
+		// db.execute('UPDATE SaveInfo set action1=? where username)', mang_dauso[0], username);
+		// db.execute('UPDATE SaveInfo set action2=? where username)', mang_dauso[1], username);
+		// db.execute('UPDATE SaveInfo set action3=? where username)', mang_dauso[2], username);
+		// db.execute('UPDATE SaveInfo set action4=? where username)', mang_dauso[3], username);
+		// db.execute('UPDATE SaveInfo set dv1=? where username)', mang_tendichvu[0], username);
+		// db.execute('UPDATE SaveInfo set dv2=? where username)', mang_tendichvu[1], username);
+		// db.execute('UPDATE SaveInfo set dv3=? where username)', mang_tendichvu[2], username);
+		// db.execute('UPDATE SaveInfo set dv4=? where username)', mang_tendichvu[3], username);
+		// }
+		var menutong = (require('ui_app/MenuTong'));
+		var home = new menutong(username);
+		home.ui.win.open();
+		sv.ui.Window.close();
+		// sql.close();
+		// db.close();
 	};
-
 };

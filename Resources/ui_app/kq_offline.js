@@ -1,75 +1,136 @@
-module.exports = function() {
-	var view_offline = Ti.UI.createView({
-		// width : Ti.App.size(720),
-		// height : Ti.App.size(1280),
-		backgroundColor : 'transparent',
-		zIndex : 100
+module.exports = function(_dauso) {
+	var sv = {};
+	sv.vari = {};
+	sv.arr = {};
+	sv.ui = {};
+	sv.fu = {};
+	sv.test = {};
+
+	(function() {
+		createVariable(sv);
+		createUI(sv,_dauso);
+	})();
+
+	return sv.ui.Window;
+};
+
+function createVariable(sv) {
+
+}
+
+function createUI(sv,_dauso) {
+	sv.ui.Window = Ti.UI.createWindow({
+		//backgroundColor : Ti.App.Color.nauden,
+		navBarHidden : true,
+		keepScreenOn : true,
 	});
-	view_offline.add(Ti.UI.createView({
-		width : "100%",
-		height : "100%",
-		backgroundColor : 'black',
-		opacity : 0.5,
-		zIndex : 0
+	sv.ui.Window.add(Ti.UI.createView({
+		backgroundColor : Ti.App.Color.nauden,
+		opacity : 0.3,
+		width:"100%",
+		height:"100%"
 	}));
-	var viewchua = Ti.UI.createView({
-		zIndex : 1,
-		width : Ti.App.size(720),
-		height : Ti.App.size(1280),
-		backgroundColor : 'transparent',
-		top : 0,
-		left : 0,
+
+	sv.ui.ViewPopUp = Ti.UI.createView({
+		height : Ti.App.size(560),
+		backgroundColor : Ti.App.Color.superwhite,
+		width:Ti.App.size(560)
 	});
-	view_offline.add(viewchua);
-	var label = Ti.UI.createLabel({
-		top : Ti.App.size(200),
-		width : Ti.UI.SIZE,
-		height : Ti.UI.SIZE,
+
+	sv.ui.ViewIcon = Ti.UI.createView({
+		top : Ti.App.size(0),
+		height : Ti.App.size(215),
+		left : Ti.App.size(0),
+		right : Ti.App.size(0),
+		backgroundColor : Ti.App.Color.red
+	});
+
+	sv.ui.Icon = Ti.UI.createImageView({
+		image : '/assets/images/icon/icon-close.png',
+		top : Ti.App.size(45),
+		left : Ti.App.size(215),
+		right : Ti.App.size(215),
+		bottom : Ti.App.size(45),
+	});
+
+	sv.ui.ThongBao1 = Ti.UI.createLabel({
+		text : 'KHÔNG CÓ KẾT NỐI',
+		top : Ti.App.size(230),
 		font : {
-			fontSize : Ti.App.size(50),
-			fontWeight : 'bold'
+			fontSize : Ti.App.size(40),
+			fontWeight : 'bold',
 		},
-		color : Ti.App.Color.superwhite,
-		text : 'KHÔNG CÓ KẾT NỐI MẠNG...'
+		textAlign : 'center'
 	});
-	viewchua.add(label);
-	var button = Ti.UI.createLabel({
-		top : Ti.App.size(300),
-		text : 'Soan tin nhan de xem ket qua',
-		width : Ti.UI.SIZE,
-		height : Ti.UI.SIZE,
+
+	sv.ui.ThongBao2 = Ti.UI.createLabel({
+		text : 'Gửi sms để nhận kết quả sổ xố',
 		font : {
-			fontSize : Ti.App.size(50),
-			fontWeight : 'bold'
+			fontSize : Ti.App.size(30)
 		},
-		color : Ti.App.Color.superwhite,
-	});
-	viewchua.add(button);
-	var thoat = Ti.UI.createLabel({
-		top : Ti.App.size(500),
-		text : 'Thoat',
+		color : Ti.App.Color.nauden,
 		width : Ti.UI.SIZE,
-		height : Ti.UI.SIZE,
-		font : {
-			fontSize : Ti.App.size(50),
-			fontWeight : 'bold'
-		},
-		color : Ti.App.Color.superwhite,
+		top : Ti.App.size(330)
 	});
-	viewchua.add(thoat);
-	view_offline.testNetwork = function(_currWin) {
-		if (Titanium.Network.networkType == Titanium.Network.NETWORK_NONE) {
-			_currWin.add(view_offline);
-			var evt_sms = function(e) {
-				var showSmsDialog = new (require('/ui-controller/showSmsDialog'))('88xx', 'KQSXMB');
-			};
-			var evt_thoat = function(e) {
-				_currWin.remove(view_offline);
-			};
-			button.addEventListener('click', evt_sms);
-			thoat.addEventListener('click', evt_thoat);
-		} 
+	sv.ui.button = Ti.UI.createLabel({
+		backgroundColor : Ti.App.Color.magenta,
+		width : Ti.App.size(300),
+		height : Ti.App.size(95),
+		text : "GỬI",
+		textAlign : "center",
+		bottom : Ti.App.size(30),
+		font : {
+			fontSize : Ti.App.size(30)
+		},
+		borderRadius : Ti.App.size(5),
+		color : Ti.App.Color.nauden
+	});
+
+	createUI_Event(sv,_dauso);
+
+	sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
+	sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
+	sv.ui.Icon.addEventListener('click', sv.fu.eventClickIcon);
+	sv.ui.button.addEventListener('click', sv.fu.evt_sms);
+	sv.ui.Window.add(sv.ui.ViewPopUp);
+
+	sv.ui.ViewPopUp.add(sv.ui.ViewIcon);
+
+	sv.ui.ViewIcon.add(sv.ui.Icon);
+	sv.ui.ViewPopUp.add(sv.ui.button);
+	sv.ui.ViewPopUp.add(sv.ui.ThongBao1);
+	sv.ui.ViewPopUp.add(sv.ui.ThongBao2);
+
+	sv.ui.ViewPopUp.add(sv.ui.ThongBao2);
+
+}
+
+function createUI_Event(sv,_dauso) {
+	sv.fu.evt_sms = function(e) {
+		var showSmsDialog = new (require('/ui-controller/showSmsDialog'))('88xx',_dauso);
 	};
 
-	return view_offline;
-};
+	sv.fu.eventClickIcon = function() {
+		sv.ui.Window.close();
+	};
+
+	sv.fu.eventOpenWindow = function() {
+		Ti.API.info('Opened window');
+	};
+
+	sv.fu.eventCloseWindow = function(e) {
+		sv.ui.Window.removeEventListener('open', sv.fu.eventOpenWindow);
+		sv.ui.Window.removeEventListener('close', sv.fu.eventCloseWindow);
+		sv.ui.Icon.removeEventListener('click', sv.fu.eventClickIcon);
+		sv.ui.button.removeEventListener('click', sv.fu.evt_sms);
+		sv.vari = null;
+		sv.arr = null;
+		sv.ui = null;
+		sv.fu = null;
+		sv.test = null;
+		sv = null;
+
+		Ti.API.info('Closed window, sv=' + sv);
+	};
+}
+

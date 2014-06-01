@@ -73,8 +73,8 @@ function tao_ui(sv) {
 
 	//////date picker
 	sv.ui.ViewPicker = Titanium.UI.createView({
-		width : Ti.App.size(720),
-		height : Ti.App.size(400),
+		width : Ti.UI.SIZE,
+		height : Ti.UI.SIZE,
 		visible : false,
 		bottom : 0,
 		zIndex : 10,
@@ -86,32 +86,11 @@ function tao_ui(sv) {
 		maxDate : new Date(),
 		top : Ti.App.size(100),
 		value : new Date(),
-		backgroundColor : Ti.App.Color.gray
+		backgroundColor : Ti.App.Color.nauden,
+		width : Ti.App.size(720),
 	});
 	sv.ui.ViewPicker.add(sv.ui.picker);
-	sv.ui.btn_pick = Ti.UI.createButton({
-		width : Ti.App.size(200),
-		height : Ti.App.size(100),
-		title : "Chọn",
-		color : Ti.App.Color.nauden,
-		font : {
-			fonSize : Ti.App.size(30)
-		},
-		backgroundColor : Ti.App.Color.gray,
-		top : 0,
-	});
-	sv.ui.ViewPicker.add(sv.ui.btn_pick);
-	sv.ui.btn_pick.addEventListener('click', function(e) {
-		sv.ui.lblfirst1.text = sv.vari.newdate;
-		sv.ui.ViewPicker.visible = false;
-	});
-	sv.ui.picker.addEventListener('change', function(e) {
-		sv.vari.date = e.value;
-		sv.vari.day = sv.vari.date.getDate();
-		sv.vari.month = sv.vari.date.getMonth() + 1;
-		sv.vari.year = sv.vari.date.getFullYear();
-		sv.vari.newdate = sv.vari.day + "/" + sv.vari.month + "/" + sv.vari.year;
-	});
+
 	////////////////////
 	sv.ui.scrollView = Ti.UI.createScrollView({
 		top : Ti.App.size(160),
@@ -146,6 +125,7 @@ function tao_ui(sv) {
 	sv.ui.ViewChua.add(sv.ui.bangkq_miennam);
 	////
 	createUI_Event(sv);
+	sv.ui.picker.addEventListener('change', sv.fu.event_picker);
 	sv.ui.View_icon_search.addEventListener('click', sv.fu.event_timkiem);
 	sv.ui.view_choose.addEventListener('click', sv.fu.event_click_view);
 	sv.ui.table_view.addEventListener('click', sv.fu.event_clicktbl);
@@ -153,6 +133,16 @@ function tao_ui(sv) {
 	sv.ui.scrollView.addEventListener('click', sv.fu.event_clickscrollview);
 };
 function createUI_Event(sv) {
+	sv.fu.event_picker = function(e) {
+		sv.vari.date = e.value;
+		sv.vari.day = sv.vari.date.getDate();
+		sv.vari.month = sv.vari.date.getMonth() + 1;
+		sv.vari.year = sv.vari.date.getFullYear();
+		sv.vari.newdate = sv.vari.day + "/" + sv.vari.month + "/" + sv.vari.year;
+		sv.ui.lblfirst1.text = sv.vari.newdate;
+	};
+
+	////
 	sv.fu.event_clickscrollview = function(e) {
 		sv.vari.flag = false;
 		if (sv.vari.flag == false) {
@@ -196,83 +186,90 @@ function createUI_Event(sv) {
 function fn_updateImage2Server(_cmd, data, sv) {
 	sv.ui.scrollView.scrollTo(0, 0);
 	var xhr = Titanium.Network.createHTTPClient();
-	xhr.onsendstream = function(e) {
-		//ind.value = e.progress;
-		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
-	};
-	// open the client
-	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=' + _cmd);
-	xhr.setRequestHeader("Content-Type", "application/json-rpc");
-	Ti.API.info(JSON.stringify(data));
-	xhr.send(JSON.stringify(data));
-	xhr.onerror = function(e) {
-		Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
-	};
-	xhr.onload = function() {
-		Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
-		var dl = JSON.parse(this.responseText);
-		var jsonResuilt = JSON.parse(dl);
-		if (_cmd == "searchlottery") {
-			var ketqua = [];
-			var mangstring;
-			var mangkq = [];
-			for (var i = 0; i < jsonResuilt.resulttable.length; i++) {
-				if (jsonResuilt.resulttable[i].provide) {
-					Ti.API.info('ten giai: ' + jsonResuilt.resulttable[i].provide.name);
-					Ti.API.info('ngay thang: ' + jsonResuilt.resulttable[i].resultdate);
-					for (var j = 0; j < jsonResuilt.resulttable[i].lines.length; j++) {
-						Ti.API.info('Thu tu: ' + jsonResuilt.resulttable[i].lines[j].name);
-						Ti.API.info('ket qua: ' + jsonResuilt.resulttable[i].lines[j].result);
-						ketqua.push(jsonResuilt.resulttable[i].lines[j].result);
-					};
-					for (var i = 0; i < (ketqua.length); i++) {
-						mangstring = (ketqua[i].toString()).split(',');
-						for (var j = 0; j < (mangstring.length); j++) {
-							// Ti.API.info('mang string:' + mangstring[j]);
-							mangkq.push(mangstring[j]);
+	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
+		sv.ui.view_off = new sv.vari.kqoff();
+		sv.ui.view_off.open({
+			modal : Ti.Platform.osname == 'android' ? true : false
+		});
+
+	} else {
+		xhr.onsendstream = function(e) {
+			//ind.value = e.progress;
+			Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
+		};
+		// open the client
+		xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=' + _cmd);
+		xhr.setRequestHeader("Content-Type", "application/json-rpc");
+		Ti.API.info(JSON.stringify(data));
+		xhr.send(JSON.stringify(data));
+		xhr.onerror = function(e) {
+			Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
+		};
+		xhr.onload = function() {
+			Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
+			var dl = JSON.parse(this.responseText);
+			var jsonResuilt = JSON.parse(dl);
+			if (_cmd == "searchlottery") {
+				var ketqua = [];
+				var mangstring;
+				var mangkq = [];
+				for (var i = 0; i < jsonResuilt.resulttable.length; i++) {
+					if (jsonResuilt.resulttable[i].provide) {
+						Ti.API.info('ten giai: ' + jsonResuilt.resulttable[i].provide.name);
+						Ti.API.info('ngay thang: ' + jsonResuilt.resulttable[i].resultdate);
+						for (var j = 0; j < jsonResuilt.resulttable[i].lines.length; j++) {
+							Ti.API.info('Thu tu: ' + jsonResuilt.resulttable[i].lines[j].name);
+							Ti.API.info('ket qua: ' + jsonResuilt.resulttable[i].lines[j].result);
+							ketqua.push(jsonResuilt.resulttable[i].lines[j].result);
 						};
-					}
-					if (mangkq.length <= 20) {
-						sv.ui.bangkq_miennam.visible = true;
-						sv.ui.bangkq.visible = false;
-						sv.ui.bangkq_miennam.setKQ(mangkq);
-					} else {
-						if (mangkq.length >= 20) {
-							sv.ui.bangkq_miennam.visible = false;
-							sv.ui.bangkq.visible = true;
-							sv.ui.bangkq.setKQ(mangkq);
+						for (var i = 0; i < (ketqua.length); i++) {
+							mangstring = (ketqua[i].toString()).split(',');
+							for (var j = 0; j < (mangstring.length); j++) {
+								// Ti.API.info('mang string:' + mangstring[j]);
+								mangkq.push(mangstring[j]);
+							};
+						}
+						if (mangkq.length <= 20) {
+							sv.ui.bangkq_miennam.visible = true;
+							sv.ui.bangkq.visible = false;
+							sv.ui.bangkq_miennam.setKQ(mangkq);
+						} else {
+							if (mangkq.length >= 20) {
+								sv.ui.bangkq_miennam.visible = false;
+								sv.ui.bangkq.visible = true;
+								sv.ui.bangkq.setKQ(mangkq);
+							}
+
 						}
 
+					} else {
+						sv.ui.bangkq.visible = true;
+						sv.ui.bangkq_miennam.visible = false;
+						sv.ui.bangkq.setKQ("");
+						alert('khong co du lieu');
 					}
-
-				} else {
-					sv.ui.bangkq.visible = true;
-					sv.ui.bangkq_miennam.visible = false;
-					sv.ui.bangkq.setKQ("");
-					alert('khong co du lieu');
 				}
+
+			} else {
+				if (_cmd == "getprovide") {
+					var ketqua;
+					var mangkq = [];
+					for (var i = 0; i < jsonResuilt.provides.length; i++) {
+						// Ti.API.info('ten giai: ' + jsonResuilt.provides[i].name);
+						// Ti.API.info('ten giai: ' + jsonResuilt.provides[i].id);
+						mangkq.push(jsonResuilt.provides[i]);
+					}
+					// for (var i = 0; i < (mangkq.length); i++) {
+					// Ti.API.info('mang kq' + mangkq[i].name);
+					// Ti.API.info('mang kq' + mangkq[i].id);
+					// }
+					sv.ui.view_choose.setTable(mangkq);
+				}
+
 			}
 
-		} else {
-			if (_cmd == "getprovide") {
-				var ketqua;
-				var mangkq = [];
-				for (var i = 0; i < jsonResuilt.provides.length; i++) {
-					// Ti.API.info('ten giai: ' + jsonResuilt.provides[i].name);
-					// Ti.API.info('ten giai: ' + jsonResuilt.provides[i].id);
-					mangkq.push(jsonResuilt.provides[i]);
-				}
-				// for (var i = 0; i < (mangkq.length); i++) {
-				// Ti.API.info('mang kq' + mangkq[i].name);
-				// Ti.API.info('mang kq' + mangkq[i].id);
-				// }
-				sv.ui.view_choose.setTable(mangkq);
-			}
-
-		}
-
-	};
-
+		};
+	}
 };
 function setbg(i, _bg) {
 	if (i == _bg) {
@@ -329,7 +326,7 @@ function currHour() {
 	return currhour;
 };
 function set_lbl() {
-	if (currHour >= 18) {
+	if (currHour() >= 18) {
 		return currDate();
 	} else {
 		return getYesterdaysDate();
