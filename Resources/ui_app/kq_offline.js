@@ -8,7 +8,7 @@ module.exports = function(_dauso) {
 
 	(function() {
 		createVariable(sv);
-		createUI(sv,_dauso);
+		createUI(sv, _dauso);
 	})();
 
 	return sv.ui.Window;
@@ -18,7 +18,7 @@ function createVariable(sv) {
 
 }
 
-function createUI(sv,_dauso) {
+function createUI(sv, _dauso) {
 	sv.ui.Window = Ti.UI.createWindow({
 		//backgroundColor : Ti.App.Color.nauden,
 		navBarHidden : true,
@@ -27,14 +27,14 @@ function createUI(sv,_dauso) {
 	sv.ui.Window.add(Ti.UI.createView({
 		backgroundColor : Ti.App.Color.nauden,
 		opacity : 0.3,
-		width:"100%",
-		height:"100%"
+		width : "100%",
+		height : "100%"
 	}));
 
 	sv.ui.ViewPopUp = Ti.UI.createView({
 		height : Ti.App.size(560),
 		backgroundColor : Ti.App.Color.superwhite,
-		width:Ti.App.size(560)
+		width : Ti.App.size(560)
 	});
 
 	sv.ui.ViewIcon = Ti.UI.createView({
@@ -42,7 +42,8 @@ function createUI(sv,_dauso) {
 		height : Ti.App.size(215),
 		left : Ti.App.size(0),
 		right : Ti.App.size(0),
-		backgroundColor : Ti.App.Color.red
+		backgroundColor : Ti.App.Color.red,
+		backgroundSelectedColor : Ti.App.Color.nauden
 	});
 
 	sv.ui.Icon = Ti.UI.createImageView({
@@ -51,6 +52,7 @@ function createUI(sv,_dauso) {
 		left : Ti.App.size(215),
 		right : Ti.App.size(215),
 		bottom : Ti.App.size(45),
+		touchEnabled : false
 	});
 
 	sv.ui.ThongBao1 = Ti.UI.createLabel({
@@ -83,10 +85,11 @@ function createUI(sv,_dauso) {
 			fontSize : Ti.App.size(30)
 		},
 		borderRadius : Ti.App.size(5),
-		color : Ti.App.Color.nauden
+		color : Ti.App.Color.nauden,
+		backgroundSelectedColor:Ti.App.Color.nauden
 	});
 
-	createUI_Event(sv,_dauso);
+	createUI_Event(sv, _dauso);
 
 	sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
 	sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
@@ -105,9 +108,9 @@ function createUI(sv,_dauso) {
 
 }
 
-function createUI_Event(sv,_dauso) {
+function createUI_Event(sv, _dauso) {
 	sv.fu.evt_sms = function(e) {
-		var showSmsDialog = new (require('/ui-controller/showSmsDialog'))('88xx',_dauso);
+		var showSmsDialog = new (require('/ui-controller/showSmsDialog'))('88xx', _dauso);
 	};
 
 	sv.fu.eventClickIcon = function() {

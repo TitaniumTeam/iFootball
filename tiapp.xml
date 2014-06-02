@@ -33,16 +33,16 @@
     <name>
 		iFootball
 	</name>
-    <version>1.0	</version>
-    <publisher>kimnamcham	</publisher>
-    <url>http://	</url>
+    <version>1.0</version>
+    <publisher>kimnamcham</publisher>
+    <url>http://</url>
     <description>
 		not specified
 	</description>
     <copyright>
 		2014 by KNC
 	</copyright>
-    <icon>logoapp.PNG</icon>
+    <icon>icon.png</icon>
     <fullscreen>
 		true
 	</fullscreen>
@@ -149,5 +149,5 @@
 			false
 		</target>
     </deployment-targets>
-    <sdk-version>3.2.2.GA</sdk-version>
+    <sdk-version>3.2.3.GA</sdk-version>
 </ti:app>

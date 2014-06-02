@@ -205,7 +205,8 @@ function createUI(sv) {
 		right : Ti.App.size(20),
 		top : Ti.App.size(855),
 		height : Ti.App.size(95),
-		backgroundColor : Ti.App.Color.magenta
+		backgroundColor : Ti.App.Color.green,
+		backgroundSelectedColor:Ti.App.Color.nauden
 	});
 
 	sv.ui.labelviewdn = Ti.UI.createLabel({
@@ -223,7 +224,8 @@ function createUI(sv) {
 		right : Ti.App.size(20),
 		top : Ti.App.size(965),
 		height : Ti.App.size(95),
-		backgroundColor : Ti.App.Color.nauden
+		backgroundColor : Ti.App.Color.nauden,
+		backgroundSelectedColor:Ti.App.Color.green
 	});
 
 	sv.ui.labelviewdk = Ti.UI.createLabel({
@@ -384,8 +386,8 @@ function fn_updateImage2Server(_cmd, data, sv) {
 				fn_updateImage2Server_Dangnhap("getmenu", {
 					"username" : username
 				}, sv);
-				// sql.close();
-				// db.close();
+				sql.close();
+				db.close();
 			} else {
 				alert('Sai username hoặc password');
 			}
@@ -437,5 +439,6 @@ function fn_updateImage2Server_Dangnhap(_cmd, data, sv) {
 		}
 		var home = new menutong(username, mangdv);
 		home.ui.win.open();
+		sv.ui.Window.close();
 	};
 };

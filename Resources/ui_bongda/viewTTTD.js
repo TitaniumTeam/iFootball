@@ -100,7 +100,8 @@ function tao_ui(sv) {
 	sv.ui.img_tuvan = Titanium.UI.createImageView({
 		width : Ti.App.size(74),
 		height : Ti.App.size(59),
-		image : '/assets/images/icon/icon-eye.png'
+		image : '/assets/images/icon/icon-eye.png',
+		touchEnabled : false
 	});
 	sv.ui.ViewTuVan.add(sv.ui.img_tuvan);
 	sv.ui.Vcontent.add(sv.ui.ViewTuVan);
@@ -109,10 +110,18 @@ function tao_ui(sv) {
 
 function setParam(sv) {
 	sv.setParam = function(_top, param) {
-		sv.ui.Vcontent.top = _top;
-		sv.ui.lbl_thoigian.text = param.date;
-		sv.ui.lbl_tendoi.text = param.ownerName + ' VS ' + param.guestName;
-		sv.ui.tiso.text = param.result;
+		if (param.date===""||param.date===undefined) {
+			sv.ui.Vcontent.top = _top;
+			sv.ui.lbl_thoigian.text = "Khong co du lieu";
+		} else {
+			sv.ui.Vcontent.top = _top;
+			sv.ui.lbl_thoigian.text = param.date;
+			sv.ui.lbl_tendoi.text = param.ownerName + ' VS ' + param.guestName;
+			if(param.result){
+				sv.ui.tiso.text = param.result;
+			}
+			
+		}
 
 	};
 };

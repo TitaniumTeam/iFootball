@@ -30,6 +30,8 @@ function taoui(sv, _mangdv) {
 		touchEnabled : true,
 		enableZoomControls : false,
 	});
+	sv.ui.webview.hide();
+	sv.ui.ViewTong.add(sv.ui.webview);
 	if (_mangdv == "" || _mangdv == undefined) {
 		Ti.API.info('server loi');
 	} else {
@@ -118,9 +120,16 @@ function fn_updateImage2Server(_cmd, data, sv) {
 		var jsonResuilt = JSON.parse(dl);
 		if (jsonResuilt.result.code == 0 && jsonResuilt.advisor) {
 			var link = jsonResuilt.advisor;
-			sv.ui.ViewTong.removeAllChildren();
-			sv.ui.ViewTong.add(sv.ui.webview);
+			// sv.ui.ViewTong.removeAllChildren();
+			// sv.ui.ViewTong.add(sv.ui.webview);
+			if(link){
+				sv.ui.tbl1.hide();
+			sv.ui.webview.show();
 			sv.ui.webview.setUrl(link);
+			}
+			else{
+				Ti.API.info('khong co link');
+			}
 		}
 
 	};

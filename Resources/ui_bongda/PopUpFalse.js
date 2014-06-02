@@ -43,7 +43,8 @@ function createUI(sv, _currWin) {
 		height : Ti.App.size(215),
 		left : Ti.App.size(0),
 		right : Ti.App.size(0),
-		backgroundColor : Ti.App.Color.red
+		backgroundColor : Ti.App.Color.red,
+		backgroundSelectedColor : Ti.App.Color.nauden
 	});
 
 	sv.ui.Icon = Ti.UI.createImageView({
@@ -52,6 +53,7 @@ function createUI(sv, _currWin) {
 		left : Ti.App.size(215),
 		right : Ti.App.size(215),
 		bottom : Ti.App.size(45),
+		touchEnabled : false
 	});
 
 	sv.ui.ThongBao1 = Ti.UI.createLabel({
@@ -85,7 +87,8 @@ function createUI(sv, _currWin) {
 			fontSize : Ti.App.size(30)
 		},
 		borderRadius : Ti.App.size(5),
-		color : Ti.App.Color.nauden
+		color : Ti.App.Color.nauden,
+		backgroundSelectedColor : Ti.App.Color.nauden
 	});
 
 	sv.ui.button_dn = Ti.UI.createLabel({
@@ -99,7 +102,8 @@ function createUI(sv, _currWin) {
 			fontSize : Ti.App.size(30)
 		},
 		borderRadius : Ti.App.size(5),
-		color : Ti.App.Color.nauden
+		color : Ti.App.Color.green,
+		backgroundSelectedColor : Ti.App.Color.nauden
 	});
 
 	createUI_Event(sv, _currWin);

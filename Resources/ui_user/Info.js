@@ -84,6 +84,8 @@ function createUI(sv) {
 	sv.vari.sql=sv.vari.db.execute("SELECT * FROM SaveInfo");
 	if(sv.vari.sql.isValidRow()){
 		sv.ui.LabelName.text=sv.vari.sql.fieldByName("username");
+		sv.vari.sql.close();
+		sv.vari.db.close();
 	}
 	else{
 		sv.ui.LabelName.text="USER FREE";
