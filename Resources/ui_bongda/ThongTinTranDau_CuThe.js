@@ -47,12 +47,23 @@ function createUI(sv) {
 	sv.ui.ViewTong = Ti.UI.createScrollView({
 		backgroundColor : Ti.App.Color.magenta,
 		top : 0,
-		left : 0
+		left : 0,
+		showVerticalScrollIndicator : 'true',
+		height : Ti.UI.FILL,
+		layout:'vertical',
+		disableBounce:true,
+		width:Ti.UI.FILL,
+		horizontalWrap:false,
+		// contentHeight:Ti.UI.FILL,
+		right:0
 	});
+	if(Ti.Platform.osname=="android"){
+		sv.ui.ViewTong.contentHeight=Ti.UI.FILL;
+	}
 	sv.ui.BGHeader = Ti.UI.createView({
 		right : Ti.App.size(0),
 		height : Ti.App.size(430),
-		top : Ti.App.size(0),
+		// top : Ti.App.size(0),
 		left : 0,
 		backgroundColor : Ti.App.Color.red_press
 	});
@@ -195,7 +206,7 @@ function createUI(sv) {
 
 	sv.ui.LbThongTinKeo = Ti.UI.createLabel({
 		text : 'Thông tin kèo',
-		top : Ti.App.size(430),
+		// top : Ti.App.size(430),
 		height : Ti.App.size(95),
 		left : Ti.App.size(40),
 		right : Ti.App.size(40),
@@ -209,7 +220,7 @@ function createUI(sv) {
 	});
 
 	sv.ui.ViewKeoChauA = Ti.UI.createView({
-		top : Ti.App.size(515),
+		// top : Ti.App.size(515),
 		width : Ti.App.size(640),
 		height : Ti.App.size(165),
 		left : Ti.App.size(40),
@@ -279,7 +290,7 @@ function createUI(sv) {
 	});
 
 	sv.ui.ViewTongSoBanThang = Ti.UI.createView({
-		top : Ti.App.size(700),
+		// top : Ti.App.size(700),
 		width : Ti.App.size(640),
 		height : Ti.App.size(165),
 		left : Ti.App.size(40),
@@ -349,7 +360,7 @@ function createUI(sv) {
 	});
 
 	sv.ui.ViewKeoChauAu = Ti.UI.createView({
-		top : Ti.App.size(885),
+		// top : Ti.App.size(885),
 		width : Ti.App.size(640),
 		height : Ti.App.size(165),
 		left : Ti.App.size(40),
@@ -419,7 +430,7 @@ function createUI(sv) {
 	});
 
 	sv.ui.ViewTyLeAn = Ti.UI.createView({
-		top : Ti.App.size(1075),
+		// top : Ti.App.size(1075),
 		width : Ti.App.size(640),
 		height : Ti.App.size(165),
 		left : Ti.App.size(40),
@@ -511,7 +522,7 @@ function createUI(sv) {
 	});
 
 	sv.ui.ViewCaCuocTySo = Ti.UI.createView({
-		top : Ti.App.size(1260),
+		// top : Ti.App.size(1260),
 		width : Ti.App.size(640),
 		height : Ti.App.size(460),
 		left : Ti.App.size(40),

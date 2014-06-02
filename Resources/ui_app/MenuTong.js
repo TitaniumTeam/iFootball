@@ -22,9 +22,12 @@ function taobien(sv) {
 	sv.vari.tuvan_soxo = require('/ui_soxo/tuvan');
 	sv.vari.thongke = require('/ui_soxo/ThongKe_dynamic');
 	////////
-	sv.vari.TTTD = require('/ui_bongda/ThongTinTranDau');
+	// sv.vari.TTTD = require('/ui_bongda/ThongTinTranDau');
 	sv.vari.tintuc = require('/ui_bongda/News');
-	sv.vari.tuvan_bongda = require('/ui_bongda/TuVan');
+	// sv.vari.tuvan_bongda = require('/ui_bongda/TuVan');
+	///version old
+	sv.vari.TTTD = require('/ui_bongda/thongtin_old');
+	sv.vari.tuvan_bongda = require('/ui_bongda/tuvan_old');
 	/////
 
 	sv.arr.img_footer3 = [{

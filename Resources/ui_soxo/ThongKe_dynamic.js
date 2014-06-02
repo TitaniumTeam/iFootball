@@ -22,6 +22,14 @@ function taoui(sv, _mangdv) {
 		width : Ti.App.size(720),
 		height : Ti.UI.FILL,
 	});
+	sv.ui.webview = Ti.UI.createWebView({
+		width : Ti.UI.FILL,
+		height : Ti.UI.FILL,
+		showScrollbars : true,
+		scalesPageToFit : true,
+		touchEnabled : true,
+		enableZoomControls : false,
+	});
 	if (_mangdv == "" || _mangdv == undefined) {
 		Ti.API.info('server loi');
 	} else {
@@ -52,18 +60,10 @@ function taoui(sv, _mangdv) {
 			left : Ti.App.size(20)
 		});
 		sv.ui.ViewTong.add(sv.ui.tbl1);
+		tao_sukien(sv);
+		sv.ui.tbl1.addEventListener('click', sv.fu.evt_tblrow_click);
 	}
 
-	sv.ui.webview = Ti.UI.createWebView({
-		width : Ti.UI.FILL,
-		height : Ti.UI.FILL,
-		showScrollbars : true,
-		scalesPageToFit : true,
-		touchEnabled : true,
-		enableZoomControls : false
-	});
-	tao_sukien(sv);
-	sv.ui.tbl1.addEventListener('click', sv.fu.evt_tblrow_click);
 };
 function tao_sukien(sv) {
 	sv.fu.evt_tblrow_click = function(e) {
