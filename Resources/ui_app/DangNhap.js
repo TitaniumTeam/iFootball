@@ -235,7 +235,7 @@ function createUI(sv) {
 			fontWeight : 'bold',
 			fontFamily : 'Aria'
 		},
-		color : Ti.App.Color.white,
+		color : Ti.App.Color.superwhite,
 	});
 
 	//tao quen mat khau

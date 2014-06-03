@@ -22,19 +22,19 @@ function taoui(sv, _mangdv) {
 		width : Ti.App.size(720),
 		height : Ti.UI.FILL,
 	});
-	sv.ui.webview = Ti.UI.createWebView({
-		width : Ti.UI.FILL,
-		height : Ti.UI.FILL,
-		showScrollbars : true,
-		scalesPageToFit : true,
-		touchEnabled : true,
-		enableZoomControls : false,
-	});
-	sv.ui.webview.hide();
-	sv.ui.ViewTong.add(sv.ui.webview);
 	if (_mangdv == "" || _mangdv == undefined) {
 		Ti.API.info('server loi');
 	} else {
+		sv.ui.webview = Ti.UI.createWebView({
+			width : Ti.UI.FILL,
+			height : Ti.UI.FILL,
+			showScrollbars : true,
+			scalesPageToFit : true,
+			touchEnabled : true,
+			enableZoomControls : false,
+		});
+
+		// sv.ui.webview.hide();
 		for (var i = 1; i < (_mangdv.name.length); i++) {
 			sv.ui.row = Ti.UI.createTableViewRow({
 				width : Ti.App.size(640),
@@ -109,8 +109,6 @@ function fn_updateImage2Server(_cmd, data, sv) {
 	xhr.send(JSON.stringify(data));
 	xhr.onerror = function(e) {
 		Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
-		var home = new menutong("free");
-		home.ui.win.open();
 
 	};
 	xhr.onload = function() {
@@ -119,15 +117,15 @@ function fn_updateImage2Server(_cmd, data, sv) {
 		Ti.API.info('du lieu' + dl);
 		var jsonResuilt = JSON.parse(dl);
 		if (jsonResuilt.result.code == 0 && jsonResuilt.advisor) {
-			var link = jsonResuilt.advisor;
-			// sv.ui.ViewTong.removeAllChildren();
-			// sv.ui.ViewTong.add(sv.ui.webview);
-			if(link){
-				sv.ui.tbl1.hide();
-			sv.ui.webview.show();
-			sv.ui.webview.setUrl(link);
-			}
-			else{
+			// var link = jsonResuilt.advisor;
+
+			if (jsonResuilt.advisor) {
+				// sv.ui.tbl1.hide();
+				// sv.ui.webview.show();
+				sv.ui.ViewTong.removeAllChildren();
+				sv.ui.ViewTong.add(sv.ui.webview);
+				sv.ui.webview.url = jsonResuilt.advisor;
+			} else {
 				Ti.API.info('khong co link');
 			}
 		}

@@ -12,8 +12,7 @@ module.exports = function() {
 	return sv;
 };
 function taobien(sv) {
-	sv.arr.so_chucnang_soxo = 4;
-	sv.arr.viewchucnangsoxo = [];
+	sv.arr.icon_footer1 = [];
 	sv.arr.icon_footer3 = [];
 	sv.arr.img_footer3 = [{
 		bg : "/assets/images/icon/icon-ketqua.png",
@@ -33,6 +32,8 @@ function taobien(sv) {
 		title : "VIP"
 	}];
 	////cac mang bong da
+	sv.arr.so_chucnang_soxo = 4;
+	sv.arr.viewchucnangsoxo = [];
 	sv.arr.so_chucnang_bongda = 4;
 	sv.arr.viewchucnangbongda = [];
 	sv.arr.icon_footer1 = [];

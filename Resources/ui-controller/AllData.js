@@ -8,7 +8,7 @@ function AllData() {
 	Ti.App.vIndicatorWindow = new (require('/ui-controller/vIndicatorWindow'))();
 	// Ti.App.showSmsDialog=new (require('/ui-controller/showSmsDialog'))();
 	// size
-	var SizeMultiScreen = new (require('ui-controller/SizeMultiScreen'))(2);
+	var SizeMultiScreen = new (require('/ui-controller/SizeMultiScreen'))(2);
 	Ti.App.widthScreen = SizeMultiScreen.widthApp;
 	Ti.App.heightScreen = SizeMultiScreen.heightApp;
 	Ti.App.size = SizeMultiScreen.size;

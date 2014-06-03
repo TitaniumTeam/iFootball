@@ -44,7 +44,7 @@ function createUI(sv, _currWin) {
 		left : Ti.App.size(0),
 		right : Ti.App.size(0),
 		backgroundColor : Ti.App.Color.red,
-		backgroundSelectedColor : Ti.App.Color.nauden
+
 	});
 
 	sv.ui.Icon = Ti.UI.createImageView({
@@ -53,7 +53,7 @@ function createUI(sv, _currWin) {
 		left : Ti.App.size(215),
 		right : Ti.App.size(215),
 		bottom : Ti.App.size(45),
-		touchEnabled : false
+		backgroundSelectedColor : Ti.App.Color.nauden
 	});
 
 	sv.ui.ThongBao1 = Ti.UI.createLabel({

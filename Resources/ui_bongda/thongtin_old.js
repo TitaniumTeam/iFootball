@@ -18,7 +18,7 @@ function tao_bien(sv) {
 	sv.vari.bxh = require('/ui_bongda/BangXepHang');
 	sv.vari.TTTD_cuthe = require('/ui_bongda/ThongTinTranDau_CuThe');
 	sv.arr.trandau = [];
-	sv.arr.trandau.id;
+	sv.arr.trandau.id
 	sv.arr.param = [];
 	sv.arr.param[0] = [{
 		matchid : 11,
@@ -63,7 +63,37 @@ function tao_bien(sv) {
 		guestName : 'RealMarid',
 		result : '1-6'
 	}];
-	sv.arr.param[3] = [{}];
+	sv.arr.param[3] = [{
+		matchid : 76,
+		date : '18:00 - 22/7',
+		ownerName : 'Barca',
+		guestName : 'RealMarid',
+		result : '1-6'
+	}, {
+		matchid : 76,
+		date : '18:00 - 22/7',
+		ownerName : 'Barca',
+		guestName : 'RealMarid',
+		result : '1-6'
+	}, {
+		matchid : 76,
+		date : '18:00 - 22/7',
+		ownerName : 'Barca',
+		guestName : 'RealMarid',
+		result : '1-6'
+	}, {
+		matchid : 76,
+		date : '18:00 - 22/7',
+		ownerName : 'Barca',
+		guestName : 'RealMarid',
+		result : '1-6'
+	}, {
+		matchid : 76,
+		date : '18:00 - 22/7',
+		ownerName : 'Barca',
+		guestName : 'RealMarid',
+		result : '1-6'
+	}];
 	sv.arr.data = [{
 		title : 'Premier League',
 		id : 1

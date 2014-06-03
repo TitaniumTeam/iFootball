@@ -62,7 +62,37 @@ function tao_bien(sv) {
 		guestName : 'RealMarid',
 		result : '1-6'
 	}];
-	sv.arr.param[3] = [{}];
+	sv.arr.param[3] = [{
+		matchid : 76,
+		date : '18:00 - 22/7',
+		ownerName : 'Barca',
+		guestName : 'RealMarid',
+		result : '1-6'
+	}, {
+		matchid : 76,
+		date : '18:00 - 22/7',
+		ownerName : 'Barca',
+		guestName : 'RealMarid',
+		result : '1-6'
+	}, {
+		matchid : 76,
+		date : '18:00 - 22/7',
+		ownerName : 'Barca',
+		guestName : 'RealMarid',
+		result : '1-6'
+	}, {
+		matchid : 76,
+		date : '18:00 - 22/7',
+		ownerName : 'Barca',
+		guestName : 'RealMarid',
+		result : '1-6'
+	}, {
+		matchid : 76,
+		date : '18:00 - 22/7',
+		ownerName : 'Barca',
+		guestName : 'RealMarid',
+		result : '1-6'
+	}];
 	sv.arr.data = [{
 		title : 'Premier League',
 		id : 1
@@ -199,14 +229,14 @@ function tao_ui(sv) {
 		sv.ui.viewRow.add(sv.ui.viewArow);
 		sv.ui.ViewChua.add(sv.ui.viewBack);
 		// if (i == 0) {
-			for ( j = 0; j < sv.arr.param[i].length; j++) {
-				sv.ui.vThongtinTD = new sv.vari.viewTTTD();
-				sv.ui.vThongtinTD.setParam(Ti.App.size(140 * j), sv.arr.param[i][j]);
-				sv.ui.vThongtinTD.setTuVan(true);
-				sv.ui.viewBack.add(sv.ui.vThongtinTD.ui.Vcontent);
-				sv.arr.trandau.push(sv.ui.vThongtinTD.ui.Viewthongtin);
-				sv.arr.view_tuvan.push(sv.ui.vThongtinTD.ui.ViewTuVan);
-			}
+		for ( j = 0; j < sv.arr.param[i].length; j++) {
+			sv.ui.vThongtinTD = new sv.vari.viewTTTD();
+			sv.ui.vThongtinTD.setParam(Ti.App.size(140 * j), sv.arr.param[i][j]);
+			sv.ui.vThongtinTD.setTuVan(true);
+			sv.ui.viewBack.add(sv.ui.vThongtinTD.ui.Vcontent);
+			sv.arr.trandau.push(sv.ui.vThongtinTD.ui.Viewthongtin);
+			sv.arr.view_tuvan.push(sv.ui.vThongtinTD.ui.ViewTuVan);
+		}
 		sv.arr.viewrows.push(sv.ui.viewGD);
 		sv.arr.viewarrows.push(sv.ui.viewArow);
 		sv.arr.rows.push(sv.ui.row);

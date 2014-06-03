@@ -58,26 +58,10 @@ function tao_ui(sv) {
 		},
 		textAlign : 'center',
 		backgroundColor : Ti.App.Color.magenta,
-		text:"Thống kê Miền Bắc"
+		text : "Thống kê Miền Bắc"
 	});
 	sv.ui.ViewTong.add(sv.ui.View_header);
-	sv.ui.View_icon_search = Titanium.UI.createView({
-		width : Ti.App.size(140),
-		height : Ti.App.size(100),
-		backgroundSelectedColor : Ti.App.Color.xanhnhat,
-		backgroundColor :Ti.App.Color.green,
-		top : Ti.App.size(60),
-		right : 0
-	});
-	sv.ui.icon_search = Titanium.UI.createImageView({
-		width : Ti.App.size(60),
-		height : Ti.App.size(60),
-		backgroundImage : '/assets/images/icon/icon-search.png',
-		touchEnabled : false
-	});
-	sv.ui.View_icon_search.add(sv.ui.icon_search);
-	sv.ui.ViewTong.add(sv.ui.View_icon_search);
-	sv.ui.view_choose = new sv.vari.combobox(Ti.App.size(60), 'MIỀN BẮC', 0, Ti.App.size(580), Ti.App.size(160));
+	sv.ui.view_choose = new sv.vari.combobox(Ti.App.size(60), 'MIỀN BẮC', 0, Ti.App.size(720), Ti.App.size(160));
 	sv.ui.lblfirst = sv.ui.view_choose.getLblFirst();
 	sv.ui.table_view = sv.ui.view_choose.getTableView();
 	sv.ui.ViewTong.add(sv.ui.view_choose);
@@ -184,24 +168,11 @@ function tao_ui(sv) {
 		top : Ti.App.size(20)
 	});
 	sv.ui.scrollView.add(sv.ui.lbl_header_hayve);
-	sv.ui.viewTonghayve = Ti.UI.createView({
-		width : Ti.App.size(670),
-		height : Ti.UI.SIZE,
-		left : Ti.App.size(25),
-		backgroundColor : 'transparent',
-		touchEnabled : false,
-		font : {
-			fontSize : Ti.App.size(20)
-		},
-	});
-	sv.ui.scrollView.add(sv.ui.viewTonghayve);
-	for (var i = 0; i < 4; i++) {
-		sv.arr.view_sohayve[i] = Ti.UI.createView({
+	for (var i = 0; i < 8; i++) {
+		sv.arr.view_sohayve[i] = Ti.UI.createTableViewRow({
 			width : Ti.App.size(670),
 			height : Ti.App.size(65),
 			left : 0,
-			borderColor : Ti.App.Color.magenta,
-			borderWidth : Ti.App.size(2),
 			backgroundColor : 'transparent',
 			touchEnabled : false,
 			top : Ti.App.size(65 * i)
@@ -257,8 +228,19 @@ function tao_ui(sv) {
 		sv.arr.view_sohayve[i].add(sv.arr.tile_sohayve[i]);
 		sv.arr.view_sohayve[i].add(sv.arr.tansuat_sohayve[i]);
 		sv.arr.view_sohayve[i].add(sv.arr.sohayve[i]);
-		sv.ui.viewTonghayve.add(sv.arr.view_sohayve[i]);
 	};
+	sv.ui.viewTonghayve = Ti.UI.createTableView({
+		width : Ti.App.size(670),
+		height : Ti.UI.SIZE,
+		left : Ti.App.size(25),
+		backgroundColor : 'transparent',
+		touchEnabled : false,
+		borderColor : Ti.App.Color.magenta,
+		borderWidth : Ti.App.size(2),
+		separatorColor : Ti.App.Color.magenta,
+		data : sv.arr.view_sohayve
+	});
+	sv.ui.scrollView.add(sv.ui.viewTonghayve);
 
 	////view cac cap so ra lien tiep
 	sv.ui.lbl_capsolientiep = Ti.UI.createLabel({
@@ -276,19 +258,9 @@ function tao_ui(sv) {
 		top : Ti.App.size(20)
 	});
 	sv.ui.scrollView.add(sv.ui.lbl_capsolientiep);
-	sv.ui.viewTongcapso = Ti.UI.createView({
-		width : Ti.App.size(670),
-		height : Ti.UI.SIZE,
-		left : Ti.App.size(25),
-		backgroundColor : 'transparent',
-		touchEnabled : false,
-		font : {
-			fontSize : Ti.App.size(20)
-		},
-	});
-	sv.ui.scrollView.add(sv.ui.viewTongcapso);
-	for (var i = 0; i < 3; i++) {
-		sv.arr.view_capsolt[i] = Ti.UI.createView({
+
+	for (var i = 0; i < 4; i++) {
+		sv.arr.view_capsolt[i] = Ti.UI.createTableViewRow({
 			width : Ti.App.size(670),
 			height : Ti.App.size(65),
 			left : 0,
@@ -354,24 +326,31 @@ function tao_ui(sv) {
 		sv.arr.view_capsolt[i].add(sv.arr.capso2[i]);
 		sv.arr.view_capsolt[i].add(sv.arr.ngay1[i]);
 		sv.arr.view_capsolt[i].add(sv.arr.capso1[i]);
-		sv.ui.viewTongcapso.add(sv.arr.view_capsolt[i]);
 	};
+	sv.ui.viewTongcapso = Ti.UI.createTableView({
+		width : Ti.App.size(670),
+		height : Ti.UI.FILL,
+		left : Ti.App.size(25),
+		backgroundColor : 'transparent',
+		touchEnabled : false,
+		data : sv.arr.view_capsolt,
+		borderColor : Ti.App.Color.magenta,
+		borderWidth : Ti.App.size(2),
+		separatorColor : Ti.App.Color.magenta,
+	});
+	sv.ui.scrollView.add(sv.ui.viewTongcapso);
+
 	////
 	createUI_Event(sv);
 	sv.ui.view_choose.addEventListener('click', sv.fu.event_click_view);
 	sv.ui.table_view.addEventListener('click', sv.fu.event_clicktbl);
-	sv.ui.View_icon_search.addEventListener('click',sv.fu.event_clicktimkiem);
-	sv.ui.scrollView.addEventListener('click',sv.fu.event_clickscrollview);
+	sv.ui.scrollView.addEventListener('click', sv.fu.event_clickscrollview);
 };
 function createUI_Event(sv) {
-	sv.fu.event_clicktimkiem=function(e){
-		sv.ui.View_header.text="Thống kê "+sv.ui.lblfirst.text;
-	};
 	sv.fu.event_clickscrollview = function(e) {
 		sv.vari.flag = false;
 		if (sv.vari.flag == false) {
 			sv.ui.table_view.visible = false;
-			sv.ui.ViewPicker.visible = false;
 		};
 	};
 	sv.fu.event_click_view = function(e) {
@@ -382,6 +361,7 @@ function createUI_Event(sv) {
 	sv.fu.event_clicktbl = function(e) {
 		sv.vari.flag = true;
 		tbl_click(e, sv.ui.lblfirst, sv.ui.table_view, sv);
+		sv.ui.View_header.text = "Thống kê " + sv.ui.lblfirst.text;
 	};
 };
 function fn_updateImage2Server(_cmd, data, sv) {
@@ -443,7 +423,7 @@ function fn_updateImage2Server(_cmd, data, sv) {
 						Ti.API.info('mang kq' + mangkq[i].id);
 					}
 					sv.ui.view_choose.setTable(mangkq);
-					
+
 				}
 
 			}
