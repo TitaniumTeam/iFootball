@@ -18,7 +18,7 @@ function tao_bien(sv) {
 	sv.vari.bxh = require('/ui_bongda/BangXepHang');
 	sv.vari.TTTD_cuthe = require('/ui_bongda/ThongTinTranDau_CuThe');
 	sv.arr.trandau = [];
-	sv.arr.trandau.id
+	sv.arr.trandau.id;
 	sv.arr.param = [];
 	sv.arr.param[0] = [{
 		matchid : 11,

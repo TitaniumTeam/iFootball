@@ -54,10 +54,17 @@ function createUI(sv) {
 	sv.ui.ViewChua = Ti.UI.createScrollView({
 		top : 0,
 		width : Ti.App.size(720),
+		left : 0,
+		right : 0,
 		layout : 'vertical',
+		horizontalWrap : false,
+		scrollType : 'vertical',
 		backgroundColor : Ti.App.Color.magenta,
+		showHorizontalScrollIndicator : false,
 		showVerticalScrollIndicator : true,
-		height : Ti.UI.FILL
+		disableBounce : true,
+		horizontalBounce : true,
+		height : Ti.UI.FILL,
 
 	});
 	sv.ui.ViewTong.add(sv.ui.ViewChua);

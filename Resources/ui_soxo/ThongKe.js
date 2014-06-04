@@ -110,7 +110,7 @@ function tao_ui(sv) {
 			height : Ti.App.size(65),
 			left : Ti.App.size(25),
 			borderColor : Ti.App.Color.magenta,
-			borderWidth : Ti.App.size(2),
+			borderWidth : Ti.App.size(3),
 			top : set_top(i),
 			backgroundColor : 'transparent',
 			touchEnabled : false
@@ -119,7 +119,7 @@ function tao_ui(sv) {
 			width : Ti.App.size(70),
 			height : Ti.App.size(63),
 			borderColor : Ti.App.nauden,
-			borderWidth : Ti.App.size(1),
+			borderWidth : Ti.App.size(2),
 			left : Ti.App.size(25),
 			font : {
 				fontSize : Ti.App.size(30),
@@ -329,7 +329,7 @@ function tao_ui(sv) {
 	};
 	sv.ui.viewTongcapso = Ti.UI.createTableView({
 		width : Ti.App.size(670),
-		height : Ti.UI.FILL,
+		height : Ti.UI.SIZE,
 		left : Ti.App.size(25),
 		backgroundColor : 'transparent',
 		touchEnabled : false,
@@ -362,6 +362,7 @@ function createUI_Event(sv) {
 		sv.vari.flag = true;
 		tbl_click(e, sv.ui.lblfirst, sv.ui.table_view, sv);
 		sv.ui.View_header.text = "Thống kê " + sv.ui.lblfirst.text;
+		sv.ui.scrollView.scrollTo(0,0);
 	};
 };
 function fn_updateImage2Server(_cmd, data, sv) {

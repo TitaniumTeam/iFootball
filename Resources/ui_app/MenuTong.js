@@ -19,7 +19,7 @@ function taobien(sv) {
 	// sv = new (require('/ui_app/footer_1'));
 	sv.vari.ketqua_tructiep = require('/ui_soxo/WindowRealTime');
 	sv.vari.ketquasx = require('/ui_soxo/KetQuaSX');
-	sv.vari.tuvan_soxo = require('/ui_soxo/ThongKe_dynamic');
+	sv.vari.tuvan_soxo = require('/ui_soxo/TuVan');
 	sv.vari.thongke = require('/ui_soxo/ThongKe');
 	////////
 	// sv.vari.TTTD = require('/ui_bongda/ThongTinTranDau');
@@ -315,16 +315,6 @@ function taosukien(sv, _quyen, _mangdv) {
 		}
 		if (i == 2) {
 			sv.arr.evt_chucnangsoxo[i] = function(e) {
-
-				sv.vari.db = Ti.Database.open('userinfo');
-				sv.vari.sql = sv.vari.db.execute("SELECT * FROM SaveInfo");
-				Ti.API.info('du lieu:' + sv.vari.sql.getRowCount());
-				if (sv.vari.sql.isValidRow()) {
-					Ti.API.info('ket qua:' + sv.vari.sql.fieldByName("username") + sv.vari.sql.fieldByName("type") + sv.vari.sql.fieldByName("balance"));
-				}
-
-				sv.vari.sql.close();
-				sv.vari.db.close();
 				for (var j = 0; j < 4; j++) {
 					if (j == 2) {
 						sv.arr.viewchucnangsoxo[j].backgroundColor = Ti.App.Color.nauden;
@@ -529,6 +519,18 @@ function taosukien(sv, _quyen, _mangdv) {
 	 * **/
 	sv.fu.evt_win_open = function(e) {
 		Ti.API.info('win open');
+		sv.vari.db = Ti.Database.open('userinfo');
+		sv.vari.sql = sv.vari.db.execute("SELECT * FROM SaveInfo");
+		if (sv.vari.sql.isValidRow()) {
+			if ((sv.vari.sql.fieldByName("notifi")) == "false") {
+				push_notification();
+			} else {
+				Ti.API.info('khong ban len nua');
+			}
+		}
+
+		sv.vari.sql.close();
+		sv.vari.db.close();
 		set_maubg(sv.ui.View_icon_soxo, sv.ui.View_icon_bongda, sv.ui.View_icon_user);
 		if (currHour() < 18) {
 			sv.vari.wdKQSX.ui.ViewHeader.text = "KẾT QUẢ SỔ XỐ MIỀN BẮC " + getYesterdaysDate();
@@ -592,13 +594,13 @@ function fn_updateImage2Server(_cmd, data, sv, _choose) {
 		// open the client
 		xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=' + _cmd);
 		xhr.setRequestHeader("Content-Type", "application/json-rpc");
-		Ti.API.info(JSON.stringify(data));
+		// Ti.API.info(JSON.stringify(data));
 		xhr.send(JSON.stringify(data));
 		xhr.onerror = function(e) {
 			Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
 		};
 		xhr.onload = function() {
-			Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
+			// Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
 			var dl = JSON.parse(this.responseText);
 			var jsonResuilt = JSON.parse(dl);
 			var ketqua = [];
@@ -606,17 +608,17 @@ function fn_updateImage2Server(_cmd, data, sv, _choose) {
 			var mangkq = [];
 			for (var i = 0; i < jsonResuilt.resulttable.length; i++) {
 				if (jsonResuilt.resulttable[i].provide) {
-					Ti.API.info('ten giai: ' + jsonResuilt.resulttable[i].provide.name);
-					Ti.API.info('ngay thang: ' + jsonResuilt.resulttable[i].resultdate);
+					// Ti.API.info('ten giai: ' + jsonResuilt.resulttable[i].provide.name);
+					// Ti.API.info('ngay thang: ' + jsonResuilt.resulttable[i].resultdate);
 					for (var j = 0; j < jsonResuilt.resulttable[i].lines.length; j++) {
-						Ti.API.info('Thu tu: ' + jsonResuilt.resulttable[i].lines[j].name);
-						Ti.API.info('ket qua: ' + jsonResuilt.resulttable[i].lines[j].result);
+						// Ti.API.info('Thu tu: ' + jsonResuilt.resulttable[i].lines[j].name);
+						// Ti.API.info('ket qua: ' + jsonResuilt.resulttable[i].lines[j].result);
 						ketqua.push(jsonResuilt.resulttable[i].lines[j].result);
 					};
 					for (var i = 0; i < (ketqua.length); i++) {
 						mangstring = (ketqua[i].toString()).split(',');
 						for (var j = 0; j < (mangstring.length); j++) {
-							Ti.API.info('mang string:' + mangstring[j]);
+							// Ti.API.info('mang string:' + mangstring[j]);
 							mangkq.push(mangstring[j]);
 						};
 					}
@@ -678,3 +680,90 @@ function set_color(i) {
 		return Ti.App.Color.nauden;
 	}
 }
+
+function push_notification() {
+	var deviceToken = null;
+	var Cloud = require("ti.cloud");
+	var db = Ti.Database.open('userinfo');
+	var sql = db.execute('SELECT * FROM SaveInfo');
+
+	if (Ti.Platform.osname == 'android') {
+		var CloudPush = require('ti.cloudpush');
+		//fetch device token
+
+		CloudPush.retrieveDeviceToken({
+			success : function deviceTokenSuccess(e) {
+				deviceToken = e.deviceToken;
+				Ti.API.info('Device Token: ' + deviceToken);
+				Ti.API.info('Device Token: ' + e.deviceToken);
+				subscribeToChannel(deviceToken);
+			},
+			error : function deviceTokenError(e) {
+				Ti.API.info('Failed to register for push! ' + e.error);
+			}
+		});
+
+		CloudPush.debug = true;
+		CloudPush.enabled = true;
+		CloudPush.showTrayNotificationsWhenFocused = true;
+		CloudPush.focusAppOnPush = false;
+
+		CloudPush.addEventListener('callback', function(evt) {
+			receivePush(evt);
+		});
+		CloudPush.addEventListener('trayClickLaunchedApp', function(evt) {
+			// Ti.API.info('@@## Tray Click Launched App (app was not running)');
+		});
+		CloudPush.addEventListener('trayClickFocusedApp', function(evt) {
+			Ti.API.info('@@## Tray Click Focused App (app was already running)');
+		});
+	} else {
+		Ti.Network.registerForPushNotifications({
+			// Specifies which notifications to receive
+			types : [Ti.Network.NOTIFICATION_TYPE_BADGE, Ti.Network.NOTIFICATION_TYPE_SOUND],
+			success : deviceTokenSuccess,
+			error : deviceTokenError,
+			// callback : receivePush
+		});
+		// Process incoming push notifications
+
+		// Save the device token for subsequent API calls
+		function deviceTokenSuccess(e) {
+			deviceToken = e.deviceToken;
+			subscribeToChannel(deviceToken);
+		}
+
+		function receivePush(e) {
+			alert('Received push: ' + JSON.stringify(e));
+		}
+
+		function deviceTokenError(e) {
+			Ti.API.info('Failed to register for push notifications! ' + e.error);
+		}
+
+	}
+	function subscribeToChannel(device) {
+		// Subscribes the device to the 'news_alerts' channel
+		// Specify the push type as either 'android' for Android or 'ios' for iOS
+		Cloud.PushNotifications.subscribeToken({
+			device_token : device,
+			channel : 'ifootball',
+			type : Ti.Platform.name == 'android' ? 'gcm' : 'ios'
+		}, function(e) {
+			if (e.success) {
+				Ti.API.info('dang ki thanh cong');
+				if (sql.isValidRow()) {
+					var username = sql.fieldByName("username");
+				}
+				db.execute('UPDATE SaveInfo SET notifi=? where username=?', "true", username);
+			} else {
+				Ti.API.info('Error:\n' + ((e.error && e.message) || JSON.stringify(e)));
+			}
+		});
+	}
+
+
+	sql.close();
+	db.close();
+
+};

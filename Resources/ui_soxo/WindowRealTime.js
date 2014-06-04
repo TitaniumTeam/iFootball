@@ -7,7 +7,6 @@ module.exports = function() {
 	(function() {
 		taobien(sv);
 		tao_ui(sv);
-		setParam(sv);
 	})();
 	return sv;
 };
@@ -36,7 +35,8 @@ function tao_ui(sv) {
 		top : 0,
 		touchEnabled : false,
 		font : {
-			fontSize : Ti.App.size(30)
+			fontSize : Ti.App.size(30),
+			fontWeight:'bold'
 		},
 		textAlign : 'center',
 		color : 'black'
@@ -62,11 +62,6 @@ function tao_ui(sv) {
 	sv.ui.scrollView.add(sv.ui.bangkq);
 
 };
-function setParam(sv) {
-	sv.setParam = function(param) {
-		sv.ui.bangkq.setKQ(param);
-	};
-}
 
 function setbg(i, _bg) {
 	if (i == _bg) {
