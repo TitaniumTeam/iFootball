@@ -81,15 +81,10 @@ function createUI(sv) {
 		top : Ti.App.size(400)
 	});
 	sv.vari.db = Ti.Database.open('userinfo');
-	sv.vari.sql=sv.vari.db.execute("SELECT * FROM SaveInfo");
-	if(sv.vari.sql.isValidRow()){
-		sv.ui.LabelName.text=sv.vari.sql.fieldByName("username");
-		sv.vari.sql.close();
-		sv.vari.db.close();
-	}
-	else{
-		sv.ui.LabelName.text="USER FREE";
-	}
+	sv.vari.sql = sv.vari.db.execute("SELECT * FROM SaveInfo");
+	sv.ui.LabelName.text = sv.vari.sql.fieldByName("username");
+	sv.vari.sql.close();
+	sv.vari.db.close();
 	sv.ui.LabelThongTin = Ti.UI.createLabel({
 		text : 'Siêu pro vừa đi chơi - ID: 9999999999',
 		font : {
@@ -355,6 +350,11 @@ function createUI(sv) {
 	sv.ui.Row2.addEventListener('click', sv.fu.event_consodachoi);
 	sv.ui.Row3.addEventListener('click', sv.fu.event_lichsugiaodich);
 	sv.ui.Row1.addEventListener('click', sv.fu.event_napxu);
+	sv.ui.ViewBut.addEventListener('click',function(){
+		sv.vari.changeinfo=new (require('/ui_user/Change_Info'));
+		sv.ui.ViewTong.removeAllChildren();
+		sv.ui.ViewTong.add(sv.vari.changeinfo.ui.ViewTong);
+	});
 }
 
 function createUI_Event(sv) {
