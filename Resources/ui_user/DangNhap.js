@@ -206,7 +206,7 @@ function createUI(sv) {
 		top : Ti.App.size(855),
 		height : Ti.App.size(95),
 		backgroundColor : Ti.App.Color.green,
-		backgroundSelectedColor:Ti.App.Color.nauden
+		backgroundSelectedColor : Ti.App.Color.nauden
 	});
 
 	sv.ui.labelviewdn = Ti.UI.createLabel({
@@ -225,7 +225,7 @@ function createUI(sv) {
 		top : Ti.App.size(965),
 		height : Ti.App.size(95),
 		backgroundColor : Ti.App.Color.nauden,
-		backgroundSelectedColor:Ti.App.Color.green
+		backgroundSelectedColor : Ti.App.Color.green
 	});
 
 	sv.ui.labelviewdk = Ti.UI.createLabel({
@@ -250,11 +250,16 @@ function createUI(sv) {
 	sv.ui.lablequenpass = Ti.UI.createLabel({
 		text : 'Bạn quên mật khẩu?',
 		font : {
-			fontSize : Ti.App.size(20),
+			fontSize : Ti.App.size(30),
 			fontFamily : 'Aria'
 		},
-		color : Ti.App.Color.magenta,
+		color : Ti.App.Color.nauden,
 		top : Ti.App.size(5),
+		backgroundColor : 'transparent',
+		width : Ti.App.size(340),
+		height : Ti.App.size(95),
+		backgroundSelectedColor:Ti.App.Color.xanhnhat,
+		textAlign:'center'
 	});
 
 	createUI_Event(sv);

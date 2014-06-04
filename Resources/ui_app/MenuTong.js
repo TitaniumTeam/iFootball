@@ -14,7 +14,7 @@ module.exports = function(_quyen, _mangdv) {
 };
 function taobien(sv) {
 	sv.vari.kqoff = require('/ui_app/kq_offline');
-	sv.vari.popup = require('/ui_bongda/PopUpFalse');
+	sv.vari.popup = require('/ui_user/PopUpFalse');
 	////
 	// sv = new (require('/ui_app/footer_1'));
 	sv.vari.ketqua_tructiep = require('/ui_soxo/WindowRealTime');
@@ -28,6 +28,21 @@ function taobien(sv) {
 	///version old
 	sv.vari.TTTD = require('/ui_bongda/thongtin_old');
 	sv.vari.tuvan_bongda = require('/ui_bongda/tuvan_old');
+	//////view header
+	sv.arr.view_iconheader = [];
+	sv.arr.iconheader = [];
+	sv.arr.img_header = [{
+		bg : "/assets/images/icon/icon-football.png",
+		press : "/assets/images/icon/icon-football_press.png"
+	}, {
+		bg : "/assets/images/icon/icon-user.png",
+		press : "/assets/images/icon/icon-user_press.png"
+	}, {
+		bg : "/assets/images/icon/icon-soxo.png",
+		press : "/assets/images/icon/icon-soxo_press.png"
+	}];
+	//event
+	sv.arr.evt_header = [];
 	/////
 	sv.arr.viewchucnangsoxo = [];
 	sv.arr.viewchucnangbongda = [];
@@ -90,56 +105,24 @@ function taoui(sv, _quyen, _mangdv) {
 		left : 0
 	});
 	sv.ui.win.add(sv.ui.ViewHeader);
-	sv.ui.View_icon_bongda = Ti.UI.createView({
-		width : Ti.App.size(240),
-		height : Ti.App.size(100),
-		backgroundSelectedColor : Ti.App.Color.red_press,
-		left : 0,
-		backgroundColor : 'transparent'
-	});
-	sv.ui.ViewHeader.add(sv.ui.View_icon_bongda);
-
-	sv.ui.icon_bongda = Ti.UI.createImageView({
-		image : '/assets/images/icon/icon-football.png',
-		width : Ti.App.size(60),
-		height : Ti.App.size(60),
-		touchEnabled : false
-	});
-	sv.ui.View_icon_bongda.add(sv.ui.icon_bongda);
-
-	sv.ui.View_icon_user = Ti.UI.createView({
-		width : Ti.App.size(240),
-		height : Ti.App.size(100),
-		backgroundSelectedColor : Ti.App.Color.red_press,
-		left : Ti.App.size(240),
-		backgroundColor : 'transparent'
-	});
-	sv.ui.ViewHeader.add(sv.ui.View_icon_user);
-
-	sv.ui.icon_user = Ti.UI.createImageView({
-		image : '/assets/images/icon/icon-user.png',
-		width : Ti.App.size(60),
-		height : Ti.App.size(60),
-		touchEnabled : false
-	});
-	sv.ui.View_icon_user.add(sv.ui.icon_user);
-
-	sv.ui.View_icon_soxo = Ti.UI.createView({
-		width : Ti.App.size(240),
-		height : Ti.App.size(100),
-		backgroundSelectedColor : Ti.App.Color.red_press,
-		left : Ti.App.size(480),
-		backgroundColor : 'transparent'
-	});
-	sv.ui.ViewHeader.add(sv.ui.View_icon_soxo);
-
-	sv.ui.icon_soxo = Ti.UI.createImageView({
-		image : '/assets/images/icon/icon-soxo.png',
-		width : Ti.App.size(60),
-		height : Ti.App.size(60),
-		touchEnabled : false
-	});
-	sv.ui.View_icon_soxo.add(sv.ui.icon_soxo);
+	for (var i = 0; i < 3; i++) {
+		sv.arr.view_iconheader[i] = Ti.UI.createView({
+			width : Ti.App.size(240),
+			height : Ti.App.size(100),
+			backgroundSelectedColor : Ti.App.Color.superwhite,
+			left : Ti.App.size(240 * i),
+			backgroundColor : 'transparent'
+		});
+		sv.arr.iconheader[i] = Ti.UI.createImageView({
+			image : sv.arr.img_header[i].bg,
+			width : Ti.App.size(60),
+			height : Ti.App.size(60),
+			touchEnabled : false,
+			backgroundSelectedImage : sv.arr.img_header[i].press
+		});
+		sv.arr.view_iconheader[i].add(sv.arr.iconheader[i]);
+		sv.ui.ViewHeader.add(sv.arr.view_iconheader[i]);
+	}
 
 	/////
 	sv.ui.ViewTong = Ti.UI.createView({
@@ -240,19 +223,13 @@ function taoui(sv, _quyen, _mangdv) {
 	}
 	for (var i = 0; i < 4; i++) {
 		sv.arr.viewchucnangbongda[i].addEventListener('click', sv.arr.evt_chucnangbongda[i]);
-	};
+	}
+	for (var i = 0; i < 3; i++) {
+		sv.arr.view_iconheader[i].addEventListener('click', sv.arr.evt_header[i]);
+	}
 
-	sv.ui.View_icon_bongda.addEventListener('click', sv.fu.evt_icon_bongda);
-	sv.ui.View_icon_soxo.addEventListener('click', sv.fu.evt_icon_soxo);
-	sv.ui.View_icon_user.addEventListener('click', sv.fu.EvtClickView_icon_user);
 	sv.ui.win.addEventListener('open', sv.fu.evt_win_open);
 	sv.ui.win.addEventListener('close', sv.fu.evt_win_close);
-};
-
-function set_maubg(t1, t2, t3) {
-	t1.backgroundColor = Ti.App.Color.red_press;
-	t2.backgroundColor = Ti.App.Color.red;
-	t3.backgroundColor = Ti.App.Color.red;
 };
 
 function taosukien(sv, _quyen, _mangdv) {
@@ -432,93 +409,112 @@ function taosukien(sv, _quyen, _mangdv) {
 	 * su kien header
 	 * **/
 	///su kien khi click vao header bong da
-	sv.fu.evt_icon_bongda = function(e) {
-		for (var i = 0; i < 4; i++) {
-			if (i == 0) {
-				sv.arr.viewchucnangbongda[i].backgroundColor = Ti.App.Color.nauden;
-				sv.arr.icon_footerbongda[i].image = sv.arr.img_footerbongda[i].press;
-			} else {
-				sv.arr.viewchucnangbongda[i].backgroundColor = Ti.App.Color.superwhite;
-				sv.arr.icon_footerbongda[i].image = sv.arr.img_footerbongda[i].bg;
-			}
+	for (var j = 0; j < 3; j++) {
+		if (j == 0) {
+			sv.arr.evt_header[0] = function(e) {
+				sv.arr.view_iconheader[0].backgroundColor = Ti.App.Color.superwhite;
+				sv.arr.iconheader[0].image = sv.arr.img_header[0].press;
+				sv.arr.view_iconheader[1].backgroundColor = Ti.App.Color.red;
+				sv.arr.iconheader[1].image = sv.arr.img_header[1].bg;
+				sv.arr.view_iconheader[2].backgroundColor = Ti.App.Color.red;
+				sv.arr.iconheader[2].image = sv.arr.img_header[2].bg;
+				for (var i = 0; i < 4; i++) {
+					if (i == 0) {
+						sv.arr.viewchucnangbongda[i].backgroundColor = Ti.App.Color.nauden;
+						sv.arr.icon_footerbongda[i].image = sv.arr.img_footerbongda[i].press;
+					} else {
+						sv.arr.viewchucnangbongda[i].backgroundColor = Ti.App.Color.superwhite;
+						sv.arr.icon_footerbongda[i].image = sv.arr.img_footerbongda[i].bg;
+					}
+				}
+				sv.ui.ViewFooter.visible = true;
+				sv.ui.ViewTong.bottom = Ti.App.size(100);
+				sv.ui.footer_bongda.visible = true;
+				sv.ui.footer_soxo.visible = false;
+				sv.ui.ViewTong.removeAllChildren();
+				sv.vari.wdTTTD = new sv.vari.TTTD();
+				sv.ui.ViewTong.add(sv.vari.wdTTTD.ui.ViewTong);
+			};
 		}
-		set_maubg(sv.ui.View_icon_bongda, sv.ui.View_icon_soxo, sv.ui.View_icon_user);
-		sv.ui.ViewFooter.visible = true;
-		sv.ui.ViewTong.bottom = Ti.App.size(100);
-		sv.ui.footer_bongda.visible = true;
-		sv.ui.footer_soxo.visible = false;
-		sv.ui.ViewTong.removeAllChildren();
-		sv.vari.wdTTTD = new sv.vari.TTTD();
-		sv.ui.ViewTong.add(sv.vari.wdTTTD.ui.ViewTong);
-		// Ti.App.vIndicatorWindow.openIndicator(sv.vari.wdTTTD.ui.ViewTong);
-		// setTimeout(function() {
-		// Ti.App.vIndicatorWindow.closeIndicator(sv.vari.wdTTTD.ui.ViewTong);
-		// }, 2000);
-	};
-
-	sv.fu.EvtClickView_icon_user = function(e) {
-		if (_quyen == "free") {
-			sv.vari.wd_popup = new sv.vari.popup(sv.ui.win);
-			sv.vari.wd_popup.open({
-				modal : Ti.Platform.osname == 'android' ? true : false
-			});
-		} else {
-			set_maubg(sv.ui.View_icon_user, sv.ui.View_icon_soxo, sv.ui.View_icon_bongda);
-			sv.ui.ViewFooter.visible = false;
-			sv.ui.ViewTong.bottom = 0;
-			sv.ui.ViewTong.removeAllChildren();
-			sv.vari.Info = new (require('/ui_user/Info'))();
-			sv.ui.ViewTong.add(sv.vari.Info.ui.ViewTong);
-			// Ti.App.vIndicatorWindow.openIndicator(sv.vari.Info.ui.ViewTong);
-			// setTimeout(function() {
-			// Ti.App.vIndicatorWindow.closeIndicator(sv.vari.Info.ui.ViewTong);
-			// }, 2000);
+		if (j == 1) {
+			sv.arr.evt_header[1] = function(e) {
+				sv.arr.view_iconheader[1].backgroundColor = Ti.App.Color.superwhite;
+				sv.arr.iconheader[1].image = sv.arr.img_header[1].press;
+				sv.arr.iconheader[0].image = sv.arr.img_header[0].bg;
+				sv.arr.view_iconheader[0].backgroundColor = Ti.App.Color.red;
+				sv.arr.iconheader[2].image = sv.arr.img_header[2].bg;
+				sv.arr.view_iconheader[2].backgroundColor = Ti.App.Color.red;
+				// if (_quyen == "free") {
+				// sv.vari.wd_popup = new sv.vari.popup(sv.ui.win);
+				// sv.vari.wd_popup.open({
+				// modal : Ti.Platform.osname == 'android' ? true : false
+				// });
+				// } else {
+				sv.ui.ViewFooter.visible = false;
+				sv.ui.ViewTong.bottom = 0;
+				sv.ui.ViewTong.removeAllChildren();
+				sv.vari.Info = new (require('/ui_user/Info'))();
+				sv.ui.ViewTong.add(sv.vari.Info.ui.ViewTong);
+			};
 		}
-	};
-
-	///su kien khi click vao header soxo
-	sv.fu.evt_icon_soxo = function(e) {
-		for (var i = 0; i < 4; i++) {
-			sv.arr.viewchucnangsoxo[i].backgroundColor = Ti.App.Color.superwhite;
-			sv.arr.icon_footersoxo[i].image = sv.arr.img_footersoxo[i].bg;
-		}
-		set_maubg(sv.ui.View_icon_soxo, sv.ui.View_icon_bongda, sv.ui.View_icon_user);
-		sv.ui.ViewFooter.visible = true;
-		sv.ui.ViewTong.bottom = Ti.App.size(100);
-		sv.ui.footer_bongda.visible = false;
-		sv.ui.footer_soxo.visible = true;
-		sv.ui.ViewTong.removeAllChildren();
-		sv.vari.wdKQSX = new sv.vari.ketqua_tructiep();
-		sv.ui.ViewTong.add(sv.vari.wdKQSX.ui.ViewTong);
-		if (currHour() < 18) {
-			sv.vari.wdKQSX.ui.ViewHeader.text = "KẾT QUẢ SỔ XỐ MIỀN BẮC " + getYesterdaysDate();
-			fn_updateImage2Server("searchlottery", {
-				"provideid" : "MB",
-				"startdate" : getYesterdaysDate()
-			}, sv, 0);
-		} else {
-			if (currHour() == 18 && (0 <= currMin() <= 30)) {
-				sv.vari.wdKQSX.ui.ViewHeader.text = "ĐANG QUAY TRỰC TIẾP KQSXMB " + currDate();
-				fn_updateImage2Server("searchlottery", {
-					"provideid" : "MB",
-					"startdate" : currDate()
-				}, sv, 0);
-			} else {
-				if (currHour() > 18) {
-					sv.vari.wdKQSX.ui.ViewHeader.text = "KẾT QUẢ SỔ XỐ MIỀN BẮC " + currDate();
+		if (j == 2) {
+			sv.arr.evt_header[2] = function(e) {
+				sv.arr.view_iconheader[2].backgroundColor = Ti.App.Color.superwhite;
+				sv.arr.iconheader[2].image = sv.arr.img_header[2].press;
+				sv.arr.iconheader[0].image = sv.arr.img_header[0].bg;
+				sv.arr.view_iconheader[0].backgroundColor = Ti.App.Color.red;
+				sv.arr.iconheader[1].image = sv.arr.img_header[1].bg;
+				sv.arr.view_iconheader[1].backgroundColor = Ti.App.Color.red;
+				for (var i = 0; i < 4; i++) {
+					sv.arr.viewchucnangsoxo[i].backgroundColor = Ti.App.Color.superwhite;
+					sv.arr.icon_footersoxo[i].image = sv.arr.img_footersoxo[i].bg;
+				}
+				sv.ui.ViewFooter.visible = true;
+				sv.ui.ViewTong.bottom = Ti.App.size(100);
+				sv.ui.footer_bongda.visible = false;
+				sv.ui.footer_soxo.visible = true;
+				sv.ui.ViewTong.removeAllChildren();
+				sv.vari.wdKQSX = new sv.vari.ketqua_tructiep();
+				sv.ui.ViewTong.add(sv.vari.wdKQSX.ui.ViewTong);
+				if (currHour() < 18) {
+					sv.vari.wdKQSX.ui.ViewHeader.text = "KẾT QUẢ SỔ XỐ MIỀN BẮC " + getYesterdaysDate();
 					fn_updateImage2Server("searchlottery", {
 						"provideid" : "MB",
-						"startdate" : currDate()
+						"startdate" : getYesterdaysDate()
 					}, sv, 0);
-				}
+				} else {
+					if (currHour() == 18 && (0 <= currMin() <= 30)) {
+						sv.vari.wdKQSX.ui.ViewHeader.text = "ĐANG QUAY TRỰC TIẾP KQSXMB " + currDate();
+						fn_updateImage2Server("searchlottery", {
+							"provideid" : "MB",
+							"startdate" : currDate()
+						}, sv, 0);
+					} else {
+						if (currHour() > 18) {
+							sv.vari.wdKQSX.ui.ViewHeader.text = "KẾT QUẢ SỔ XỐ MIỀN BẮC " + currDate();
+							fn_updateImage2Server("searchlottery", {
+								"provideid" : "MB",
+								"startdate" : currDate()
+							}, sv, 0);
+						}
 
-			}
+					}
+				}
+			};
 		}
-	};
+
+	}
+
 	/**su kien cua window
 	 * **/
 	sv.fu.evt_win_open = function(e) {
 		Ti.API.info('win open');
+		sv.arr.view_iconheader[2].backgroundColor = Ti.App.Color.superwhite;
+		sv.arr.iconheader[2].image = sv.arr.img_header[2].press;
+		sv.arr.iconheader[0].image = sv.arr.img_header[0].bg;
+		sv.arr.view_iconheader[0].backgroundColor = Ti.App.Color.red;
+		sv.arr.iconheader[1].image = sv.arr.img_header[1].bg;
+		sv.arr.view_iconheader[1].backgroundColor = Ti.App.Color.red;
 		sv.vari.db = Ti.Database.open('userinfo');
 		sv.vari.sql = sv.vari.db.execute("SELECT * FROM SaveInfo");
 		if (sv.vari.sql.isValidRow()) {
@@ -531,7 +527,6 @@ function taosukien(sv, _quyen, _mangdv) {
 
 		sv.vari.sql.close();
 		sv.vari.db.close();
-		set_maubg(sv.ui.View_icon_soxo, sv.ui.View_icon_bongda, sv.ui.View_icon_user);
 		if (currHour() < 18) {
 			sv.vari.wdKQSX.ui.ViewHeader.text = "KẾT QUẢ SỔ XỐ MIỀN BẮC " + getYesterdaysDate();
 			fn_updateImage2Server("searchlottery", {
@@ -564,10 +559,9 @@ function taosukien(sv, _quyen, _mangdv) {
 		for (var i = 0; i < 4; i++) {
 			sv.arr.viewchucnangbongda[i].removeEventListener('click', sv.arr.evt_chucnangbongda[i]);
 		};
-
-		sv.ui.View_icon_bongda.removeEventListener('click', sv.fu.evt_icon_bongda);
-		sv.ui.View_icon_soxo.removeEventListener('click', sv.fu.evt_icon_soxo);
-		sv.ui.View_icon_user.removeEventListener('click', sv.fu.EvtClickView_icon_user);
+		for (var i = 0; i < 3; i++) {
+			sv.arr.view_iconheader[i].removeEventListener('click', sv.arr.evt_header[i]);
+		}
 		sv.ui.win.removeEventListener('open', sv.fu.evt_win_open);
 		sv.ui.win.removeEventListener('close', sv.fu.evt_win_close);
 		sv.ui = null;
@@ -577,6 +571,7 @@ function taosukien(sv, _quyen, _mangdv) {
 		sv = null;
 	};
 };
+
 /////cmd:ten ham, data: param,sv,_choose:1-view quay truc tiep- 2- view so ket qua
 function fn_updateImage2Server(_cmd, data, sv, _choose) {
 	var xhr = Titanium.Network.createHTTPClient();

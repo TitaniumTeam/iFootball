@@ -15,8 +15,8 @@ module.exports = function(_currWin) {
 };
 
 function createVariable(sv) {
-	sv.vari.dangki = require('/ui_app/WindowDK');
-	sv.vari.wd_dn = require('/ui_app/DangNhap');
+	sv.vari.dangki = require('/ui_user/WindowDK');
+	sv.vari.wd_dn = require('/ui_user/DangNhap');
 }
 
 function createUI(sv, _currWin) {
@@ -102,7 +102,7 @@ function createUI(sv, _currWin) {
 			fontSize : Ti.App.size(30)
 		},
 		borderRadius : Ti.App.size(5),
-		color : Ti.App.Color.green,
+		color : Ti.App.Color.nauden,
 		backgroundSelectedColor : Ti.App.Color.nauden
 	});
 

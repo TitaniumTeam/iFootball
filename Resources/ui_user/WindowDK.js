@@ -13,7 +13,7 @@ module.exports = function() {
 
 ///tao bien
 function tao_bien(sv) {
-	sv.vari.wd_dn = require('/ui_app/DangNhap');
+	sv.vari.wd_dn = require('/ui_user/DangNhap');
 
 };
 
