@@ -16,7 +16,7 @@ function taobien(sv) {
 	sv.vari.flag = false;
 	sv.arr.datarow = [];
 	sv.arr.height = [Ti.App.size(120), Ti.App.size(200)];
-	sv.vari.newdate
+	sv.vari.newdate;
 	sv.vari.bangkq = require('/ui_soxo/bangketquasx');
 }
 
@@ -137,9 +137,6 @@ function createUI_Event(sv) {
 		sv.vari.flag = true;
 		fn_updateImage2Server("getprovide", {}, sv);
 		sv.ui.table_view.visible = true;
-		sv.ui.table_view.scrollToTop(0, {
-			animated : true
-		});
 		sv.ui.ViewPicker.visible = false;
 	};
 	sv.fu.event_clicktbl = function(e) {

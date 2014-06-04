@@ -18,8 +18,6 @@
     <property name="acs-api-key-production" type="string">
 		iSnjVjZfhJl0bJ31VKJHed9FN11ExA3d
 	</property>
-    <!-- Property to configure push notifications -->
-    <!-- By default, GCM is used if this property is not specified -->
     <property name="acs-push-type-development" type="string">
 		gcm
 	</property>
@@ -29,13 +27,19 @@
     <property name="acs-push-type" type="string">
 		gcm
 	</property>
-    <id>com.ifootball</id>
+    <id>com.ifootball.com</id>
     <name>
 		iFootball
 	</name>
-    <version>1.0</version>
-    <publisher>kimnamcham</publisher>
-    <url>http://</url>
+    <version>
+		1.0
+	</version>
+    <publisher>
+		kimnamcham
+	</publisher>
+    <url>
+		http://
+	</url>
     <description>
 		not specified
 	</description>
@@ -131,9 +135,9 @@
 		</theme>
     </mobileweb>
     <modules>
-        <module platform="iphone">bencoding.sms</module>
-        <module platform="commonjs">ti.cloud</module>
         <module platform="android">ti.cloudpush</module>
+        <module platform="commonjs">ti.cloud</module>
+        <module platform="iphone">bencoding.sms</module>
     </modules>
     <deployment-targets>
         <target device="android">true</target>
@@ -143,7 +147,7 @@
         <target device="ipad">true</target>
         <target device="iphone">true</target>
         <target device="mobileweb">
-			true
+			false
 		</target>
         <target device="tizen">
 			false
