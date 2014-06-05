@@ -33,8 +33,7 @@ function createUI(sv) {
 	sv.ui.ViewPopUp = Ti.UI.createView({
 		height : Ti.App.size(560),
 		backgroundColor : Ti.App.Color.superwhite,
-		width : Ti.App.size(560),
-		top : Ti.App.size(200)
+		width : Ti.App.size(560)
 	});
 
 	sv.ui.ViewIcon = Ti.UI.createView({
@@ -43,7 +42,7 @@ function createUI(sv) {
 		left : Ti.App.size(0),
 		right : Ti.App.size(0),
 		backgroundColor : Ti.App.Color.red,
-		backgroundSelectedColor : Ti.App.Color.nauden
+
 	});
 
 	sv.ui.Icon = Ti.UI.createImageView({
@@ -52,10 +51,11 @@ function createUI(sv) {
 		left : Ti.App.size(215),
 		right : Ti.App.size(215),
 		bottom : Ti.App.size(45),
+		backgroundSelectedColor : Ti.App.Color.nauden
 	});
 
 	sv.ui.ThongBao1 = Ti.UI.createLabel({
-		text : 'NẠP TIỀN',
+		text : 'NÂNG CẤP TÀI KHOẢN VIP',
 		top : Ti.App.size(230),
 		font : {
 			fontSize : Ti.App.size(35),
@@ -65,25 +65,11 @@ function createUI(sv) {
 		color : Ti.App.Color.nauden,
 	});
 
-	sv.ui.txt_sotien = Ti.UI.createTextField({
-		backgroundColor : Ti.App.Color.superwhite,
-		hintText : 'Nhập số tiền muốn nạp',
-		width : Ti.App.size(400),
-		height : Ti.App.size(100),
-		color : Ti.App.Color.nauden,
-		font : {
-			fontSize : Ti.App.size(30)
-		},
-		center : 'true',
-		keyboardType : Ti.UI.KEYBOARD_NUMBERS_PUNCTUATION,
-		top : Ti.App.size(300),
-		textAlign : 'center'
-	});
-	sv.ui.btn_nap = Ti.UI.createLabel({
+	sv.ui.button_nangcap = Ti.UI.createLabel({
 		backgroundColor : Ti.App.Color.xanhnhat,
 		width : Ti.App.size(300),
 		height : Ti.App.size(95),
-		text : "NẠP",
+		text : "NÂNG CẤP",
 		textAlign : "center",
 		bottom : Ti.App.size(30),
 		font : {
@@ -93,38 +79,40 @@ function createUI(sv) {
 		color : Ti.App.Color.nauden,
 		backgroundSelectedColor : Ti.App.Color.nauden
 	});
+
 	createUI_Event(sv);
 
 	sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
 	sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
 	sv.ui.Icon.addEventListener('click', sv.fu.eventClickIcon);
-	sv.ui.btn_nap.addEventListener('click', sv.fu.eventClicknaptien);
+	sv.ui.button_nangcap.addEventListener('click', sv.fu.evt_nangcap);
+
 	sv.ui.Window.add(sv.ui.ViewPopUp);
 
 	sv.ui.ViewPopUp.add(sv.ui.ViewIcon);
-	sv.ui.ViewPopUp.add(sv.ui.txt_sotien);
-	sv.ui.ViewPopUp.add(sv.ui.btn_nap);
+
 	sv.ui.ViewIcon.add(sv.ui.Icon);
+	sv.ui.ViewPopUp.add(sv.ui.button_nangcap);
 	sv.ui.ViewPopUp.add(sv.ui.ThongBao1);
+
 }
 
 function createUI_Event(sv) {
-	sv.fu.eventClicknaptien = function(e) {
+	sv.fu.evt_nangcap = function() {
 		sv.vari.db = Ti.Database.open('userinfo');
 		sv.vari.sql = sv.vari.db.execute('SELECT * FROM SaveInfo');
 		sv.vari.username = sv.vari.sql.fieldByName("username");
 		sv.vari.type = sv.vari.sql.fieldByName("type");
-		naptien({
+		nangcapvip({
 			"username" : sv.vari.username,
 			"type" : sv.vari.type,
-			"amount" : sv.ui.txt_sotien.value
 		}, sv);
 	};
-	sv.fu.eventClickIcon = function(e) {
+	sv.fu.eventClickIcon = function() {
 		sv.ui.Window.close();
 	};
 
-	sv.fu.eventOpenWindow = function(e) {
+	sv.fu.eventOpenWindow = function() {
 		Ti.API.info('Opened window');
 	};
 
@@ -132,7 +120,6 @@ function createUI_Event(sv) {
 		sv.ui.Window.removeEventListener('open', sv.fu.eventOpenWindow);
 		sv.ui.Window.removeEventListener('close', sv.fu.eventCloseWindow);
 		sv.ui.Icon.removeEventListener('click', sv.fu.eventClickIcon);
-		sv.ui.btn_nap.removeEventListener('click', sv.fu.eventClicknaptien);
 		sv.vari = null;
 		sv.arr = null;
 		sv.ui = null;
@@ -144,14 +131,14 @@ function createUI_Event(sv) {
 	};
 }
 
-function naptien(data, sv) {
+function nangcapvip(data, sv) {
 	var xhr = Titanium.Network.createHTTPClient();
 	xhr.onsendstream = function(e) {
 		//ind.value = e.progress;
 		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
 	};
 	// open the client
-	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=chargebalance');
+	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=updatetype');
 	xhr.setRequestHeader("Content-Type", "application/json-rpc");
 	Ti.API.info(JSON.stringify(data));
 	xhr.send(JSON.stringify(data));
@@ -164,12 +151,17 @@ function naptien(data, sv) {
 		var dl = JSON.parse(this.responseText);
 		// var jsonResuilt = JSON.parse(dl);
 		if (dl.code == 0) {
+			sv.vari.sql.close();
+			sv.vari.db.close();
+
 			sv.ui.Window.close();
 			sv.vari.popup_success = new (require('/ui_user/PopUpTrue'))();
 			sv.vari.popup_success.open({
 				modal : Ti.Platform.osname == 'android' ? true : false
 			});
 		} else {
+			sv.vari.sql.close();
+			sv.vari.db.close();
 			sv.ui.Window.close();
 			sv.vari.popup_success = new (require('/ui_user/PopUpFalse'))();
 			sv.vari.popup_success.open({

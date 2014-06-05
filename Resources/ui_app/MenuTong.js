@@ -14,9 +14,8 @@ module.exports = function(_quyen, _mangdv) {
 };
 function taobien(sv) {
 	sv.vari.kqoff = require('/ui_app/kq_offline');
-	sv.vari.popup = require('/ui_user/PopUpFalse');
+	sv.vari.popup = require('/ui_user/PopUpDangNhap');
 	////
-	// sv = new (require('/ui_app/footer_1'));
 	sv.vari.ketqua_tructiep = require('/ui_soxo/WindowRealTime');
 	sv.vari.ketquasx = require('/ui_soxo/KetQuaSX');
 	sv.vari.tuvan_soxo = require('/ui_soxo/TuVan');
@@ -256,14 +255,14 @@ function taosukien(sv, _quyen, _mangdv) {
 				sv.ui.ViewTong.add(sv.vari.view_kqsx.ui.ViewTong);
 				if (currHour() < 18) {
 					sv.vari.view_kqsx.ui.View_header.text = "KẾT QUẢ SỔ XỐ MIỀN BẮC " + getYesterdaysDate();
-					fn_updateImage2Server("searchlottery", {
+					layketqua("searchlottery", {
 						"provideid" : "MB",
 						"startdate" : getYesterdaysDate()
 					}, sv, 1);
 				} else {
 					if (currHour() >= 18) {
 						sv.vari.view_kqsx.ui.View_header.text = "KẾT QUẢ SỔ XỐ MIỀN BẮC " + currDate();
-						fn_updateImage2Server("searchlottery", {
+						layketqua("searchlottery", {
 							"provideid" : "MB",
 							"startdate" : currDate()
 						}, sv, 1);
@@ -444,17 +443,18 @@ function taosukien(sv, _quyen, _mangdv) {
 				sv.arr.view_iconheader[0].backgroundColor = Ti.App.Color.red;
 				sv.arr.iconheader[2].image = sv.arr.img_header[2].bg;
 				sv.arr.view_iconheader[2].backgroundColor = Ti.App.Color.red;
-				// if (_quyen == "free") {
-				// sv.vari.wd_popup = new sv.vari.popup(sv.ui.win);
-				// sv.vari.wd_popup.open({
-				// modal : Ti.Platform.osname == 'android' ? true : false
-				// });
-				// } else {
-				sv.ui.ViewFooter.visible = false;
-				sv.ui.ViewTong.bottom = 0;
-				sv.ui.ViewTong.removeAllChildren();
-				sv.vari.Info = new (require('/ui_user/Info'))();
-				sv.ui.ViewTong.add(sv.vari.Info.ui.ViewTong);
+				if (_quyen == "free") {
+					sv.vari.wd_popup = new sv.vari.popup(sv.ui.win);
+					sv.vari.wd_popup.open({
+						modal : Ti.Platform.osname == 'android' ? true : false
+					});
+				} else {
+					sv.ui.ViewFooter.visible = false;
+					sv.ui.ViewTong.bottom = 0;
+					sv.ui.ViewTong.removeAllChildren();
+					sv.vari.Info = new (require('/ui_user/Info'))();
+					sv.ui.ViewTong.add(sv.vari.Info.ui.ViewTong);
+				}
 			};
 		}
 		if (j == 2) {
@@ -476,26 +476,21 @@ function taosukien(sv, _quyen, _mangdv) {
 				sv.ui.ViewTong.removeAllChildren();
 				sv.vari.wdKQSX = new sv.vari.ketqua_tructiep();
 				sv.ui.ViewTong.add(sv.vari.wdKQSX.ui.ViewTong);
+				setInterval(function() {
+					layketqua("searchlottery", {
+						"provideid" : "MB",
+						"startdate" : currDate()
+					}, sv);
+				}, 15000);
 				if (currHour() < 18) {
 					sv.vari.wdKQSX.ui.ViewHeader.text = "KẾT QUẢ SỔ XỐ MIỀN BẮC " + getYesterdaysDate();
-					fn_updateImage2Server("searchlottery", {
-						"provideid" : "MB",
-						"startdate" : getYesterdaysDate()
-					}, sv, 0);
 				} else {
 					if (currHour() == 18 && (0 <= currMin() <= 30)) {
 						sv.vari.wdKQSX.ui.ViewHeader.text = "ĐANG QUAY TRỰC TIẾP KQSXMB " + currDate();
-						fn_updateImage2Server("searchlottery", {
-							"provideid" : "MB",
-							"startdate" : currDate()
-						}, sv, 0);
+
 					} else {
 						if (currHour() > 18) {
 							sv.vari.wdKQSX.ui.ViewHeader.text = "KẾT QUẢ SỔ XỐ MIỀN BẮC " + currDate();
-							fn_updateImage2Server("searchlottery", {
-								"provideid" : "MB",
-								"startdate" : currDate()
-							}, sv, 0);
 						}
 
 					}
@@ -522,31 +517,25 @@ function taosukien(sv, _quyen, _mangdv) {
 				push_notification();
 			} else {
 				Ti.API.info('khong ban len nua');
+				sv.vari.sql.close();
+				sv.vari.db.close();
 			}
 		}
-
-		sv.vari.sql.close();
-		sv.vari.db.close();
+		setInterval(function() {
+			layketqua("searchlottery", {
+				"provideid" : "MB",
+				"startdate" : currDate()
+			}, sv);
+			// Ti.API.info('lay ket qua lien tuc');
+		}, 15000);
 		if (currHour() < 18) {
 			sv.vari.wdKQSX.ui.ViewHeader.text = "KẾT QUẢ SỔ XỐ MIỀN BẮC " + getYesterdaysDate();
-			fn_updateImage2Server("searchlottery", {
-				"provideid" : "MB",
-				"startdate" : getYesterdaysDate()
-			}, sv, 0);
 		} else {
 			if (currHour() == 18 && (0 <= currMin() <= 30)) {
 				sv.vari.wdKQSX.ui.ViewHeader.text = "ĐANG QUAY TRỰC TIẾP KQSXMB " + currDate();
-				fn_updateImage2Server("searchlottery", {
-					"provideid" : "MB",
-					"startdate" : currDate()
-				}, sv, 0);
 			} else {
 				if (currHour() > 18) {
 					sv.vari.wdKQSX.ui.ViewHeader.text = "KẾT QUẢ SỔ XỐ MIỀN BẮC " + currDate();
-					fn_updateImage2Server("searchlottery", {
-						"provideid" : "MB",
-						"startdate" : currDate()
-					}, sv, 0);
 				}
 			}
 		}
@@ -573,7 +562,7 @@ function taosukien(sv, _quyen, _mangdv) {
 };
 
 /////cmd:ten ham, data: param,sv,_choose:1-view quay truc tiep- 2- view so ket qua
-function fn_updateImage2Server(_cmd, data, sv, _choose) {
+function layketqua(_cmd, data, sv) {
 	var xhr = Titanium.Network.createHTTPClient();
 	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
 		sv.ui.view_off = new sv.vari.kqoff("KQSX");
@@ -622,13 +611,7 @@ function fn_updateImage2Server(_cmd, data, sv, _choose) {
 					Ti.API.info('khong co du lieu');
 				}
 			}
-			if (_choose == 0) {
-				sv.vari.wdKQSX.ui.bangkq.setKQ_tructiep(mangkq);
-			} else {
-				if (_choose == 1) {
-					sv.vari.view_kqsx.ui.bangkq.setKQ(mangkq);
-				}
-			}
+			sv.vari.wdKQSX.ui.bangkq.setKQ_tructiep(mangkq);
 
 		};
 	}

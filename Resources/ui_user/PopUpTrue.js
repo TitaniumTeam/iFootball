@@ -22,15 +22,13 @@ function createUI(sv) {
 	sv.ui.Window = Ti.UI.createWindow({
 		//backgroundColor : Ti.App.Color.nauden,
 		navBarHidden : true,
-		fullscreen : true,
 		keepScreenOn : true,
-		top : 0,
 	});
 
 	sv.ui.ViewTong = Ti.UI.createView({
 		backgroundColor : Ti.App.Color.nauden,
 		top : 0,
-		opacity : 0.78,
+		opacity : 0.5,
 	});
 
 	sv.ui.ViewPopUp = Ti.UI.createView({
@@ -45,15 +43,15 @@ function createUI(sv) {
 		height : Ti.App.size(215),
 		left : Ti.App.size(0),
 		right : Ti.App.size(0),
-		backgroundColor : Ti.App.Color.blue,
+		backgroundColor:Ti.App.Color.blue
 	});
 
 	sv.ui.Icon = Ti.UI.createImageView({
-		image : '/assets/images/icon/icon-true.png',
 		top : Ti.App.size(45),
 		left : Ti.App.size(215),
 		right : Ti.App.size(215),
 		bottom : Ti.App.size(45),
+		image:'/assets/images/icon/icon-true.png'
 	});
 
 	sv.ui.ViewThongBao = Ti.UI.createView({
@@ -61,21 +59,23 @@ function createUI(sv) {
 		bottom : Ti.App.size(0),
 		left : Ti.App.size(0),
 		right : Ti.App.size(0),
-		backgroundColor : Ti.App.Color.white
+		backgroundColor : Ti.App.Color.white,
+		touchEnabled : false
 	});
 
 	sv.ui.ThongBao1 = Ti.UI.createLabel({
-		text : 'THÀNH CÔNG',
 		top : Ti.App.size(50),
-		bottom : Ti.App.size(255),
 		font : {
-			fontSize : Ti.App.size(32),
+			fontSize : Ti.App.size(35),
 			fontWeight : 'bold',
-			fontFamily : 'Aria',
 			textAlign : 'center'
 		},
+		color : Ti.App.Color.nauden,
+		width : Ti.UI.SIZE,
+		height : Ti.UI.SIZE,
+		backgroundColor : 'transparent',
+		text:'THÀNH CÔNG'
 	});
-
 	sv.ui.ViewThongBao2 = Ti.UI.createLabel({
 		top : Ti.App.size(110),
 		left : Ti.App.size(75),
@@ -83,14 +83,16 @@ function createUI(sv) {
 	});
 
 	sv.ui.ThongBao2 = Ti.UI.createLabel({
-		text : 'Chúc mừng bạn đã hoàn thành giao dịch',
 		font : {
-			fontSize : Ti.App.size(18),
-			fontFamily : 'Aria',
+			fontSize : Ti.App.size(30),
 			textAlign : 'center'
 		},
+		color : Ti.App.Color.nauden,
+		width : Ti.UI.SIZE,
+		height : Ti.UI.SIZE,
+		backgroundColor : 'transparent',
+		text:'Chúc mừng bạn đã hoàn thành giao dịch'
 	});
-
 	createUI_Event(sv);
 
 	sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
@@ -113,7 +115,6 @@ function createUI(sv) {
 }
 
 function createUI_Event(sv) {
-	sv.fu = {};
 
 	sv.fu.eventClickIcon = function() {
 		sv.ui.Window.close();

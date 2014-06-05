@@ -48,6 +48,7 @@ function createUI(sv) {
 		},
 		right : Ti.App.size(490),
 		left : Ti.App.size(10),
+		color : Ti.App.Color.nauden
 	});
 
 	sv.ui.TfEmail = Ti.UI.createTextField({
@@ -85,6 +86,7 @@ function createUI(sv) {
 		},
 		right : Ti.App.size(490),
 		left : Ti.App.size(10),
+		color : Ti.App.Color.nauden
 	});
 
 	sv.ui.TfTaiKhoan = Ti.UI.createTextField({
@@ -121,6 +123,7 @@ function createUI(sv) {
 		},
 		right : Ti.App.size(490),
 		left : Ti.App.size(10),
+		color : Ti.App.Color.nauden
 	});
 
 	sv.ui.TfMatKhau = Ti.UI.createTextField({
@@ -164,16 +167,9 @@ function createUI(sv) {
 			fontColor : Ti.App.Color.white,
 			fontWeight : 'bold',
 		},
+		color : Ti.App.Color.nauden
 	});
 
-	// createUI_Event(sv);
-
-	// sv.ui.IconBack.addEventListener('click', sv.fu.eventClickIconBack);
-	// sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
-	// sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
-	//
-	// sv.ui.Window.add(sv.ui.ViewTong);
-	// sv.ui.Window.add(sv.ui.ViewHeader);
 
 	sv.ui.ViewTong.add(sv.ui.ViewEmail);
 	sv.ui.ViewTong.add(sv.ui.ViewTaiKhoan);
@@ -195,31 +191,7 @@ function createUI(sv) {
 }
 
 function createUI_Event(sv) {
-	sv.fu = {};
 
-	// sv.fu.eventClickIconBack = function() {
-	// var newWindow = new (require('ui/DangNhap'))();
-	// newWindow.open();
-	// };
-	//
-	// sv.fu.eventOpenWindow = function(e) {
-	// Ti.API.info('Opened window');
-	// };
-	//
-	// sv.fu.eventCloseWindow = function(e) {
-	// // sv.ui.IconBack.removeEventListener('click', sv.fu.eventClickIconBack);
-	// // sv.ui.Window.removeEventListener('open', sv.fu.eventOpenWindow);
-	// // sv.ui.Window.removeEventListener('close', sv.fu.eventCloseWindow);
-	//
-	// sv.vari = null;
-	// sv.arr = null;
-	// sv.ui = null;
-	// sv.fu = null;
-	// sv.test = null;
-	// sv = null;
-	//
-	// Ti.API.info('Closed window, sv=' + sv);
-	// };
 }
 
 function createRemove(sv) {
@@ -236,14 +208,13 @@ function createRemove(sv) {
 
 function set_txt(sv) {
 	sv.set_statetxt = function(_state) {
-		if(_state==true){
+		if (_state == true) {
 			sv.ui.TfMatKhau.blur();
-		sv.ui.TfTaiKhoan.blur();
-		sv.ui.TfEmail.blur();
-		}
-		else{
+			sv.ui.TfTaiKhoan.blur();
+			sv.ui.TfEmail.blur();
+		} else {
 			Ti.API.info('cha lam gi');
 		}
-		
+
 	};
 };

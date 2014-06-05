@@ -19,19 +19,6 @@ module.exports = function() {
 function createVariable(sv) {
 	sv.vari.consodachoi = new (require('/ui_user/ConSoDaChoi'))();
 	sv.vari.lichsugiaodich = new (require('/ui_user/LichSuGiaoDich'))();
-
-	sv.arr.datanapxu = [];
-	sv.arr.event_napxu = [];
-	sv.arr.title = [{
-		title : 'Nạp 1000 xu',
-		id : 0
-	}, {
-		title : 'Nạp 5000 xu',
-		id : 1
-	}, {
-		title : 'Nạp 10000 xu',
-		id : 2
-	}];
 }
 
 function createUI(sv) {
@@ -59,7 +46,7 @@ function createUI(sv) {
 	});
 	sv.ui.circle = Titanium.UI.createView({
 		backgroundImage : '/assets/images/icon/xxxjav.png',
-		top : Ti.App.size(60),
+		top : Ti.App.size(30),
 		width : Ti.App.size(320),
 		height : Ti.App.size(320),
 		zIndex : 10
@@ -76,31 +63,58 @@ function createUI(sv) {
 			fontSize : Ti.App.size(30),
 			fontWeight : 'bold',
 		},
-		// top : Ti.App.size(260),
 		color : Ti.App.Color.superwhite,
-		top : Ti.App.size(400)
+		top : Ti.App.size(350),
+		width : Ti.UI.SIZE,
+		height : Ti.UI.SIZE
 	});
-	sv.vari.db = Ti.Database.open('userinfo');
-	sv.vari.sql = sv.vari.db.execute("SELECT * FROM SaveInfo");
-	sv.ui.LabelName.text = sv.vari.sql.fieldByName("username");
-	sv.vari.sql.close();
-	sv.vari.db.close();
 	sv.ui.LabelThongTin = Ti.UI.createLabel({
-		text : 'Siêu pro vừa đi chơi - ID: 9999999999',
+		font : {
+			fontSize : Ti.App.size(25),
+		},
+		top : Ti.App.size(400),
+		color : Ti.App.Color.superwhite,
+		width : Ti.UI.SIZE,
+		height : Ti.UI.SIZE
+	});
+	sv.ui.LabelThongTin_Tien = Ti.UI.createLabel({
 		font : {
 			fontSize : Ti.App.size(25),
 		},
 		top : Ti.App.size(450),
-		color : Ti.App.Color.superwhite
+		color : Ti.App.Color.superwhite,
+		width : Ti.UI.SIZE,
+		height : Ti.UI.SIZE
 	});
+	sv.vari.db = Ti.Database.open('userinfo');
+	sv.vari.sql = sv.vari.db.execute("SELECT * FROM SaveInfo");
+	sv.ui.LabelName.text = sv.vari.sql.fieldByName("username");
 
-	sv.ui.ViewBut = Ti.UI.createImageView({
+	if (sv.vari.sql.fieldByName("type") == "1") {
+		sv.ui.LabelThongTin.text = "Tài khoản VIP ";
+		sv.ui.LabelThongTin_Tien.text = "Số tiền trong tài khoản :" + sv.vari.sql.fieldByName("balance");
+	} else {
+		sv.ui.LabelThongTin.text = "Tài khoản thường";
+		sv.ui.LabelThongTin_Tien.text = "Số tiền trong tài khoản :" + sv.vari.sql.fieldByName("balance");
+	}
+
+	sv.vari.sql.close();
+	sv.vari.db.close();
+	sv.ui.ViewBut = Titanium.UI.createView({
+		top : Ti.App.size(400),
+		backgroundSelectedColor : Ti.App.Color.xanhnhat,
+		width : Ti.App.size(100),
+		height : Ti.App.size(120),
+		backgroundColor : 'transparent',
+		right : Ti.App.size(20)
+	});
+	sv.ui.iconBut = Ti.UI.createImageView({
 		image : '/assets/images/icon/icon-5.png',
-		top : Ti.App.size(450),
-		right : Ti.App.size(25),
-		left : Ti.App.size(665),
+		width : Ti.App.size(30),
+		height : Ti.App.size(30),
+		touchEnabled : false
 	});
-
+	sv.ui.ViewBut.add(sv.ui.iconBut);
 	//tao view ung dung
 	sv.ui.ViewUngDung = Ti.UI.createView({
 		height : Ti.UI.SIZE,
@@ -315,6 +329,7 @@ function createUI(sv) {
 	sv.ui.circle.add(sv.ui.Avatar);
 	sv.ui.ViewTong.add(sv.ui.LabelName);
 	sv.ui.ViewTong.add(sv.ui.LabelThongTin);
+	sv.ui.ViewTong.add(sv.ui.LabelThongTin_Tien);
 	sv.ui.ViewTong.add(sv.ui.ViewBut);
 	sv.ui.ViewTong.add(sv.ui.circle);
 	sv.ui.ViewUngDung.add(sv.ui.UngDung);
@@ -345,22 +360,30 @@ function createUI(sv) {
 	sv.ui.ViewIconRow3.add(sv.ui.IconRow3);
 	sv.ui.ViewIconRow4.add(sv.ui.IconRow4);
 	sv.ui.ViewIconRow5.add(sv.ui.IconRow5);
-	nap_xu(sv);
 	createUI_Event(sv);
 	sv.ui.Row2.addEventListener('click', sv.fu.event_consodachoi);
 	sv.ui.Row3.addEventListener('click', sv.fu.event_lichsugiaodich);
 	sv.ui.Row1.addEventListener('click', sv.fu.event_napxu);
-	sv.ui.ViewBut.addEventListener('click',function(){
-		sv.vari.changeinfo=new (require('/ui_user/Change_Info'));
+	sv.ui.Row5.addEventListener('click', sv.fu.event_nangcapvip);
+	sv.ui.ViewBut.addEventListener('click', function() {
+		sv.vari.changeinfo = new (require('/ui_user/Change_Info'));
 		sv.ui.ViewTong.removeAllChildren();
 		sv.ui.ViewTong.add(sv.vari.changeinfo.ui.ViewTong);
 	});
 }
 
 function createUI_Event(sv) {
+	sv.fu.event_nangcapvip = function(e) {
+		sv.vari.popup_vip = new (require('/ui_user/PopUpNangCap'))();
+		sv.vari.popup_vip.open({
+			modal : Ti.Platform.osname == 'android' ? true : false
+		});
+	};
 	sv.fu.event_napxu = function(e) {
 		sv.vari.PopUpNapTien = new (require('/ui_user/PopUpNapTien'))();
-		sv.vari.PopUpNapTien.open();
+		sv.vari.PopUpNapTien.open({
+			modal : Ti.Platform.osname == 'android' ? true : false
+		});
 	};
 	sv.fu.event_consodachoi = function(e) {
 		sv.ui.ViewTong.removeAllChildren();
@@ -391,70 +414,3 @@ function remove_sukien(sv) {
 	Ti.API.info('Closed window, sv=' + sv);
 };
 
-function nap_xu(sv) {
-	sv.ui.view_napxu = Ti.UI.createView({
-		width : Ti.App.size(720),
-		height : Ti.UI.FILL,
-		zIndex : 10,
-		top : 0,
-		left : 0,
-		backgroundColor : 'transparent'
-	});
-	sv.ui.view_napxu.visible = false;
-	sv.ui.view_napxu.add(Ti.UI.createView({
-		width : '100%',
-		height : '100%',
-		zIndex : 0,
-		backgroundColor : Ti.App.Color.nauden,
-		opacity : 0.4
-	}));
-	sv.ui.vTong = Ti.UI.createView({
-		width : Ti.App.size(700),
-		height : Ti.UI.SIZE,
-		zIndex : 10,
-		backgroundColor : Ti.App.Color.superwhite
-	});
-	sv.ui.label = Ti.UI.createLabel({
-		backgroundColor : Ti.App.Color.magenta,
-		left : 0,
-		width : Ti.UI.FILL,
-		height : Ti.App.size(150),
-		top : 0,
-		color : Ti.App.Color.nauden,
-		textAlign : 'center',
-		text : 'Ban muon nap',
-		font : {
-			fontSize : Ti.App.size(40)
-		}
-	});
-	sv.ui.vTong.add(sv.ui.label);
-	for (var i = 0; i < 3; i++) {
-		sv.ui.rows = Titanium.UI.createTableViewRow({
-			title : sv.arr.title[i].title,
-			id : sv.arr.title[i].id,
-			height : Ti.App.size(50),
-			backgroundColor : Ti.App.Color.xanhnhat,
-			selected : false,
-		});
-		sv.arr.datanapxu.push(sv.ui.rows);
-	}
-
-	sv.ui.table_napxu = Titanium.UI.createTableView({
-		data : sv.arr.datanapxu,
-		top : Ti.App.size(150),
-		height : Ti.UI.SIZE,
-		separatorColor : Ti.App.Color.nauden
-	});
-	sv.ui.table_napxu.addEventListener('click', function(e) {
-		if (e.rowData.selected) {
-			e.row.hasCheck = false;
-			Ti.API.info('row has click');
-		} else {
-			Titanium.API.info('not selected clicked');
-			e.row.hasCheck = true;
-		}
-		e.rowData.selected = !e.rowData.selected;
-	});
-	sv.ui.vTong.add(sv.ui.table_napxu);
-	sv.ui.view_napxu.add(sv.ui.vTong);
-};

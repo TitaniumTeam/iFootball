@@ -17,7 +17,7 @@ module.exports = function() {
  * Khởi tạo biến
  */
 function createVariable(sv) {
-	sv.vari.wd_app = require('/ui_app/MenuTong');
+	
 }
 
 function createUI(sv) {
@@ -251,7 +251,6 @@ function createUI(sv) {
 		text : 'Bạn quên mật khẩu?',
 		font : {
 			fontSize : Ti.App.size(30),
-			fontFamily : 'Aria'
 		},
 		color : Ti.App.Color.nauden,
 		top : Ti.App.size(5),
@@ -442,6 +441,7 @@ function fn_updateImage2Server_Dangnhap(_cmd, data, sv) {
 			Ti.API.info('dauso dich vu:  ' + mangdv.dauso[i]);
 			Ti.API.info('param dich vu:  ' + mangdv.param[i]);
 		}
+		var menutong = require('/ui_app/MenuTong');
 		var home = new menutong(username, mangdv);
 		home.ui.win.open();
 		sv.ui.Window.close();
