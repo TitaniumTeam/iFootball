@@ -17,6 +17,7 @@ function taobien(sv) {
 	sv.arr.datarow = [];
 	sv.arr.height = [Ti.App.size(120), Ti.App.size(200)];
 	////view day so lau ve
+	sv.arr.line1 = [];
 	sv.arr.view_solauve = [];
 	sv.arr.solauve = [];
 	sv.arr.tansuat_solauve = [];
@@ -166,11 +167,9 @@ function thongke(_cmd, data, sv) {
 						touchEnabled : false,
 						top : Ti.App.size(10)
 					});
-					sv.arr.solauve[i] = Ti.UI.createButton({
+					sv.arr.solauve[i] = Ti.UI.createLabel({
 						width : Ti.App.size(70),
 						height : Ti.App.size(60),
-						borderColor : Ti.App.nauden,
-						borderWidth : Ti.App.size(2),
 						left : Ti.App.size(3),
 						font : {
 							fontSize : Ti.App.size(30),
@@ -178,15 +177,19 @@ function thongke(_cmd, data, sv) {
 						},
 						textAlign : 'center',
 						backgroundColor : 'transparent',
-						touchEnabled : false,
-						borderRadius : Ti.App.size(5),
 						color : Ti.App.Color.nauden,
-						title : jsonResuilt.thongke.lauchuara[i].dayso,
+						text : jsonResuilt.thongke.lauchuara[i].dayso,
 						top : Ti.App.size(3)
 					});
-					sv.arr.tansuat_solauve[i] = Ti.UI.createLabel({
+					sv.arr.line1[i] = Titanium.UI.createView({
 						left : Ti.App.size(100),
-						width : Ti.App.size(570),
+						width : Ti.App.size(1),
+						height : Ti.App.size(40),
+						backgroundColor : Ti.App.Color.magenta
+					});
+					sv.arr.tansuat_solauve[i] = Ti.UI.createLabel({
+						left : Ti.App.size(150),
+						width : Ti.App.size(520),
 						backgroundColor : 'transparent',
 						touchEnabled : false,
 						height : Ti.UI.FILL,
@@ -196,8 +199,9 @@ function thongke(_cmd, data, sv) {
 						},
 						textAlign : 'left',
 						color : Ti.App.Color.nauden,
-						text : jsonResuilt.thongke.lauchuara[i].songay + 'ngày'
+						text : jsonResuilt.thongke.lauchuara[i].songay + ' ngày'
 					});
+					sv.arr.view_solauve[i].add(sv.arr.line1[i]);
 					sv.arr.view_solauve[i].add(sv.arr.tansuat_solauve[i]);
 					sv.arr.view_solauve[i].add(sv.arr.solauve[i]);
 					sv.ui.scrollView.add(sv.arr.view_solauve[i]);
@@ -252,7 +256,7 @@ function thongke(_cmd, data, sv) {
 					});
 					sv.arr.tansuat_sohayve[i] = Ti.UI.createLabel({
 						width : Ti.UI.SIZE,
-						left : Ti.App.size(100),
+						left : Ti.App.size(110),
 						font : {
 							fontSize : Ti.App.size(30),
 							fontWidth : 'bold'
@@ -434,9 +438,9 @@ function set_top(i) {
 };
 function set_left(i) {
 	if (i == 0) {
-		return Ti.App.size(76);
+		return Ti.App.size(80);
 	} else {
-		return Ti.App.size(206);
+		return Ti.App.size(210);
 	}
 };
 function currDate() {

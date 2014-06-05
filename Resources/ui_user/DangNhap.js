@@ -328,7 +328,7 @@ function createUI_Event(sv) {
 	};
 
 	sv.fu.eventClickviewdangky = function(e) {
-		var windk = new (require('/ui_user/WindowDk'));
+		var windk = new (require('/ui_user/WindowDK'));
 		windk.open();
 	};
 

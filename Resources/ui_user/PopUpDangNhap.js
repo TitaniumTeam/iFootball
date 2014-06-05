@@ -77,7 +77,7 @@ function createUI(sv, _currWin) {
 		textAlign : 'center'
 	});
 	sv.ui.button_dk = Ti.UI.createLabel({
-		backgroundColor : Ti.App.Color.magenta,
+		backgroundColor : Ti.App.Color.nauden,
 		width : Ti.App.size(300),
 		height : Ti.App.size(95),
 		text : "ĐĂNG KÝ",
@@ -87,12 +87,11 @@ function createUI(sv, _currWin) {
 			fontSize : Ti.App.size(30)
 		},
 		borderRadius : Ti.App.size(5),
-		color : Ti.App.Color.nauden,
-		backgroundSelectedColor : Ti.App.Color.nauden
+		color : Ti.App.Color.superwhite,
+		backgroundSelectedColor : Ti.App.Color.green
 	});
 
 	sv.ui.button_dn = Ti.UI.createLabel({
-		backgroundColor : Ti.App.Color.xanhnhat,
 		width : Ti.App.size(300),
 		height : Ti.App.size(95),
 		text : "ĐĂNG NHẬP",
@@ -102,8 +101,9 @@ function createUI(sv, _currWin) {
 			fontSize : Ti.App.size(30)
 		},
 		borderRadius : Ti.App.size(5),
-		color : Ti.App.Color.nauden,
-		backgroundSelectedColor : Ti.App.Color.nauden
+		backgroundColor : Ti.App.Color.green,
+		backgroundSelectedColor : Ti.App.Color.magenta,
+		color:Ti.App.Color.nauden
 	});
 
 	createUI_Event(sv, _currWin);
