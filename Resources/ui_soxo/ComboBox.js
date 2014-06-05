@@ -3,7 +3,7 @@ module.exports = function(_top,_textlbl, _left,_width,_toptbl) {
 		top : _top,
 		width : _width,
 		height : Ti.App.size(100),
-		backgroundColor :Ti.App.Color.xanhnhat,
+		backgroundColor :Ti.App.Color.brown,
 		left : _left
 	});
 	var line_view=Ti.UI.createView({
@@ -15,7 +15,7 @@ module.exports = function(_top,_textlbl, _left,_width,_toptbl) {
 	});
 	view_contain.add(line_view);
 	var lblfirst = Titanium.UI.createLabel({
-		color : Ti.App.Color.nauden,
+		color : Ti.App.Color.superwhite,
 		font : {
 			fontSize : Ti.App.size(30)
 		},
@@ -25,7 +25,7 @@ module.exports = function(_top,_textlbl, _left,_width,_toptbl) {
 	});
 	view_contain.add(lblfirst);
 	var arrowup = Titanium.UI.createImageView({
-		backgroundImage : '/assets/images/icon/arrow-top.png',
+		backgroundImage : '/assets/images/icon/arrow-top_white.png',
 		width : Ti.App.size(40),
 		height : Ti.App.size(25),
 		top : Ti.App.size(20),
@@ -33,7 +33,7 @@ module.exports = function(_top,_textlbl, _left,_width,_toptbl) {
 	});
 	view_contain.add(arrowup);
 	var arrowdown = Titanium.UI.createImageView({
-		backgroundImage : '/assets/images/icon/arrow-bottom.png',
+		backgroundImage : '/assets/images/icon/arrow-bottom_white.png',
 		width : Ti.App.size(40),
 		height : Ti.App.size(25),
 		bottom : Ti.App.size(20),

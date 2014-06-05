@@ -95,7 +95,7 @@ function tao_ui(sv) {
 		backgroundColor : 'transparent',
 		top : 0,
 		right : 0,
-		backgroundSelectedColor : Ti.App.Color.nauden
+		backgroundSelectedColor : Ti.App.Color.xannhat
 	});
 	sv.ui.img_tuvan = Titanium.UI.createImageView({
 		width : Ti.App.size(74),

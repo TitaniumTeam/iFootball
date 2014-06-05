@@ -77,7 +77,7 @@ function createUI(sv, _currWin) {
 		textAlign : 'center'
 	});
 	sv.ui.button_dk = Ti.UI.createLabel({
-		backgroundColor : Ti.App.Color.nauden,
+		backgroundColor : Ti.App.Color.magenta,
 		width : Ti.App.size(300),
 		height : Ti.App.size(95),
 		text : "ĐĂNG KÝ",
@@ -88,7 +88,7 @@ function createUI(sv, _currWin) {
 		},
 		borderRadius : Ti.App.size(5),
 		color : Ti.App.Color.superwhite,
-		backgroundSelectedColor : Ti.App.Color.green
+		backgroundSelectedColor : Ti.App.Color.xanhnhat
 	});
 
 	sv.ui.button_dn = Ti.UI.createLabel({

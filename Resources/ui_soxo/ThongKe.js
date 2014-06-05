@@ -145,31 +145,38 @@ function thongke(_cmd, data, sv) {
 			if (_cmd == "getlotterystat") {
 				sv.ui.scrollView.removeAllChildren();
 				sv.ui.lbl_dsve_saudau = Ti.UI.createLabel({
-					width : Ti.UI.SIZE,
-					left : Ti.App.size(20),
-					text : 'Dãy số ít về trong 10 ngày qua',
-					top : Ti.App.size(10),
+					width : Ti.App.size(670),
+					height : Ti.App.size(65),
+					left : Ti.App.size(25),
+					backgroundColor : Ti.App.Color.brown,
+					touchEnabled : false,
 					font : {
-						fontSize : Ti.App.size(30)
+						fontSize : Ti.App.size(25)
 					},
-					color : Ti.App.Color.nauden,
-					textAlign : 'left'
+					color : Ti.App.Color.superwhite,
+					text : 'Dãy số ít về trong 10 ngày qua',
+					top : Ti.App.size(30),
+					textAlign : 'center'
 				});
 				sv.ui.scrollView.add(sv.ui.lbl_dsve_saudau);
 				for (var i = 0; i < (jsonResuilt.thongke.lauchuara.length); i++) {
-					sv.arr.view_solauve[i] = Ti.UI.createView({
+					sv.arr.view_solauve[i] = Ti.UI.createTableViewRow({
 						width : Ti.App.size(670),
 						height : Ti.App.size(65),
 						left : Ti.App.size(25),
-						borderColor : Ti.App.Color.magenta,
-						borderWidth : Ti.App.size(3),
 						backgroundColor : 'transparent',
 						touchEnabled : false,
 						top : Ti.App.size(10)
 					});
+					sv.arr.line1[i] = Ti.UI.createView({
+						left : Ti.App.size(75),
+						width : Ti.App.size(1),
+						height : Ti.App.size(40),
+						backgroundColor : Ti.App.Color.magenta
+					});
 					sv.arr.solauve[i] = Ti.UI.createLabel({
 						width : Ti.App.size(70),
-						height : Ti.App.size(60),
+						height : Ti.App.size(65),
 						left : Ti.App.size(3),
 						font : {
 							fontSize : Ti.App.size(30),
@@ -179,13 +186,6 @@ function thongke(_cmd, data, sv) {
 						backgroundColor : 'transparent',
 						color : Ti.App.Color.nauden,
 						text : jsonResuilt.thongke.lauchuara[i].dayso,
-						top : Ti.App.size(3)
-					});
-					sv.arr.line1[i] = Titanium.UI.createView({
-						left : Ti.App.size(100),
-						width : Ti.App.size(1),
-						height : Ti.App.size(40),
-						backgroundColor : Ti.App.Color.magenta
 					});
 					sv.arr.tansuat_solauve[i] = Ti.UI.createLabel({
 						left : Ti.App.size(150),
@@ -201,18 +201,28 @@ function thongke(_cmd, data, sv) {
 						color : Ti.App.Color.nauden,
 						text : jsonResuilt.thongke.lauchuara[i].songay + ' ngày'
 					});
-					sv.arr.view_solauve[i].add(sv.arr.line1[i]);
 					sv.arr.view_solauve[i].add(sv.arr.tansuat_solauve[i]);
 					sv.arr.view_solauve[i].add(sv.arr.solauve[i]);
-					sv.ui.scrollView.add(sv.arr.view_solauve[i]);
+					sv.arr.view_solauve[i].add(sv.arr.line1[i]);
 				};
-
+				sv.ui.viewTongsolauve = Ti.UI.createTableView({
+					width : Ti.App.size(670),
+					height : Ti.UI.SIZE,
+					left : Ti.App.size(25),
+					backgroundColor : 'transparent',
+					touchEnabled : false,
+					borderColor : Ti.App.Color.magenta,
+					borderWidth : Ti.App.size(2),
+					separatorColor : Ti.App.Color.magenta,
+					data : sv.arr.view_solauve,
+				});
+				sv.ui.scrollView.add(sv.ui.viewTongsolauve);
 				///day so hay ve
 				sv.ui.lbl_header_hayve = Ti.UI.createLabel({
 					width : Ti.App.size(670),
 					height : Ti.App.size(65),
 					left : Ti.App.size(25),
-					backgroundColor : Ti.App.Color.nauden,
+					backgroundColor : Ti.App.Color.brown,
 					touchEnabled : false,
 					font : {
 						fontSize : Ti.App.size(25)
@@ -302,7 +312,7 @@ function thongke(_cmd, data, sv) {
 					width : Ti.App.size(670),
 					height : Ti.App.size(65),
 					left : Ti.App.size(25),
-					backgroundColor : Ti.App.Color.nauden,
+					backgroundColor : Ti.App.Color.brown,
 					touchEnabled : false,
 					font : {
 						fontSize : Ti.App.size(25)

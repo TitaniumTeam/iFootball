@@ -13,7 +13,7 @@ module.exports = function(_quyen, _mangdv) {
 
 };
 function taobien(sv) {
-	sv.vari.intelval;
+	sv.vari.intelval
 	sv.vari.popup = require('/ui_user/PopUpDangNhap');
 	////
 	sv.vari.ketqua_tructiep = require('/ui_soxo/WindowRealTime');
@@ -449,19 +449,18 @@ function taosukien(sv, _quyen, _mangdv) {
 		if (j == 1) {
 			sv.arr.evt_header[1] = function(e) {
 				clearInterval(sv.vari.intelval);
-				sv.arr.view_iconheader[1].backgroundColor = Ti.App.Color.superwhite;
-				sv.arr.iconheader[1].image = sv.arr.img_header[1].press;
-				sv.arr.iconheader[0].image = sv.arr.img_header[0].bg;
-				sv.arr.view_iconheader[0].backgroundColor = Ti.App.Color.red;
-				sv.arr.iconheader[2].image = sv.arr.img_header[2].bg;
-				sv.arr.view_iconheader[2].backgroundColor = Ti.App.Color.red;
 				if (_quyen == "free") {
 					sv.vari.wd_popup = new sv.vari.popup(sv.ui.win);
 					sv.vari.wd_popup.open({
 						modal : Ti.Platform.osname == 'android' ? true : false
 					});
-					sv.vari.flag_updatekq = false;
 				} else {
+					sv.arr.view_iconheader[1].backgroundColor = Ti.App.Color.superwhite;
+					sv.arr.iconheader[1].image = sv.arr.img_header[1].press;
+					sv.arr.iconheader[0].image = sv.arr.img_header[0].bg;
+					sv.arr.view_iconheader[0].backgroundColor = Ti.App.Color.red;
+					sv.arr.iconheader[2].image = sv.arr.img_header[2].bg;
+					sv.arr.view_iconheader[2].backgroundColor = Ti.App.Color.red;
 					sv.ui.ViewFooter.visible = false;
 					sv.ui.ViewTong.bottom = 0;
 					sv.ui.ViewTong.removeAllChildren();
