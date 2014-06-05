@@ -85,7 +85,7 @@ function createUI(sv, _dauso) {
 		},
 		borderRadius : Ti.App.size(5),
 		color : Ti.App.Color.nauden,
-		backgroundSelectedColor:Ti.App.Color.nauden
+		backgroundSelectedColor:Ti.App.Color.xanhnhat
 	});
 
 	createUI_Event(sv, _dauso);

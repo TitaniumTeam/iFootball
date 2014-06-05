@@ -1,12 +1,13 @@
 function home_control() {
 	new (require('/ui-controller/AllData'));
-	new (require('/ui-controller/bg_service_controller'));
+	// new (require('/ui-controller/bg_service_controller'));
 	var menutong = require('/ui_app/MenuTong');
 	var db = Ti.Database.open('userinfo');
 	db.execute('CREATE TABLE IF NOT EXISTS SaveInfo(username TEXT PRIMARY KEY, password TEXT,type INTERGER,balance INTERGER,notifi BOOL,dauso1 TEXT,dauso2 TEXT,dauso3 TEXT);');
 	var sql = db.execute("SELECT * FROM SaveInfo");
 	Ti.API.info('du lieu' + sql.getRowCount());
 	if (sql.isValidRow()) {
+		Ti.API.info('*************user info:'+sql.fieldByName("username")+sql.fieldByName("dauso1")+sql.fieldByName("dauso2")+sql.fieldByName("dauso3"));
 		var username = sql.fieldByName("username");
 		fn_updateImage2Server("getmenu", {
 			"username" : username.toString()

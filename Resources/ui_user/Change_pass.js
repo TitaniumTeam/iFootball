@@ -69,9 +69,9 @@ function createUI(sv) {
 	});
 
 	sv.ui.LabelMKCu = Ti.UI.createLabel({
-		text : 'MẬT KHẨU CŨ',
+		text : 'Mật khẩu cũ',
 		font : {
-			fontSize : Ti.App.size(30),
+			fontSize : Ti.App.size(25),
 			fontFamily : 'Aria',
 			textAlign : 'left'
 		},
@@ -106,9 +106,9 @@ function createUI(sv) {
 	});
 
 	sv.ui.LabelMKMoi = Ti.UI.createLabel({
-		text : 'MẬT KHẨU MỚI',
+		text : 'Mật khẩu mới',
 		font : {
-			fontSize : Ti.App.size(30),
+			fontSize : Ti.App.size(25),
 			fontFamily : 'Aria',
 			textAlign : 'left'
 		},

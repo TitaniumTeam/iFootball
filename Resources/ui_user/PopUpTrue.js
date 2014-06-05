@@ -77,7 +77,7 @@ function createUI(sv) {
 		backgroundColor : 'transparent',
 		text:'THÀNH CÔNG'
 	});
-	sv.ui.ViewThongBao2 = Ti.UI.createLabel({
+	sv.ui.ViewThongBao2 = Ti.UI.createView({
 		top : Ti.App.size(110),
 		left : Ti.App.size(75),
 		right : Ti.App.size(75)

@@ -241,6 +241,7 @@ function taosukien(sv, _quyen, _mangdv) {
 		if (i == 0) {
 			sv.arr.evt_chucnangsoxo[i] = function(e) {
 				clearInterval(sv.vari.intelval);
+				ktmang(sv);
 				for (var j = 0; j < 4; j++) {
 					if (j == 0) {
 						sv.arr.viewchucnangsoxo[j].backgroundColor = Ti.App.Color.nauden;
@@ -274,6 +275,7 @@ function taosukien(sv, _quyen, _mangdv) {
 		if (i == 1) {
 			sv.arr.evt_chucnangsoxo[i] = function(e) {
 				clearInterval(sv.vari.intelval);
+				ktmang(sv);
 				for (var j = 0; j < 4; j++) {
 					if (j == 1) {
 						sv.arr.viewchucnangsoxo[j].backgroundColor = Ti.App.Color.nauden;
@@ -419,6 +421,7 @@ function taosukien(sv, _quyen, _mangdv) {
 		if (j == 0) {
 			sv.arr.evt_header[0] = function(e) {
 				clearInterval(sv.vari.intelval);
+				ktmang(sv);
 				sv.arr.view_iconheader[0].backgroundColor = Ti.App.Color.superwhite;
 				sv.arr.iconheader[0].image = sv.arr.img_header[0].press;
 				sv.arr.view_iconheader[1].backgroundColor = Ti.App.Color.red;
@@ -452,7 +455,7 @@ function taosukien(sv, _quyen, _mangdv) {
 				sv.arr.view_iconheader[0].backgroundColor = Ti.App.Color.red;
 				sv.arr.iconheader[2].image = sv.arr.img_header[2].bg;
 				sv.arr.view_iconheader[2].backgroundColor = Ti.App.Color.red;
-				if (_quyen =="free") {
+				if (_quyen == "free") {
 					sv.vari.wd_popup = new sv.vari.popup(sv.ui.win);
 					sv.vari.wd_popup.open({
 						modal : Ti.Platform.osname == 'android' ? true : false
@@ -470,6 +473,7 @@ function taosukien(sv, _quyen, _mangdv) {
 		if (j == 2) {
 			sv.arr.evt_header[2] = function(e) {
 				clearInterval(sv.vari.intelval);
+				ktmang(sv);
 				sv.arr.view_iconheader[2].backgroundColor = Ti.App.Color.superwhite;
 				sv.arr.iconheader[2].image = sv.arr.img_header[2].press;
 				sv.arr.iconheader[0].image = sv.arr.img_header[0].bg;
@@ -516,6 +520,7 @@ function taosukien(sv, _quyen, _mangdv) {
 	 * **/
 	sv.fu.evt_win_open = function(e) {
 		Ti.API.info('win open');
+		ktmang(sv);
 		sv.arr.view_iconheader[2].backgroundColor = Ti.App.Color.superwhite;
 		sv.arr.iconheader[2].image = sv.arr.img_header[2].press;
 		sv.arr.iconheader[0].image = sv.arr.img_header[0].bg;
@@ -577,59 +582,51 @@ function taosukien(sv, _quyen, _mangdv) {
 /////cmd:ten ham, data: param,sv,_choose:1-view quay truc tiep- 2- view so ket qua
 function layketqua(_cmd, data, sv, _choose) {
 	var xhr = Titanium.Network.createHTTPClient();
-	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
-		var kqoff = new (require('/ui_app/kq_offline'))("KQSX");
-		kqoff.open({
-			modal : Ti.Platform.osname == 'android' ? true : false
-		});
-
-	} else {
-		xhr.onsendstream = function(e) {
-			//ind.value = e.progress;
-			Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
-		};
-		// open the client
-		xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=' + _cmd);
-		xhr.setRequestHeader("Content-Type", "application/json-rpc");
-		// Ti.API.info(JSON.stringify(data));
-		xhr.send(JSON.stringify(data));
-		xhr.onerror = function(e) {
-			Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
-		};
-		xhr.onload = function() {
-			// Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
-			var dl = JSON.parse(this.responseText);
-			var jsonResuilt = JSON.parse(dl);
-			var ketqua = [];
-			var mangstring;
-			var mangkq = [];
-			for (var i = 0; i < jsonResuilt.resulttable.length; i++) {
-				if (jsonResuilt.resulttable[i].provide) {
-					for (var j = 0; j < jsonResuilt.resulttable[i].lines.length; j++) {
-						ketqua.push(jsonResuilt.resulttable[i].lines[j].result);
+	xhr.onsendstream = function(e) {
+		//ind.value = e.progress;
+		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
+	};
+	// open the client
+	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=' + _cmd);
+	xhr.setRequestHeader("Content-Type", "application/json-rpc");
+	// Ti.API.info(JSON.stringify(data));
+	xhr.send(JSON.stringify(data));
+	xhr.onerror = function(e) {
+		Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
+	};
+	xhr.onload = function() {
+		// Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
+		var dl = JSON.parse(this.responseText);
+		var jsonResuilt = JSON.parse(dl);
+		var ketqua = [];
+		var mangstring;
+		var mangkq = [];
+		for (var i = 0; i < jsonResuilt.resulttable.length; i++) {
+			if (jsonResuilt.resulttable[i].provide) {
+				for (var j = 0; j < jsonResuilt.resulttable[i].lines.length; j++) {
+					ketqua.push(jsonResuilt.resulttable[i].lines[j].result);
+				};
+				for (var i = 0; i < (ketqua.length); i++) {
+					mangstring = (ketqua[i].toString()).split(',');
+					for (var j = 0; j < (mangstring.length); j++) {
+						mangkq.push(mangstring[j]);
 					};
-					for (var i = 0; i < (ketqua.length); i++) {
-						mangstring = (ketqua[i].toString()).split(',');
-						for (var j = 0; j < (mangstring.length); j++) {
-							mangkq.push(mangstring[j]);
-						};
-					}
-
-				} else {
-					Ti.API.info('khong co du lieu');
 				}
+
+			} else {
+				Ti.API.info('khong co du lieu');
 			}
-			sv.ui.bangkq.setKQ_tructiep(mangkq);
-			/*
-			 if(_choose==1){
-			 sv.vari.view_kqsx.ui.bangkq.setKQ_tructiep(mangkq);
-			 }
-			 else{
-			 sv.vari.wdKQSX.ui.bangkq.setKQ_tructiep(mangkq);
-			 }
-			 */
-		};
-	}
+		}
+		sv.ui.bangkq.setKQ_tructiep(mangkq);
+		/*
+		 if(_choose==1){
+		 sv.vari.view_kqsx.ui.bangkq.setKQ_tructiep(mangkq);
+		 }
+		 else{
+		 sv.vari.wdKQSX.ui.bangkq.setKQ_tructiep(mangkq);
+		 }
+		 */
+	};
 
 };
 function currDate() {
@@ -671,6 +668,16 @@ function set_color(i) {
 		return Ti.App.Color.superwhite;
 	} else {
 		return Ti.App.Color.nauden;
+	}
+}
+
+function ktmang(sv) {
+	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
+		var kqoff = new (require('/ui_app/kq_offline'))("KQSX");
+		kqoff.open({
+			modal : Ti.Platform.osname == 'android' ? true : false
+		});
+
 	}
 }
 

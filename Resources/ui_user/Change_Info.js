@@ -69,9 +69,9 @@ function createUI(sv) {
 	});
 
 	sv.ui.LabelEmail = Ti.UI.createLabel({
-		text : 'EMAIL',
+		text : 'Email',
 		font : {
-			fontSize : Ti.App.size(20),
+			fontSize : Ti.App.size(30),
 			fontFamily : 'Aria',
 			textAlign : 'left'
 		},
@@ -106,9 +106,9 @@ function createUI(sv) {
 	});
 
 	sv.ui.LabelMobile = Ti.UI.createLabel({
-		text : 'MOBILE',
+		text : 'Mobile',
 		font : {
-			fontSize : Ti.App.size(20),
+			fontSize : Ti.App.size(30),
 			fontFamily : 'Aria',
 			textAlign : 'left'
 		},
@@ -142,9 +142,9 @@ function createUI(sv) {
 	});
 
 	sv.ui.LabelFullName = Ti.UI.createLabel({
-		text : 'FULLNAME',
+		text : 'Họ tên',
 		font : {
-			fontSize : Ti.App.size(20),
+			fontSize : Ti.App.size(30),
 			fontFamily : 'Aria',
 			textAlign : 'left'
 		},

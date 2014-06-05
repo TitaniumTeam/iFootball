@@ -206,7 +206,7 @@ function createUI(sv) {
 		top : Ti.App.size(855),
 		height : Ti.App.size(95),
 		backgroundColor : Ti.App.Color.green,
-		backgroundSelectedColor : Ti.App.Color.nauden
+		backgroundSelectedColor : Ti.App.Color.magenta
 	});
 
 	sv.ui.labelviewdn = Ti.UI.createLabel({
@@ -217,6 +217,7 @@ function createUI(sv) {
 			fontFamily : 'Aria'
 		},
 		color : Ti.App.Color.nauden,
+		touchEnabled : false
 	});
 
 	sv.ui.viewdangky = Ti.UI.createView({
@@ -236,6 +237,7 @@ function createUI(sv) {
 			fontFamily : 'Aria'
 		},
 		color : Ti.App.Color.superwhite,
+		touchEnabled : false
 	});
 
 	//tao quen mat khau
@@ -452,5 +454,7 @@ function fn_updateImage2Server_Dangnhap(_cmd, data, sv) {
 		var home = new menutong(username, mangdv);
 		home.ui.win.open();
 		sv.ui.Window.close();
+		sql.close();
+		db.close();
 	};
 };
