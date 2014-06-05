@@ -34,7 +34,7 @@ function createUI(sv) {
 		height : Ti.UI.SIZE,
 		color : Ti.App.Color.nauden,
 		top : Ti.App.size(30),
-		text : "THAY ĐỔI THÔNG TIN CÁ NHÂN",
+		text : "THAY ĐỔI MẬT KHẨU",
 		font : {
 			fontSize : Ti.App.size(30),
 			fontWeight : 'bold',
@@ -60,7 +60,7 @@ function createUI(sv) {
 	sv.vari.sql.close();
 	sv.vari.db.close();
 	//Tao view Email
-	sv.ui.ViewEmail = Ti.UI.createView({
+	sv.ui.ViewMKCu = Ti.UI.createView({
 		backgroundColor : Ti.App.Color.magenta,
 		top : Ti.App.size(150),
 		height : Ti.App.size(95),
@@ -68,10 +68,10 @@ function createUI(sv) {
 		right : Ti.App.size(20)
 	});
 
-	sv.ui.LabelEmail = Ti.UI.createLabel({
-		text : 'EMAIL',
+	sv.ui.LabelMKCu = Ti.UI.createLabel({
+		text : 'MẬT KHẨU CŨ',
 		font : {
-			fontSize : Ti.App.size(20),
+			fontSize : Ti.App.size(30),
 			fontFamily : 'Aria',
 			textAlign : 'left'
 		},
@@ -80,7 +80,7 @@ function createUI(sv) {
 		color : Ti.App.Color.nauden
 	});
 
-	sv.ui.TfEmail = Ti.UI.createTextField({
+	sv.ui.TftMKCu = Ti.UI.createTextField({
 		//bottom : Ti.App.size(580),
 		bottom : Ti.App.size(15),
 		top : Ti.App.size(15),
@@ -89,7 +89,7 @@ function createUI(sv) {
 		color : Ti.App.Color.white,
 		backgroundColor : Ti.App.Color.nauden,
 		font : {
-			fontSize : Ti.App.size(22),
+			fontSize : Ti.App.size(25),
 			fontFamily : 'Aria',
 			fontWeight : 'bold',
 			textAlign : 'center',
@@ -97,7 +97,7 @@ function createUI(sv) {
 	});
 
 	//Tao view Tai Khoan
-	sv.ui.ViewMobile = Ti.UI.createView({
+	sv.ui.ViewMKMoi = Ti.UI.createView({
 		backgroundColor : Ti.App.Color.magenta,
 		top : Ti.App.size(270),
 		height : Ti.App.size(95),
@@ -105,10 +105,10 @@ function createUI(sv) {
 		right : Ti.App.size(20)
 	});
 
-	sv.ui.LabelMobile = Ti.UI.createLabel({
-		text : 'MOBILE',
+	sv.ui.LabelMKMoi = Ti.UI.createLabel({
+		text : 'MẬT KHẨU MỚI',
 		font : {
-			fontSize : Ti.App.size(20),
+			fontSize : Ti.App.size(30),
 			fontFamily : 'Aria',
 			textAlign : 'left'
 		},
@@ -117,7 +117,7 @@ function createUI(sv) {
 		color : Ti.App.Color.nauden
 	});
 
-	sv.ui.TftMobile = Ti.UI.createTextField({
+	sv.ui.TftMKMoi = Ti.UI.createTextField({
 		//bottom : Ti.App.size(580),
 		bottom : Ti.App.size(15),
 		top : Ti.App.size(15),
@@ -126,50 +126,11 @@ function createUI(sv) {
 		color : Ti.App.Color.white,
 		backgroundColor : Ti.App.Color.nauden,
 		font : {
-			fontSize : Ti.App.size(22),
+			fontSize : Ti.App.size(25),
 			fontFamily : 'Aria',
 			fontWeight : 'bold',
 		},
 	});
-
-	//Tao view Mat Khau
-	sv.ui.ViewFullName = Ti.UI.createView({
-		backgroundColor : Ti.App.Color.magenta,
-		top : Ti.App.size(390),
-		height : Ti.App.size(95),
-		left : Ti.App.size(20),
-		right : Ti.App.size(20)
-	});
-
-	sv.ui.LabelFullName = Ti.UI.createLabel({
-		text : 'FULLNAME',
-		font : {
-			fontSize : Ti.App.size(20),
-			fontFamily : 'Aria',
-			textAlign : 'left'
-		},
-		right : Ti.App.size(490),
-		left : Ti.App.size(10),
-		color : Ti.App.Color.nauden
-	});
-
-	sv.ui.TftFullName = Ti.UI.createTextField({
-		//bottom : Ti.App.size(580),
-		passwordMask : true,
-		bottom : Ti.App.size(15),
-		top : Ti.App.size(15),
-		left : Ti.App.size(190),
-		right : Ti.App.size(10),
-		color : Ti.App.Color.white,
-		backgroundColor : Ti.App.Color.nauden,
-		font : {
-			fontSize : Ti.App.size(22),
-			fontFamily : 'Aria',
-			fontWeight : 'bold',
-		},
-	});
-
-	//tao view xac nhan
 
 	sv.ui.XacNhan = Ti.UI.createLabel({
 		text : 'XÁC NHẬN',
@@ -191,19 +152,15 @@ function createUI(sv) {
 
 	sv.ui.XacNhan.addEventListener('click', sv.fu.event_xacnhan);
 
-	sv.ui.ViewTong.add(sv.ui.ViewEmail);
-	sv.ui.ViewTong.add(sv.ui.ViewMobile);
-	sv.ui.ViewTong.add(sv.ui.ViewFullName);
+	sv.ui.ViewTong.add(sv.ui.ViewMKMoi);
+	sv.ui.ViewTong.add(sv.ui.ViewMKCu);
 	sv.ui.ViewTong.add(sv.ui.XacNhan);
 
-	sv.ui.ViewEmail.add(sv.ui.LabelEmail);
-	sv.ui.ViewEmail.add(sv.ui.TfEmail);
+	sv.ui.ViewMKMoi.add(sv.ui.LabelMKMoi);
+	sv.ui.ViewMKMoi.add(sv.ui.TftMKMoi);
 
-	sv.ui.ViewMobile.add(sv.ui.LabelMobile);
-	sv.ui.ViewMobile.add(sv.ui.TftMobile);
-
-	sv.ui.ViewFullName.add(sv.ui.LabelFullName);
-	sv.ui.ViewFullName.add(sv.ui.TftFullName);
+	sv.ui.ViewMKCu.add(sv.ui.LabelMKCu);
+	sv.ui.ViewMKCu.add(sv.ui.TftMKCu);
 
 }
 
@@ -211,9 +168,8 @@ function createUI_Event(sv) {
 	sv.fu.event_xacnhan = function(e) {
 		thaydoi_info({
 			"username" : sv.ui.LabelName.text,
-			"email" : sv.ui.TfEmail.value,
-			"mobile" : sv.ui.TftMobile.value,
-			"fullname" : sv.ui.TftFullName.value
+			"pass" : sv.ui.TftMKCu.value,
+			"newpass" : sv.ui.TftMKMoi.value,
 		}, sv);
 	};
 }
@@ -237,7 +193,7 @@ function thaydoi_info(data, sv) {
 		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
 	};
 	// open the client
-	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=updateinfo');
+	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=changepass');
 	xhr.setRequestHeader("Content-Type", "application/json-rpc");
 	Ti.API.info(JSON.stringify(data));
 	xhr.send(JSON.stringify(data));
@@ -248,8 +204,9 @@ function thaydoi_info(data, sv) {
 	xhr.onload = function() {
 		Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
 		var dl = JSON.parse(this.responseText);
+		
 		var jsonResuilt = JSON.parse(dl);
-		Ti.API.info('code' + jsonResuilt.code);
+		Ti.API.info('code'+jsonResuilt.code);
 		if (jsonResuilt.code == 0) {
 			sv.vari.popup_success = new (require('/ui_user/PopUpTrue'))();
 			sv.vari.popup_success.setText('Thay đổi mật khẩu thành công');
@@ -263,6 +220,7 @@ function thaydoi_info(data, sv) {
 				modal : Ti.Platform.osname == 'android' ? true : false
 			});
 		}
+
 	};
 
 };

@@ -9,9 +9,10 @@ module.exports = function() {
 	(function() {
 		createVariable(sv);
 		createUI(sv);
+		setText(sv);
 	})();
 
-	return sv.ui.Window;
+	return sv;
 };
 
 function createVariable(sv) {
@@ -139,3 +140,8 @@ function createUI_Event(sv) {
 	};
 }
 
+function setText(sv){
+	sv.setText=function(_txt){
+		sv.ui.ThongBao2.text=_txt;
+	};
+};

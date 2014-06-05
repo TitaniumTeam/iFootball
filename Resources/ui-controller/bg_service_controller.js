@@ -36,24 +36,24 @@ function bg_service_controller() {
 
 		});
 	}
-	if (Ti.Platform.osname == "android") {
-		var intent = Ti.Android.createServiceIntent({
-			url : 'android_bgservice.js'
-		});
-		var now = new Date().getTime();
-		var delta = new Date(now + 1000);
-		var deltaMS = delta - now;
-		var service = Titanium.Android.createService(intent);
-		var curhour = new Date().getHours();
-		var currmin = new Date().getMinutes();
-		if ((curhour == 18) && (30 >= currmin >= 0)) {
-			service.start();
-		}
-		service.addEventListener('pause', function(e) {
-			intent.putExtra('interval', deltaMS);
-			intent.putExtra('message', 'Back ground service');
-		});
-
-	}
+	// if (Ti.Platform.osname == "android") {
+		// var intent = Ti.Android.createServiceIntent({
+			// url : 'android_bgservice.js'
+		// });
+		// var now = new Date().getTime();
+		// var delta = new Date(now + 1000);
+		// var deltaMS = delta - now;
+		// var service = Titanium.Android.createService(intent);
+		// var curhour = new Date().getHours();
+		// var currmin = new Date().getMinutes();
+		// if ((curhour == 18) && (30 >= currmin >= 0)) {
+			// service.start();
+		// }
+		// service.addEventListener('pause', function(e) {
+			// intent.putExtra('interval', deltaMS);
+			// intent.putExtra('message', 'Back ground service');
+		// });
+// 
+	// }
 };
 module.exports=bg_service_controller;

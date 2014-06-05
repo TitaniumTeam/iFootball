@@ -43,8 +43,7 @@ function createUI(sv) {
 		height : Ti.App.size(215),
 		left : Ti.App.size(0),
 		right : Ti.App.size(0),
-		backgroundColor:Ti.App.Color.red,
-		backgroundSelectedColor:Ti.App.Color.xanhnhat
+		backgroundColor:Ti.App.Color.blue
 	});
 
 	sv.ui.Icon = Ti.UI.createImageView({
@@ -52,7 +51,7 @@ function createUI(sv) {
 		left : Ti.App.size(215),
 		right : Ti.App.size(215),
 		bottom : Ti.App.size(45),
-		image:'/assets/images/icon/icon-close.png'
+		image:'/assets/images/icon/icon-true.png'
 	});
 
 	sv.ui.ViewThongBao = Ti.UI.createView({
@@ -75,7 +74,7 @@ function createUI(sv) {
 		width : Ti.UI.SIZE,
 		height : Ti.UI.SIZE,
 		backgroundColor : 'transparent',
-		text:'THẤT BẠI',
+		text:'THÀNH CÔNG'
 	});
 	sv.ui.ViewThongBao2 = Ti.UI.createLabel({
 		top : Ti.App.size(110),
@@ -92,9 +91,8 @@ function createUI(sv) {
 		width : Ti.UI.SIZE,
 		height : Ti.UI.SIZE,
 		backgroundColor : 'transparent',
-		text:'Giao dịch thất bai. Bạn hãy thử lại'
+		text:'Chúc mừng bạn đã hoàn thành giao dịch'
 	});
-
 	createUI_Event(sv);
 
 	sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);

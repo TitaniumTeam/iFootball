@@ -48,7 +48,8 @@ function taoui(sv, _mangdv) {
 				title : _mangdv.name[i],
 				id : i,
 				thamso : _mangdv.param[i],
-				tendauso : _mangdv.dauso[i]
+				tendauso : _mangdv.dauso[i],
+				price:_mangdv.price[i],
 				// hasChild : true
 			});
 			sv.arr.rows.push(sv.ui.row);
@@ -72,25 +73,28 @@ function tao_sukien(sv) {
 		Ti.API.info(e.row.title);
 		Ti.API.info(e.row.thamso);
 		Ti.API.info(e.row.tendauso);
+		Ti.API.info(e.row.price);
 		sv.vari.tendauso = e.row.tendauso;
+		sv.vari.price=e.row.price;
 		if (e.row.thamso == "") {
 			fn_updateImage2Server("menuaction", {
 				"command" : sv.vari.tendauso,
-				"param" : ""
+				"param" : "","price":sv.vari.price
 			}, sv);
 		} else {
 			sv.vari.param = [];
 			sv.vari.thamso = e.row.thamso.toString();
 			sv.vari.param = (sv.vari.thamso.split(','));
 			sv.ui.opt_dialog = Titanium.UI.createOptionDialog({
-				title : "Lựa chọn",
+				title : "Lựa chọn tỉnh thành",
 				options : sv.vari.param
 			});
 			sv.ui.opt_dialog.show();
 			sv.ui.opt_dialog.addEventListener('click', function(e) {
 				fn_updateImage2Server("menuaction", {
 					"command" : sv.vari.tendauso,
-					"param" : sv.vari.param[e.index]
+					"param" : sv.vari.param[e.index],
+					"price":sv.vari.price
 				}, sv);
 			});
 		}

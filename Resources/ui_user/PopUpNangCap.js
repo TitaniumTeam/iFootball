@@ -149,14 +149,14 @@ function nangcapvip(data, sv) {
 	xhr.onload = function() {
 		Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
 		var dl = JSON.parse(this.responseText);
-		// var jsonResuilt = JSON.parse(dl);
-		if (dl.code == 0) {
+		var jsonResuilt = JSON.parse(dl);
+		if (jsonResuilt.code == 0) {
+			sv.vari.db.execute('UPDATE SaveInfo SET type=1 WHERE username=?',sv.vari.username);
 			sv.vari.sql.close();
 			sv.vari.db.close();
-
 			sv.ui.Window.close();
 			sv.vari.popup_success = new (require('/ui_user/PopUpTrue'))();
-			sv.vari.popup_success.open({
+			sv.vari.popup_success.ui.Window.open({
 				modal : Ti.Platform.osname == 'android' ? true : false
 			});
 		} else {
@@ -164,7 +164,7 @@ function nangcapvip(data, sv) {
 			sv.vari.db.close();
 			sv.ui.Window.close();
 			sv.vari.popup_success = new (require('/ui_user/PopUpFalse'))();
-			sv.vari.popup_success.open({
+			sv.vari.popup_success.ui.Window.open({
 				modal : Ti.Platform.osname == 'android' ? true : false
 			});
 		}

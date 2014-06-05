@@ -43,7 +43,6 @@ function createUI(sv) {
 		left : Ti.App.size(0),
 		right : Ti.App.size(0),
 		backgroundColor : Ti.App.Color.red,
-		backgroundSelectedColor : Ti.App.Color.nauden
 	});
 
 	sv.ui.Icon = Ti.UI.createImageView({
@@ -52,6 +51,7 @@ function createUI(sv) {
 		left : Ti.App.size(215),
 		right : Ti.App.size(215),
 		bottom : Ti.App.size(45),
+		backgroundSelectedColor : Ti.App.Color.nauden
 	});
 
 	sv.ui.ThongBao1 = Ti.UI.createLabel({
@@ -77,7 +77,8 @@ function createUI(sv) {
 		center : 'true',
 		keyboardType : Ti.UI.KEYBOARD_NUMBERS_PUNCTUATION,
 		top : Ti.App.size(300),
-		textAlign : 'center'
+		textAlign : 'center',
+		borderColor:Ti.App.Color.xanhnhat
 	});
 	sv.ui.btn_nap = Ti.UI.createLabel({
 		backgroundColor : Ti.App.Color.xanhnhat,
@@ -162,17 +163,23 @@ function naptien(data, sv) {
 	xhr.onload = function() {
 		Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
 		var dl = JSON.parse(this.responseText);
+		Ti.API.info('code'+dl.code);
 		// var jsonResuilt = JSON.parse(dl);
 		if (dl.code == 0) {
+			sv.vari.db.execute('UPDATE SaveInfo SET balance+=? WHERE username=?',dl.balance,sv.vari.username);
+			sv.vari.sql.close();
+			sv.vari.db.close();
 			sv.ui.Window.close();
 			sv.vari.popup_success = new (require('/ui_user/PopUpTrue'))();
-			sv.vari.popup_success.open({
+			sv.vari.popup_success.ui.Window.open({
 				modal : Ti.Platform.osname == 'android' ? true : false
 			});
 		} else {
+			sv.vari.sql.close();
+			sv.vari.db.close();
 			sv.ui.Window.close();
 			sv.vari.popup_success = new (require('/ui_user/PopUpFalse'))();
-			sv.vari.popup_success.open({
+			sv.vari.popup_success.ui.Window.open({
 				modal : Ti.Platform.osname == 'android' ? true : false
 			});
 		}

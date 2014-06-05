@@ -17,7 +17,7 @@ module.exports = function() {
  * Khởi tạo biến
  */
 function createVariable(sv) {
-	
+
 }
 
 function createUI(sv) {
@@ -257,8 +257,8 @@ function createUI(sv) {
 		backgroundColor : 'transparent',
 		width : Ti.App.size(340),
 		height : Ti.App.size(95),
-		backgroundSelectedColor:Ti.App.Color.xanhnhat,
-		textAlign:'center'
+		backgroundSelectedColor : Ti.App.Color.xanhnhat,
+		textAlign : 'center'
 	});
 
 	createUI_Event(sv);
@@ -326,7 +326,7 @@ function createUI_Event(sv) {
 	};
 
 	sv.fu.eventClickviewdangky = function(e) {
-		var windk = new (require('/ui_app/WindowDk'));
+		var windk = new (require('/ui_user/WindowDk'));
 		windk.open();
 	};
 
@@ -426,9 +426,11 @@ function fn_updateImage2Server_Dangnhap(_cmd, data, sv) {
 		mangdv.name = [];
 		mangdv.dauso = [];
 		mangdv.param = [];
+		mangdv.price = [];
 		for (var i = 0; i < (jsonResuilt.menus.length); i++) {
 			mangdv.dauso.push(jsonResuilt.menus[i].action);
 			mangdv.name.push(jsonResuilt.menus[i].name);
+			mangdv.price.push(jsonResuilt.menus[i].price);
 			if (jsonResuilt.menus[i].params) {
 				Ti.API.info('param' + jsonResuilt.menus[i].params);
 				mangdv.param[i] = jsonResuilt.menus[i].params;
@@ -440,7 +442,12 @@ function fn_updateImage2Server_Dangnhap(_cmd, data, sv) {
 			Ti.API.info('name dich vu:  ' + mangdv.name[i]);
 			Ti.API.info('dauso dich vu:  ' + mangdv.dauso[i]);
 			Ti.API.info('param dich vu:  ' + mangdv.param[i]);
+			Ti.API.info('gia dich vu:  ' + mangdv.price[i]);
+
 		}
+		db.execute('UPDATE SaveInfo SET dauso1=? WHERE username=?', mangdv.dauso[0], username);
+		db.execute('UPDATE SaveInfo SET dauso2=? WHERE username=?', mangdv.dauso[1], username);
+		db.execute('UPDATE SaveInfo SET dauso3=? WHERE username=?', mangdv.dauso[2], username);
 		var menutong = require('/ui_app/MenuTong');
 		var home = new menutong(username, mangdv);
 		home.ui.win.open();
