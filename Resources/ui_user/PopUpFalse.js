@@ -9,9 +9,10 @@ module.exports = function() {
 	(function() {
 		createVariable(sv);
 		createUI(sv);
+		setText(sv);
 	})();
 
-	return sv.ui.Window;
+	return sv;
 };
 
 function createVariable(sv) {
@@ -43,7 +44,8 @@ function createUI(sv) {
 		height : Ti.App.size(215),
 		left : Ti.App.size(0),
 		right : Ti.App.size(0),
-		backgroundColor:Ti.App.Color.blue
+		backgroundColor:Ti.App.Color.red,
+		backgroundSelectedColor:Ti.App.Color.xanhnhat
 	});
 
 	sv.ui.Icon = Ti.UI.createImageView({
@@ -51,7 +53,7 @@ function createUI(sv) {
 		left : Ti.App.size(215),
 		right : Ti.App.size(215),
 		bottom : Ti.App.size(45),
-		image:'/assets/images/icon/icon-true.png'
+		image:'/assets/images/icon/icon-close.png'
 	});
 
 	sv.ui.ViewThongBao = Ti.UI.createView({
@@ -74,7 +76,7 @@ function createUI(sv) {
 		width : Ti.UI.SIZE,
 		height : Ti.UI.SIZE,
 		backgroundColor : 'transparent',
-		text:'THÀNH CÔNG'
+		text:'THẤT BẠI',
 	});
 	sv.ui.ViewThongBao2 = Ti.UI.createLabel({
 		top : Ti.App.size(110),
@@ -91,8 +93,9 @@ function createUI(sv) {
 		width : Ti.UI.SIZE,
 		height : Ti.UI.SIZE,
 		backgroundColor : 'transparent',
-		text:'Chúc mừng bạn đã hoàn thành giao dịch'
+		text:'Giao dịch thất bai. Bạn hãy thử lại'
 	});
+
 	createUI_Event(sv);
 
 	sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
@@ -139,3 +142,8 @@ function createUI_Event(sv) {
 	};
 }
 
+function setText(sv){
+	sv.setText=function(_txt){
+		sv.ui.ThongBao2.text=_txt;
+	};
+};

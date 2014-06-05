@@ -104,7 +104,7 @@ function createUI(sv) {
 		top : Ti.App.size(400),
 		backgroundSelectedColor : Ti.App.Color.xanhnhat,
 		width : Ti.App.size(100),
-		height : Ti.App.size(120),
+		height : Ti.App.size(80),
 		backgroundColor : 'transparent',
 		right : Ti.App.size(20)
 	});
@@ -366,7 +366,7 @@ function createUI(sv) {
 	sv.ui.Row1.addEventListener('click', sv.fu.event_napxu);
 	sv.ui.Row5.addEventListener('click', sv.fu.event_nangcapvip);
 	sv.ui.ViewBut.addEventListener('click', function() {
-		sv.vari.changeinfo = new (require('/ui_user/Change_Info'));
+		sv.vari.changeinfo = new (require('/ui_user/Change_pass'));
 		sv.ui.ViewTong.removeAllChildren();
 		sv.ui.ViewTong.add(sv.vari.changeinfo.ui.ViewTong);
 	});
