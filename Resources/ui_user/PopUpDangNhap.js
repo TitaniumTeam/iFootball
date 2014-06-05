@@ -87,7 +87,7 @@ function createUI(sv, _currWin) {
 			fontSize : Ti.App.size(30)
 		},
 		borderRadius : Ti.App.size(5),
-		color : Ti.App.Color.superwhite,
+		color : Ti.App.Color.nauden,
 		backgroundSelectedColor : Ti.App.Color.xanhnhat
 	});
 

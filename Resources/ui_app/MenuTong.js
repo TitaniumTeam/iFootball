@@ -47,6 +47,8 @@ function taobien(sv) {
 	sv.arr.viewchucnangbongda = [];
 	sv.arr.icon_footerbongda = [];
 	sv.arr.icon_footersoxo = [];
+	sv.arr.title_footerbongda = [];
+	sv.arr.title_footersoxo = [];
 	sv.arr.img_footersoxo = [{
 		bg : "/assets/images/icon/icon-ketqua.png",
 		press : "/assets/images/icon/icon-ketqua_press.png",
@@ -71,11 +73,11 @@ function taobien(sv) {
 	}, {
 		bg : "/assets/images/icon/icon-tuvan.png",
 		press : "/assets/images/icon/icon-tuvan_press.png",
-		title : "Tu van"
+		title : "Tư vấn"
 	}, {
 		bg : "/assets/images/icon/icon-tintuc.png",
 		press : "/assets/images/icon/icon-tintuc_press.png",
-		title : "Tư vấn"
+		title : "Tin tức"
 	}, {
 		bg : "/assets/images/icon/icon-vip.png",
 		press : "/assets/images/icon/icon-vip_press.png",
@@ -84,7 +86,6 @@ function taobien(sv) {
 	////cac mang so xo
 	sv.arr.evt_chucnangsoxo = [];
 	sv.arr.evt_chucnangbongda = [];
-	sv.vari.ketquatrave = {};
 	//////
 
 };
@@ -173,12 +174,27 @@ function taoui(sv, _quyen, _mangdv) {
 
 		sv.arr.icon_footerbongda[i] = Ti.UI.createImageView({
 			image : sv.arr.img_footerbongda[i].bg,
-			width : Ti.App.size(60),
-			height : Ti.App.size(60),
+			width : Ti.App.size(50),
+			height : Ti.App.size(50),
 			touchEnabled : false,
 			backgroundSelectedImage : sv.arr.img_footerbongda[i].press,
+			top : Ti.App.size(15)
 
 		});
+		sv.arr.title_footerbongda[i] = Ti.UI.createLabel({
+			width : Ti.UI.SIZE,
+			height : Ti.UI.SIZE,
+			color : Ti.App.Color.nauden,
+			backgroundColor : 'transparent',
+			touchEnabled : false,
+			top : Ti.App.size(75),
+			font : {
+				fontSize : Ti.App.size(25),
+				fontWeight : 'bold'
+			},
+			text : sv.arr.img_footerbongda[i].title
+		});
+		sv.arr.viewchucnangbongda[i].add(sv.arr.title_footerbongda[i]);
 		sv.arr.viewchucnangbongda[i].add(sv.arr.icon_footerbongda[i]);
 		sv.ui.footer_bongda.add(sv.arr.viewchucnangbongda[i]);
 	};
@@ -205,6 +221,20 @@ function taoui(sv, _quyen, _mangdv) {
 			touchEnabled : false,
 			backgroundSelectedImage : sv.arr.img_footersoxo[i].press
 		});
+		sv.arr.title_footersoxo[i] = Ti.UI.createLabel({
+			width : Ti.UI.SIZE,
+			height : Ti.UI.SIZE,
+			color : Ti.App.Color.nauden,
+			backgroundColor : 'transparent',
+			touchEnabled : false,
+			top : Ti.App.size(75),
+			font : {
+				fontSize : Ti.App.size(25),
+				fontWeight : 'bold'
+			},
+			text : sv.arr.img_footersoxo[i].title
+		});
+		sv.arr.viewchucnangsoxo[i].add(sv.arr.title_footersoxo[i]);
 		sv.arr.viewchucnangsoxo[i].add(sv.arr.icon_footersoxo[i]);
 		sv.ui.footer_soxo.add(sv.arr.viewchucnangsoxo[i]);
 	}
@@ -246,9 +276,11 @@ function taosukien(sv, _quyen, _mangdv) {
 					if (j == 0) {
 						sv.arr.viewchucnangsoxo[j].backgroundColor = Ti.App.Color.nauden;
 						sv.arr.icon_footersoxo[j].image = sv.arr.img_footersoxo[j].press;
+						sv.arr.title_footersoxo[j].color = Ti.App.Color.superwhite;
 					} else {
 						sv.arr.viewchucnangsoxo[j].backgroundColor = Ti.App.Color.superwhite;
 						sv.arr.icon_footersoxo[j].image = sv.arr.img_footersoxo[j].bg;
+						sv.arr.title_footersoxo[j].color = Ti.App.Color.nauden;
 					}
 
 				}
@@ -280,9 +312,11 @@ function taosukien(sv, _quyen, _mangdv) {
 					if (j == 1) {
 						sv.arr.viewchucnangsoxo[j].backgroundColor = Ti.App.Color.nauden;
 						sv.arr.icon_footersoxo[j].image = sv.arr.img_footersoxo[j].press;
+						sv.arr.title_footersoxo[j].color = Ti.App.Color.superwhite;
 					} else {
 						sv.arr.viewchucnangsoxo[j].backgroundColor = Ti.App.Color.superwhite;
 						sv.arr.icon_footersoxo[j].image = sv.arr.img_footersoxo[j].bg;
+						sv.arr.title_footersoxo[j].color = Ti.App.Color.nauden;
 					}
 
 				}
@@ -299,9 +333,11 @@ function taosukien(sv, _quyen, _mangdv) {
 					if (j == 2) {
 						sv.arr.viewchucnangsoxo[j].backgroundColor = Ti.App.Color.nauden;
 						sv.arr.icon_footersoxo[j].image = sv.arr.img_footersoxo[j].press;
+						sv.arr.title_footersoxo[j].color = Ti.App.Color.superwhite;
 					} else {
 						sv.arr.viewchucnangsoxo[j].backgroundColor = Ti.App.Color.superwhite;
 						sv.arr.icon_footersoxo[j].image = sv.arr.img_footersoxo[j].bg;
+						sv.arr.title_footersoxo[j].color = Ti.App.Color.nauden;
 					}
 
 				}
@@ -321,9 +357,11 @@ function taosukien(sv, _quyen, _mangdv) {
 					if (j == 3) {
 						sv.arr.viewchucnangsoxo[j].backgroundColor = Ti.App.Color.nauden;
 						sv.arr.icon_footersoxo[j].image = sv.arr.img_footersoxo[j].press;
+						sv.arr.title_footersoxo[j].color = Ti.App.Color.superwhite;
 					} else {
 						sv.arr.viewchucnangsoxo[j].backgroundColor = Ti.App.Color.superwhite;
 						sv.arr.icon_footersoxo[j].image = sv.arr.img_footersoxo[j].bg;
+						sv.arr.title_footersoxo[j].color = Ti.App.Color.nauden;
 					}
 
 				}
@@ -342,9 +380,11 @@ function taosukien(sv, _quyen, _mangdv) {
 					if (j == 0) {
 						sv.arr.viewchucnangbongda[j].backgroundColor = Ti.App.Color.nauden;
 						sv.arr.icon_footerbongda[j].image = sv.arr.img_footerbongda[j].press;
+						sv.arr.title_footerbongda[j].color = Ti.App.Color.superwhite;
 					} else {
 						sv.arr.viewchucnangbongda[j].backgroundColor = Ti.App.Color.superwhite;
 						sv.arr.icon_footerbongda[j].image = sv.arr.img_footerbongda[j].bg;
+						sv.arr.title_footerbongda[j].color = Ti.App.Color.nauden;
 					}
 
 				}
@@ -361,9 +401,11 @@ function taosukien(sv, _quyen, _mangdv) {
 					if (j == 1) {
 						sv.arr.viewchucnangbongda[j].backgroundColor = Ti.App.Color.nauden;
 						sv.arr.icon_footerbongda[j].image = sv.arr.img_footerbongda[j].press;
+						sv.arr.title_footerbongda[j].color = Ti.App.Color.superwhite;
 					} else {
 						sv.arr.viewchucnangbongda[j].backgroundColor = Ti.App.Color.superwhite;
 						sv.arr.icon_footerbongda[j].image = sv.arr.img_footerbongda[j].bg;
+						sv.arr.title_footerbongda[j].color = Ti.App.Color.nauden;
 					}
 
 				}
@@ -379,9 +421,11 @@ function taosukien(sv, _quyen, _mangdv) {
 					if (j == 2) {
 						sv.arr.viewchucnangbongda[j].backgroundColor = Ti.App.Color.nauden;
 						sv.arr.icon_footerbongda[j].image = sv.arr.img_footerbongda[j].press;
+						sv.arr.title_footerbongda[j].color = Ti.App.Color.superwhite;
 					} else {
 						sv.arr.viewchucnangbongda[j].backgroundColor = Ti.App.Color.superwhite;
 						sv.arr.icon_footerbongda[j].image = sv.arr.img_footerbongda[j].bg;
+						sv.arr.title_footerbongda[j].color = Ti.App.Color.nauden;
 					}
 
 				}
@@ -401,15 +445,17 @@ function taosukien(sv, _quyen, _mangdv) {
 					if (j == 3) {
 						sv.arr.viewchucnangbongda[j].backgroundColor = Ti.App.Color.nauden;
 						sv.arr.icon_footerbongda[j].image = sv.arr.img_footerbongda[j].press;
+						sv.arr.title_footerbongda[j].color = Ti.App.Color.superwhite;
 					} else {
 						sv.arr.viewchucnangbongda[j].backgroundColor = Ti.App.Color.superwhite;
 						sv.arr.icon_footerbongda[j].image = sv.arr.img_footerbongda[j].bg;
+						sv.arr.title_footerbongda[j].color = Ti.App.Color.nauden;
 					}
 
 				}
 				alert('Chức năng đang được xây dựng');
 				// Ti.API.info('chuc nangvip');
-				// sv.ui.ViewTong.removeAllChildren();
+				sv.ui.ViewTong.removeAllChildren();
 			};
 		}
 	};
@@ -432,9 +478,11 @@ function taosukien(sv, _quyen, _mangdv) {
 					if (i == 0) {
 						sv.arr.viewchucnangbongda[i].backgroundColor = Ti.App.Color.nauden;
 						sv.arr.icon_footerbongda[i].image = sv.arr.img_footerbongda[i].press;
+						sv.arr.title_footerbongda[j].color = Ti.App.Color.superwhite;
 					} else {
 						sv.arr.viewchucnangbongda[i].backgroundColor = Ti.App.Color.superwhite;
 						sv.arr.icon_footerbongda[i].image = sv.arr.img_footerbongda[i].bg;
+						sv.arr.title_footerbongda[j].color = Ti.App.Color.nauden;
 					}
 				}
 				sv.ui.ViewFooter.visible = true;

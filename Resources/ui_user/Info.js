@@ -49,7 +49,6 @@ function createUI(sv) {
 		top : Ti.App.size(30),
 		width : Ti.App.size(320),
 		height : Ti.App.size(320),
-		zIndex : 10
 	});
 	sv.ui.Avatar = Ti.UI.createImageView({
 		image : '/assets/images/icon/avatar-defaut.png',

@@ -16,7 +16,7 @@ function taobien(sv) {
 	sv.vari.flag = false;
 	sv.arr.datarow = [];
 	sv.arr.height = [Ti.App.size(120), Ti.App.size(200)];
-	sv.vari.newdate;
+	sv.vari.newdate
 	sv.vari.bangkq = require('/ui_soxo/bangketquasx');
 }
 
@@ -46,7 +46,7 @@ function tao_ui(sv) {
 	});
 	sv.ui.ViewTong.add(sv.ui.View_header);
 	sv.ui.view_choose = new sv.vari.combobox(Ti.App.size(60), 'MIỀN BẮC', Ti.App.size(360), Ti.App.size(360), Ti.App.size(160));
-	sv.ui.view_choose1 = new sv.vari.combobox(Ti.App.size(60), set_lbl(),0 , Ti.App.size(360), Ti.App.size(160));
+	sv.ui.view_choose1 = new sv.vari.combobox(Ti.App.size(60), set_lbl(), 0, Ti.App.size(360), Ti.App.size(160));
 
 	sv.ui.lblfirst = sv.ui.view_choose.getLblFirst();
 	sv.ui.lblfirst1 = sv.ui.view_choose1.getLblFirst();
@@ -66,7 +66,7 @@ function tao_ui(sv) {
 	sv.ui.ViewTong.add(sv.ui.ViewPicker);
 	sv.ui.picker = Ti.UI.createPicker({
 		type : Titanium.UI.PICKER_TYPE_DATE,
-		minDate : new Date(2013, 0, 1),
+		minDate : new Date(2014, 0, 1),
 		maxDate : new Date(),
 		top : Ti.App.size(100),
 		value : new Date(),
@@ -74,7 +74,6 @@ function tao_ui(sv) {
 		width : Ti.App.size(720),
 	});
 	sv.ui.ViewPicker.add(sv.ui.picker);
-
 	////////////////////
 	sv.ui.scrollView = Ti.UI.createScrollView({
 		top : Ti.App.size(160),
@@ -135,7 +134,9 @@ function createUI_Event(sv) {
 	};
 	sv.fu.event_click_view = function(e) {
 		sv.vari.flag = true;
-		fn_updateImage2Server("getprovide", {"startdate":currDate()}, sv);
+		fn_updateImage2Server("getprovide", {
+			"startdate" : currDate()
+		}, sv);
 		sv.ui.table_view.visible = true;
 		sv.ui.ViewPicker.visible = false;
 	};

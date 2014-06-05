@@ -51,20 +51,21 @@ function tao_ui(sv) {
 			fontSize : Ti.App.size(50)
 		},
 		top : Ti.App.size(30),
-		touchEnabled : false
+		touchEnabled : false,
+		textAlign:'center'
 	});
 	sv.ui.scrollView.add(sv.ui.lbl_Login);
 	sv.ui.view_avatar = Titanium.UI.createView({
-		width : Ti.App.size(456),
-		height : Ti.App.size(456),
+		width : Ti.App.size(320),
+		height : Ti.App.size(320),
 		backgroundImage : "/assets/images/icon/xxxjav.png",
 		top : Ti.App.size(30),
 		touchEnabled : false
 	});
 	sv.ui.scrollView.add(sv.ui.view_avatar);
 	sv.ui.avatar = Ti.UI.createImageView({
-		width : Ti.App.size(180),
-		height : Ti.App.size(180),
+		height : Ti.App.size(150),
+		width : Ti.App.size(150),
 		image : '/assets/images/icon/avatar-defaut.png',
 		touchEnabled : false
 	});
@@ -82,7 +83,7 @@ function tao_ui(sv) {
 		font : {
 			fontSize : Ti.App.size(40)
 		},
-		top : Ti.App.size(100),
+		top : Ti.App.size(30),
 		autocorrect : false,
 		hintText : 'Nhập tài khoản',
 	});
@@ -107,6 +108,44 @@ function tao_ui(sv) {
 	});
 
 	sv.ui.scrollView.add(sv.ui.txtPassword);
+	sv.ui.txtEmail = Ti.UI.createTextField({
+		width : Ti.App.size(680),
+		height : Ti.App.size(90),
+		left : Ti.App.size(20),
+		right : Ti.App.size(20),
+		borderColor : Ti.App.Color.superwhite,
+		borderWidth : Ti.App.size(5),
+		textAlign : 'center',
+		color : Ti.App.Color.nauden,
+		backgroundColor : Ti.App.Color.superwhite,
+		font : {
+			fontSize : Ti.App.size(40)
+		},
+		top : Ti.App.size(30),
+		autocorrect : false,
+		hintText : 'Nhập Email (không bắt buộc)'
+	});
+
+	sv.ui.scrollView.add(sv.ui.txtEmail);
+	sv.ui.txtMobile = Ti.UI.createTextField({
+		width : Ti.App.size(680),
+		height : Ti.App.size(90),
+		left : Ti.App.size(20),
+		right : Ti.App.size(20),
+		borderColor : Ti.App.Color.superwhite,
+		borderWidth : Ti.App.size(5),
+		textAlign : 'center',
+		color : Ti.App.Color.nauden,
+		backgroundColor : Ti.App.Color.superwhite,
+		font : {
+			fontSize : Ti.App.size(40)
+		},
+		top : Ti.App.size(30),
+		autocorrect : false,
+		hintText : 'Nhập số điện thoại (không bắt buộc)'
+	});
+
+	sv.ui.scrollView.add(sv.ui.txtMobile);
 	sv.ui.btn_dangki = Ti.UI.createLabel({
 		width : Ti.App.size(680),
 		height : Ti.App.size(100),
@@ -141,7 +180,9 @@ function tao_event(sv) {
 		} else {
 			fn_updateImage2Server("register", {
 				"username" : sv.ui.txtUser.value,
-				"password" : sv.ui.txtPassword.value
+				"password" : sv.ui.txtPassword.value,
+				"email":sv.ui.txtEmail.value,
+				"mobile":sv.ui.txtMobile.value
 			}, sv);
 		}
 
