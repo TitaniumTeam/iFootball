@@ -1,4 +1,4 @@
-module.exports = function(_quyen, _mangdv) {
+module.exports = function(_quyen) {
 	var sv = {};
 	sv.fu = {};
 	sv.ui = {};
@@ -6,7 +6,7 @@ module.exports = function(_quyen, _mangdv) {
 	sv.vari = {};
 	(function() {
 		taobien(sv);
-		taoui(sv, _quyen, _mangdv);
+		taoui(sv, _quyen);
 	})();
 
 	return sv;
@@ -89,7 +89,7 @@ function taobien(sv) {
 	//////
 
 };
-function taoui(sv, _quyen, _mangdv) {
+function taoui(sv, _quyen) {
 	sv.ui.win = Ti.UI.createWindow({
 		backgroundColor : Ti.App.Color.superwhite,
 		navBarHidden : true,
@@ -163,73 +163,72 @@ function taoui(sv, _quyen, _mangdv) {
 		right : 0
 	});
 	for (var i = 0; i < 4; i++) {
-		if(i==0){
+		if (i == 0) {
 			sv.arr.viewchucnangbongda[i] = Ti.UI.createView({
-			width : Ti.App.size(180),
-			height : Ti.App.size(100),
-			backgroundSelectedColor : Ti.App.Color.xanhnhat,
-			backgroundColor : Ti.App.Color.nauden,
-			left : 0,
-			top : 0,
-		});
+				width : Ti.App.size(180),
+				height : Ti.App.size(100),
+				backgroundSelectedColor : Ti.App.Color.xanhnhat,
+				backgroundColor : Ti.App.Color.nauden,
+				left : 0,
+				top : 0,
+			});
 
-		sv.arr.icon_footerbongda[i] = Ti.UI.createImageView({
-			image : sv.arr.img_footerbongda[i].bg,
-			width : Ti.App.size(56),
-			height : Ti.App.size(48),
-			touchEnabled : false,
-			backgroundSelectedImage : sv.arr.img_footerbongda[i].press,
-			top : Ti.App.size(10)
+			sv.arr.icon_footerbongda[i] = Ti.UI.createImageView({
+				image : sv.arr.img_footerbongda[i].bg,
+				width : Ti.App.size(56),
+				height : Ti.App.size(48),
+				touchEnabled : false,
+				backgroundSelectedImage : sv.arr.img_footerbongda[i].press,
+				top : Ti.App.size(10)
 
-		});
-		sv.arr.title_footerbongda[i] = Ti.UI.createLabel({
-			width : Ti.UI.SIZE,
-			height : Ti.UI.SIZE,
-			color : Ti.App.Color.superwhite,
-			backgroundColor : 'transparent',
-			touchEnabled : false,
-			top : Ti.App.size(65),
-			font : {
-				fontSize : Ti.App.size(25),
-				fontWeight : 'bold'
-			},
-			text : sv.arr.img_footerbongda[i].title
-		});
-		}
-		else{
+			});
+			sv.arr.title_footerbongda[i] = Ti.UI.createLabel({
+				width : Ti.UI.SIZE,
+				height : Ti.UI.SIZE,
+				color : Ti.App.Color.superwhite,
+				backgroundColor : 'transparent',
+				touchEnabled : false,
+				top : Ti.App.size(65),
+				font : {
+					fontSize : Ti.App.size(25),
+					fontWeight : 'bold'
+				},
+				text : sv.arr.img_footerbongda[i].title
+			});
+		} else {
 			sv.arr.viewchucnangbongda[i] = Ti.UI.createView({
-			width : Ti.App.size(180),
-			height : Ti.App.size(100),
-			backgroundSelectedColor : Ti.App.Color.xanhnhat,
-			backgroundColor : 'transparent',
-			left : Ti.App.size(180 * i),
-			top : 0,
-		});
+				width : Ti.App.size(180),
+				height : Ti.App.size(100),
+				backgroundSelectedColor : Ti.App.Color.xanhnhat,
+				backgroundColor : 'transparent',
+				left : Ti.App.size(180 * i),
+				top : 0,
+			});
 
-		sv.arr.icon_footerbongda[i] = Ti.UI.createImageView({
-			image : sv.arr.img_footerbongda[i].bg,
-			width : Ti.App.size(50),
-			height : Ti.App.size(48),
-			touchEnabled : false,
-			backgroundSelectedImage : sv.arr.img_footerbongda[i].press,
-			top : Ti.App.size(10)
+			sv.arr.icon_footerbongda[i] = Ti.UI.createImageView({
+				image : sv.arr.img_footerbongda[i].bg,
+				width : Ti.App.size(50),
+				height : Ti.App.size(48),
+				touchEnabled : false,
+				backgroundSelectedImage : sv.arr.img_footerbongda[i].press,
+				top : Ti.App.size(10)
 
-		});
-		sv.arr.title_footerbongda[i] = Ti.UI.createLabel({
-			width : Ti.UI.SIZE,
-			height : Ti.UI.SIZE,
-			color : Ti.App.Color.nauden,
-			backgroundColor : 'transparent',
-			touchEnabled : false,
-			top : Ti.App.size(60),
-			font : {
-				fontSize : Ti.App.size(25),
-				fontWeight : 'bold'
-			},
-			text : sv.arr.img_footerbongda[i].title
-		});
+			});
+			sv.arr.title_footerbongda[i] = Ti.UI.createLabel({
+				width : Ti.UI.SIZE,
+				height : Ti.UI.SIZE,
+				color : Ti.App.Color.nauden,
+				backgroundColor : 'transparent',
+				touchEnabled : false,
+				top : Ti.App.size(60),
+				font : {
+					fontSize : Ti.App.size(25),
+					fontWeight : 'bold'
+				},
+				text : sv.arr.img_footerbongda[i].title
+			});
 		}
-		
+
 		sv.arr.viewchucnangbongda[i].add(sv.arr.title_footerbongda[i]);
 		sv.arr.viewchucnangbongda[i].add(sv.arr.icon_footerbongda[i]);
 		sv.ui.footer_bongda.add(sv.arr.viewchucnangbongda[i]);
@@ -256,7 +255,7 @@ function taoui(sv, _quyen, _mangdv) {
 			height : Ti.App.size(48),
 			touchEnabled : false,
 			backgroundSelectedImage : sv.arr.img_footersoxo[i].press,
-			top:Ti.App.size(10)
+			top : Ti.App.size(10)
 		});
 		sv.arr.title_footersoxo[i] = Ti.UI.createLabel({
 			width : Ti.UI.SIZE,
@@ -282,7 +281,7 @@ function taoui(sv, _quyen, _mangdv) {
 
 	//sv.ui.ViewFooter.add(sv.ui.footer_soxo);
 	/////
-	taosukien(sv, _quyen, _mangdv);
+	taosukien(sv, _quyen);
 
 	for (var i = 0; i < 4; i++) {
 		sv.arr.viewchucnangsoxo[i].addEventListener('click', sv.arr.evt_chucnangsoxo[i]);
@@ -298,7 +297,7 @@ function taoui(sv, _quyen, _mangdv) {
 	sv.ui.win.addEventListener('close', sv.fu.evt_win_close);
 };
 
-function taosukien(sv, _quyen, _mangdv) {
+function taosukien(sv, _quyen) {
 
 	/**
 	 * footer
@@ -379,7 +378,7 @@ function taosukien(sv, _quyen, _mangdv) {
 
 				}
 				sv.ui.ViewTong.removeAllChildren();
-				sv.vari.view_tuvan = new sv.vari.tuvan_soxo(_mangdv);
+				sv.vari.view_tuvan = new sv.vari.tuvan_soxo();
 				sv.ui.ViewTong.add(sv.vari.view_tuvan.ui.ViewTong);
 				// Ti.App.vIndicatorWindow.openIndicator(sv.vari.view_tuvan.ui.ViewTong);
 				// setTimeout(function() {
@@ -614,6 +613,11 @@ function taosukien(sv, _quyen, _mangdv) {
 		sv.arr.view_iconheader[1].backgroundColor = Ti.App.Color.red;
 		sv.vari.db = Ti.Database.open('userinfo');
 		sv.vari.sql = sv.vari.db.execute("SELECT * FROM SaveInfo");
+		sv.vari.dichvu = sv.vari.db.execute("SELECT * FROM DichVu");
+		while (sv.vari.dichvu.isValidRow()) {
+			Ti.API.info('ten dich vu' + sv.vari.dichvu.fieldByName("tendv") + ':' + sv.vari.dichvu.fieldByName("dauso") + ':' + sv.vari.dichvu.fieldByName("thamso") + ':' + sv.vari.dichvu.fieldByName("gia"));
+			sv.vari.dichvu.next();
+		};
 		if (sv.vari.sql.isValidRow()) {
 			if ((sv.vari.sql.fieldByName("notifi")) == "false") {
 				push_notification();
@@ -740,7 +744,6 @@ function currMin() {
 	return currmin;
 };
 
-
 function ktmang(sv) {
 	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
 		var kqoff = new (require('/ui_app/kq_offline'))("KQSX");
@@ -831,6 +834,7 @@ function push_notification() {
 			}
 		});
 	}
+
 
 	sql.close();
 	db.close();
