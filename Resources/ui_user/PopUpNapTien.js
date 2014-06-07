@@ -65,7 +65,7 @@ function createUI(sv) {
 	});
 
 	sv.ui.txt_soseri = Ti.UI.createTextField({
-		backgroundColor : Ti.App.Color.superwhite,
+		backgroundColor : Ti.App.Color.magenta,
 		hintText : 'Nhập số seri',
 		width : Ti.App.size(400),
 		height : Ti.App.size(80),
@@ -79,7 +79,7 @@ function createUI(sv) {
 		borderColor:Ti.App.Color.xanhnhat
 	});
 	sv.ui.txt_mathe = Ti.UI.createTextField({
-		backgroundColor : Ti.App.Color.superwhite,
+		backgroundColor : Ti.App.Color.magenta,
 		hintText : 'Nhập mã thẻ',
 		width : Ti.App.size(400),
 		height : Ti.App.size(80),
@@ -104,7 +104,7 @@ function createUI(sv) {
 		},
 		borderRadius : Ti.App.size(5),
 		color : Ti.App.Color.nauden,
-		backgroundSelectedColor : Ti.App.Color.nauden
+		backgroundSelectedColor : Ti.App.Color.magenta
 	});
 	createUI_Event(sv);
 

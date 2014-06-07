@@ -3,7 +3,7 @@ module.exports = function(_top,_textlbl, _left,_width,_toptbl) {
 		top : _top,
 		width : _width,
 		height : Ti.App.size(100),
-		backgroundColor :Ti.App.Color.gray,
+		backgroundColor :Ti.App.Color.brown,
 		left : _left
 	});
 	var line_view=Ti.UI.createView({
