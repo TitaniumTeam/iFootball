@@ -1,4 +1,4 @@
-module.exports = function(_mangdv) {
+module.exports = function() {
 	var sv = {};
 	sv.fu = {};
 	sv.ui = {};
@@ -6,7 +6,7 @@ module.exports = function(_mangdv) {
 	sv.vari = {};
 	(function() {
 		taobien(sv);
-		taoui(sv, _mangdv);
+		taoui(sv);
 	})();
 
 	return sv;
@@ -14,17 +14,17 @@ module.exports = function(_mangdv) {
 function taobien(sv) {
 	sv.vari.soluongmenu = 3;
 	sv.arr.rows = [];
+	sv.vari.db = Ti.Database.open("userinfo");
+	sv.vari.dichvu_db = sv.vari.db.execute("SELECT * FROM DichVu");
 };
-function taoui(sv, _mangdv) {
+function taoui(sv) {
 	sv.ui.ViewTong = Ti.UI.createView({
 		top : 0,
 		left : 0,
 		width : Ti.App.size(720),
 		height : Ti.UI.FILL,
 	});
-	if (_mangdv == "" || _mangdv == undefined) {
-		Ti.API.info('server loi');
-	} else {
+	while (sv.vari.dichvu_db.isValidRow()) {
 		sv.ui.webview = Ti.UI.createWebView({
 			width : Ti.UI.FILL,
 			height : Ti.UI.FILL,
@@ -35,38 +35,35 @@ function taoui(sv, _mangdv) {
 		});
 
 		// sv.ui.webview.hide();
-		for (var i = 1; i < (_mangdv.name.length); i++) {
-			sv.ui.row = Ti.UI.createTableViewRow({
-				width : Ti.App.size(640),
-				left : 0,
-				backgroundColor : Ti.App.Color.superwhite,
-				height : Ti.App.size(90),
-				color : 'black',
-				font : {
-					fontSize : Ti.App.size(30)
-				},
-				title : _mangdv.name[i],
-				id : i,
-				thamso : _mangdv.param[i],
-				tendauso : _mangdv.dauso[i],
-				price:_mangdv.price[i],
-				// hasChild : true
-			});
-			sv.arr.rows.push(sv.ui.row);
-		}
-		sv.ui.tbl1 = Ti.UI.createTableView({
-			width : Ti.App.size(680),
-			height : Ti.UI.SIZE,
-			data : sv.arr.rows,
-			top : 0,
-			separatorColor : Ti.App.Color.xanhnhat,
-			left : Ti.App.size(20)
+		sv.ui.row = Ti.UI.createTableViewRow({
+			width : Ti.App.size(640),
+			left : 0,
+			backgroundColor : Ti.App.Color.superwhite,
+			height : Ti.App.size(90),
+			color : 'black',
+			font : {
+				fontSize : Ti.App.size(30)
+			},
+			title : sv.vari.dichvu_db.fieldByName("tendv"),
+			thamso : sv.vari.dichvu_db.fieldByName("thamso"),
+			tendauso : sv.vari.dichvu_db.fieldByName("dauso"),
+			price : sv.vari.dichvu_db.fieldByName("gia"),
+			// hasChild : true
 		});
-		sv.ui.ViewTong.add(sv.ui.tbl1);
-		tao_sukien(sv);
-		sv.ui.tbl1.addEventListener('click', sv.fu.evt_tblrow_click);
+		sv.arr.rows.push(sv.ui.row);
+		sv.vari.dichvu_db.next();
 	}
-
+	sv.ui.tbl1 = Ti.UI.createTableView({
+		width : Ti.App.size(680),
+		height : Ti.UI.SIZE,
+		data : sv.arr.rows,
+		top : 0,
+		separatorColor : Ti.App.Color.xanhnhat,
+		left : Ti.App.size(20)
+	});
+	sv.ui.ViewTong.add(sv.ui.tbl1);
+	tao_sukien(sv);
+	sv.ui.tbl1.addEventListener('click', sv.fu.evt_tblrow_click);
 };
 function tao_sukien(sv) {
 	sv.fu.evt_tblrow_click = function(e) {
@@ -75,11 +72,12 @@ function tao_sukien(sv) {
 		Ti.API.info(e.row.tendauso);
 		Ti.API.info(e.row.price);
 		sv.vari.tendauso = e.row.tendauso;
-		sv.vari.price=e.row.price;
+		sv.vari.price = e.row.price;
 		if (e.row.thamso == "") {
 			fn_updateImage2Server("menuaction", {
 				"command" : sv.vari.tendauso,
-				"param" : "","price":sv.vari.price
+				"param" : "",
+				"price" : sv.vari.price
 			}, sv);
 		} else {
 			sv.vari.param = [];
@@ -94,7 +92,7 @@ function tao_sukien(sv) {
 				fn_updateImage2Server("menuaction", {
 					"command" : sv.vari.tendauso,
 					"param" : sv.vari.param[e.index],
-					"price":sv.vari.price
+					"price" : sv.vari.price
 				}, sv);
 			});
 		}
