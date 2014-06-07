@@ -67,7 +67,7 @@ function createUI(sv, _currWin) {
 	});
 
 	sv.ui.ThongBao2 = Ti.UI.createLabel({
-		text : 'Đăng kí hoặc đăng nhập tài khoản để có thể sử dụng',
+		text : 'Bạn chưa đăng nhập!',
 		font : {
 			fontSize : Ti.App.size(30)
 		},

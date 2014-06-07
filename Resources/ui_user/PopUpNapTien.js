@@ -65,9 +65,9 @@ function createUI(sv) {
 		color : Ti.App.Color.nauden,
 	});
 
-	sv.ui.txt_sotien = Ti.UI.createTextField({
+	sv.ui.txt_soseri = Ti.UI.createTextField({
 		backgroundColor : Ti.App.Color.superwhite,
-		hintText : 'Nhập số tiền muốn nạp',
+		hintText : 'Nhập soseri',
 		width : Ti.App.size(400),
 		height : Ti.App.size(100),
 		color : Ti.App.Color.nauden,
@@ -75,7 +75,6 @@ function createUI(sv) {
 			fontSize : Ti.App.size(30)
 		},
 		center : 'true',
-		keyboardType : Ti.UI.KEYBOARD_NUMBERS_PUNCTUATION,
 		top : Ti.App.size(300),
 		textAlign : 'center',
 		borderColor:Ti.App.Color.xanhnhat
@@ -103,7 +102,7 @@ function createUI(sv) {
 	sv.ui.Window.add(sv.ui.ViewPopUp);
 
 	sv.ui.ViewPopUp.add(sv.ui.ViewIcon);
-	sv.ui.ViewPopUp.add(sv.ui.txt_sotien);
+	sv.ui.ViewPopUp.add(sv.ui.txt_soseri);
 	sv.ui.ViewPopUp.add(sv.ui.btn_nap);
 	sv.ui.ViewIcon.add(sv.ui.Icon);
 	sv.ui.ViewPopUp.add(sv.ui.ThongBao1);
@@ -118,7 +117,7 @@ function createUI_Event(sv) {
 		naptien({
 			"username" : sv.vari.username,
 			"type" : sv.vari.type,
-			"amount" : sv.ui.txt_sotien.value
+			"amount" : sv.ui.txt_soseri.value
 		}, sv);
 	};
 	sv.fu.eventClickIcon = function(e) {

@@ -49,22 +49,22 @@ function home_control() {
 			mangdv.dauso = [];
 			mangdv.param = [];
 			mangdv.price = [];
-			for (var i = 0; i < (jsonResuilt.menus.length); i++) {
-				mangdv.dauso.push(jsonResuilt.menus[i].action);
-				mangdv.name.push(jsonResuilt.menus[i].name);
-				mangdv.price.push(jsonResuilt.menus[i].price);
-				if (jsonResuilt.menus[i].params) {
-					// Ti.API.info('param' + jsonResuilt.menus[i].params);
-					mangdv.param[i] = jsonResuilt.menus[i].params;
-				} else {
-					mangdv.param[i] = "";
-				}
-			}
-			if (_quyen != "free") {
-				db.execute('UPDATE SaveInfo SET dauso1=? WHERE username=?', mangdv.dauso[0], _quyen);
-				db.execute('UPDATE SaveInfo SET dauso2=? WHERE username=?', mangdv.dauso[1], _quyen);
-				db.execute('UPDATE SaveInfo SET dauso3=? WHERE username=?', mangdv.dauso[2], _quyen);
-			}
+			// for (var i = 0; i < (jsonResuilt.menus.length); i++) {
+				// mangdv.dauso.push(jsonResuilt.menus[i].action);
+				// mangdv.name.push(jsonResuilt.menus[i].name);
+				// mangdv.price.push(jsonResuilt.menus[i].price);
+				// if (jsonResuilt.menus[i].params) {
+					// // Ti.API.info('param' + jsonResuilt.menus[i].params);
+					// mangdv.param[i] = jsonResuilt.menus[i].params;
+				// } else {
+					// mangdv.param[i] = "";
+				// }
+			// }
+			// if (_quyen != "free") {
+				// db.execute('UPDATE SaveInfo SET dauso1=? WHERE username=?', mangdv.dauso[0], _quyen);
+				// db.execute('UPDATE SaveInfo SET dauso2=? WHERE username=?', mangdv.dauso[1], _quyen);
+				// db.execute('UPDATE SaveInfo SET dauso3=? WHERE username=?', mangdv.dauso[2], _quyen);
+			// }
 			var home = new menutong(_quyen, mangdv);
 			home.ui.win.open();
 		};

@@ -13,7 +13,7 @@ module.exports = function(_quyen, _mangdv) {
 
 };
 function taobien(sv) {
-	sv.vari.intelval
+	sv.vari.intelval;
 	sv.vari.popup = require('/ui_user/PopUpDangNhap');
 	////
 	sv.vari.ketqua_tructiep = require('/ui_soxo/WindowRealTime');
@@ -52,7 +52,7 @@ function taobien(sv) {
 	sv.arr.img_footersoxo = [{
 		bg : "/assets/images/icon/icon-ketqua.png",
 		press : "/assets/images/icon/icon-ketqua_press.png",
-		title : "Kết quả"
+		title : "Sổ kết quả"
 	}, {
 		bg : "/assets/images/icon/icon-thongke.png",
 		press : "/assets/images/icon/icon-thongke_press.png",
@@ -163,11 +163,45 @@ function taoui(sv, _quyen, _mangdv) {
 		right : 0
 	});
 	for (var i = 0; i < 4; i++) {
-		sv.arr.viewchucnangbongda[i] = Ti.UI.createView({
+		if(i==0){
+			sv.arr.viewchucnangbongda[i] = Ti.UI.createView({
 			width : Ti.App.size(180),
 			height : Ti.App.size(100),
-			backgroundSelectedColor : Ti.App.Color.nauden,
-			backgroundColor : set(i),
+			backgroundSelectedColor : Ti.App.Color.xanhnhat,
+			backgroundColor : Ti.App.Color.nauden,
+			left : 0,
+			top : 0,
+		});
+
+		sv.arr.icon_footerbongda[i] = Ti.UI.createImageView({
+			image : sv.arr.img_footerbongda[i].bg,
+			width : Ti.App.size(56),
+			height : Ti.App.size(48),
+			touchEnabled : false,
+			backgroundSelectedImage : sv.arr.img_footerbongda[i].press,
+			top : Ti.App.size(10)
+
+		});
+		sv.arr.title_footerbongda[i] = Ti.UI.createLabel({
+			width : Ti.UI.SIZE,
+			height : Ti.UI.SIZE,
+			color : Ti.App.Color.superwhite,
+			backgroundColor : 'transparent',
+			touchEnabled : false,
+			top : Ti.App.size(65),
+			font : {
+				fontSize : Ti.App.size(25),
+				fontWeight : 'bold'
+			},
+			text : sv.arr.img_footerbongda[i].title
+		});
+		}
+		else{
+			sv.arr.viewchucnangbongda[i] = Ti.UI.createView({
+			width : Ti.App.size(180),
+			height : Ti.App.size(100),
+			backgroundSelectedColor : Ti.App.Color.xanhnhat,
+			backgroundColor : 'transparent',
 			left : Ti.App.size(180 * i),
 			top : 0,
 		});
@@ -175,10 +209,10 @@ function taoui(sv, _quyen, _mangdv) {
 		sv.arr.icon_footerbongda[i] = Ti.UI.createImageView({
 			image : sv.arr.img_footerbongda[i].bg,
 			width : Ti.App.size(50),
-			height : Ti.App.size(50),
+			height : Ti.App.size(48),
 			touchEnabled : false,
 			backgroundSelectedImage : sv.arr.img_footerbongda[i].press,
-			top : Ti.App.size(15)
+			top : Ti.App.size(10)
 
 		});
 		sv.arr.title_footerbongda[i] = Ti.UI.createLabel({
@@ -187,13 +221,15 @@ function taoui(sv, _quyen, _mangdv) {
 			color : Ti.App.Color.nauden,
 			backgroundColor : 'transparent',
 			touchEnabled : false,
-			top : Ti.App.size(75),
+			top : Ti.App.size(60),
 			font : {
 				fontSize : Ti.App.size(25),
 				fontWeight : 'bold'
 			},
 			text : sv.arr.img_footerbongda[i].title
 		});
+		}
+		
 		sv.arr.viewchucnangbongda[i].add(sv.arr.title_footerbongda[i]);
 		sv.arr.viewchucnangbongda[i].add(sv.arr.icon_footerbongda[i]);
 		sv.ui.footer_bongda.add(sv.arr.viewchucnangbongda[i]);
@@ -209,17 +245,18 @@ function taoui(sv, _quyen, _mangdv) {
 		sv.arr.viewchucnangsoxo[i] = Ti.UI.createView({
 			width : Ti.App.size(180),
 			height : Ti.App.size(100),
-			backgroundSelectedColor : Ti.App.Color.nauden,
+			backgroundSelectedColor : Ti.App.Color.xanhnhat,
 			backgroundColor : 'transparent',
 			top : 0,
 			left : Ti.App.size(180 * i)
 		});
 		sv.arr.icon_footersoxo[i] = Ti.UI.createImageView({
 			image : sv.arr.img_footersoxo[i].bg,
-			width : Ti.App.size(60),
-			height : Ti.App.size(60),
+			width : Ti.App.size(50),
+			height : Ti.App.size(48),
 			touchEnabled : false,
-			backgroundSelectedImage : sv.arr.img_footersoxo[i].press
+			backgroundSelectedImage : sv.arr.img_footersoxo[i].press,
+			top:Ti.App.size(10)
 		});
 		sv.arr.title_footersoxo[i] = Ti.UI.createLabel({
 			width : Ti.UI.SIZE,
@@ -227,7 +264,7 @@ function taoui(sv, _quyen, _mangdv) {
 			color : Ti.App.Color.nauden,
 			backgroundColor : 'transparent',
 			touchEnabled : false,
-			top : Ti.App.size(75),
+			top : Ti.App.size(65),
 			font : {
 				fontSize : Ti.App.size(25),
 				fontWeight : 'bold'
@@ -476,13 +513,13 @@ function taosukien(sv, _quyen, _mangdv) {
 				sv.arr.iconheader[2].image = sv.arr.img_header[2].bg;
 				for (var i = 0; i < 4; i++) {
 					if (i == 0) {
-						sv.arr.viewchucnangbongda[i].backgroundColor = Ti.App.Color.nauden;
-						sv.arr.icon_footerbongda[i].image = sv.arr.img_footerbongda[i].press;
-						sv.arr.title_footerbongda[j].color = Ti.App.Color.superwhite;
+						sv.arr.viewchucnangbongda[0].backgroundColor = Ti.App.Color.nauden;
+						sv.arr.icon_footerbongda[0].image = sv.arr.img_footerbongda[0].press;
+						sv.arr.title_footerbongda[0].color = Ti.App.Color.superwhite;
 					} else {
 						sv.arr.viewchucnangbongda[i].backgroundColor = Ti.App.Color.superwhite;
 						sv.arr.icon_footerbongda[i].image = sv.arr.img_footerbongda[i].bg;
-						sv.arr.title_footerbongda[j].color = Ti.App.Color.nauden;
+						sv.arr.title_footerbongda[i].color = Ti.App.Color.nauden;
 					}
 				}
 				sv.ui.ViewFooter.visible = true;
@@ -530,6 +567,7 @@ function taosukien(sv, _quyen, _mangdv) {
 				for (var i = 0; i < 4; i++) {
 					sv.arr.viewchucnangsoxo[i].backgroundColor = Ti.App.Color.superwhite;
 					sv.arr.icon_footersoxo[i].image = sv.arr.img_footersoxo[i].bg;
+					sv.arr.title_footersoxo[i].color = Ti.App.Color.nauden;
 				}
 				sv.ui.ViewFooter.visible = true;
 				sv.ui.ViewTong.bottom = Ti.App.size(100);
@@ -702,21 +740,6 @@ function currMin() {
 	return currmin;
 };
 
-function set(i) {
-	if (i == 0) {
-		return Ti.App.Color.nauden;
-	} else {
-		return 'transparent';
-	}
-}
-
-function set_color(i) {
-	if (i == 0) {
-		return Ti.App.Color.superwhite;
-	} else {
-		return Ti.App.Color.nauden;
-	}
-}
 
 function ktmang(sv) {
 	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
@@ -809,8 +832,6 @@ function push_notification() {
 		});
 	}
 
-
 	sql.close();
 	db.close();
-
 };
