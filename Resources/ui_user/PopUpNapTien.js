@@ -39,7 +39,7 @@ function createUI(sv) {
 
 	sv.ui.ViewIcon = Ti.UI.createView({
 		top : Ti.App.size(0),
-		height : Ti.App.size(215),
+		height : Ti.App.size(200),
 		left : Ti.App.size(0),
 		right : Ti.App.size(0),
 		backgroundColor : Ti.App.Color.red,
@@ -47,42 +47,55 @@ function createUI(sv) {
 
 	sv.ui.Icon = Ti.UI.createImageView({
 		image : '/assets/images/icon/icon-close.png',
-		top : Ti.App.size(45),
-		left : Ti.App.size(215),
-		right : Ti.App.size(215),
-		bottom : Ti.App.size(45),
-		backgroundSelectedColor : Ti.App.Color.nauden
+		backgroundSelectedColor : Ti.App.Color.nauden,
+		width:Ti.App.size(128),
+		height:Ti.App.size(128),
+		bottom:Ti.App.size(10)
 	});
 
 	sv.ui.ThongBao1 = Ti.UI.createLabel({
-		text : 'NẠP TIỀN',
-		top : Ti.App.size(230),
+		text : 'NẠP XU',
+		top : Ti.App.size(10),
 		font : {
 			fontSize : Ti.App.size(35),
 			fontWeight : 'bold',
 		},
 		textAlign : 'center',
-		color : Ti.App.Color.nauden,
+		color : Ti.App.Color.superwhite,
 	});
 
 	sv.ui.txt_soseri = Ti.UI.createTextField({
 		backgroundColor : Ti.App.Color.superwhite,
-		hintText : 'Nhập soseri',
+		hintText : 'Nhập số seri',
 		width : Ti.App.size(400),
-		height : Ti.App.size(100),
+		height : Ti.App.size(80),
 		color : Ti.App.Color.nauden,
 		font : {
 			fontSize : Ti.App.size(30)
 		},
 		center : 'true',
-		top : Ti.App.size(300),
+		top : Ti.App.size(230),
+		textAlign : 'center',
+		borderColor:Ti.App.Color.xanhnhat
+	});
+	sv.ui.txt_mathe = Ti.UI.createTextField({
+		backgroundColor : Ti.App.Color.superwhite,
+		hintText : 'Nhập mã thẻ',
+		width : Ti.App.size(400),
+		height : Ti.App.size(80),
+		color : Ti.App.Color.nauden,
+		font : {
+			fontSize : Ti.App.size(30)
+		},
+		center : 'true',
+		top : Ti.App.size(330),
 		textAlign : 'center',
 		borderColor:Ti.App.Color.xanhnhat
 	});
 	sv.ui.btn_nap = Ti.UI.createLabel({
 		backgroundColor : Ti.App.Color.xanhnhat,
 		width : Ti.App.size(300),
-		height : Ti.App.size(95),
+		height : Ti.App.size(80),
 		text : "NẠP",
 		textAlign : "center",
 		bottom : Ti.App.size(30),
@@ -103,9 +116,10 @@ function createUI(sv) {
 
 	sv.ui.ViewPopUp.add(sv.ui.ViewIcon);
 	sv.ui.ViewPopUp.add(sv.ui.txt_soseri);
+	sv.ui.ViewPopUp.add(sv.ui.txt_mathe);
 	sv.ui.ViewPopUp.add(sv.ui.btn_nap);
 	sv.ui.ViewIcon.add(sv.ui.Icon);
-	sv.ui.ViewPopUp.add(sv.ui.ThongBao1);
+	sv.ui.ViewIcon.add(sv.ui.ThongBao1);
 }
 
 function createUI_Event(sv) {
@@ -116,8 +130,8 @@ function createUI_Event(sv) {
 		sv.vari.type = sv.vari.sql.fieldByName("type");
 		naptien({
 			"username" : sv.vari.username,
-			"type" : sv.vari.type,
-			"amount" : sv.ui.txt_soseri.value
+			"serial" : sv.ui.txt_soseri.value,
+			"pin" : sv.ui.txt_mathe.value
 		}, sv);
 	};
 	sv.fu.eventClickIcon = function(e) {

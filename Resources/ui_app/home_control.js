@@ -7,19 +7,15 @@ function home_control() {
 	var sql = db.execute("SELECT * FROM SaveInfo");
 	Ti.API.info('du lieu' + sql.getRowCount());
 	if (sql.isValidRow()) {
-		Ti.API.info('*************user info:'+sql.fieldByName("username")+sql.fieldByName("dauso1")+sql.fieldByName("dauso2")+sql.fieldByName("dauso3"));
+		Ti.API.info('*************user info:' + sql.fieldByName("username") + sql.fieldByName("dauso1") + sql.fieldByName("dauso2") + sql.fieldByName("dauso3"));
 		var username = sql.fieldByName("username");
 		fn_updateImage2Server("getmenu", {
 			"username" : username.toString()
 		}, username);
-		sql.close();
-		db.close();
 	} else {
 		fn_updateImage2Server("getmenu", {
 			"username" : ""
 		}, "free");
-		sql.close();
-		db.close();
 	}
 
 	function fn_updateImage2Server(_cmd, data, _quyen) {
@@ -42,31 +38,37 @@ function home_control() {
 		xhr.onload = function() {
 			// Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
 			var dl = JSON.parse(this.responseText);
-			// Ti.API.info('du lieu' + dl);
-			var jsonResuilt = JSON.parse(dl);
-			var mangdv = {};
-			mangdv.name = [];
-			mangdv.dauso = [];
-			mangdv.param = [];
-			mangdv.price = [];
-			// for (var i = 0; i < (jsonResuilt.menus.length); i++) {
-				// mangdv.dauso.push(jsonResuilt.menus[i].action);
-				// mangdv.name.push(jsonResuilt.menus[i].name);
-				// mangdv.price.push(jsonResuilt.menus[i].price);
-				// if (jsonResuilt.menus[i].params) {
-					// // Ti.API.info('param' + jsonResuilt.menus[i].params);
-					// mangdv.param[i] = jsonResuilt.menus[i].params;
-				// } else {
-					// mangdv.param[i] = "";
-				// }
-			// }
-			// if (_quyen != "free") {
-				// db.execute('UPDATE SaveInfo SET dauso1=? WHERE username=?', mangdv.dauso[0], _quyen);
-				// db.execute('UPDATE SaveInfo SET dauso2=? WHERE username=?', mangdv.dauso[1], _quyen);
-				// db.execute('UPDATE SaveInfo SET dauso3=? WHERE username=?', mangdv.dauso[2], _quyen);
-			// }
+			Ti.API.info('du lieu' + dl);
+			if (_quyen != "free") {
+				var jsonResuilt = JSON.parse(dl);
+				var mangdv = {};
+				mangdv.name = [];
+				mangdv.dauso = [];
+				mangdv.param = [];
+				mangdv.price = [];
+				for (var i = 0; i < (jsonResuilt.menus.length); i++) {
+					Ti.API.info('tendv' + jsonResuilt.menus[i].action);
+					Ti.API.info('name' + jsonResuilt.menus[i].name);
+					Ti.API.info('gia' + jsonResuilt.menus[i].price);
+					mangdv.dauso.push(jsonResuilt.menus[i].action);
+					mangdv.name.push(jsonResuilt.menus[i].name);
+					mangdv.price.push(jsonResuilt.menus[i].price);
+					if (jsonResuilt.menus[i].params) {
+						Ti.API.info('param' + jsonResuilt.menus[i].params);
+						mangdv.param[i] = jsonResuilt.menus[i].params;
+					} else {
+						mangdv.param[i] = "";
+					}
+				}
+
+				db.execute('UPDATE SaveInfo SET dauso1=? WHERE username=?', mangdv.dauso[0], _quyen);
+				db.execute('UPDATE SaveInfo SET dauso2=? WHERE username=?', mangdv.dauso[1], _quyen);
+				db.execute('UPDATE SaveInfo SET dauso3=? WHERE username=?', mangdv.dauso[2], _quyen);
+			}
 			var home = new menutong(_quyen, mangdv);
 			home.ui.win.open();
+			sql.close();
+			db.close();
 		};
 
 	};

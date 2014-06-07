@@ -16,7 +16,7 @@ function taobien(sv) {
 	sv.vari.flag = false;
 	sv.arr.datarow = [];
 	sv.arr.height = [Ti.App.size(120), Ti.App.size(200)];
-	sv.vari.newdate
+	sv.vari.newdate;
 	sv.vari.bangkq = require('/ui_soxo/bangketquasx');
 }
 

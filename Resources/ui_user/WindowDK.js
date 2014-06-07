@@ -28,9 +28,28 @@ function tao_ui(sv) {
 		keepScreenOn : true,
 
 	});
+	sv.ui.ViewHeader=Titanium.UI.createView({
+		left:0,
+		backgroundColor:'transparent',
+		width:Ti.App.size(720),
+		height:Ti.App.size(100),
+		top:0
+	});
+	sv.ui.WindowDK.add(sv.ui.ViewHeader);
+	sv.ui.lbl_Login = Ti.UI.createLabel({
+		width : Ti.App.size(280),
+		text : 'ĐĂNG KÝ',
+		color : Ti.App.Color.white,
+		font : {
+			fontSize : Ti.App.size(50)
+		},
+		touchEnabled : false,
+		textAlign:'center'
+	});
+	sv.ui.ViewHeader.add(sv.ui.lbl_Login);
 	sv.ui.scrollView = Ti.UI.createScrollView({
 		left : 0,
-		top : 0,
+		top : Ti.App.size(100),
 		layout : 'vertical',
 		horizontalWrap : false,
 		scrollType : 'vertical',
@@ -43,18 +62,6 @@ function tao_ui(sv) {
 	});
 
 	sv.ui.WindowDK.add(sv.ui.scrollView);
-	sv.ui.lbl_Login = Ti.UI.createLabel({
-		width : Ti.App.size(280),
-		text : 'ĐĂNG KÝ',
-		color : Ti.App.Color.white,
-		font : {
-			fontSize : Ti.App.size(50)
-		},
-		top : Ti.App.size(30),
-		touchEnabled : false,
-		textAlign:'center'
-	});
-	sv.ui.scrollView.add(sv.ui.lbl_Login);
 	sv.ui.view_avatar = Titanium.UI.createView({
 		width : Ti.App.size(320),
 		height : Ti.App.size(320),
@@ -167,6 +174,7 @@ function tao_ui(sv) {
 	sv.ui.btn_dangki.addEventListener('click', sv.fu.event_dk);
 	sv.ui.WindowDK.addEventListener('open', sv.fu.openWindow);
 	sv.ui.WindowDK.addEventListener('close', sv.fu.closeWindow);
+	
 	////////////////
 }
 
