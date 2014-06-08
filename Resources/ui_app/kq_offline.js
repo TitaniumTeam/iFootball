@@ -1,4 +1,4 @@
-module.exports = function(_dauso) {
+module.exports = function() {
 	var sv = {};
 	sv.vari = {};
 	sv.arr = {};
@@ -8,17 +8,20 @@ module.exports = function(_dauso) {
 
 	(function() {
 		createVariable(sv);
-		createUI(sv, _dauso);
+		createUI(sv);
 	})();
 
 	return sv.ui.Window;
 };
 
 function createVariable(sv) {
+	sv.vari.db = Ti.Database.open("userinfo");
+	sv.vari.sql = sv.vari.db.execute("SELECT * FROM DichVu");
+	sv.vari.smsdialog = require('/ui-controller/showSmsDialog');
 
 }
 
-function createUI(sv, _dauso) {
+function createUI(sv) {
 	sv.ui.Window = Ti.UI.createWindow({
 		//backgroundColor : Ti.App.Color.nauden,
 		navBarHidden : true,
@@ -43,7 +46,7 @@ function createUI(sv, _dauso) {
 		left : Ti.App.size(0),
 		right : Ti.App.size(0),
 		backgroundColor : Ti.App.Color.red,
-		
+
 	});
 
 	sv.ui.Icon = Ti.UI.createImageView({
@@ -51,7 +54,8 @@ function createUI(sv, _dauso) {
 		top : Ti.App.size(45),
 		left : Ti.App.size(215),
 		right : Ti.App.size(215),
-		bottom : Ti.App.size(45),backgroundSelectedColor : Ti.App.Color.nauden
+		bottom : Ti.App.size(45),
+		backgroundSelectedColor : Ti.App.Color.nauden
 	});
 
 	sv.ui.ThongBao1 = Ti.UI.createLabel({
@@ -85,10 +89,10 @@ function createUI(sv, _dauso) {
 		},
 		borderRadius : Ti.App.size(5),
 		color : Ti.App.Color.nauden,
-		backgroundSelectedColor:Ti.App.Color.xanhnhat
+		backgroundSelectedColor : Ti.App.Color.xanhnhat
 	});
 
-	createUI_Event(sv, _dauso);
+	createUI_Event(sv);
 
 	sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
 	sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
@@ -107,9 +111,19 @@ function createUI(sv, _dauso) {
 
 }
 
-function createUI_Event(sv, _dauso) {
+function createUI_Event(sv) {
 	sv.fu.evt_sms = function(e) {
-		var showSmsDialog = new (require('/ui-controller/showSmsDialog'))('88xx', _dauso);
+		if (sv.vari.sql.isValidRow()) {
+			sv.vari.dichvu_db = sv.vari.db.execute("SELECT dauso,noidung FROM DichVu WHERE tendv=?", "Dich vu kqxs");
+			sv.vari.dauso = sv.vari.dichvu_db.fieldByName("dauso");
+			sv.vari.noidung = sv.vari.dichvu_db.fieldByName("noidung");
+			sv.vari.showSmsDialog = new sv.vari.smsdialog(sv.vari.dauso, sv.vari.noidung);
+			sv.ui.Window.close();
+		} else {
+			sv.vari.showSmsDialog = new sv.vari.smsdialog("88XX","KQSXMB");
+			sv.ui.Window.close();
+		}
+
 	};
 
 	sv.fu.eventClickIcon = function() {
@@ -129,7 +143,6 @@ function createUI_Event(sv, _dauso) {
 		sv.arr = null;
 		sv.ui = null;
 		sv.fu = null;
-		sv.test = null;
 		sv = null;
 
 		Ti.API.info('Closed window, sv=' + sv);

@@ -319,7 +319,7 @@ function createUI_Event(sv) {
 			dangnhap({
 				"username" : sv.ui.tfid.value,
 				"password" : sv.ui.tfpass.value
-			}, sv,_currWin);
+			}, sv);
 		}
 
 	};
@@ -428,14 +428,15 @@ function get_menu(data, sv) {
 				Ti.API.info('name' + jsonResuilt.menus[i].name);
 				Ti.API.info('gia' + jsonResuilt.menus[i].price);
 				Ti.API.info('param' + jsonResuilt.menus[i].params);
-				db.execute('INSERT INTO DichVu(tendv,dauso,thamso,gia) VALUES(?,?,?,?)', jsonResuilt.menus[i].name, jsonResuilt.menus[i].action, jsonResuilt.menus[i].params, jsonResuilt.menus[i].price);
+				Ti.API.info('param' + jsonResuilt.menus[i].servicenumber);
+				db.execute('INSERT INTO DichVu(tendv,dauso,noidung,thamso,gia) VALUES(?,?,?,?,?)', jsonResuilt.menus[i].name, jsonResuilt.menus[i].action,jsonResuilt.menus[i].servicenumber, jsonResuilt.menus[i].params, jsonResuilt.menus[i].price);
 			} else {
-				db.execute('INSERT INTO DichVu(tendv,dauso,thamso,gia) VALUES(?,?,?,?)', jsonResuilt.menus[i].name, jsonResuilt.menus[i].action, "", jsonResuilt.menus[i].price);
+				db.execute('INSERT INTO DichVu(tendv,dauso,noidung,thamso,gia) VALUES(?,?,?,?,?)', jsonResuilt.menus[i].name, jsonResuilt.menus[i].action,jsonResuilt.menus[i].servicenumber, "", jsonResuilt.menus[i].price);
 			}
 
 		}
 		var menutong = require('/ui_app/MenuTong');
-		var home = new menutong(username);
+		var home = new menutong();
 		home.ui.win.open();
 		sv.ui.Window.close();
 		sql.close();

@@ -15,6 +15,7 @@ function taobien(sv) {
 	sv.vari.soluongmenu = 3;
 	sv.arr.rows = [];
 	sv.vari.db = Ti.Database.open("userinfo");
+	
 	sv.vari.dichvu_db = sv.vari.db.execute("SELECT * FROM DichVu");
 };
 function taoui(sv) {
@@ -25,6 +26,7 @@ function taoui(sv) {
 		height : Ti.UI.FILL,
 	});
 	while (sv.vari.dichvu_db.isValidRow()) {
+	// if (sv.vari.dichvu_db.fieldByName("tendv") == "Dich vu kqxs") {
 		sv.ui.webview = Ti.UI.createWebView({
 			width : Ti.UI.FILL,
 			height : Ti.UI.FILL,
@@ -53,6 +55,8 @@ function taoui(sv) {
 		sv.arr.rows.push(sv.ui.row);
 		sv.vari.dichvu_db.next();
 	}
+
+	// }
 	sv.ui.tbl1 = Ti.UI.createTableView({
 		width : Ti.App.size(680),
 		height : Ti.UI.SIZE,
