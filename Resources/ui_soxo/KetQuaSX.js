@@ -16,7 +16,7 @@ function taobien(sv) {
 	sv.vari.flag = false;
 	sv.arr.datarow = [];
 	sv.arr.height = [Ti.App.size(120), Ti.App.size(200)];
-	sv.vari.newdate
+	sv.vari.newdate;
 	sv.vari.bangkq = require('/ui_soxo/bangketquasx');
 }
 
@@ -45,8 +45,8 @@ function tao_ui(sv) {
 		backgroundColor : Ti.App.Color.magenta,
 	});
 	sv.ui.ViewTong.add(sv.ui.View_header);
-	sv.ui.view_choose = new sv.vari.combobox(Ti.App.size(60), 'MIỀN BẮC', Ti.App.size(360), Ti.App.size(360), Ti.App.size(160));
-	sv.ui.view_choose1 = new sv.vari.combobox(Ti.App.size(60), set_lbl(), 0, Ti.App.size(360), Ti.App.size(160));
+	sv.ui.view_choose = new sv.vari.combobox(Ti.App.size(60), 'MIỀN BẮC', Ti.App.size(290), Ti.App.size(290), Ti.App.size(160));
+	sv.ui.view_choose1 = new sv.vari.combobox(Ti.App.size(60), set_lbl(), 0, Ti.App.size(290), Ti.App.size(160));
 
 	sv.ui.lblfirst = sv.ui.view_choose.getLblFirst();
 	sv.ui.lblfirst1 = sv.ui.view_choose1.getLblFirst();
@@ -54,7 +54,22 @@ function tao_ui(sv) {
 	sv.ui.ViewTong.add(sv.ui.view_choose);
 	sv.ui.ViewTong.add(sv.ui.view_choose1);
 	sv.ui.ViewTong.add(sv.ui.table_view);
-
+	sv.ui.ViewTimkiem = Titanium.UI.createView({
+		width : Ti.App.size(140),
+		height : Ti.App.size(100),
+		backgroundColor : Ti.App.Color.green,
+		backgroundSelectedColor : Ti.App.Color.xanhnhat,
+		right : 0,
+		top : Ti.App.size(60)
+	});
+	sv.ui.icon_timkiem = Titanium.UI.createImageView({
+		image : '/assets/images/icon/icon-search.png',
+		touchEnabled : false,
+		width : Ti.App.size(64),
+		height : Ti.App.size(64)
+	});
+	sv.ui.ViewTimkiem.add(sv.ui.icon_timkiem);
+	sv.ui.ViewTong.add(sv.ui.ViewTimkiem);
 	//////date picker
 	sv.ui.ViewPicker = Titanium.UI.createView({
 		width : Ti.UI.SIZE,
@@ -113,8 +128,18 @@ function tao_ui(sv) {
 	sv.ui.table_view.addEventListener('click', sv.fu.event_clicktbl);
 	sv.ui.view_choose1.addEventListener('click', sv.fu.event_click_view1);
 	sv.ui.scrollView.addEventListener('click', sv.fu.event_clickscrollview);
+	sv.ui.ViewTimkiem.addEventListener('click', sv.fu.event_timkiem);
 };
 function createUI_Event(sv) {
+	sv.fu.event_timkiem = function(e) {
+		sv.ui.table_view.visible = false;
+		sv.ui.ViewPicker.visible = false;
+		fn_updateImage2Server("searchlottery", {
+			"provideid" : sv.ui.lblfirst.id,
+			"startdate" : sv.ui.lblfirst1.text
+		}, sv);
+	};
+	////
 	sv.fu.event_picker = function(e) {
 		sv.vari.date = e.value;
 		sv.vari.day = sv.vari.date.getDate();
@@ -144,12 +169,6 @@ function createUI_Event(sv) {
 		sv.vari.flag = true;
 		tbl_click(e, sv.ui.lblfirst, sv.ui.table_view, sv);
 		sv.ui.View_header.text = "Kết quả sổ xố " + sv.ui.lblfirst.text + ' ' + sv.ui.lblfirst1.text;
-		sv.ui.table_view.visible = false;
-		sv.ui.ViewPicker.visible = false;
-		fn_updateImage2Server("searchlottery", {
-			"provideid" : sv.ui.lblfirst.id,
-			"startdate" : sv.ui.lblfirst1.text
-		}, sv);
 	};
 	sv.fu.event_click_view1 = function(e) {
 		sv.vari.flag = true;

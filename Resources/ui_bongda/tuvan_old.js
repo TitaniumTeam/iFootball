@@ -252,7 +252,6 @@ function tao_ui(sv) {
 	for (var i = 0; i < sv.arr.data.length; i++) {
 		sv.arr.viewrows[i].addEventListener('click', sv.arr.event_clickGD[i]);
 	}
-	Ti.API.info('length' + sv.arr.trandau.length);
 	//
 	for (var j = 0; j < sv.arr.trandau.length; j++) {
 		sv.arr.trandau[j].addEventListener('click', function(e) {

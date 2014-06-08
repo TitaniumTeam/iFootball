@@ -67,7 +67,7 @@ function createUI(sv, _currWin) {
 	});
 
 	sv.ui.ThongBao2 = Ti.UI.createLabel({
-		text : 'Đăng kí hoặc đăng nhập tài khoản để có thể sử dụng',
+		text : 'Bạn chưa đăng nhập!',
 		font : {
 			fontSize : Ti.App.size(30)
 		},
@@ -77,7 +77,7 @@ function createUI(sv, _currWin) {
 		textAlign : 'center'
 	});
 	sv.ui.button_dk = Ti.UI.createLabel({
-		backgroundColor : Ti.App.Color.magenta,
+		backgroundColor : Ti.App.Color.nauden,
 		width : Ti.App.size(300),
 		height : Ti.App.size(95),
 		text : "ĐĂNG KÝ",
@@ -87,7 +87,7 @@ function createUI(sv, _currWin) {
 			fontSize : Ti.App.size(30)
 		},
 		borderRadius : Ti.App.size(5),
-		color : Ti.App.Color.nauden,
+		color : Ti.App.Color.superwhite,
 		backgroundSelectedColor : Ti.App.Color.xanhnhat
 	});
 
@@ -101,9 +101,9 @@ function createUI(sv, _currWin) {
 			fontSize : Ti.App.size(30)
 		},
 		borderRadius : Ti.App.size(5),
-		backgroundColor : Ti.App.Color.green,
+		backgroundColor : Ti.App.Color.gray,
 		backgroundSelectedColor : Ti.App.Color.magenta,
-		color:Ti.App.Color.nauden
+		color:Ti.App.Color.superwhite
 	});
 
 	createUI_Event(sv, _currWin);
@@ -136,7 +136,7 @@ function createUI_Event(sv, _currWin) {
 		_currWin.close();
 	};
 	sv.fu.evt_dangnhap = function(e) {
-		sv.vari.wd_dangnhap = new sv.vari.wd_dn();
+		sv.vari.wd_dangnhap = new sv.vari.wd_dn(_currWin);
 		sv.vari.wd_dangnhap.open();
 		sv.ui.Window.close();
 		_currWin.close();
@@ -162,7 +162,7 @@ function createUI_Event(sv, _currWin) {
 		sv.test = null;
 		sv = null;
 
-		Ti.API.info('Closed window, sv=' + sv);
+		Ti.API.info('Closed window popup dang nhap' );
 	};
 }
 

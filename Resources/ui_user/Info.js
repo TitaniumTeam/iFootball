@@ -19,6 +19,8 @@ module.exports = function() {
 function createVariable(sv) {
 	sv.vari.consodachoi = new (require('/ui_user/ConSoDaChoi'))();
 	sv.vari.lichsugiaodich = new (require('/ui_user/LichSuGiaoDich'))();
+	sv.arr.naptien = ["Nạp tiền bằng mã thẻ", "Nạp tiền bằng sms", "Thoát"];
+	sv.vari.PopUpNapTien = require('/ui_user/PopUpNapTien');
 }
 
 function createUI(sv) {
@@ -321,7 +323,12 @@ function createUI(sv) {
 		right : Ti.App.size(0),
 		color : 'black'
 	});
-
+	/////
+	sv.ui.opt_dialog = Titanium.UI.createOptionDialog({
+		title : "Lựa chọn cách thức",
+		options : sv.arr.naptien
+	});
+	/////
 	sv.ui.scrollview.add(sv.ui.ViewUngDung);
 	sv.ui.ViewTong.add(sv.ui.scrollview);
 	sv.ui.ViewTong.add(sv.ui.viewAvatar);
@@ -364,14 +371,16 @@ function createUI(sv) {
 	sv.ui.Row3.addEventListener('click', sv.fu.event_lichsugiaodich);
 	sv.ui.Row1.addEventListener('click', sv.fu.event_napxu);
 	sv.ui.Row5.addEventListener('click', sv.fu.event_nangcapvip);
-	sv.ui.ViewBut.addEventListener('click', function() {
-		sv.vari.changeinfo = new (require('/ui_user/Change_pass'));
-		sv.ui.ViewTong.removeAllChildren();
-		sv.ui.ViewTong.add(sv.vari.changeinfo.ui.ViewTong);
-	});
+	sv.ui.opt_dialog.addEventListener('click', sv.fu.event_optiondialog);
+	sv.ui.ViewBut.addEventListener('click', sv.fu.event_changeinfo);
 }
 
 function createUI_Event(sv) {
+	sv.fu.event_changeinfo = function(e) {
+		sv.vari.changeinfo = new (require('/ui_user/Change_pass'));
+		sv.ui.ViewTong.removeAllChildren();
+		sv.ui.ViewTong.add(sv.vari.changeinfo.ui.ViewTong);
+	};
 	sv.fu.event_nangcapvip = function(e) {
 		sv.vari.popup_vip = new (require('/ui_user/PopUpNangCap'))();
 		sv.vari.popup_vip.open({
@@ -379,10 +388,26 @@ function createUI_Event(sv) {
 		});
 	};
 	sv.fu.event_napxu = function(e) {
-		sv.vari.PopUpNapTien = new (require('/ui_user/PopUpNapTien'))();
-		sv.vari.PopUpNapTien.open({
-			modal : Ti.Platform.osname == 'android' ? true : false
-		});
+		sv.ui.opt_dialog.show();
+	};
+	sv.fu.event_optiondialog = function(e) {
+		if (e.index == 0) {
+			sv.vari.wdnaptien = new sv.vari.PopUpNapTien();
+			sv.vari.wdnaptien.open({
+				modal : Ti.Platform.osname == 'android' ? true : false
+			});
+			Ti.API.info('click' + e.index);
+			// sv.vari.PopUpNapTien = new (require('/ui_user/PopUpNapTien'))();
+			// sv.vari.PopUpNapTien.open({
+			// modal : Ti.Platform.osname == 'android' ? true : false
+			// });
+		}
+		if (e.index == 1) {
+			var showSmsDialog = new (require('/ui-controller/showSmsDialog'))('88xx', "NAPXU");
+		}
+		if (e.index == 2) {
+			sv.ui.opt_dialog.hide();
+		}
 	};
 	sv.fu.event_consodachoi = function(e) {
 		sv.ui.ViewTong.removeAllChildren();

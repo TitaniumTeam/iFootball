@@ -99,6 +99,12 @@ function tao_ui(sv) {
 	sv.ui.scrollView.addEventListener('click', sv.fu.event_clickscrollview);
 };
 function createUI_Event(sv) {
+	sv.fu.event_loadview=function(e){
+		// Ti.App.vIndicatorWindow.openIndicator(sv.vari.view_tuvan.ui.ViewTong);
+				// setTimeout(function() {
+				// Ti.App.vIndicatorWindow.closeIndicator(sv.vari.view_tuvan.ui.ViewTong);
+				// }, 2000);
+	};
 	sv.fu.event_clickscrollview = function(e) {
 		sv.vari.flag = false;
 		if (sv.vari.flag == false) {

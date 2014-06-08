@@ -15,6 +15,10 @@ module.exports = function() {
 };
 
 function createVariable(sv) {
+	sv.vari.db = Ti.Database.open('userinfo');
+	sv.vari.sql = sv.vari.db.execute('SELECT * FROM SaveInfo');
+	sv.vari.username = sv.vari.sql.fieldByName("username");
+	sv.vari.type = sv.vari.sql.fieldByName("type");
 }
 
 function createUI(sv) {
@@ -99,10 +103,6 @@ function createUI(sv) {
 
 function createUI_Event(sv) {
 	sv.fu.evt_nangcap = function() {
-		sv.vari.db = Ti.Database.open('userinfo');
-		sv.vari.sql = sv.vari.db.execute('SELECT * FROM SaveInfo');
-		sv.vari.username = sv.vari.sql.fieldByName("username");
-		sv.vari.type = sv.vari.sql.fieldByName("type");
 		nangcapvip({
 			"username" : sv.vari.username,
 			"type" : sv.vari.type,
@@ -117,6 +117,8 @@ function createUI_Event(sv) {
 	};
 
 	sv.fu.eventCloseWindow = function(e) {
+		// sv.vari.sql.close();
+		// sv.vari.db.close();
 		sv.ui.Window.removeEventListener('open', sv.fu.eventOpenWindow);
 		sv.ui.Window.removeEventListener('close', sv.fu.eventCloseWindow);
 		sv.ui.Icon.removeEventListener('click', sv.fu.eventClickIcon);
@@ -151,17 +153,13 @@ function nangcapvip(data, sv) {
 		var dl = JSON.parse(this.responseText);
 		var jsonResuilt = JSON.parse(dl);
 		if (jsonResuilt.code == 0) {
-			sv.vari.db.execute('UPDATE SaveInfo SET type=1 WHERE username=?',sv.vari.username);
-			sv.vari.sql.close();
-			sv.vari.db.close();
+			sv.vari.db.execute('UPDATE SaveInfo SET type=? WHERE username=?',1, sv.vari.username);
 			sv.ui.Window.close();
 			sv.vari.popup_success = new (require('/ui_user/PopUpTrue'))();
 			sv.vari.popup_success.ui.Window.open({
 				modal : Ti.Platform.osname == 'android' ? true : false
 			});
 		} else {
-			sv.vari.sql.close();
-			sv.vari.db.close();
 			sv.ui.Window.close();
 			sv.vari.popup_success = new (require('/ui_user/PopUpFalse'))();
 			sv.vari.popup_success.ui.Window.open({

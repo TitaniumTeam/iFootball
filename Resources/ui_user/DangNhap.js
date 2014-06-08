@@ -28,51 +28,52 @@ function createUI(sv) {
 		orientationModes : [Ti.UI.PORTRAIT],
 		keepScreenOn : true,
 	});
-
+	sv.ui.ViewHeader = Titanium.UI.createView({
+		left : 0,
+		backgroundColor : Ti.App.Color.red,
+		width : Ti.App.size(720),
+		height : Ti.App.size(100),
+		top : 0
+	});
+	sv.ui.Window.add(sv.ui.ViewHeader);
 	sv.ui.viewtong = Ti.UI.createScrollView({
 		backgroundColor : Ti.App.Color.white,
 		// width : Ti.App.widthScreen,
 		// height : Ti.App.heightScreen,
-		top : 0,
+		top : Ti.App.size(100),
 		left : 0
 	});
 
 	//tao view header
-	sv.ui.viewheader = Ti.UI.createView({
-		backgroundColor : Ti.App.Color.red,
-		width : Ti.App.WidthScreen,
-		height : Ti.App.size(120),
-		top : 0,
-	});
 
 	sv.ui.headerdangnhap = Ti.UI.createLabel({
 		text : 'ĐĂNG NHẬP',
 		font : {
 			fontSize : Ti.App.size(32),
 			fontWeight : 'bold',
-			fontFamily : 'Aria'
 		},
 		color : Ti.App.Color.white,
-		top : Ti.App.size(40),
-		bottom : Ti.App.size(40),
+		touchEnabled : false
+		// top : Ti.App.size(40),
+		// bottom : Ti.App.size(40),
 	});
-
+	sv.ui.ViewHeader.add(sv.ui.headerdangnhap);
 	//tao view dang nhap bang facebook
 	sv.ui.viewdnface = Ti.UI.createView({
 		backgroundColor : Ti.App.Color.blue,
 		height : Ti.App.size(95),
-		top : Ti.App.size(220),
+		top : Ti.App.size(50),
 		left : Ti.App.size(20),
 		right : Ti.App.size(20),
+		backgroundSelectedColor:Ti.App.Color.magenta
 	});
 
-	sv.ui.iconface = Ti.UI.createView({
-		backgroundColor : Ti.App.Color.blue,
-		left : 0,
-		top : 0,
-		bottom : 0,
-		height : Ti.App.size(95),
-		right : Ti.App.size(590)
+	sv.ui.iconface = Ti.UI.createImageView({
+		left : Ti.App.size(30),
+		height : Ti.App.size(48),
+		width : Ti.App.size(40),
+		image : '/assets/images/icon/icon-fb.png',
+		touchEnabled : false
 	});
 
 	sv.ui.iconlinednface = Ti.UI.createView({
@@ -101,18 +102,18 @@ function createUI(sv) {
 	sv.ui.viewdngmail = Ti.UI.createView({
 		backgroundColor : Ti.App.Color.red,
 		height : Ti.App.size(95),
-		top : Ti.App.size(335),
+		top : Ti.App.size(165),
 		left : Ti.App.size(20),
 		right : Ti.App.size(20),
+		backgroundSelectedColor:Ti.App.Color.xanhnhat
 	});
 
-	sv.ui.icongmail = Ti.UI.createView({
-		backgroundColor : Ti.App.Color.red,
-		left : 0,
-		top : 0,
-		bottom : 0,
-		height : Ti.App.size(95),
-		right : Ti.App.size(590)
+	sv.ui.icongmail = Ti.UI.createImageView({
+		left : Ti.App.size(30),
+		height : Ti.App.size(48),
+		width : Ti.App.size(40),
+		image : '/assets/images/icon/icon-gmail.png',
+		touchEnabled : false
 	});
 
 	sv.ui.iconlinedngmail = Ti.UI.createView({
@@ -141,8 +142,8 @@ function createUI(sv) {
 	sv.ui.viewhoac = Ti.UI.createView({
 		left : Ti.App.size(20),
 		right : Ti.App.size(20),
-		top : Ti.App.size(430),
-		height : Ti.App.size(170),
+		top : Ti.App.size(260),
+		height : Ti.App.size(100),
 		//bottom : Ti.App.size(675),
 	});
 
@@ -172,7 +173,7 @@ function createUI(sv) {
 	sv.ui.tfid = Ti.UI.createTextField({
 		//bottom : Ti.App.size(580),
 		height : Ti.App.size(95),
-		top : Ti.App.size(600),
+		top : Ti.App.size(380),
 		left : Ti.App.size(20),
 		right : Ti.App.size(20),
 		hintText : 'Nhập tài khoản',
@@ -187,7 +188,7 @@ function createUI(sv) {
 
 	sv.ui.tfpass = Ti.UI.createTextField({
 		height : Ti.App.size(95),
-		top : Ti.App.size(720),
+		top : Ti.App.size(500),
 		left : Ti.App.size(20),
 		right : Ti.App.size(20),
 		hintText : 'Nhập mật khẩu',
@@ -203,27 +204,27 @@ function createUI(sv) {
 	sv.ui.viewdangnhap = Ti.UI.createView({
 		left : Ti.App.size(20),
 		right : Ti.App.size(20),
-		top : Ti.App.size(855),
+		top : Ti.App.size(635),
 		height : Ti.App.size(95),
-		backgroundColor : Ti.App.Color.green,
+		backgroundColor : Ti.App.Color.gray,
 		backgroundSelectedColor : Ti.App.Color.magenta
 	});
 
 	sv.ui.labelviewdn = Ti.UI.createLabel({
 		text : 'Đăng nhập',
 		font : {
-			fontSize : Ti.App.size(26),
+			fontSize : Ti.App.size(30),
 			fontWeight : 'bold',
 			fontFamily : 'Aria'
 		},
-		color : Ti.App.Color.nauden,
+		color : Ti.App.Color.superwhite,
 		touchEnabled : false
 	});
 
 	sv.ui.viewdangky = Ti.UI.createView({
 		left : Ti.App.size(20),
 		right : Ti.App.size(20),
-		top : Ti.App.size(965),
+		top : Ti.App.size(750),
 		height : Ti.App.size(95),
 		backgroundColor : Ti.App.Color.nauden,
 		backgroundSelectedColor : Ti.App.Color.green
@@ -232,7 +233,7 @@ function createUI(sv) {
 	sv.ui.labelviewdk = Ti.UI.createLabel({
 		text : 'Đăng ký',
 		font : {
-			fontSize : Ti.App.size(26),
+			fontSize : Ti.App.size(30),
 			fontWeight : 'bold',
 			fontFamily : 'Aria'
 		},
@@ -243,7 +244,7 @@ function createUI(sv) {
 	//tao quen mat khau
 
 	sv.ui.viewquenpass = Ti.UI.createView({
-		top : Ti.App.size(1085),
+		top : Ti.App.size(880),
 		height : Ti.App.size(195),
 		left : 0,
 		right : 0
@@ -273,7 +274,6 @@ function createUI(sv) {
 	sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
 
 	sv.ui.Window.add(sv.ui.viewtong);
-	sv.ui.Window.add(sv.ui.viewheader);
 
 	sv.ui.viewtong.add(sv.ui.viewdnface);
 	sv.ui.viewtong.add(sv.ui.viewdngmail);
@@ -283,8 +283,6 @@ function createUI(sv) {
 	sv.ui.viewtong.add(sv.ui.viewdangnhap);
 	sv.ui.viewtong.add(sv.ui.viewdangky);
 	sv.ui.viewtong.add(sv.ui.viewquenpass);
-
-	sv.ui.viewheader.add(sv.ui.headerdangnhap);
 
 	sv.ui.viewdnface.add(sv.ui.iconface);
 	sv.ui.viewdnface.add(sv.ui.iconlinednface);
@@ -306,20 +304,19 @@ function createUI(sv) {
 }
 
 function createUI_Event(sv) {
-	sv.fu = {};
 
 	sv.fu.eventClickviewdnface = function(e) {
+		sv.ui.Window.close();
 	};
 
 	sv.fu.eventClickviewdngmail = function(e) {
 	};
-
 	sv.fu.eventClickviewdangnhap = function(e) {
 		if (sv.ui.tfpass.value == "" || sv.ui.tfid == "") {
 			alert("Bạn chưa nhập username và password");
 
 		} else {
-			fn_updateImage2Server("login", {
+			dangnhap({
 				"username" : sv.ui.tfid.value,
 				"password" : sv.ui.tfpass.value
 			}, sv);
@@ -328,8 +325,9 @@ function createUI_Event(sv) {
 	};
 
 	sv.fu.eventClickviewdangky = function(e) {
-		var windk = new (require('/ui_user/WindowDK'));
-		windk.open();
+		var windk = require('/ui_user/WindowDK');
+		var windangki = new windk();
+		windangki.open();
 	};
 
 	sv.fu.eventOpenWindow = function(e) {
@@ -351,11 +349,11 @@ function createUI_Event(sv) {
 		sv.test = null;
 		sv = null;
 
-		Ti.API.info('Closed window, sv=' + sv);
+		Ti.API.info('Closed window dang nhap');
 	};
 }
 
-function fn_updateImage2Server(_cmd, data, sv) {
+function dangnhap(data, sv) {
 
 	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
 		alert('Kiểm tra kết nối mạng');
@@ -367,7 +365,7 @@ function fn_updateImage2Server(_cmd, data, sv) {
 			Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
 		};
 		// open the client
-		xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=' + _cmd);
+		xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=login');
 		xhr.setRequestHeader("Content-Type", "application/json-rpc");
 		Ti.API.info(JSON.stringify(data));
 		xhr.send(JSON.stringify(data));
@@ -389,7 +387,7 @@ function fn_updateImage2Server(_cmd, data, sv) {
 				var balance = jsonResuilt.info.balance;
 				Ti.API.info('dang nhap thanh cong');
 				db.execute('INSERT INTO SaveInfo(username,type,balance) VALUES(?,?,?)', username, type, balance);
-				fn_updateImage2Server_Dangnhap("getmenu", {
+				get_menu({
 					"username" : username
 				}, sv);
 				sql.close();
@@ -401,14 +399,14 @@ function fn_updateImage2Server(_cmd, data, sv) {
 
 	}
 };
-function fn_updateImage2Server_Dangnhap(_cmd, data, sv) {
+function get_menu(data, sv) {
 	var xhr = Titanium.Network.createHTTPClient();
 	xhr.onsendstream = function(e) {
 		//ind.value = e.progress;
 		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
 	};
 	// open the client
-	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=' + _cmd);
+	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=getmenu');
 	xhr.setRequestHeader("Content-Type", "application/json-rpc");
 	Ti.API.info(JSON.stringify(data));
 	xhr.send(JSON.stringify(data));
@@ -424,34 +422,21 @@ function fn_updateImage2Server_Dangnhap(_cmd, data, sv) {
 		var sql = db.execute("SELECT * FROM SaveInfo");
 		var username = sql.fieldByName("username");
 		Ti.API.info('username' + username);
-		var mangdv = {};
-		mangdv.name = [];
-		mangdv.dauso = [];
-		mangdv.param = [];
-		mangdv.price = [];
 		for (var i = 0; i < (jsonResuilt.menus.length); i++) {
-			mangdv.dauso.push(jsonResuilt.menus[i].action);
-			mangdv.name.push(jsonResuilt.menus[i].name);
-			mangdv.price.push(jsonResuilt.menus[i].price);
 			if (jsonResuilt.menus[i].params) {
+				Ti.API.info('tendv' + jsonResuilt.menus[i].action);
+				Ti.API.info('name' + jsonResuilt.menus[i].name);
+				Ti.API.info('gia' + jsonResuilt.menus[i].price);
 				Ti.API.info('param' + jsonResuilt.menus[i].params);
-				mangdv.param[i] = jsonResuilt.menus[i].params;
+				Ti.API.info('param' + jsonResuilt.menus[i].servicenumber);
+				db.execute('INSERT INTO DichVu(tendv,dauso,noidung,thamso,gia) VALUES(?,?,?,?,?)', jsonResuilt.menus[i].name, jsonResuilt.menus[i].action,jsonResuilt.menus[i].servicenumber, jsonResuilt.menus[i].params, jsonResuilt.menus[i].price);
 			} else {
-				mangdv.param[i] = "";
+				db.execute('INSERT INTO DichVu(tendv,dauso,noidung,thamso,gia) VALUES(?,?,?,?,?)', jsonResuilt.menus[i].name, jsonResuilt.menus[i].action,jsonResuilt.menus[i].servicenumber, "", jsonResuilt.menus[i].price);
 			}
-		}
-		for (var i = 0; i < (mangdv.name.length); i++) {
-			Ti.API.info('name dich vu:  ' + mangdv.name[i]);
-			Ti.API.info('dauso dich vu:  ' + mangdv.dauso[i]);
-			Ti.API.info('param dich vu:  ' + mangdv.param[i]);
-			Ti.API.info('gia dich vu:  ' + mangdv.price[i]);
 
 		}
-		db.execute('UPDATE SaveInfo SET dauso1=? WHERE username=?', mangdv.dauso[0], username);
-		db.execute('UPDATE SaveInfo SET dauso2=? WHERE username=?', mangdv.dauso[1], username);
-		db.execute('UPDATE SaveInfo SET dauso3=? WHERE username=?', mangdv.dauso[2], username);
 		var menutong = require('/ui_app/MenuTong');
-		var home = new menutong(username, mangdv);
+		var home = new menutong();
 		home.ui.win.open();
 		sv.ui.Window.close();
 		sql.close();
