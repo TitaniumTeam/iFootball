@@ -1,4 +1,4 @@
-module.exports = function() {
+module.exports = function(_currWin) {
 	var sv = {};
 	sv.vari = {};
 	sv.arr = {};
@@ -8,7 +8,7 @@ module.exports = function() {
 
 	(function() {
 		createVariable(sv);
-		createUI(sv);
+		createUI(sv,_currWin);
 	})();
 
 	return sv.ui.Window;
@@ -20,7 +20,7 @@ function createVariable(sv) {
 
 }
 
-function createUI(sv) {
+function createUI(sv,_currWin) {
 	sv.ui.Window = Ti.UI.createWindow({
 		backgroundColor : Ti.App.Color.white,
 		navBarHidden : true,
@@ -264,7 +264,7 @@ function createUI(sv) {
 		textAlign : 'center'
 	});
 
-	createUI_Event(sv);
+	createUI_Event(sv,_currWin);
 
 	sv.ui.viewdnface.addEventListener('click', sv.fu.eventClickviewdnface);
 	sv.ui.viewdngmail.addEventListener('click', sv.fu.eventClickviewdngmail);
@@ -303,7 +303,7 @@ function createUI(sv) {
 	sv.ui.viewquenpass.add(sv.ui.lablequenpass);
 }
 
-function createUI_Event(sv) {
+function createUI_Event(sv,_currWin) {
 
 	sv.fu.eventClickviewdnface = function(e) {
 		sv.ui.Window.close();

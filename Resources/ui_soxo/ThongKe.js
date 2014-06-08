@@ -13,6 +13,8 @@ module.exports = function() {
 
 function taobien(sv) {
 	sv.vari.combobox = require('/ui_soxo/ComboBox');
+	sv.vari.indicator = require('/ui-controller/vIndicatorWindow');
+	sv.vari.vIndicatorWindow = sv.vari.indicator.createIndicatorWindow();
 	sv.vari.flag = false;
 	sv.arr.datarow = [];
 	sv.arr.height = [Ti.App.size(120), Ti.App.size(200)];
@@ -94,16 +96,15 @@ function tao_ui(sv) {
 
 	////
 	createUI_Event(sv);
+	sv.ui.scrollView.addEventListener('postlayout',sv.fu.event_loadview);
 	sv.ui.view_choose.addEventListener('click', sv.fu.event_click_view);
 	sv.ui.table_view.addEventListener('click', sv.fu.event_clicktbl);
 	sv.ui.scrollView.addEventListener('click', sv.fu.event_clickscrollview);
 };
 function createUI_Event(sv) {
 	sv.fu.event_loadview=function(e){
-		// Ti.App.vIndicatorWindow.openIndicator(sv.vari.view_tuvan.ui.ViewTong);
-				// setTimeout(function() {
-				// Ti.App.vIndicatorWindow.closeIndicator(sv.vari.view_tuvan.ui.ViewTong);
-				// }, 2000);
+		Ti.API.info('post layout');
+		sv.vari.vIndicatorWindow.closeIndicator();
 	};
 	sv.fu.event_clickscrollview = function(e) {
 		sv.vari.flag = false;
@@ -123,6 +124,7 @@ function createUI_Event(sv) {
 		tbl_click(e, sv.ui.lblfirst, sv.ui.table_view, sv);
 		sv.ui.View_header.text = "Thống kê " + sv.ui.lblfirst.text;
 		sv.ui.scrollView.scrollTo(0, 0);
+		sv.vari.vIndicatorWindow.openIndicator();
 		thongke("getlotterystat", {
 			"provideid" : sv.ui.lblfirst.text,
 			"startdate" : currDate()

@@ -36,7 +36,7 @@ function createIndicatorWindow(args) {
 		style = Ti.UI.iPhone.ActivityIndicatorStyle.PLAIN;
 
 		if ('iPhone OS' !== Ti.Platform.name) {
-			style = Ti.UI.ActivityIndicatorStyle.DARK;
+			style = Ti.UI.ActivityIndicatorStyle.BIG_DARK;
 		}
 
 		return style;
@@ -88,4 +88,4 @@ function createIndicatorWindow(args) {
 }
 
 // Public interface
-exports.createIndicatorWindow = createIndicatorWindow
+exports.createIndicatorWindow = createIndicatorWindow;

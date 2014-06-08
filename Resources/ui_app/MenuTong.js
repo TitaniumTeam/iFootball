@@ -14,9 +14,9 @@ module.exports = function() {
 };
 function taobien(sv) {
 	////
-	sv.vari.indicator = require('/ui-controller/vIndicatorWindow');
-	sv.vari.vIndicatorWindow = sv.vari.indicator.createIndicatorWindow();
-	sv.vari.intelval
+	// sv.vari.indicator = require('/ui-controller/vIndicatorWindow');
+	// sv.vari.vIndicatorWindow = sv.vari.indicator.createIndicatorWindow();
+	sv.vari.intelval;
 	sv.vari.dem = 0;
 	sv.vari.popup = require('/ui_user/PopUpDangNhap');
 	////
@@ -27,10 +27,10 @@ function taobien(sv) {
 	////////
 	// sv.vari.TTTD = require('/ui_bongda/ThongTinTranDau');
 	sv.vari.tintuc = require('/ui_bongda/News');
-	// sv.vari.tuvan_bongda = require('/ui_bongda/TuVan');
+	sv.vari.tuvan_bongda = require('/ui_bongda/TuVan');
 	///version old
 	sv.vari.TTTD = require('/ui_bongda/thongtin_old');
-	sv.vari.tuvan_bongda = require('/ui_bongda/tuvan_old');
+	// sv.vari.tuvan_bongda = require('/ui_bongda/tuvan_old');
 	//////view header
 	sv.arr.view_iconheader = [];
 	sv.arr.iconheader = [];
@@ -526,7 +526,6 @@ function taosukien(sv) {
 				sv.vari.sql = sv.vari.db.execute("SELECT * FROM SaveInfo");
 				clearInterval(sv.vari.intelval);
 				if (sv.vari.sql.isValidRow()) {
-					sv.vari.vIndicatorWindow.openIndicator();
 					sv.arr.view_iconheader[1].backgroundColor = Ti.App.Color.superwhite;
 					sv.arr.iconheader[1].image = sv.arr.img_header[1].press;
 					sv.arr.iconheader[0].image = sv.arr.img_header[0].bg;
