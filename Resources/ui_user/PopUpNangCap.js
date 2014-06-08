@@ -70,7 +70,7 @@ function createUI(sv) {
 	});
 
 	sv.ui.button_nangcap = Ti.UI.createLabel({
-		backgroundColor : Ti.App.Color.xanhnhat,
+		backgroundColor : Ti.App.Color.red,
 		width : Ti.App.size(300),
 		height : Ti.App.size(95),
 		text : "NÂNG CẤP",

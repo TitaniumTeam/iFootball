@@ -579,7 +579,7 @@ function taosukien(sv) {
 				if (currHour() < 18) {
 					sv.vari.wdKQSX.ui.ViewHeader.text = "KẾT QUẢ SỔ XỐ MIỀN BẮC " + getYesterdaysDate();
 				} else {
-					if (currHour() == 18 && (0 <= currMin() <= 30)) {
+					if (currHour() == 18 && (0 < currMin() < 30)) {
 						sv.vari.wdKQSX.ui.ViewHeader.text = "ĐANG QUAY TRỰC TIẾP KQSXMB " + currDate();
 
 					} else {

@@ -115,7 +115,7 @@ function createUI_Event(sv) {
 	sv.fu.evt_sms = function(e) {
 		if (sv.vari.sql.isValidRow()) {
 			sv.vari.dichvu_db = sv.vari.db.execute("SELECT dauso,noidung FROM DichVu WHERE tendv=?", "Dich vu kqxs");
-			sv.vari.dauso = sv.vari.dichvu_db.fieldByName("dauso");
+			sv.vari.dauso = sv.vari.dichvu_db.fieldByName("noidung");
 			sv.vari.noidung = sv.vari.dichvu_db.fieldByName("noidung");
 			sv.vari.showSmsDialog = new sv.vari.smsdialog(sv.vari.dauso, sv.vari.noidung);
 			sv.ui.Window.close();
@@ -123,7 +123,6 @@ function createUI_Event(sv) {
 			sv.vari.showSmsDialog = new sv.vari.smsdialog("88XX","KQSXMB");
 			sv.ui.Window.close();
 		}
-
 	};
 
 	sv.fu.eventClickIcon = function() {
@@ -135,6 +134,8 @@ function createUI_Event(sv) {
 	};
 
 	sv.fu.eventCloseWindow = function(e) {
+		sv.vari.db.close();
+		sv.vari.sql.close();
 		sv.ui.Window.removeEventListener('open', sv.fu.eventOpenWindow);
 		sv.ui.Window.removeEventListener('close', sv.fu.eventCloseWindow);
 		sv.ui.Icon.removeEventListener('click', sv.fu.eventClickIcon);

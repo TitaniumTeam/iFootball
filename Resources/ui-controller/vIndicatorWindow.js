@@ -23,8 +23,8 @@ function createIndicatorWindow(args) {
 	});
 
 	var view = Ti.UI.createView({
-		width : Ti.UI.SIZE,
-		height : Ti.UI.FILL,
+		height : height,
+		width : width,
 		center : {
 			x : (width / 2),
 			y : (height / 2)
@@ -33,7 +33,7 @@ function createIndicatorWindow(args) {
 	});
 
 	function osIndicatorStyle() {
-		style = Ti.UI.iPhone.ActivityIndicatorStyle.PLAIN;
+		style = Ti.UI.iPhone.ActivityIndicatorStyle.BIG;
 
 		if ('iPhone OS' !== Ti.Platform.name) {
 			style = Ti.UI.ActivityIndicatorStyle.BIG_DARK;
@@ -44,9 +44,9 @@ function createIndicatorWindow(args) {
 
 	var activityIndicator = Ti.UI.createActivityIndicator({
 		style : osIndicatorStyle(),
-		left : 0,
+		left : 20,
 		height : Ti.UI.FILL,
-		width : 30
+		width : 30,
 	});
 
 	var label = Titanium.UI.createLabel({

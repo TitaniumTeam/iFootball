@@ -39,7 +39,8 @@ function tao_ui(sv) {
 		color : Ti.App.Color.nauden,
 		font : {
 			fontSize : Ti.App.size(35),
-			fontWeight : 'bold'
+			fontWeight : 'bold',
+			fontFamily : 'Helvetica Neue'
 		},
 		textAlign : 'center',
 		backgroundColor : Ti.App.Color.magenta,
@@ -132,6 +133,7 @@ function tao_ui(sv) {
 };
 function createUI_Event(sv) {
 	sv.fu.event_timkiem = function(e) {
+		sv.ui.View_header.text = "Kết quả sổ xố " + sv.ui.lblfirst.text + ' ' + sv.ui.lblfirst1.text;
 		sv.ui.table_view.visible = false;
 		sv.ui.ViewPicker.visible = false;
 		fn_updateImage2Server("searchlottery", {
@@ -168,7 +170,6 @@ function createUI_Event(sv) {
 	sv.fu.event_clicktbl = function(e) {
 		sv.vari.flag = true;
 		tbl_click(e, sv.ui.lblfirst, sv.ui.table_view, sv);
-		sv.ui.View_header.text = "Kết quả sổ xố " + sv.ui.lblfirst.text + ' ' + sv.ui.lblfirst1.text;
 	};
 	sv.fu.event_click_view1 = function(e) {
 		sv.vari.flag = true;
@@ -184,90 +185,82 @@ function createUI_Event(sv) {
 function fn_updateImage2Server(_cmd, data, sv) {
 	sv.ui.scrollView.scrollTo(0, 0);
 	var xhr = Titanium.Network.createHTTPClient();
-	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
-		sv.ui.view_off = new sv.vari.kqoff();
-		sv.ui.view_off.open({
-			modal : Ti.Platform.osname == 'android' ? true : false
-		});
-
-	} else {
-		xhr.onsendstream = function(e) {
-			//ind.value = e.progress;
-			Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
-		};
-		// open the client
-		xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=' + _cmd);
-		xhr.setRequestHeader("Content-Type", "application/json-rpc");
-		Ti.API.info(JSON.stringify(data));
-		xhr.send(JSON.stringify(data));
-		xhr.onerror = function(e) {
-			Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
-		};
-		xhr.onload = function() {
-			Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
-			var dl = JSON.parse(this.responseText);
-			var jsonResuilt = JSON.parse(dl);
-			if (_cmd == "searchlottery") {
-				var ketqua = [];
-				var mangstring;
-				var mangkq = [];
-				for (var i = 0; i < jsonResuilt.resulttable.length; i++) {
-					if (jsonResuilt.resulttable[i].provide) {
-						Ti.API.info('ten giai: ' + jsonResuilt.resulttable[i].provide.name);
-						Ti.API.info('ngay thang: ' + jsonResuilt.resulttable[i].resultdate);
-						for (var j = 0; j < jsonResuilt.resulttable[i].lines.length; j++) {
-							Ti.API.info('Thu tu: ' + jsonResuilt.resulttable[i].lines[j].name);
-							Ti.API.info('ket qua: ' + jsonResuilt.resulttable[i].lines[j].result);
-							ketqua.push(jsonResuilt.resulttable[i].lines[j].result);
+	xhr.onsendstream = function(e) {
+		//ind.value = e.progress;
+		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
+	};
+	// open the client
+	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=' + _cmd);
+	xhr.setRequestHeader("Content-Type", "application/json-rpc");
+	Ti.API.info(JSON.stringify(data));
+	xhr.send(JSON.stringify(data));
+	xhr.onerror = function(e) {
+		Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
+	};
+	xhr.onload = function() {
+		Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
+		var dl = JSON.parse(this.responseText);
+		var jsonResuilt = JSON.parse(dl);
+		if (_cmd == "searchlottery") {
+			var ketqua = [];
+			var mangstring;
+			var mangkq = [];
+			for (var i = 0; i < jsonResuilt.resulttable.length; i++) {
+				if (jsonResuilt.resulttable[i].provide) {
+					Ti.API.info('ten giai: ' + jsonResuilt.resulttable[i].provide.name);
+					Ti.API.info('ngay thang: ' + jsonResuilt.resulttable[i].resultdate);
+					for (var j = 0; j < jsonResuilt.resulttable[i].lines.length; j++) {
+						Ti.API.info('Thu tu: ' + jsonResuilt.resulttable[i].lines[j].name);
+						Ti.API.info('ket qua: ' + jsonResuilt.resulttable[i].lines[j].result);
+						ketqua.push(jsonResuilt.resulttable[i].lines[j].result);
+					};
+					for (var i = 0; i < (ketqua.length); i++) {
+						mangstring = (ketqua[i].toString()).split(',');
+						for (var j = 0; j < (mangstring.length); j++) {
+							// Ti.API.info('mang string:' + mangstring[j]);
+							mangkq.push(mangstring[j]);
 						};
-						for (var i = 0; i < (ketqua.length); i++) {
-							mangstring = (ketqua[i].toString()).split(',');
-							for (var j = 0; j < (mangstring.length); j++) {
-								// Ti.API.info('mang string:' + mangstring[j]);
-								mangkq.push(mangstring[j]);
-							};
-						}
-						if (mangkq.length <= 20) {
-							sv.ui.bangkq_miennam.visible = true;
-							sv.ui.bangkq.visible = false;
-							sv.ui.bangkq_miennam.setKQ(mangkq);
-						} else {
-							if (mangkq.length >= 20) {
-								sv.ui.bangkq_miennam.visible = false;
-								sv.ui.bangkq.visible = true;
-								sv.ui.bangkq.setKQ(mangkq);
-							}
-
-						}
-
+					}
+					if (mangkq.length <= 20) {
+						sv.ui.bangkq_miennam.visible = true;
+						sv.ui.bangkq.visible = false;
+						sv.ui.bangkq_miennam.setKQ(mangkq);
 					} else {
-						sv.ui.bangkq.visible = true;
-						sv.ui.bangkq_miennam.visible = false;
-						sv.ui.bangkq.setKQ("");
-						alert('khong co du lieu');
-					}
-				}
+						if (mangkq.length >= 20) {
+							sv.ui.bangkq_miennam.visible = false;
+							sv.ui.bangkq.visible = true;
+							sv.ui.bangkq.setKQ(mangkq);
+						}
 
-			} else {
-				if (_cmd == "getprovide") {
-					var ketqua;
-					var mangkq = [];
-					for (var i = 0; i < jsonResuilt.provides.length; i++) {
-						// Ti.API.info('ten giai: ' + jsonResuilt.provides[i].name);
-						// Ti.API.info('ten giai: ' + jsonResuilt.provides[i].id);
-						mangkq.push(jsonResuilt.provides[i]);
 					}
-					// for (var i = 0; i < (mangkq.length); i++) {
-					// Ti.API.info('mang kq' + mangkq[i].name);
-					// Ti.API.info('mang kq' + mangkq[i].id);
-					// }
-					sv.ui.view_choose.setTable(mangkq);
-				}
 
+				} else {
+					sv.ui.bangkq.visible = true;
+					sv.ui.bangkq_miennam.visible = false;
+					sv.ui.bangkq.setKQ("");
+					Ti.API.info('khong co du lieu');
+				}
 			}
 
-		};
-	}
+		} else {
+			if (_cmd == "getprovide") {
+				var ketqua;
+				var mangkq = [];
+				for (var i = 0; i < jsonResuilt.provides.length; i++) {
+					// Ti.API.info('ten giai: ' + jsonResuilt.provides[i].name);
+					// Ti.API.info('ten giai: ' + jsonResuilt.provides[i].id);
+					mangkq.push(jsonResuilt.provides[i]);
+				}
+				// for (var i = 0; i < (mangkq.length); i++) {
+				// Ti.API.info('mang kq' + mangkq[i].name);
+				// Ti.API.info('mang kq' + mangkq[i].id);
+				// }
+				sv.ui.view_choose.setTable(mangkq);
+			}
+
+		}
+
+	};
 };
 function setbg(i, _bg) {
 	if (i == _bg) {

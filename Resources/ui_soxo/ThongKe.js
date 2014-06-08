@@ -104,6 +104,7 @@ function tao_ui(sv) {
 function createUI_Event(sv) {
 	sv.fu.event_loadview=function(e){
 		Ti.API.info('post layout');
+		sv.ui.scrollView.visible=true;
 		sv.vari.vIndicatorWindow.closeIndicator();
 	};
 	sv.fu.event_clickscrollview = function(e) {
@@ -124,7 +125,6 @@ function createUI_Event(sv) {
 		tbl_click(e, sv.ui.lblfirst, sv.ui.table_view, sv);
 		sv.ui.View_header.text = "Thống kê " + sv.ui.lblfirst.text;
 		sv.ui.scrollView.scrollTo(0, 0);
-		sv.vari.vIndicatorWindow.openIndicator();
 		thongke("getlotterystat", {
 			"provideid" : sv.ui.lblfirst.text,
 			"startdate" : currDate()
@@ -151,6 +151,8 @@ function thongke(_cmd, data, sv) {
 		var jsonResuilt = JSON.parse(dl);
 		if (jsonResuilt != null) {
 			if (_cmd == "getlotterystat") {
+				sv.ui.scrollView.visible=false;
+				sv.vari.vIndicatorWindow.openIndicator();
 				sv.ui.scrollView.removeAllChildren();
 				sv.ui.lbl_dsve_saudau = Ti.UI.createLabel({
 					width : Ti.App.size(670),

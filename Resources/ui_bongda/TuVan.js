@@ -40,6 +40,8 @@ function taoui(sv) {
 		// // if (sv.vari.dichvu_db.fieldByName("tendv") == "Dich vu kqxs") {
 		sv.vari.dichvu_db.next();
 	}
+	sv.vari.dichvu_db.close();
+	sv.vari.db.close();
 	for (var i = 0; i < (sv.arr.cacdichvu.tendv).length; i++) {
 		Ti.API.info('ten dichvu:' + sv.arr.cacdichvu.tendv[i]);
 		Ti.API.info('dauso:' + sv.arr.cacdichvu.dauso[i]);
@@ -50,7 +52,7 @@ function taoui(sv) {
 			sv.ui.row = Ti.UI.createTableViewRow({
 				width : Ti.App.size(640),
 				left : 0,
-				backgroundColor : Ti.App.Color.superwhite,
+				backgroundColor : Ti.App.Color.magenta,
 				height : Ti.App.size(90),
 				color : 'black',
 				font : {
@@ -58,8 +60,9 @@ function taoui(sv) {
 				},
 				title : sv.arr.cacdichvu.tendv[i],
 				thamso : sv.arr.cacdichvu.thamso[i],
-				tendauso : sv.arr.cacdichvu.id[i],
+				tendauso : sv.arr.cacdichvu.dauso[i],
 				price : sv.arr.cacdichvu.gia[i],
+				borderColor:Ti.App.Color.blue
 				// hasChild : true
 			});
 			sv.arr.rows.push(sv.ui.row);
@@ -76,12 +79,13 @@ function taoui(sv) {
 	});
 	// }
 	sv.ui.tbl1 = Ti.UI.createTableView({
-		width : Ti.App.size(680),
-		height : Ti.UI.SIZE,
+		width : Ti.App.size(720),
+		height : Ti.UI.FILL,
 		data : sv.arr.rows,
-		top : Ti.App.size(50),
-		separatorColor : Ti.App.Color.xanhnhat,
-		left : Ti.App.size(20)
+		top : 0,
+		separatorColor : 'transparent',
+		left :0,
+		backgroundColor:'transparent'
 	});
 	sv.ui.ViewTong.add(sv.ui.tbl1);
 	tao_sukien(sv);

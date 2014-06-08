@@ -139,7 +139,7 @@ function createUI(sv) {
 			fontWeight : 'bold',
 		},
 		color : Ti.App.Color.nauden,
-		backgroundColor : Ti.App.Color.green,
+		backgroundColor : Ti.App.Color.red,
 		width : Ti.App.size(480),
 		height : Ti.App.size(100),
 		textAlign : 'center',
