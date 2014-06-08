@@ -79,7 +79,7 @@ function createUI(sv, _loai) {
 	if (_loai == 1) {
 		sv.ui.ThongBao2.text = "Gửi sms để lấy kết quả các trận bóng";
 	} else {
-		sv.ui.ThongBao2.text = "Gưi sms để lấy kqsx";
+		sv.ui.ThongBao2.text = "Gưi sms để lấy kết quả sổ xố";
 	}
 	sv.ui.button = Ti.UI.createLabel({
 		backgroundColor : Ti.App.Color.magenta,

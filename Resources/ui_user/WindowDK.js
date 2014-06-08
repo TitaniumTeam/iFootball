@@ -28,12 +28,12 @@ function tao_ui(sv) {
 		keepScreenOn : true,
 
 	});
-	sv.ui.ViewHeader=Titanium.UI.createView({
-		left:0,
-		backgroundColor:'transparent',
-		width:Ti.App.size(720),
-		height:Ti.App.size(100),
-		top:0
+	sv.ui.ViewHeader = Titanium.UI.createView({
+		left : 0,
+		backgroundColor : 'transparent',
+		width : Ti.App.size(720),
+		height : Ti.App.size(100),
+		top : 0
 	});
 	sv.ui.WindowDK.add(sv.ui.ViewHeader);
 	sv.ui.lbl_Login = Ti.UI.createLabel({
@@ -44,7 +44,7 @@ function tao_ui(sv) {
 			fontSize : Ti.App.size(50)
 		},
 		touchEnabled : false,
-		textAlign:'center'
+		textAlign : 'center'
 	});
 	sv.ui.ViewHeader.add(sv.ui.lbl_Login);
 	sv.ui.scrollView = Ti.UI.createScrollView({
@@ -110,7 +110,8 @@ function tao_ui(sv) {
 		},
 		top : Ti.App.size(30),
 		autocorrect : false,
-		hintText : 'Nhập mật khẩu'
+		hintText : 'Nhập mật khẩu',
+		passwordMask : true
 	});
 
 	sv.ui.scrollView.add(sv.ui.txtPassword);
@@ -171,7 +172,7 @@ function tao_ui(sv) {
 	sv.ui.btn_dangki.addEventListener('click', sv.fu.event_dk);
 	sv.ui.WindowDK.addEventListener('open', sv.fu.openWindow);
 	sv.ui.WindowDK.addEventListener('close', sv.fu.closeWindow);
-	
+
 	////////////////
 }
 
@@ -186,8 +187,8 @@ function tao_event(sv) {
 			fn_updateImage2Server("register", {
 				"username" : sv.ui.txtUser.value,
 				"password" : sv.ui.txtPassword.value,
-				"email":sv.ui.txtEmail.value,
-				"mobile":sv.ui.txtMobile.value
+				"email" : sv.ui.txtEmail.value,
+				"mobile" : sv.ui.txtMobile.value
 			}, sv);
 		}
 

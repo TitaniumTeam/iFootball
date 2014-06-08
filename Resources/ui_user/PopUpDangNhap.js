@@ -136,10 +136,10 @@ function createUI_Event(sv, _currWin) {
 		_currWin.close();
 	};
 	sv.fu.evt_dangnhap = function(e) {
-		sv.vari.wd_dangnhap = new sv.vari.wd_dn(_currWin);
+		sv.vari.wd_dangnhap = new sv.vari.wd_dn();
 		sv.vari.wd_dangnhap.open();
 		sv.ui.Window.close();
-		// _currWin.close();
+		_currWin.close();
 	};
 	sv.fu.eventClickIcon = function() {
 		sv.ui.Window.close();

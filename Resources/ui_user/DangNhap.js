@@ -1,4 +1,4 @@
-module.exports = function(_currWin) {
+module.exports = function() {
 	var sv = {};
 	sv.vari = {};
 	sv.arr = {};
@@ -8,7 +8,7 @@ module.exports = function(_currWin) {
 
 	(function() {
 		createVariable(sv);
-		createUI(sv,_currWin);
+		createUI(sv);
 	})();
 
 	return sv.ui.Window;
@@ -20,7 +20,7 @@ function createVariable(sv) {
 
 }
 
-function createUI(sv,_currWin) {
+function createUI(sv) {
 	sv.ui.Window = Ti.UI.createWindow({
 		backgroundColor : Ti.App.Color.white,
 		navBarHidden : true,
@@ -198,7 +198,8 @@ function createUI(sv,_currWin) {
 			fontSize : Ti.App.size(40),
 		},
 		autocorrect : false,
-		color : Ti.App.Color.nauden
+		color : Ti.App.Color.nauden,
+		passwordMask:true
 	});
 	//tao view dang nhap, view dang ky
 	sv.ui.viewdangnhap = Ti.UI.createView({
@@ -303,10 +304,9 @@ function createUI(sv,_currWin) {
 	sv.ui.viewquenpass.add(sv.ui.lablequenpass);
 }
 
-function createUI_Event(sv,_currWin) {
+function createUI_Event(sv) {
 
 	sv.fu.eventClickviewdnface = function(e) {
-		sv.ui.Window.close();
 	};
 
 	sv.fu.eventClickviewdngmail = function(e) {
