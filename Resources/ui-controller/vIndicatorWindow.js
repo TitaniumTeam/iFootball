@@ -14,10 +14,9 @@ function createIndicatorWindow(args) {
 		height : height,
 		width : width,
 		top : top,
-		borderRadius : 10,
+		// borderRadius : 10,
 		touchEnabled : false,
-		backgroundColor : '#000',
-		opacity : 0.6,
+		backgroundColor : 'transparent',
 		navBarHidden:true,
 		tabBarHidden:true
 	});
@@ -36,7 +35,7 @@ function createIndicatorWindow(args) {
 		style = Ti.UI.iPhone.ActivityIndicatorStyle.BIG;
 
 		if ('iPhone OS' !== Ti.Platform.name) {
-			style = Ti.UI.ActivityIndicatorStyle.BIG_DARK;
+			style = Ti.UI.ActivityIndicatorStyle.BIG;
 		}
 
 		return style;
@@ -54,7 +53,7 @@ function createIndicatorWindow(args) {
 		width : Ti.UI.FILL,
 		height : Ti.UI.FILL,
 		text : text,
-		color : '#fff',
+		color : 'white',
 		font : {
 			fontFamily : 'Helvetica Neue',
 			fontSize : 16,

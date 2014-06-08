@@ -253,7 +253,7 @@ function taoui(sv) {
 			backgroundSelectedColor : Ti.App.Color.xanhnhat,
 			backgroundColor : 'transparent',
 			top : 0,
-			left : Ti.App.size(180 * i)
+			left : Ti.App.size(180 * i),
 		});
 		sv.arr.icon_footersoxo[i] = Ti.UI.createImageView({
 			image : sv.arr.img_footersoxo[i].bg,
@@ -261,7 +261,7 @@ function taoui(sv) {
 			height : Ti.App.size(48),
 			touchEnabled : false,
 			backgroundSelectedImage : sv.arr.img_footersoxo[i].press,
-			top : Ti.App.size(10)
+			top : Ti.App.size(10),
 		});
 		sv.arr.title_footersoxo[i] = Ti.UI.createLabel({
 			width : Ti.UI.SIZE,
@@ -274,7 +274,7 @@ function taoui(sv) {
 				fontSize : Ti.App.size(25),
 				fontWeight : 'bold'
 			},
-			text : sv.arr.img_footersoxo[i].title
+			text : sv.arr.img_footersoxo[i].title,
 		});
 		sv.arr.viewchucnangsoxo[i].add(sv.arr.title_footersoxo[i]);
 		sv.arr.viewchucnangsoxo[i].add(sv.arr.icon_footersoxo[i]);

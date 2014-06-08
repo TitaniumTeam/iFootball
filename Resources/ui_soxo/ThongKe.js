@@ -102,9 +102,9 @@ function tao_ui(sv) {
 	sv.ui.scrollView.addEventListener('click', sv.fu.event_clickscrollview);
 };
 function createUI_Event(sv) {
-	sv.fu.event_loadview=function(e){
+	sv.fu.event_loadview = function(e) {
 		Ti.API.info('post layout');
-		sv.ui.scrollView.visible=true;
+		sv.ui.scrollView.visible = true;
 		sv.vari.vIndicatorWindow.closeIndicator();
 	};
 	sv.fu.event_clickscrollview = function(e) {
@@ -151,19 +151,22 @@ function thongke(_cmd, data, sv) {
 		var jsonResuilt = JSON.parse(dl);
 		if (jsonResuilt != null) {
 			if (_cmd == "getlotterystat") {
-				sv.ui.scrollView.visible=false;
-				sv.vari.vIndicatorWindow.openIndicator();
+				if (Ti.Platform.osname == 'android') {
+					sv.ui.scrollView.visible = false;
+					sv.vari.vIndicatorWindow.openIndicator();
+				}
+
 				sv.ui.scrollView.removeAllChildren();
 				sv.ui.lbl_dsve_saudau = Ti.UI.createLabel({
 					width : Ti.App.size(670),
-					height : Ti.App.size(65),
+					// height : Ti.App.size(65),
 					left : Ti.App.size(25),
-					backgroundColor : Ti.App.Color.brown,
+					backgroundColor : 'transparent',
 					touchEnabled : false,
 					font : {
 						fontSize : Ti.App.size(25)
 					},
-					color : Ti.App.Color.superwhite,
+					color : Ti.App.Color.nauden,
 					text : 'Dãy số ít về trong 10 ngày qua',
 					top : Ti.App.size(30),
 					textAlign : 'center'
@@ -186,7 +189,8 @@ function thongke(_cmd, data, sv) {
 					});
 					sv.arr.solauve[i] = Ti.UI.createLabel({
 						width : Ti.App.size(70),
-						height : Ti.App.size(65),
+						top:Ti.App.size(3),
+						// height : Ti.App.size(60),
 						left : Ti.App.size(3),
 						font : {
 							fontSize : Ti.App.size(30),
@@ -196,6 +200,12 @@ function thongke(_cmd, data, sv) {
 						backgroundColor : 'transparent',
 						color : Ti.App.Color.nauden,
 						text : jsonResuilt.thongke.lauchuara[i].dayso,
+						borderColor : Ti.App.Color.nauden,
+						borderRadius : Ti.App.size(5),
+						borderWidth : Ti.App.size(3),
+						bottom:Ti.App.size(3),
+						left:Ti.App.size(3)
+						
 					});
 					sv.arr.tansuat_solauve[i] = Ti.UI.createLabel({
 						left : Ti.App.size(150),

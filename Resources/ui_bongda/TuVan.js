@@ -51,10 +51,10 @@ function taoui(sv) {
 		if (i == 0) {
 			sv.ui.row = Ti.UI.createTableViewRow({
 				width : Ti.App.size(640),
-				left : 0,
+				left : Ti.App.size(20),
 				backgroundColor : Ti.App.Color.magenta,
 				height : Ti.App.size(90),
-				color : 'black',
+				color :Ti.App.Color.nauden,
 				font : {
 					fontSize : Ti.App.size(30)
 				},
