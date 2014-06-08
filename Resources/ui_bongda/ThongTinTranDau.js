@@ -14,9 +14,6 @@ module.exports = function() {
 	return sv;
 };
 function tao_bien(sv) {
-	GetTour(sv, "gettour", {
-		//"matchid" : "1"
-	});
 
 	//GetMatchList(sv,"getmatchlist",{"matchid":"1"});
 
@@ -48,6 +45,9 @@ function tao_bien(sv) {
 	sv.arr.event_clickrow = [];
 	sv.arr.event_clickGD = [];
 	sv.arr.event_clickTTCuthe = [];
+	GetTour(sv, "gettour", {
+		//"matchid" : "1"
+	});
 };
 function tao_ui(sv) {
 
