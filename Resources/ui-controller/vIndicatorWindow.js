@@ -17,7 +17,9 @@ function createIndicatorWindow(args) {
 		borderRadius : 10,
 		touchEnabled : false,
 		backgroundColor : '#000',
-		opacity : 0.6
+		opacity : 0.6,
+		navBarHidden:true,
+		tabBarHidden:true
 	});
 
 	var view = Ti.UI.createView({

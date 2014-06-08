@@ -16,7 +16,7 @@ function taobien(sv) {
 	////
 	sv.vari.indicator = require('/ui-controller/vIndicatorWindow');
 	sv.vari.vIndicatorWindow = sv.vari.indicator.createIndicatorWindow();
-	sv.vari.intelval;
+	sv.vari.intelval
 	sv.vari.dem = 0;
 	sv.vari.popup = require('/ui_user/PopUpDangNhap');
 	////
@@ -306,7 +306,10 @@ function taoui(sv) {
 
 function taosukien(sv) {
 	sv.fu.event_loadview = function(e) {
-		sv.vari.vIndicatorWindow.closeIndicator();
+		setTimeout(function() {
+			sv.vari.vIndicatorWindow.closeIndicator();
+		}, 2000);
+
 	};
 
 	/**

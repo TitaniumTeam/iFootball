@@ -45,7 +45,8 @@ module.exports = function(_loai) {
 			text : 'Đặc biệt',
 			color : Ti.App.Color.red,
 			font : {
-				fontSize : Ti.App.size(40)
+				fontSize : Ti.App.size(40),
+				fontWeight:'bold'
 			},
 			width : Ti.UI.SIZE,
 			textAlign : 'left'
