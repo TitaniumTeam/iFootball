@@ -605,7 +605,6 @@ function taosukien(sv) {
 		Ti.API.info('win open');
 		ktmang(sv,1);
 		sv.vari.db_open = Ti.Database.open('userinfo');
-		sv.vari.sql_open = sv.vari.db_open.execute("SELECT * FROM SaveInfo");
 		sv.vari.dichvu_open = sv.vari.db_open.execute("SELECT * FROM DichVu");
 		Ti.API.info('row count:' + sv.vari.dichvu_open.getRowCount());
 		sv.arr.view_iconheader[2].backgroundColor = Ti.App.Color.superwhite;
@@ -618,16 +617,9 @@ function taosukien(sv) {
 			Ti.API.info('ten dich vu' + sv.vari.dichvu_open.fieldByName("tendv") + ':' + sv.vari.dichvu_open.fieldByName("dauso") + ':' + sv.vari.dichvu_open.fieldByName("thamso") + ':' + sv.vari.dichvu_open.fieldByName("gia"));
 			sv.vari.dichvu_open.next();
 		};
-		if (sv.vari.sql_open.isValidRow()) {
-			if ((sv.vari.sql_open.fieldByName("notifi")) == "false") {
-				push_notification();
-			} else {
-				Ti.API.info('khong ban len nua');
-			}
-		}
 		sv.vari.dichvu_open.close();
-		sv.vari.sql_open.close();
 		sv.vari.db_open.close();
+		push_notification();
 		sv.vari.intelval = setInterval(function() {
 			layketqua("searchlottery", {
 				"provideid" : "MB",
@@ -764,8 +756,6 @@ function ktmang(sv,_loai) {
 function push_notification() {
 	var deviceToken = null;
 	var Cloud = require("ti.cloud");
-	var db = Ti.Database.open('userinfo');
-	var sql = db.execute('SELECT * FROM SaveInfo');
 
 	if (Ti.Platform.osname == 'android') {
 		var CloudPush = require('ti.cloudpush');
@@ -814,7 +804,7 @@ function push_notification() {
 		}
 
 		function receivePush(e) {
-			alert('Received push: ' + JSON.stringify(e));
+			Ti.API.info('Received push: ' + JSON.stringify(e));
 		}
 
 		function deviceTokenError(e) {
@@ -832,17 +822,9 @@ function push_notification() {
 		}, function(e) {
 			if (e.success) {
 				Ti.API.info('dang ki thanh cong');
-				if (sql.isValidRow()) {
-					var username = sql.fieldByName("username");
-				}
-				db.execute('UPDATE SaveInfo SET notifi=? where username=?', "true", username);
 			} else {
 				Ti.API.info('Error:\n' + ((e.error && e.message) || JSON.stringify(e)));
 			}
 		});
 	}
-
-
-	sql.close();
-	db.close();
 };

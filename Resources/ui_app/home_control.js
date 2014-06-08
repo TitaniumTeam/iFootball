@@ -2,7 +2,7 @@ function home_control() {
 	var menutong = require('/ui_app/MenuTong');
 	new (require('/ui-controller/AllData'));
 	var db = Ti.Database.open('userinfo');
-	db.execute('CREATE TABLE IF NOT EXISTS SaveInfo(username TEXT PRIMARY KEY, password TEXT,type INTERGER,balance INTERGER,notifi TEXT);');
+	db.execute('CREATE TABLE IF NOT EXISTS SaveInfo(username TEXT PRIMARY KEY, password TEXT,type INTERGER,balance INTERGER);');
 	db.execute('CREATE TABLE IF NOT EXISTS DichVu(tendv TEXT PRIMARY KEY,dauso TEXT,noidung TEXT,thamso TEXT,gia INTERGER)');
 	var sql = db.execute("SELECT * FROM SaveInfo");
 	var dichvu = db.execute("SELECT * FROM DichVu");
