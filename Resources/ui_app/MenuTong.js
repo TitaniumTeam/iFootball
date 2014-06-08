@@ -668,6 +668,7 @@ function taosukien(sv) {
 		sv.vari = null;
 		sv.fu = null;
 		sv = null;
+		Ti.API.info('close window menu tong');
 	};
 };
 
