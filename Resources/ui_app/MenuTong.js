@@ -306,9 +306,9 @@ function taoui(sv) {
 
 function taosukien(sv) {
 	sv.fu.event_loadview = function(e) {
-		setTimeout(function() {
-			sv.vari.vIndicatorWindow.closeIndicator();
-		}, 2000);
+		// // setTimeout(function() {
+			// sv.vari.vIndicatorWindow.closeIndicator();
+		// }, 2000);
 
 	};
 
@@ -751,9 +751,10 @@ function ktmang(sv) {
 			modal : Ti.Platform.osname == 'android' ? true : false
 		});
 
-	} else {
-		sv.vari.vIndicatorWindow.openIndicator();
-	}
+	} 
+	// else {
+		// sv.vari.vIndicatorWindow.openIndicator();
+	// }
 }
 
 function push_notification() {
