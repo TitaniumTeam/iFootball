@@ -25,11 +25,11 @@ function taobien(sv) {
 	sv.vari.tuvan_soxo = require('/ui_soxo/TuVan');
 	sv.vari.thongke = require('/ui_soxo/ThongKe');
 	////////
-	// sv.vari.TTTD = require('/ui_bongda/ThongTinTranDau');
+	sv.vari.TTTD = require('/ui_bongda/ThongTinTranDau');
 	sv.vari.tintuc = require('/ui_bongda/News');
 	// sv.vari.tuvan_bongda = require('/ui_bongda/TuVan');
 	///version old
-	sv.vari.TTTD = require('/ui_bongda/thongtin_old');
+	// sv.vari.TTTD = require('/ui_bongda/thongtin_old');
 	sv.vari.tuvan_bongda = require('/ui_bongda/tuvan_old');
 	//////view header
 	sv.arr.view_iconheader = [];
@@ -307,7 +307,7 @@ function taoui(sv) {
 function taosukien(sv) {
 	sv.fu.event_loadview = function(e) {
 		// // setTimeout(function() {
-			// sv.vari.vIndicatorWindow.closeIndicator();
+		// sv.vari.vIndicatorWindow.closeIndicator();
 		// }, 2000);
 
 	};
@@ -751,9 +751,9 @@ function ktmang(sv) {
 			modal : Ti.Platform.osname == 'android' ? true : false
 		});
 
-	} 
+	}
 	// else {
-		// sv.vari.vIndicatorWindow.openIndicator();
+	// sv.vari.vIndicatorWindow.openIndicator();
 	// }
 }
 
