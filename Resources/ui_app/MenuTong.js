@@ -14,9 +14,9 @@ module.exports = function() {
 };
 function taobien(sv) {
 	////
-	sv.vari.indicator = require('/ui-controller/vIndicatorWindow');
-	sv.vari.vIndicatorWindow = sv.vari.indicator.createIndicatorWindow();
-	sv.vari.intelval
+	// sv.vari.indicator = require('/ui-controller/vIndicatorWindow');
+	// sv.vari.vIndicatorWindow = sv.vari.indicator.createIndicatorWindow();
+	sv.vari.intelval;
 	sv.vari.dem = 0;
 	sv.vari.popup = require('/ui_user/PopUpDangNhap');
 	////
@@ -27,10 +27,15 @@ function taobien(sv) {
 	////////
 	sv.vari.TTTD = require('/ui_bongda/ThongTinTranDau');
 	sv.vari.tintuc = require('/ui_bongda/News');
-	// sv.vari.tuvan_bongda = require('/ui_bongda/TuVan');
+	sv.vari.tuvan_bongda = require('/ui_bongda/TuVan');
 	///version old
+<<<<<<< HEAD
 	// sv.vari.TTTD = require('/ui_bongda/thongtin_old');
 	sv.vari.tuvan_bongda = require('/ui_bongda/tuvan_old');
+=======
+	sv.vari.TTTD = require('/ui_bongda/thongtin_old');
+	// sv.vari.tuvan_bongda = require('/ui_bongda/tuvan_old');
+>>>>>>> da4682df78bd82dfdfe394788cbcf59e114083c3
 	//////view header
 	sv.arr.view_iconheader = [];
 	sv.arr.iconheader = [];
@@ -253,7 +258,7 @@ function taoui(sv) {
 			backgroundSelectedColor : Ti.App.Color.xanhnhat,
 			backgroundColor : 'transparent',
 			top : 0,
-			left : Ti.App.size(180 * i)
+			left : Ti.App.size(180 * i),
 		});
 		sv.arr.icon_footersoxo[i] = Ti.UI.createImageView({
 			image : sv.arr.img_footersoxo[i].bg,
@@ -261,7 +266,7 @@ function taoui(sv) {
 			height : Ti.App.size(48),
 			touchEnabled : false,
 			backgroundSelectedImage : sv.arr.img_footersoxo[i].press,
-			top : Ti.App.size(10)
+			top : Ti.App.size(10),
 		});
 		sv.arr.title_footersoxo[i] = Ti.UI.createLabel({
 			width : Ti.UI.SIZE,
@@ -274,7 +279,7 @@ function taoui(sv) {
 				fontSize : Ti.App.size(25),
 				fontWeight : 'bold'
 			},
-			text : sv.arr.img_footersoxo[i].title
+			text : sv.arr.img_footersoxo[i].title,
 		});
 		sv.arr.viewchucnangsoxo[i].add(sv.arr.title_footersoxo[i]);
 		sv.arr.viewchucnangsoxo[i].add(sv.arr.icon_footersoxo[i]);
@@ -320,7 +325,7 @@ function taosukien(sv) {
 		if (i == 0) {
 			sv.arr.evt_chucnangsoxo[i] = function(e) {
 				clearInterval(sv.vari.intelval);
-				ktmang(sv);
+				ktmang(sv,2);
 				for (var j = 0; j < 4; j++) {
 					if (j == 0) {
 						sv.arr.viewchucnangsoxo[j].backgroundColor = Ti.App.Color.superwhite;
@@ -354,7 +359,7 @@ function taosukien(sv) {
 		if (i == 1) {
 			sv.arr.evt_chucnangsoxo[i] = function(e) {
 				clearInterval(sv.vari.intelval);
-				ktmang(sv);
+				ktmang(sv,2);
 				for (var j = 0; j < 4; j++) {
 					if (j == 1) {
 						sv.arr.viewchucnangsoxo[j].backgroundColor = Ti.App.Color.superwhite;
@@ -373,6 +378,7 @@ function taosukien(sv) {
 		}
 		if (i == 2) {
 			sv.arr.evt_chucnangsoxo[i] = function(e) {
+				ktmang(sv,2);
 				clearInterval(sv.vari.intelval);
 				for (var j = 0; j < 4; j++) {
 					if (j == 2) {
@@ -412,6 +418,7 @@ function taosukien(sv) {
 	for (var i = 0; i < 4; i++) {
 		if (i == 0) {
 			sv.arr.evt_chucnangbongda[0] = function(e) {
+				ktmang(sv,1);
 				clearInterval(sv.vari.intelval);
 				for (var j = 0; j < 4; j++) {
 					if (j == 0) {
@@ -431,6 +438,7 @@ function taosukien(sv) {
 		}
 		if (i == 1) {
 			sv.arr.evt_chucnangbongda[1] = function(e) {
+				ktmang(sv,1);
 				clearInterval(sv.vari.intelval);
 				for (var j = 0; j < 4; j++) {
 					if (j == 1) {
@@ -450,6 +458,7 @@ function taosukien(sv) {
 		}
 		if (i == 2) {
 			sv.arr.evt_chucnangbongda[2] = function(e) {
+				ktmang(sv,1);
 				clearInterval(sv.vari.intelval);
 				for (var j = 0; j < 4; j++) {
 					if (j == 2) {
@@ -493,7 +502,7 @@ function taosukien(sv) {
 		if (j == 0) {
 			sv.arr.evt_header[0] = function(e) {
 				clearInterval(sv.vari.intelval);
-				ktmang(sv);
+				ktmang(sv,1);
 				sv.arr.view_iconheader[0].backgroundColor = Ti.App.Color.superwhite;
 				sv.arr.iconheader[0].image = sv.arr.img_header[0].press;
 				sv.arr.view_iconheader[1].backgroundColor = Ti.App.Color.red;
@@ -526,7 +535,6 @@ function taosukien(sv) {
 				sv.vari.sql = sv.vari.db.execute("SELECT * FROM SaveInfo");
 				clearInterval(sv.vari.intelval);
 				if (sv.vari.sql.isValidRow()) {
-					sv.vari.vIndicatorWindow.openIndicator();
 					sv.arr.view_iconheader[1].backgroundColor = Ti.App.Color.superwhite;
 					sv.arr.iconheader[1].image = sv.arr.img_header[1].press;
 					sv.arr.iconheader[0].image = sv.arr.img_header[0].bg;
@@ -552,7 +560,7 @@ function taosukien(sv) {
 		if (j == 2) {
 			sv.arr.evt_header[2] = function(e) {
 				clearInterval(sv.vari.intelval);
-				ktmang(sv);
+				ktmang(sv,2);
 				sv.arr.view_iconheader[2].backgroundColor = Ti.App.Color.superwhite;
 				sv.arr.iconheader[2].image = sv.arr.img_header[2].press;
 				sv.arr.iconheader[0].image = sv.arr.img_header[0].bg;
@@ -580,7 +588,7 @@ function taosukien(sv) {
 				if (currHour() < 18) {
 					sv.vari.wdKQSX.ui.ViewHeader.text = "KẾT QUẢ SỔ XỐ MIỀN BẮC " + getYesterdaysDate();
 				} else {
-					if (currHour() == 18 && (0 <= currMin() <= 30)) {
+					if (currHour() == 18 && (0 < currMin() < 30)) {
 						sv.vari.wdKQSX.ui.ViewHeader.text = "ĐANG QUAY TRỰC TIẾP KQSXMB " + currDate();
 
 					} else {
@@ -600,9 +608,8 @@ function taosukien(sv) {
 	 * **/
 	sv.fu.evt_win_open = function(e) {
 		Ti.API.info('win open');
-		ktmang(sv);
+		ktmang(sv,1);
 		sv.vari.db_open = Ti.Database.open('userinfo');
-		sv.vari.sql_open = sv.vari.db_open.execute("SELECT * FROM SaveInfo");
 		sv.vari.dichvu_open = sv.vari.db_open.execute("SELECT * FROM DichVu");
 		Ti.API.info('row count:' + sv.vari.dichvu_open.getRowCount());
 		sv.arr.view_iconheader[2].backgroundColor = Ti.App.Color.superwhite;
@@ -615,16 +622,9 @@ function taosukien(sv) {
 			Ti.API.info('ten dich vu' + sv.vari.dichvu_open.fieldByName("tendv") + ':' + sv.vari.dichvu_open.fieldByName("dauso") + ':' + sv.vari.dichvu_open.fieldByName("thamso") + ':' + sv.vari.dichvu_open.fieldByName("gia"));
 			sv.vari.dichvu_open.next();
 		};
-		if (sv.vari.sql_open.isValidRow()) {
-			if ((sv.vari.sql_open.fieldByName("notifi")) == "false") {
-				push_notification();
-			} else {
-				Ti.API.info('khong ban len nua');
-			}
-		}
 		sv.vari.dichvu_open.close();
-		sv.vari.sql_open.close();
 		sv.vari.db_open.close();
+		push_notification();
 		sv.vari.intelval = setInterval(function() {
 			layketqua("searchlottery", {
 				"provideid" : "MB",
@@ -665,6 +665,7 @@ function taosukien(sv) {
 		sv.vari = null;
 		sv.fu = null;
 		sv = null;
+		Ti.API.info('close window menu tong');
 	};
 };
 
@@ -744,9 +745,9 @@ function currMin() {
 	return currmin;
 };
 
-function ktmang(sv) {
+function ktmang(sv,_loai) {
 	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
-		var kqoff = new (require('/ui_app/kq_offline'))();
+		var kqoff = new (require('/ui_app/kq_offline'))(_loai);
 		kqoff.open({
 			modal : Ti.Platform.osname == 'android' ? true : false
 		});
@@ -760,8 +761,6 @@ function ktmang(sv) {
 function push_notification() {
 	var deviceToken = null;
 	var Cloud = require("ti.cloud");
-	var db = Ti.Database.open('userinfo');
-	var sql = db.execute('SELECT * FROM SaveInfo');
 
 	if (Ti.Platform.osname == 'android') {
 		var CloudPush = require('ti.cloudpush');
@@ -810,7 +809,7 @@ function push_notification() {
 		}
 
 		function receivePush(e) {
-			alert('Received push: ' + JSON.stringify(e));
+			Ti.API.info('Received push: ' + JSON.stringify(e));
 		}
 
 		function deviceTokenError(e) {
@@ -828,17 +827,9 @@ function push_notification() {
 		}, function(e) {
 			if (e.success) {
 				Ti.API.info('dang ki thanh cong');
-				if (sql.isValidRow()) {
-					var username = sql.fieldByName("username");
-				}
-				db.execute('UPDATE SaveInfo SET notifi=? where username=?', "true", username);
 			} else {
 				Ti.API.info('Error:\n' + ((e.error && e.message) || JSON.stringify(e)));
 			}
 		});
 	}
-
-
-	sql.close();
-	db.close();
 };

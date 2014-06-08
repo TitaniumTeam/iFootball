@@ -13,14 +13,18 @@ module.exports = function() {
 
 function taobien(sv) {
 	sv.vari.combobox = require('/ui_soxo/ComboBox');
+	sv.vari.indicator = require('/ui-controller/vIndicatorWindow');
+	sv.vari.vIndicatorWindow = sv.vari.indicator.createIndicatorWindow();
 	sv.vari.flag = false;
 	sv.arr.datarow = [];
 	sv.arr.height = [Ti.App.size(120), Ti.App.size(200)];
 	////view day so lau ve
 	sv.arr.line1 = [];
 	sv.arr.view_solauve = [];
-	sv.arr.solauve = [];
-	sv.arr.tansuat_solauve = [];
+	sv.arr.solauve1 = [];
+	sv.arr.tansuat_solauve1 = [];
+	sv.arr.solauve2 = [];
+	sv.arr.tansuat_solauve2 = [];
 	///view day so hay ve
 	sv.arr.line = [];
 	sv.arr.view_sohayve = [];
@@ -94,16 +98,16 @@ function tao_ui(sv) {
 
 	////
 	createUI_Event(sv);
+	sv.ui.scrollView.addEventListener('postlayout', sv.fu.event_loadview);
 	sv.ui.view_choose.addEventListener('click', sv.fu.event_click_view);
 	sv.ui.table_view.addEventListener('click', sv.fu.event_clicktbl);
 	sv.ui.scrollView.addEventListener('click', sv.fu.event_clickscrollview);
 };
 function createUI_Event(sv) {
-	sv.fu.event_loadview=function(e){
-		// Ti.App.vIndicatorWindow.openIndicator(sv.vari.view_tuvan.ui.ViewTong);
-				// setTimeout(function() {
-				// Ti.App.vIndicatorWindow.closeIndicator(sv.vari.view_tuvan.ui.ViewTong);
-				// }, 2000);
+	sv.fu.event_loadview = function(e) {
+		Ti.API.info('post layout');
+		sv.ui.scrollView.visible = true;
+		sv.vari.vIndicatorWindow.closeIndicator();
 	};
 	sv.fu.event_clickscrollview = function(e) {
 		sv.vari.flag = false;
@@ -149,67 +153,97 @@ function thongke(_cmd, data, sv) {
 		var jsonResuilt = JSON.parse(dl);
 		if (jsonResuilt != null) {
 			if (_cmd == "getlotterystat") {
+				if (Ti.Platform.osname == 'android') {
+					sv.ui.scrollView.visible = false;
+					sv.vari.vIndicatorWindow.openIndicator();
+				}
+
 				sv.ui.scrollView.removeAllChildren();
 				sv.ui.lbl_dsve_saudau = Ti.UI.createLabel({
 					width : Ti.App.size(670),
-					height : Ti.App.size(65),
-					left : Ti.App.size(25),
-					backgroundColor : Ti.App.Color.brown,
+					// height : Ti.App.size(65),
+					left : Ti.App.size(30),
+					backgroundColor : 'transparent',
 					touchEnabled : false,
 					font : {
-						fontSize : Ti.App.size(25)
+						fontSize : Ti.App.size(30)
 					},
-					color : Ti.App.Color.superwhite,
+					color : Ti.App.Color.nauden,
 					text : 'Dãy số ít về trong 10 ngày qua',
 					top : Ti.App.size(30),
-					textAlign : 'center'
+					textAlign : 'left'
 				});
 				sv.ui.scrollView.add(sv.ui.lbl_dsve_saudau);
-				for (var i = 0; i < (jsonResuilt.thongke.lauchuara.length); i++) {
+				for (var i = 0; i < (jsonResuilt.thongke.lauchuara.length) / 2; i++) {
 					sv.arr.view_solauve[i] = Ti.UI.createTableViewRow({
 						width : Ti.App.size(670),
 						height : Ti.App.size(65),
-						left : Ti.App.size(25),
+						left : 0,
+						borderColor : Ti.App.Color.magenta,
+						borderWidth : Ti.App.size(2),
 						backgroundColor : 'transparent',
 						touchEnabled : false,
-						top : Ti.App.size(10)
+						top : Ti.App.size(65 * i),
+						touchEnabled : false
 					});
-					sv.arr.line1[i] = Ti.UI.createView({
-						left : Ti.App.size(75),
+					sv.arr.line1[j] = Ti.UI.createView({
+						left : Ti.App.size(345),
 						width : Ti.App.size(1),
 						height : Ti.App.size(40),
 						backgroundColor : Ti.App.Color.magenta
 					});
-					sv.arr.solauve[i] = Ti.UI.createLabel({
-						width : Ti.App.size(70),
-						height : Ti.App.size(65),
-						left : Ti.App.size(3),
-						font : {
-							fontSize : Ti.App.size(30),
-							fontWidth : 'bold'
-						},
+
+					sv.arr.solauve1[i] = Ti.UI.createLabel({
+						left : Ti.App.size(20),
 						textAlign : 'center',
-						backgroundColor : 'transparent',
-						color : Ti.App.Color.nauden,
-						text : jsonResuilt.thongke.lauchuara[i].dayso,
-					});
-					sv.arr.tansuat_solauve[i] = Ti.UI.createLabel({
-						left : Ti.App.size(150),
-						width : Ti.App.size(520),
-						backgroundColor : 'transparent',
-						touchEnabled : false,
-						height : Ti.UI.FILL,
+						width : Ti.UI.SIZE,
 						font : {
-							fontSize : Ti.App.size(30),
-							fontWidth : 'bold'
+							fontSize : Ti.App.size(30)
 						},
-						textAlign : 'left',
 						color : Ti.App.Color.nauden,
+						touchEnabled : false,
+						text : jsonResuilt.thongke.lauchuara[i].dayso,
+
+					});
+					sv.arr.tansuat_solauve1[i] = Ti.UI.createLabel({
+						left : Ti.App.size(145),
+						textAlign : 'left',
+						width : Ti.UI.SIZE,
+						font : {
+							fontSize : Ti.App.size(30)
+						},
+						color : Ti.App.Color.nauden,
+						touchEnabled : false,
 						text : jsonResuilt.thongke.lauchuara[i].songay + ' ngày'
 					});
-					sv.arr.view_solauve[i].add(sv.arr.tansuat_solauve[i]);
-					sv.arr.view_solauve[i].add(sv.arr.solauve[i]);
-					sv.arr.view_solauve[i].add(sv.arr.line1[i]);
+					sv.arr.solauve2[i] = Ti.UI.createLabel({
+						left : Ti.App.size(365),
+						textAlign : 'center',
+						width : Ti.UI.SIZE,
+						font : {
+							fontSize : Ti.App.size(30)
+						},
+						color : Ti.App.Color.nauden,
+						touchEnabled : false,
+						text : jsonResuilt.thongke.lauchuara[i + 1].dayso,
+
+					});
+					sv.arr.tansuat_solauve2[i] = Ti.UI.createLabel({
+						left : Ti.App.size(490),
+						textAlign : 'left',
+						width : Ti.UI.SIZE,
+						font : {
+							fontSize : Ti.App.size(30)
+						},
+						color : Ti.App.Color.nauden,
+						touchEnabled : false,
+						text : jsonResuilt.thongke.lauchuara[i + 1].songay + ' ngày'
+					});
+					sv.arr.view_solauve[i].add(sv.arr.line1[j]);
+					sv.arr.view_solauve[i].add(sv.arr.tansuat_solauve1[i]);
+					sv.arr.view_solauve[i].add(sv.arr.solauve1[i]);
+					sv.arr.view_solauve[i].add(sv.arr.tansuat_solauve2[i]);
+					sv.arr.view_solauve[i].add(sv.arr.solauve2[i]);
 				};
 				sv.ui.viewTongsolauve = Ti.UI.createTableView({
 					width : Ti.App.size(670),
@@ -246,9 +280,9 @@ function thongke(_cmd, data, sv) {
 						left : 0,
 						backgroundColor : 'transparent',
 						touchEnabled : false,
-						top : Ti.App.size(65 * i)
+						// top : Ti.App.size(65 * i)
 					});
-					for (var j = 0; j < 2; j++) {
+					for (var j = 0; j < (jsonResuilt.thongke.xuathiennhieu.length) / 2; j++) {
 						sv.arr.line[j] = Ti.UI.createView({
 							left : set_left(j),
 							width : Ti.App.size(1),
@@ -272,7 +306,7 @@ function thongke(_cmd, data, sv) {
 					});
 					sv.arr.tansuat_sohayve[i] = Ti.UI.createLabel({
 						width : Ti.UI.SIZE,
-						left : Ti.App.size(110),
+						left : Ti.App.size(145),
 						font : {
 							fontSize : Ti.App.size(30),
 							fontWidth : 'bold'
@@ -284,7 +318,7 @@ function thongke(_cmd, data, sv) {
 						text : jsonResuilt.thongke.xuathiennhieu[i].solan + ' lần'
 					});
 					sv.arr.tile_sohayve[i] = Ti.UI.createLabel({
-						left : Ti.App.size(150),
+						left : Ti.App.size(200),
 						width : Ti.App.size(570),
 						backgroundColor : 'transparent',
 						touchEnabled : false,
@@ -330,7 +364,7 @@ function thongke(_cmd, data, sv) {
 				});
 				sv.ui.scrollView.add(sv.ui.lbl_capsolientiep);
 
-				for (var i = 0; i < jsonResuilt.thongke.ralientiep.length; i++) {
+				for (var i = 0; i < (jsonResuilt.thongke.ralientiep.length) / 2; i++) {
 					sv.arr.view_capsolt[i] = Ti.UI.createTableViewRow({
 						width : Ti.App.size(670),
 						height : Ti.App.size(65),
@@ -382,6 +416,7 @@ function thongke(_cmd, data, sv) {
 						},
 						color : Ti.App.Color.nauden,
 						touchEnabled : false,
+						text : jsonResuilt.thongke.ralientiep[i + 1].dayso
 					});
 					sv.arr.ngay2[i] = Ti.UI.createLabel({
 						left : Ti.App.size(490),
@@ -392,6 +427,7 @@ function thongke(_cmd, data, sv) {
 						},
 						color : Ti.App.Color.nauden,
 						touchEnabled : false,
+						text : jsonResuilt.thongke.ralientiep[i + 1].solan + ' lần'
 					});
 					sv.arr.view_capsolt[i].add(sv.arr.ngay2[i]);
 					sv.arr.view_capsolt[i].add(sv.arr.capso2[i]);

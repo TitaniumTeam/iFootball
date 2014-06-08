@@ -1,4 +1,4 @@
-module.exports = function() {
+module.exports = function(_loai) {
 	var sv = {};
 	sv.vari = {};
 	sv.arr = {};
@@ -8,7 +8,7 @@ module.exports = function() {
 
 	(function() {
 		createVariable(sv);
-		createUI(sv);
+		createUI(sv, _loai);
 	})();
 
 	return sv.ui.Window;
@@ -21,7 +21,7 @@ function createVariable(sv) {
 
 }
 
-function createUI(sv) {
+function createUI(sv, _loai) {
 	sv.ui.Window = Ti.UI.createWindow({
 		//backgroundColor : Ti.App.Color.nauden,
 		navBarHidden : true,
@@ -69,7 +69,6 @@ function createUI(sv) {
 	});
 
 	sv.ui.ThongBao2 = Ti.UI.createLabel({
-		text : 'Gửi sms để nhận kết quả sổ xố',
 		font : {
 			fontSize : Ti.App.size(30)
 		},
@@ -77,6 +76,11 @@ function createUI(sv) {
 		width : Ti.UI.SIZE,
 		top : Ti.App.size(330)
 	});
+	if (_loai == 1) {
+		sv.ui.ThongBao2.text = "Gửi sms để lấy kết quả các trận bóng";
+	} else {
+		sv.ui.ThongBao2.text = "Gưi sms để lấy kết quả sổ xố";
+	}
 	sv.ui.button = Ti.UI.createLabel({
 		backgroundColor : Ti.App.Color.magenta,
 		width : Ti.App.size(300),
@@ -92,7 +96,7 @@ function createUI(sv) {
 		backgroundSelectedColor : Ti.App.Color.xanhnhat
 	});
 
-	createUI_Event(sv);
+	createUI_Event(sv, _loai);
 
 	sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
 	sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
@@ -111,17 +115,31 @@ function createUI(sv) {
 
 }
 
-function createUI_Event(sv) {
+function createUI_Event(sv, _loai) {
 	sv.fu.evt_sms = function(e) {
-		if (sv.vari.sql.isValidRow()) {
-			sv.vari.dichvu_db = sv.vari.db.execute("SELECT dauso,noidung FROM DichVu WHERE tendv=?", "Dich vu kqxs");
-			sv.vari.dauso = sv.vari.dichvu_db.fieldByName("dauso");
-			sv.vari.noidung = sv.vari.dichvu_db.fieldByName("noidung");
-			sv.vari.showSmsDialog = new sv.vari.smsdialog(sv.vari.dauso, sv.vari.noidung);
-			sv.ui.Window.close();
+		if (_loai == 1) {
+			if (sv.vari.sql.isValidRow()) {
+				sv.vari.dichvu_db = sv.vari.db.execute("SELECT dauso,noidung FROM DichVu WHERE tendv=?", "Dich vu bong da");
+				sv.vari.dauso = sv.vari.dichvu_db.fieldByName("noidung");
+				sv.vari.noidung = sv.vari.dichvu_db.fieldByName("noidung");
+				sv.vari.showSmsDialog = new sv.vari.smsdialog(sv.vari.dauso, sv.vari.noidung);
+				sv.ui.Window.close();
+			} else {
+				sv.vari.showSmsDialog = new sv.vari.smsdialog("88XX", "KQBD");
+				sv.ui.Window.close();
+			}
 		} else {
-			sv.vari.showSmsDialog = new sv.vari.smsdialog("88XX","KQSXMB");
-			sv.ui.Window.close();
+			if (sv.vari.sql.isValidRow()) {
+				sv.vari.dichvu_db = sv.vari.db.execute("SELECT dauso,noidung FROM DichVu WHERE tendv=?", "Dich vu kqxs");
+				sv.vari.dauso = sv.vari.dichvu_db.fieldByName("noidung");
+				sv.vari.noidung = sv.vari.dichvu_db.fieldByName("noidung");
+				sv.vari.showSmsDialog = new sv.vari.smsdialog(sv.vari.dauso, sv.vari.noidung);
+				sv.ui.Window.close();
+			} else {
+				sv.vari.showSmsDialog = new sv.vari.smsdialog("88XX", "KQSXMB");
+				sv.ui.Window.close();
+			}
+
 		}
 
 	};
@@ -135,6 +153,8 @@ function createUI_Event(sv) {
 	};
 
 	sv.fu.eventCloseWindow = function(e) {
+		sv.vari.db.close();
+		sv.vari.sql.close();
 		sv.ui.Window.removeEventListener('open', sv.fu.eventOpenWindow);
 		sv.ui.Window.removeEventListener('close', sv.fu.eventCloseWindow);
 		sv.ui.Icon.removeEventListener('click', sv.fu.eventClickIcon);

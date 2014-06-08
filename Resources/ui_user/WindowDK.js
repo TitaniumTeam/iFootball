@@ -14,6 +14,7 @@ module.exports = function() {
 ///tao bien
 function tao_bien(sv) {
 	sv.vari.wd_dn = require('/ui_user/DangNhap');
+	sv.vari.wd_home = require('/ui_app/MenuTong');
 
 };
 
@@ -28,14 +29,29 @@ function tao_ui(sv) {
 		keepScreenOn : true,
 
 	});
-	sv.ui.ViewHeader=Titanium.UI.createView({
-		left:0,
-		backgroundColor:'transparent',
-		width:Ti.App.size(720),
-		height:Ti.App.size(100),
-		top:0
+	sv.ui.ViewHeader = Titanium.UI.createView({
+		left : 0,
+		backgroundColor : 'transparent',
+		width : Ti.App.size(720),
+		height : Ti.App.size(100),
+		top : 0
 	});
 	sv.ui.WindowDK.add(sv.ui.ViewHeader);
+	sv.ui.ViewBack = Titanium.UI.createView({
+		width : Ti.App.size(100),
+		height : Ti.App.size(100),
+		left : 0,
+		backgroundColor : 'transparent',
+		backgroundSelectedColor : Ti.App.Color.xanhnhat
+	});
+	sv.ui.ViewHeader.add(sv.ui.ViewBack);
+	sv.ui.iconBack = Titanium.UI.createImageView({
+		width : Ti.App.size(22),
+		height : Ti.App.size(42),
+		touchEnabled : false,
+		backgroundImage : '/assets/images/icon/arrow.png'
+	});
+	sv.ui.ViewBack.add(sv.ui.iconBack);
 	sv.ui.lbl_Login = Ti.UI.createLabel({
 		width : Ti.App.size(280),
 		text : 'ĐĂNG KÝ',
@@ -44,7 +60,7 @@ function tao_ui(sv) {
 			fontSize : Ti.App.size(50)
 		},
 		touchEnabled : false,
-		textAlign:'center'
+		textAlign : 'center'
 	});
 	sv.ui.ViewHeader.add(sv.ui.lbl_Login);
 	sv.ui.scrollView = Ti.UI.createScrollView({
@@ -82,9 +98,8 @@ function tao_ui(sv) {
 		height : Ti.App.size(90),
 		left : Ti.App.size(20),
 		right : Ti.App.size(20),
-		borderColor : Ti.App.Color.superwhite,
+		borderColor : Ti.App.Color.magenta,
 		borderWidth : Ti.App.size(5),
-		textAlign : 'center',
 		color : Ti.App.Color.nauden,
 		backgroundColor : Ti.App.Color.superwhite,
 		font : {
@@ -101,9 +116,8 @@ function tao_ui(sv) {
 		height : Ti.App.size(90),
 		left : Ti.App.size(20),
 		right : Ti.App.size(20),
-		borderColor : Ti.App.Color.superwhite,
+		borderColor : Ti.App.Color.magenta,
 		borderWidth : Ti.App.size(5),
-		textAlign : 'center',
 		color : Ti.App.Color.nauden,
 		backgroundColor : Ti.App.Color.superwhite,
 		font : {
@@ -111,7 +125,8 @@ function tao_ui(sv) {
 		},
 		top : Ti.App.size(30),
 		autocorrect : false,
-		hintText : 'Nhập mật khẩu'
+		hintText : 'Nhập mật khẩu',
+		passwordMask : true
 	});
 
 	sv.ui.scrollView.add(sv.ui.txtPassword);
@@ -120,9 +135,8 @@ function tao_ui(sv) {
 		height : Ti.App.size(90),
 		left : Ti.App.size(20),
 		right : Ti.App.size(20),
-		borderColor : Ti.App.Color.superwhite,
+		borderColor : Ti.App.Color.magenta,
 		borderWidth : Ti.App.size(5),
-		textAlign : 'center',
 		color : Ti.App.Color.nauden,
 		backgroundColor : Ti.App.Color.superwhite,
 		font : {
@@ -139,9 +153,8 @@ function tao_ui(sv) {
 		height : Ti.App.size(90),
 		left : Ti.App.size(20),
 		right : Ti.App.size(20),
-		borderColor : Ti.App.Color.superwhite,
+		borderColor : Ti.App.Color.magenta,
 		borderWidth : Ti.App.size(5),
-		textAlign : 'center',
 		color : Ti.App.Color.nauden,
 		backgroundColor : Ti.App.Color.superwhite,
 		font : {
@@ -174,11 +187,17 @@ function tao_ui(sv) {
 	sv.ui.btn_dangki.addEventListener('click', sv.fu.event_dk);
 	sv.ui.WindowDK.addEventListener('open', sv.fu.openWindow);
 	sv.ui.WindowDK.addEventListener('close', sv.fu.closeWindow);
-	
+	sv.ui.ViewBack.addEventListener('click', sv.fu.openMenuTong);
 	////////////////
 }
 
 function tao_event(sv) {
+	sv.fu.openMenuTong=function(e){
+		sv.vari.menutong=new sv.vari.wd_home();
+		sv.vari.menutong.ui.win.open();
+		sv.ui.WindowDK.close();
+	};
+	
 	sv.fu.openWindow = function(e) {
 		Ti.API.info('open window');
 	};
@@ -189,8 +208,8 @@ function tao_event(sv) {
 			fn_updateImage2Server("register", {
 				"username" : sv.ui.txtUser.value,
 				"password" : sv.ui.txtPassword.value,
-				"email":sv.ui.txtEmail.value,
-				"mobile":sv.ui.txtMobile.value
+				"email" : sv.ui.txtEmail.value,
+				"mobile" : sv.ui.txtMobile.value
 			}, sv);
 		}
 
@@ -200,6 +219,7 @@ function tao_event(sv) {
 		sv.ui.btn_dangki.removeEventListener('click', sv.fu.event_dk);
 		sv.ui.WindowDK.removeEventListener('open', sv.fu.openWindow);
 		sv.ui.WindowDK.removeEventListener('close', sv.fu.closeWindow);
+		sv.ui.ViewBack.removeEventListener('click', sv.fu.openMenuTong);
 		sv.vari = null;
 		sv.arr = null;
 		sv.ui = null;

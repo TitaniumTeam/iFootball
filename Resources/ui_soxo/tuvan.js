@@ -15,8 +15,13 @@ function taobien(sv) {
 	sv.vari.soluongmenu = 3;
 	sv.arr.rows = [];
 	sv.vari.db = Ti.Database.open("userinfo");
-	
 	sv.vari.dichvu_db = sv.vari.db.execute("SELECT * FROM DichVu");
+	sv.arr.cacdichvu = {};
+	sv.arr.cacdichvu.tendv = [];
+	sv.arr.cacdichvu.thamso = [];
+	sv.arr.cacdichvu.gia = [];
+	sv.arr.cacdichvu.dauso = [];
+	sv.arr.cacdichvu.id = [];
 };
 function taoui(sv) {
 	sv.ui.ViewTong = Ti.UI.createView({
@@ -26,44 +31,59 @@ function taoui(sv) {
 		height : Ti.UI.FILL,
 	});
 	while (sv.vari.dichvu_db.isValidRow()) {
-	// if (sv.vari.dichvu_db.fieldByName("tendv") == "Dich vu kqxs") {
-		sv.ui.webview = Ti.UI.createWebView({
-			width : Ti.UI.FILL,
-			height : Ti.UI.FILL,
-			showScrollbars : true,
-			scalesPageToFit : true,
-			touchEnabled : true,
-			enableZoomControls : false,
-		});
-
+		Ti.API.info('nhay vao day*******');
+		sv.arr.cacdichvu.tendv.push(sv.vari.dichvu_db.fieldByName("tendv"));
+		sv.arr.cacdichvu.thamso.push(sv.vari.dichvu_db.fieldByName("thamso"));
+		sv.arr.cacdichvu.gia.push(sv.vari.dichvu_db.fieldByName("gia"));
+		sv.arr.cacdichvu.dauso.push(sv.vari.dichvu_db.fieldByName("dauso"));
+		sv.arr.cacdichvu.id.push(sv.vari.dichvu_db.fieldByName("noidung"));
+		// // if (sv.vari.dichvu_db.fieldByName("tendv") == "Dich vu kqxs") {
+		sv.vari.dichvu_db.next();
+	}
+	sv.vari.dichvu_db.close();
+	sv.vari.db.close();
+	for (var i = 1; i < (sv.arr.cacdichvu.tendv).length; i++) {
+		Ti.API.info('ten dichvu:' + sv.arr.cacdichvu.tendv[i]);
+		Ti.API.info('dauso:' + sv.arr.cacdichvu.dauso[i]);
+		Ti.API.info('thamso:' + sv.arr.cacdichvu.thamso[i]);
+		Ti.API.info('gia:' + sv.arr.cacdichvu.gia[i]);
+		Ti.API.info('noi dung:' + sv.arr.cacdichvu.id[i]);
 		// sv.ui.webview.hide();
 		sv.ui.row = Ti.UI.createTableViewRow({
 			width : Ti.App.size(640),
-			left : 0,
-			backgroundColor : Ti.App.Color.superwhite,
+			left : Ti.App.size(20),
+			backgroundColor : Ti.App.Color.magenta,
 			height : Ti.App.size(90),
-			color : 'black',
+			color :Ti.App.Color.nauden,
 			font : {
 				fontSize : Ti.App.size(30)
 			},
-			title : sv.vari.dichvu_db.fieldByName("tendv"),
-			thamso : sv.vari.dichvu_db.fieldByName("thamso"),
-			tendauso : sv.vari.dichvu_db.fieldByName("dauso"),
-			price : sv.vari.dichvu_db.fieldByName("gia"),
+			title : sv.arr.cacdichvu.tendv[i],
+			thamso : sv.arr.cacdichvu.thamso[i],
+			tendauso : sv.arr.cacdichvu.dauso[i],
+			price : sv.arr.cacdichvu.gia[i],
 			// hasChild : true
 		});
 		sv.arr.rows.push(sv.ui.row);
-		sv.vari.dichvu_db.next();
-	}
 
+	}
+	sv.ui.webview = Ti.UI.createWebView({
+		width : Ti.UI.FILL,
+		height : Ti.UI.FILL,
+		showScrollbars : false,
+		scalesPageToFit : true,
+		touchEnabled : true,
+		enableZoomControls : false,
+	});
 	// }
 	sv.ui.tbl1 = Ti.UI.createTableView({
-		width : Ti.App.size(680),
+		width : Ti.App.size(720),
 		height : Ti.UI.SIZE,
 		data : sv.arr.rows,
 		top : 0,
 		separatorColor : Ti.App.Color.xanhnhat,
-		left : Ti.App.size(20)
+		left :0,
+		backgroundColor:'transparent'
 	});
 	sv.ui.ViewTong.add(sv.ui.tbl1);
 	tao_sukien(sv);

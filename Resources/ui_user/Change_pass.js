@@ -94,6 +94,7 @@ function createUI(sv) {
 			fontWeight : 'bold',
 			textAlign : 'center',
 		},
+		passwordMask : true
 	});
 
 	//Tao view Tai Khoan
@@ -114,7 +115,8 @@ function createUI(sv) {
 		},
 		right : Ti.App.size(490),
 		left : Ti.App.size(10),
-		color : Ti.App.Color.nauden
+		color : Ti.App.Color.nauden,
+
 	});
 
 	sv.ui.TftMKMoi = Ti.UI.createTextField({
@@ -130,6 +132,7 @@ function createUI(sv) {
 			fontFamily : 'Aria',
 			fontWeight : 'bold',
 		},
+		passwordMask : true
 	});
 
 	sv.ui.XacNhan = Ti.UI.createLabel({
@@ -138,8 +141,8 @@ function createUI(sv) {
 			fontSize : Ti.App.size(30),
 			fontWeight : 'bold',
 		},
-		color : Ti.App.Color.nauden,
-		backgroundColor : Ti.App.Color.green,
+		color : Ti.App.Color.superwhite,
+		backgroundColor : Ti.App.Color.red,
 		width : Ti.App.size(480),
 		height : Ti.App.size(100),
 		textAlign : 'center',
@@ -204,9 +207,9 @@ function thaydoi_info(data, sv) {
 	xhr.onload = function() {
 		Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
 		var dl = JSON.parse(this.responseText);
-		
+
 		var jsonResuilt = JSON.parse(dl);
-		Ti.API.info('code'+jsonResuilt.code);
+		Ti.API.info('code' + jsonResuilt.code);
 		if (jsonResuilt.code == 0) {
 			sv.vari.popup_success = new (require('/ui_user/PopUpTrue'))();
 			sv.vari.popup_success.setText('Thay đổi mật khẩu thành công');

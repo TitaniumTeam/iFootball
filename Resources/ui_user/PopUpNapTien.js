@@ -76,7 +76,7 @@ function createUI(sv) {
 		center : 'true',
 		top : Ti.App.size(230),
 		textAlign : 'center',
-		borderColor:Ti.App.Color.xanhnhat
+		borderColor:Ti.App.Color.blue
 	});
 	sv.ui.txt_mathe = Ti.UI.createTextField({
 		backgroundColor : Ti.App.Color.magenta,
@@ -90,10 +90,10 @@ function createUI(sv) {
 		center : 'true',
 		top : Ti.App.size(330),
 		textAlign : 'center',
-		borderColor:Ti.App.Color.xanhnhat
+		borderColor:Ti.App.Color.blue
 	});
 	sv.ui.btn_nap = Ti.UI.createLabel({
-		backgroundColor : Ti.App.Color.xanhnhat,
+		backgroundColor : Ti.App.Color.red,
 		width : Ti.App.size(300),
 		height : Ti.App.size(80),
 		text : "NẠP",
@@ -103,7 +103,7 @@ function createUI(sv) {
 			fontSize : Ti.App.size(30)
 		},
 		borderRadius : Ti.App.size(5),
-		color : Ti.App.Color.nauden,
+		color : Ti.App.Color.superwhite,
 		backgroundSelectedColor : Ti.App.Color.magenta
 	});
 	createUI_Event(sv);

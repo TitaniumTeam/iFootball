@@ -17,7 +17,8 @@ module.exports = function() {
  * Khởi tạo biến
  */
 function createVariable(sv) {
-
+	sv.vari.wd_home = require('/ui_app/MenuTong');
+	sv.vari.windk = require('/ui_user/WindowDK');
 }
 
 function createUI(sv) {
@@ -36,6 +37,23 @@ function createUI(sv) {
 		top : 0
 	});
 	sv.ui.Window.add(sv.ui.ViewHeader);
+
+	sv.ui.ViewBack = Titanium.UI.createView({
+		width : Ti.App.size(100),
+		height : Ti.App.size(100),
+		left : 0,
+		backgroundColor : 'transparent',
+		backgroundSelectedColor : Ti.App.Color.xanhnhat
+	});
+	sv.ui.ViewHeader.add(sv.ui.ViewBack);
+	sv.ui.iconBack = Titanium.UI.createImageView({
+		width : Ti.App.size(22),
+		height : Ti.App.size(42),
+		touchEnabled : false,
+		backgroundImage : '/assets/images/icon/arrow.png'
+	});
+	sv.ui.ViewBack.add(sv.ui.iconBack);
+
 	sv.ui.viewtong = Ti.UI.createScrollView({
 		backgroundColor : Ti.App.Color.white,
 		// width : Ti.App.widthScreen,
@@ -65,7 +83,7 @@ function createUI(sv) {
 		top : Ti.App.size(50),
 		left : Ti.App.size(20),
 		right : Ti.App.size(20),
-		backgroundSelectedColor:Ti.App.Color.magenta
+		backgroundSelectedColor : Ti.App.Color.magenta
 	});
 
 	sv.ui.iconface = Ti.UI.createImageView({
@@ -105,7 +123,7 @@ function createUI(sv) {
 		top : Ti.App.size(165),
 		left : Ti.App.size(20),
 		right : Ti.App.size(20),
-		backgroundSelectedColor:Ti.App.Color.xanhnhat
+		backgroundSelectedColor : Ti.App.Color.xanhnhat
 	});
 
 	sv.ui.icongmail = Ti.UI.createImageView({
@@ -198,7 +216,8 @@ function createUI(sv) {
 			fontSize : Ti.App.size(40),
 		},
 		autocorrect : false,
-		color : Ti.App.Color.nauden
+		color : Ti.App.Color.nauden,
+		passwordMask : true
 	});
 	//tao view dang nhap, view dang ky
 	sv.ui.viewdangnhap = Ti.UI.createView({
@@ -272,7 +291,7 @@ function createUI(sv) {
 	sv.ui.viewdangky.addEventListener('click', sv.fu.eventClickviewdangky);
 	sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
 	sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
-
+	sv.ui.ViewBack.addEventListener('click', sv.fu.openMenuTong);
 	sv.ui.Window.add(sv.ui.viewtong);
 
 	sv.ui.viewtong.add(sv.ui.viewdnface);
@@ -304,9 +323,12 @@ function createUI(sv) {
 }
 
 function createUI_Event(sv) {
-
-	sv.fu.eventClickviewdnface = function(e) {
+	sv.fu.openMenuTong = function(e) {
+		sv.vari.menutong = new sv.vari.wd_home();
+		sv.vari.menutong.ui.win.open();
 		sv.ui.Window.close();
+	};
+	sv.fu.eventClickviewdnface = function(e) {
 	};
 
 	sv.fu.eventClickviewdngmail = function(e) {
@@ -325,9 +347,8 @@ function createUI_Event(sv) {
 	};
 
 	sv.fu.eventClickviewdangky = function(e) {
-		var windk = require('/ui_user/WindowDK');
-		var windangki = new windk();
-		windangki.open();
+		sv.vari.windangki = new sv.vari.windk();
+		sv.vari.windangki.open();
 	};
 
 	sv.fu.eventOpenWindow = function(e) {
@@ -341,6 +362,7 @@ function createUI_Event(sv) {
 		sv.ui.viewdangky.removeEventListener('click', sv.fu.eventClickviewdangky);
 		sv.ui.Window.removeEventListener('open', sv.fu.eventOpenWindow);
 		sv.ui.Window.removeEventListener('close', sv.fu.eventCloseWindow);
+		sv.ui.ViewBack.removeEventListener('click', sv.fu.openMenuTong);
 
 		sv.vari = null;
 		sv.arr = null;
@@ -429,9 +451,9 @@ function get_menu(data, sv) {
 				Ti.API.info('gia' + jsonResuilt.menus[i].price);
 				Ti.API.info('param' + jsonResuilt.menus[i].params);
 				Ti.API.info('param' + jsonResuilt.menus[i].servicenumber);
-				db.execute('INSERT INTO DichVu(tendv,dauso,noidung,thamso,gia) VALUES(?,?,?,?,?)', jsonResuilt.menus[i].name, jsonResuilt.menus[i].action,jsonResuilt.menus[i].servicenumber, jsonResuilt.menus[i].params, jsonResuilt.menus[i].price);
+				db.execute('INSERT INTO DichVu(tendv,dauso,noidung,thamso,gia) VALUES(?,?,?,?,?)', jsonResuilt.menus[i].name, jsonResuilt.menus[i].action, jsonResuilt.menus[i].servicenumber, jsonResuilt.menus[i].params, jsonResuilt.menus[i].price);
 			} else {
-				db.execute('INSERT INTO DichVu(tendv,dauso,noidung,thamso,gia) VALUES(?,?,?,?,?)', jsonResuilt.menus[i].name, jsonResuilt.menus[i].action,jsonResuilt.menus[i].servicenumber, "", jsonResuilt.menus[i].price);
+				db.execute('INSERT INTO DichVu(tendv,dauso,noidung,thamso,gia) VALUES(?,?,?,?,?)', jsonResuilt.menus[i].name, jsonResuilt.menus[i].action, jsonResuilt.menus[i].servicenumber, "", jsonResuilt.menus[i].price);
 			}
 
 		}
