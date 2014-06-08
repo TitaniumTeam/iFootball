@@ -320,7 +320,7 @@ function taosukien(sv) {
 		if (i == 0) {
 			sv.arr.evt_chucnangsoxo[i] = function(e) {
 				clearInterval(sv.vari.intelval);
-				ktmang(sv);
+				ktmang(sv,2);
 				for (var j = 0; j < 4; j++) {
 					if (j == 0) {
 						sv.arr.viewchucnangsoxo[j].backgroundColor = Ti.App.Color.superwhite;
@@ -354,7 +354,7 @@ function taosukien(sv) {
 		if (i == 1) {
 			sv.arr.evt_chucnangsoxo[i] = function(e) {
 				clearInterval(sv.vari.intelval);
-				ktmang(sv);
+				ktmang(sv,2);
 				for (var j = 0; j < 4; j++) {
 					if (j == 1) {
 						sv.arr.viewchucnangsoxo[j].backgroundColor = Ti.App.Color.superwhite;
@@ -373,6 +373,7 @@ function taosukien(sv) {
 		}
 		if (i == 2) {
 			sv.arr.evt_chucnangsoxo[i] = function(e) {
+				ktmang(sv,2);
 				clearInterval(sv.vari.intelval);
 				for (var j = 0; j < 4; j++) {
 					if (j == 2) {
@@ -412,6 +413,7 @@ function taosukien(sv) {
 	for (var i = 0; i < 4; i++) {
 		if (i == 0) {
 			sv.arr.evt_chucnangbongda[0] = function(e) {
+				ktmang(sv,1);
 				clearInterval(sv.vari.intelval);
 				for (var j = 0; j < 4; j++) {
 					if (j == 0) {
@@ -431,6 +433,7 @@ function taosukien(sv) {
 		}
 		if (i == 1) {
 			sv.arr.evt_chucnangbongda[1] = function(e) {
+				ktmang(sv,1);
 				clearInterval(sv.vari.intelval);
 				for (var j = 0; j < 4; j++) {
 					if (j == 1) {
@@ -450,6 +453,7 @@ function taosukien(sv) {
 		}
 		if (i == 2) {
 			sv.arr.evt_chucnangbongda[2] = function(e) {
+				ktmang(sv,1);
 				clearInterval(sv.vari.intelval);
 				for (var j = 0; j < 4; j++) {
 					if (j == 2) {
@@ -493,7 +497,7 @@ function taosukien(sv) {
 		if (j == 0) {
 			sv.arr.evt_header[0] = function(e) {
 				clearInterval(sv.vari.intelval);
-				ktmang(sv);
+				ktmang(sv,1);
 				sv.arr.view_iconheader[0].backgroundColor = Ti.App.Color.superwhite;
 				sv.arr.iconheader[0].image = sv.arr.img_header[0].press;
 				sv.arr.view_iconheader[1].backgroundColor = Ti.App.Color.red;
@@ -551,7 +555,7 @@ function taosukien(sv) {
 		if (j == 2) {
 			sv.arr.evt_header[2] = function(e) {
 				clearInterval(sv.vari.intelval);
-				ktmang(sv);
+				ktmang(sv,2);
 				sv.arr.view_iconheader[2].backgroundColor = Ti.App.Color.superwhite;
 				sv.arr.iconheader[2].image = sv.arr.img_header[2].press;
 				sv.arr.iconheader[0].image = sv.arr.img_header[0].bg;
@@ -599,7 +603,7 @@ function taosukien(sv) {
 	 * **/
 	sv.fu.evt_win_open = function(e) {
 		Ti.API.info('win open');
-		ktmang(sv);
+		ktmang(sv,1);
 		sv.vari.db_open = Ti.Database.open('userinfo');
 		sv.vari.sql_open = sv.vari.db_open.execute("SELECT * FROM SaveInfo");
 		sv.vari.dichvu_open = sv.vari.db_open.execute("SELECT * FROM DichVu");
@@ -743,9 +747,9 @@ function currMin() {
 	return currmin;
 };
 
-function ktmang(sv) {
+function ktmang(sv,_loai) {
 	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
-		var kqoff = new (require('/ui_app/kq_offline'))();
+		var kqoff = new (require('/ui_app/kq_offline'))(_loai);
 		kqoff.open({
 			modal : Ti.Platform.osname == 'android' ? true : false
 		});
