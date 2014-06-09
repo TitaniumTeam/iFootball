@@ -1,4 +1,4 @@
-module.exports = function() {
+module.exports = function(matchid) {
 	var sv = {};
 	sv.vari = {};
 	sv.arr = {};
@@ -8,7 +8,7 @@ module.exports = function() {
 
 	(function() {
 		createVariable(sv);
-		createUI(sv);
+		createUI(sv, matchid);
 	})();
 	return sv;
 };
@@ -25,14 +25,14 @@ function createVariable(sv) {
 	sv.vari.LabelThongTinKeo11 = null;
 	sv.vari.LabelThongTinKeo12 = null;
 	sv.vari.LabelThongTinKeo13 = null;
-	sv.vari.LabelNameKeo2 = 'Tổng số bàn thắng';
-	sv.vari.LabelThongTinKeo21 = '2 1/4';
-	sv.vari.LabelThongTinKeo22 = '1.975';
-	sv.vari.LabelThongTinKeo23 = '1.925';
-	sv.vari.LabelNameKeo3 = 'Tỷ lệ Châu ';
-	sv.vari.LabelThongTinKeo31 = '1.65';
-	sv.vari.LabelThongTinKeo32 = '3.57';
-	sv.vari.LabelThongTinKeo33 = '5.34';
+	sv.vari.LabelNameKeo2 = '';
+	sv.vari.LabelThongTinKeo21 = '';
+	sv.vari.LabelThongTinKeo22 = '';
+	sv.vari.LabelThongTinKeo23 = '';
+	sv.vari.LabelNameKeo3 = ' ';
+	sv.vari.LabelThongTinKeo31 = '';
+	sv.vari.LabelThongTinKeo32 = '';
+	sv.vari.LabelThongTinKeo33 = '';
 	sv.vari.LabelNameKeo4 = '';
 	sv.vari.LabelThongTinKeo41 = '';
 	sv.vari.LabelThongTinKeo42 = '';
@@ -43,7 +43,7 @@ function createVariable(sv) {
 	sv.vari.SoLuongParamResultBet = 0;
 
 };
-function createUI(sv) {
+function createUI(sv, matchid) {
 	sv.ui.ViewTong = Ti.UI.createView({
 		width : Ti.UI.FILL,
 		height : Ti.UI.FILL,
@@ -93,7 +93,7 @@ function createUI(sv) {
 			textAlign : 'left'
 		},
 		color : Ti.App.Color.nauden,
-		left:Ti.App.size(320)
+		left : Ti.App.size(320)
 	});
 
 	sv.ui.IconAddress = Ti.UI.createImageView({
@@ -475,7 +475,7 @@ function createUI(sv) {
 	});
 
 	sv.ui.LabelThongTinTyLeAn1 = Ti.UI.createLabel({
-		text : '2',
+		text : '',
 		left : Ti.App.size(90),
 		font : {
 			fontSize : Ti.App.size(26),
@@ -487,7 +487,7 @@ function createUI(sv) {
 	});
 
 	sv.ui.LabelThongTinTyLeAn2 = Ti.UI.createLabel({
-		text : '2.62',
+		text : '',
 		// left : Ti.App.size(305),
 		font : {
 			fontSize : Ti.App.size(26),
@@ -499,7 +499,7 @@ function createUI(sv) {
 	});
 
 	sv.ui.LabelThongTinTyLeAn3 = Ti.UI.createLabel({
-		text : '5.5',
+		text : '',
 		left : Ti.App.size(520),
 		font : {
 			fontSize : Ti.App.size(26),
@@ -571,7 +571,7 @@ function createUI(sv) {
 	});
 
 	GetMatchRatio(sv, "getmatchratio", {
-		"matchid" : "1"
+		"matchid" : matchid.toString()
 	});
 	Ti.API.info('SoLuongParamResultBet : ', sv.vari.SoLuongParamResultBet);
 	Ti.API.info('than xuan son');
@@ -657,30 +657,38 @@ function GetMatchRatio(sv, _cmd, data) {
 		var dl = JSON.parse(this.responseText);
 		var jsonResuilt = JSON.parse(dl);
 		Ti.API.info('du lieu la : ', jsonResuilt.match);
+		if (jsonResuilt.match.aisia_onl_betting.length != 0) {
+			sv.ui.LabelHeaderKeoChauA.text = jsonResuilt.match.aisia_onl_betting[0].betname.toString();
+			sv.ui.LabelThongTinKeoChauA1.text = jsonResuilt.match.aisia_onl_betting[0].guest.toString();
+			sv.ui.LabelThongTinKeoChauA2.text = jsonResuilt.match.aisia_onl_betting[0].owner.toString();
+			sv.ui.LabelThongTinKeoChauA3.text = jsonResuilt.match.aisia_onl_betting[0].ratio.toString();
+		}
 
-		sv.ui.LabelHeaderKeoChauA.text = jsonResuilt.match.aisia_onl_betting[0].betname.toString();
-		sv.ui.LabelThongTinKeoChauA1.text = jsonResuilt.match.aisia_onl_betting[0].guest.toString();
-		sv.ui.LabelThongTinKeoChauA2.text = jsonResuilt.match.aisia_onl_betting[0].owner.toString();
-		sv.ui.LabelThongTinKeoChauA3.text = jsonResuilt.match.aisia_onl_betting[0].ratio.toString();
+		if (jsonResuilt.match.aisiabe_betting.length != 0) {
+			sv.ui.LabelHeaderTongSoBanThang.text = jsonResuilt.match.aisiabe_betting[0].betname.toString();
+			sv.ui.LabelThongTinTongSoBanThang1.text = jsonResuilt.match.aisiabe_betting[0].guest.toString();
+			sv.ui.LabelThongTinTongSoBanThang2.text = jsonResuilt.match.aisiabe_betting[0].owner.toString();
+			sv.ui.LabelThongTinTongSoBanThang3.text = jsonResuilt.match.aisiabe_betting[0].ratio.toString();
+		}
 
-		sv.ui.LabelHeaderTongSoBanThang.text = jsonResuilt.match.aisiabe_betting[0].betname.toString();
-		sv.ui.LabelThongTinTongSoBanThang1.text = jsonResuilt.match.aisiabe_betting[0].guest.toString();
-		sv.ui.LabelThongTinTongSoBanThang2.text = jsonResuilt.match.aisiabe_betting[0].owner.toString();
-		sv.ui.LabelThongTinTongSoBanThang3.text = jsonResuilt.match.aisiabe_betting[0].ratio.toString();
+		if (jsonResuilt.match.euro_betting.length != 0) {
+			sv.ui.LabelHeaderTyLeChauAu.text = jsonResuilt.match.euro_betting[0].betname.toString();
+			sv.ui.LabelThongTinKeoChauAu1.text = jsonResuilt.match.euro_betting[0].guest.toString();
+			sv.ui.LabelThongTinKeoChauAu2.text = jsonResuilt.match.euro_betting[0].owner.toString();
+			sv.ui.LabelThongTinKeoChauAu3.text = jsonResuilt.match.euro_betting[0].ratio.toString();
+		}
 
-		sv.ui.LabelHeaderTyLeChauAu.text = jsonResuilt.match.euro_betting[0].betname.toString();
-		sv.ui.LabelThongTinKeoChauAu1.text = jsonResuilt.match.euro_betting[0].guest.toString();
-		sv.ui.LabelThongTinKeoChauAu2.text = jsonResuilt.match.euro_betting[0].owner.toString();
-		sv.ui.LabelThongTinKeoChauAu3.text = jsonResuilt.match.euro_betting[0].ratio.toString();
+		// sv.ui.LabelHeaderTyLeChauAu.text = jsonResuilt.match.euro_betting[0].betname.toString();
+		// sv.ui.LabelThongTinKeoChauAu1.text = jsonResuilt.match.euro_betting[0].guest.toString();
+		// sv.ui.LabelThongTinKeoChauAu2.text = jsonResuilt.match.euro_betting[0].owner.toString();
+		// sv.ui.LabelThongTinKeoChauAu3.text = jsonResuilt.match.euro_betting[0].ratio.toString();
 
-		sv.ui.LabelHeaderTyLeChauAu.text = jsonResuilt.match.euro_betting[0].betname.toString();
-		sv.ui.LabelThongTinKeoChauAu1.text = jsonResuilt.match.euro_betting[0].guest.toString();
-		sv.ui.LabelThongTinKeoChauAu2.text = jsonResuilt.match.euro_betting[0].owner.toString();
-		sv.ui.LabelThongTinKeoChauAu3.text = jsonResuilt.match.euro_betting[0].ratio.toString();
+		if (jsonResuilt.match.taixiu.length != 0) {
+			sv.ui.LabelThongTinTyLeAn1.text = jsonResuilt.match.taixiu[0].tai.toString();
+			sv.ui.LabelThongTinTyLeAn2.text = jsonResuilt.match.taixiu[0].totalgoal.toString();
+			sv.ui.LabelThongTinTyLeAn3.text = jsonResuilt.match.taixiu[0].xiu.toString();
+		}
 
-		sv.ui.LabelThongTinTyLeAn1.text = jsonResuilt.match.taixiu[0].tai.toString();
-		sv.ui.LabelThongTinTyLeAn2.text = jsonResuilt.match.taixiu[0].totalgoal.toString();
-		sv.ui.LabelThongTinTyLeAn3.text = jsonResuilt.match.taixiu[0].xiu.toString();
 		sv.vari.SoLuongParamResultBet = jsonResuilt.match.resultbet.length;
 		Ti.API.info('SoLuongParamResultBet : ', sv.vari.SoLuongParamResultBet);
 

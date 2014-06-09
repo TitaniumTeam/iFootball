@@ -1,4 +1,4 @@
-module.exports = function(_width) {
+module.exports = function(j) {
 	var sv = {};
 	sv.vari = {};
 	sv.arr = {};
@@ -7,14 +7,14 @@ module.exports = function(_width) {
 	sv.test = {};
 
 	(function() {
-		tao_ui(sv);
+		tao_ui(sv, j);
 		setParam(sv);
 		setTuVan(sv);
 	})();
 
 	return sv;
 };
-function tao_ui(sv) {
+function tao_ui(sv, j) {
 	sv.ui.Vcontent = Ti.UI.createView({
 		width : Ti.App.size(720),
 		height : Ti.App.size(140),
@@ -47,6 +47,7 @@ function tao_ui(sv) {
 		backgroundSelectedColor : Ti.App.Color.xanhnhat,
 		left : 0,
 		top : 0,
+		id : j
 	});
 	sv.ui.Vcontent.add(sv.ui.Viewthongtin);
 	sv.ui.lbl_thoigian = Ti.UI.createLabel({
