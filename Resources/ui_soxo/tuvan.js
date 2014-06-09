@@ -31,34 +31,29 @@ function taoui(sv) {
 		width : Ti.App.size(720),
 		height : Ti.UI.FILL,
 	});
-	if (sv.vari.dichvu_db.isValidRow()) {
-		while (sv.vari.dichvu_db.isValidRow()) {
-			Ti.API.info('nhay vao day*******');
-			sv.arr.cacdichvu.tendv.push(sv.vari.dichvu_db.fieldByName("tendv"));
-			sv.arr.cacdichvu.thamso.push(sv.vari.dichvu_db.fieldByName("thamso"));
-			sv.arr.cacdichvu.gia.push(sv.vari.dichvu_db.fieldByName("gia"));
-			sv.arr.cacdichvu.dauso.push(sv.vari.dichvu_db.fieldByName("dauso"));
-			sv.arr.cacdichvu.id.push(sv.vari.dichvu_db.fieldByName("servicenumber"));
-			// // if (sv.vari.dichvu_db.fieldByName("tendv") == "Dich vu kqxs") {
-			sv.vari.dichvu_db.next();
-		}
-		sv.vari.dichvu_db.close();
-		sv.vari.db.close();
+	while (sv.vari.dichvu_db.isValidRow()) {
+		Ti.API.info('nhay vao day dich vu dangnhap*******');
+		sv.arr.cacdichvu.tendv.push(sv.vari.dichvu_db.fieldByName("tendv"));
+		sv.arr.cacdichvu.thamso.push(sv.vari.dichvu_db.fieldByName("thamso"));
+		sv.arr.cacdichvu.gia.push(sv.vari.dichvu_db.fieldByName("gia"));
+		sv.arr.cacdichvu.dauso.push(sv.vari.dichvu_db.fieldByName("dauso"));
+		sv.arr.cacdichvu.id.push(sv.vari.dichvu_db.fieldByName("servicenumber"));
+		// // if (sv.vari.dichvu_db.fieldByName("tendv") == "Dich vu kqxs") {
+		sv.vari.dichvu_db.next();
 	}
-	else{
-		while (sv.vari.dichvu_free.isValidRow()) {
-			Ti.API.info('nhay vao day*******');
-			sv.arr.cacdichvu.tendv.push(sv.vari.dichvu_free.fieldByName("tendv"));
-			sv.arr.cacdichvu.thamso.push(sv.vari.dichvu_free.fieldByName("thamso"));
-			sv.arr.cacdichvu.gia.push(sv.vari.dichvu_free.fieldByName("gia"));
-			sv.arr.cacdichvu.dauso.push(sv.vari.dichvu_free.fieldByName("dauso"));
-			sv.arr.cacdichvu.id.push(sv.vari.dichvu_free.fieldByName("servicenumber"));
-			// // if (sv.vari.dichvu_db.fieldByName("tendv") == "Dich vu kqxs") {
-			sv.vari.dichvu_free.next();
-		}
-		sv.vari.dichvu_free.close();
-		sv.vari.db.close();
+	while (sv.vari.dichvu_free.isValidRow()) {
+		Ti.API.info('nhay vao day dich vu free*******');
+		sv.arr.cacdichvu.tendv.push(sv.vari.dichvu_free.fieldByName("tendv"));
+		sv.arr.cacdichvu.thamso.push("");
+		sv.arr.cacdichvu.gia.push(sv.vari.dichvu_free.fieldByName("gia"));
+		sv.arr.cacdichvu.dauso.push(sv.vari.dichvu_free.fieldByName("dauso"));
+		sv.arr.cacdichvu.id.push(sv.vari.dichvu_free.fieldByName("servicenumber"));
+		// // if (sv.vari.dichvu_db.fieldByName("tendv") == "Dich vu kqxs") {
+		sv.vari.dichvu_free.next();
 	}
+	sv.vari.dichvu_db.close();
+	sv.vari.dichvu_free.close();
+	sv.vari.db.close();
 	for (var i = 1; i < (sv.arr.cacdichvu.tendv).length; i++) {
 		Ti.API.info('ten dichvu:' + sv.arr.cacdichvu.tendv[i]);
 		Ti.API.info('dauso:' + sv.arr.cacdichvu.dauso[i]);
