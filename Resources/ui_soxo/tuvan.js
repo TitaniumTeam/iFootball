@@ -16,6 +16,7 @@ function taobien(sv) {
 	sv.arr.rows = [];
 	sv.vari.db = Ti.Database.open("userinfo");
 	sv.vari.dichvu_db = sv.vari.db.execute("SELECT * FROM DichVu");
+	sv.vari.dichvu_free = sv.vari.db.execute("SELECT * FROM Dv_free");
 	sv.arr.cacdichvu = {};
 	sv.arr.cacdichvu.tendv = [];
 	sv.arr.cacdichvu.thamso = [];
@@ -31,16 +32,27 @@ function taoui(sv) {
 		height : Ti.UI.FILL,
 	});
 	while (sv.vari.dichvu_db.isValidRow()) {
-		Ti.API.info('nhay vao day*******');
+		Ti.API.info('nhay vao day dich vu dangnhap*******');
 		sv.arr.cacdichvu.tendv.push(sv.vari.dichvu_db.fieldByName("tendv"));
 		sv.arr.cacdichvu.thamso.push(sv.vari.dichvu_db.fieldByName("thamso"));
 		sv.arr.cacdichvu.gia.push(sv.vari.dichvu_db.fieldByName("gia"));
 		sv.arr.cacdichvu.dauso.push(sv.vari.dichvu_db.fieldByName("dauso"));
-		sv.arr.cacdichvu.id.push(sv.vari.dichvu_db.fieldByName("noidung"));
+		sv.arr.cacdichvu.id.push(sv.vari.dichvu_db.fieldByName("servicenumber"));
 		// // if (sv.vari.dichvu_db.fieldByName("tendv") == "Dich vu kqxs") {
 		sv.vari.dichvu_db.next();
 	}
+	while (sv.vari.dichvu_free.isValidRow()) {
+		Ti.API.info('nhay vao day dich vu free*******');
+		sv.arr.cacdichvu.tendv.push(sv.vari.dichvu_free.fieldByName("tendv"));
+		sv.arr.cacdichvu.thamso.push("");
+		sv.arr.cacdichvu.gia.push(sv.vari.dichvu_free.fieldByName("gia"));
+		sv.arr.cacdichvu.dauso.push(sv.vari.dichvu_free.fieldByName("dauso"));
+		sv.arr.cacdichvu.id.push(sv.vari.dichvu_free.fieldByName("servicenumber"));
+		// // if (sv.vari.dichvu_db.fieldByName("tendv") == "Dich vu kqxs") {
+		sv.vari.dichvu_free.next();
+	}
 	sv.vari.dichvu_db.close();
+	sv.vari.dichvu_free.close();
 	sv.vari.db.close();
 	for (var i = 1; i < (sv.arr.cacdichvu.tendv).length; i++) {
 		Ti.API.info('ten dichvu:' + sv.arr.cacdichvu.tendv[i]);
@@ -54,7 +66,7 @@ function taoui(sv) {
 			left : Ti.App.size(20),
 			backgroundColor : Ti.App.Color.magenta,
 			height : Ti.App.size(90),
-			color :Ti.App.Color.nauden,
+			color : Ti.App.Color.nauden,
 			font : {
 				fontSize : Ti.App.size(30)
 			},
@@ -82,8 +94,8 @@ function taoui(sv) {
 		data : sv.arr.rows,
 		top : 0,
 		separatorColor : Ti.App.Color.xanhnhat,
-		left :0,
-		backgroundColor:'transparent'
+		left : 0,
+		backgroundColor : 'transparent'
 	});
 	sv.ui.ViewTong.add(sv.ui.tbl1);
 	tao_sukien(sv);

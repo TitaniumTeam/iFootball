@@ -16,7 +16,8 @@ module.exports = function(_loai) {
 
 function createVariable(sv) {
 	sv.vari.db = Ti.Database.open("userinfo");
-	sv.vari.sql = sv.vari.db.execute("SELECT * FROM DichVu");
+	sv.vari.dichvu_user = sv.vari.db.execute("SELECT * FROM DichVu");
+	sv.vari.dichvu_free = sv.vari.db.execute("SELECT * FROM Dv_free");
 	sv.vari.smsdialog = require('/ui-controller/showSmsDialog');
 
 }
@@ -119,24 +120,30 @@ function createUI_Event(sv, _loai) {
 	sv.fu.evt_sms = function(e) {
 		if (_loai == 1) {
 			if (sv.vari.sql.isValidRow()) {
-				sv.vari.dichvu_db = sv.vari.db.execute("SELECT dauso,noidung FROM DichVu WHERE tendv=?", "Dich vu bong da");
-				sv.vari.dauso = sv.vari.dichvu_db.fieldByName("noidung");
-				sv.vari.noidung = sv.vari.dichvu_db.fieldByName("noidung");
+				sv.vari.dichvu_db = sv.vari.db.execute("SELECT dauso,servicenumber FROM DichVu WHERE tendv=?", "Dich vu bong da");
+				sv.vari.dauso = sv.vari.dichvu_user.fieldByName("servicenumber");
+				sv.vari.noidung = sv.vari.dichvu_user.fieldByName("servicenumber");
 				sv.vari.showSmsDialog = new sv.vari.smsdialog(sv.vari.dauso, sv.vari.noidung);
 				sv.ui.Window.close();
 			} else {
-				sv.vari.showSmsDialog = new sv.vari.smsdialog("88XX", "KQBD");
+				sv.vari.dichvu_db = sv.vari.db.execute("SELECT dauso,servicenumber FROM Dv_free WHERE tendv=?", "Dich vu bong da");
+				sv.vari.dauso = sv.vari.dichvu_free.fieldByName("servicenumber");
+				sv.vari.noidung = sv.vari.dichvu_free.fieldByName("servicenumber");
+				sv.vari.showSmsDialog = new sv.vari.smsdialog(sv.vari.dauso, sv.vari.noidung);
 				sv.ui.Window.close();
 			}
 		} else {
 			if (sv.vari.sql.isValidRow()) {
-				sv.vari.dichvu_db = sv.vari.db.execute("SELECT dauso,noidung FROM DichVu WHERE tendv=?", "Dich vu kqxs");
-				sv.vari.dauso = sv.vari.dichvu_db.fieldByName("noidung");
-				sv.vari.noidung = sv.vari.dichvu_db.fieldByName("noidung");
+				sv.vari.dichvu_db = sv.vari.db.execute("SELECT dauso,servicenumber FROM DichVu WHERE tendv=?", "Dich vu kqxs");
+				sv.vari.dauso = sv.vari.dichvu_user.fieldByName("servicenumber");
+				sv.vari.noidung = sv.vari.dichvu_user.fieldByName("servicenumber");
 				sv.vari.showSmsDialog = new sv.vari.smsdialog(sv.vari.dauso, sv.vari.noidung);
 				sv.ui.Window.close();
 			} else {
-				sv.vari.showSmsDialog = new sv.vari.smsdialog("88XX", "KQSXMB");
+				sv.vari.dichvu_db = sv.vari.db.execute("SELECT dauso,servicenumber FROM Dv_free WHERE tendv=?", "Dich vu kqxs");
+				sv.vari.dauso = sv.vari.dichvu_free.fieldByName("servicenumber");
+				sv.vari.noidung = sv.vari.dichvu_free.fieldByName("servicenumber");
+				sv.vari.showSmsDialog = new sv.vari.smsdialog(sv.vari.dauso, sv.vari.noidung);
 				sv.ui.Window.close();
 			}
 

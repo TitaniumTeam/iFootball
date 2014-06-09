@@ -25,10 +25,11 @@ function taobien(sv) {
 	sv.vari.tuvan_soxo = require('/ui_soxo/TuVan');
 	sv.vari.thongke = require('/ui_soxo/ThongKe');
 	////////
-	sv.vari.TTTD = require('/ui_bongda/ThongTinTranDau');
+	// sv.vari.TTTD = require('/ui_bongda/ThongTinTranDau');
 	sv.vari.tintuc = require('/ui_bongda/News');
 	sv.vari.tuvan_bongda = require('/ui_bongda/TuVan');
 	///version old
+<<<<<<< HEAD
 
 	// sv.vari.TTTD = require('/ui_bongda/thongtin_old');
 	sv.vari.tuvan_bongda = require('/ui_bongda/tuvan_old');
@@ -36,6 +37,12 @@ function taobien(sv) {
 	sv.vari.TTTD = require('/ui_bongda/thongtin_old');
 	// sv.vari.tuvan_bongda = require('/ui_bongda/tuvan_old');
 
+=======
+	sv.vari.TTTD = require('/ui_bongda/thongtin_old');
+	// sv.vari.tuvan_bongda = require('/ui_bongda/tuvan_old');
+	// sv.vari.TTTD = require('/ui_bongda/thongtin_old');
+	// sv.vari.tuvan_bongda = require('/ui_bongda/tuvan_old');
+>>>>>>> c6a203455a3fe495eadc10f4b07d530199bca6c6
 	//////view header
 	sv.arr.view_iconheader = [];
 	sv.arr.iconheader = [];
@@ -611,7 +618,9 @@ function taosukien(sv) {
 		ktmang(sv, 1);
 		sv.vari.db_open = Ti.Database.open('userinfo');
 		sv.vari.dichvu_open = sv.vari.db_open.execute("SELECT * FROM DichVu");
-		Ti.API.info('row count:' + sv.vari.dichvu_open.getRowCount());
+		sv.vari.dichvu_free = sv.vari.db_open.execute("SELECT * FROM Dv_free");
+		Ti.API.info('row count saveinfo:' + sv.vari.dichvu_open.getRowCount());
+		Ti.API.info('row count dichvu free:'+sv.vari.dichvu_free.getRowCount());
 		sv.arr.view_iconheader[2].backgroundColor = Ti.App.Color.superwhite;
 		sv.arr.iconheader[2].image = sv.arr.img_header[2].press;
 		sv.arr.iconheader[0].image = sv.arr.img_header[0].bg;
@@ -622,6 +631,7 @@ function taosukien(sv) {
 			Ti.API.info('ten dich vu' + sv.vari.dichvu_open.fieldByName("tendv") + ':' + sv.vari.dichvu_open.fieldByName("dauso") + ':' + sv.vari.dichvu_open.fieldByName("thamso") + ':' + sv.vari.dichvu_open.fieldByName("gia"));
 			sv.vari.dichvu_open.next();
 		};
+		sv.vari.dichvu_free.close();
 		sv.vari.dichvu_open.close();
 		sv.vari.db_open.close();
 		push_notification();

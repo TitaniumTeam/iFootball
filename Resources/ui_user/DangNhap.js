@@ -451,9 +451,9 @@ function get_menu(data, sv) {
 				Ti.API.info('gia' + jsonResuilt.menus[i].price);
 				Ti.API.info('param' + jsonResuilt.menus[i].params);
 				Ti.API.info('param' + jsonResuilt.menus[i].servicenumber);
-				db.execute('INSERT INTO DichVu(tendv,dauso,noidung,thamso,gia) VALUES(?,?,?,?,?)', jsonResuilt.menus[i].name, jsonResuilt.menus[i].action, jsonResuilt.menus[i].servicenumber, jsonResuilt.menus[i].params, jsonResuilt.menus[i].price);
+				db.execute('INSERT INTO DichVu(tendv,dauso,servicenumber,thamso,gia) VALUES(?,?,?,?,?)', jsonResuilt.menus[i].name, jsonResuilt.menus[i].action, jsonResuilt.menus[i].servicenumber, jsonResuilt.menus[i].params, jsonResuilt.menus[i].price);
 			} else {
-				db.execute('INSERT INTO DichVu(tendv,dauso,noidung,thamso,gia) VALUES(?,?,?,?,?)', jsonResuilt.menus[i].name, jsonResuilt.menus[i].action, jsonResuilt.menus[i].servicenumber, "", jsonResuilt.menus[i].price);
+				db.execute('INSERT INTO DichVu(tendv,dauso,servicenumber,thamso,gia) VALUES(?,?,?,?,?)', jsonResuilt.menus[i].name, jsonResuilt.menus[i].action, jsonResuilt.menus[i].servicenumber, "", jsonResuilt.menus[i].price);
 			}
 
 		}
