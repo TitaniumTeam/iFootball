@@ -137,7 +137,7 @@ function tao_ui(sv) {
 	});
 	for (var i = 0; i < sv.arr.data.length; i++) {
 		sv.ui.row = Ti.UI.createTableViewRow({
-			height : set_height(sv.arr.param[i]),
+			height :sv.vari.row_height,
 			width : Ti.App.size(720),
 			backgroundColor : Ti.App.Color.magenta,
 		});
@@ -283,13 +283,13 @@ function tao_event(sv) {
 		sv.arr.event_clickrow[i] = function(e) {
 			if (e.source.expanded) {
 				e.source.expanded = false;
-				sv.arr.rows[e.source.id].setHeight(set_height(sv.arr.param[e.source.id]));
+				sv.arr.rows[e.source.id].setHeight(Ti.App.size(100));
 				sv.arr.arrow[e.source.id].transform = sv.vari.trans2;
 				sv.arr.arrow[e.source.id].top = Ti.App.size(25);
 				for (var j = 0; j < sv.arr.data.length; j++) {
 					if (j != (e.source.id)) {
 						sv.arr.rows[j].expanded = false;
-						sv.arr.rows[j].setHeight(set_height(sv.arr.param[j]));
+						sv.arr.rows[j].setHeight(Ti.App.size(100));
 						sv.arr.arrow[j].transform = sv.vari.trans2;
 						sv.arr.arrow[j].top = Ti.App.size(25);
 					}
@@ -329,13 +329,13 @@ function set_border(i, sv) {
 		return 0;
 	}
 };
-function set_height(sotran) {
-	if ((sotran.length) == 1) {
-		return Ti.App.size(240);
-	} else {
-		return Ti.App.size(380);
-	}
-};
+// function set_height(sotran) {
+	// if ((sotran.length) == 1) {
+		// return Ti.App.size(240);
+	// } else {
+		// return Ti.App.size(380);
+	// }
+// };
 function height_viewback(sotran) {
 	if ((sotran.length) == 1) {
 		return Ti.App.size(140);

@@ -70,104 +70,72 @@ function createUI(sv) {
 	sv.ui.ViewTong.add(sv.ui.ViewChua);
 	sv.ui.BGHeader = Ti.UI.createView({
 		right : Ti.App.size(0),
-		height : Ti.App.size(430),
+		height : Ti.App.size(288),
 		// top : Ti.App.size(0),
 		left : 0,
-		backgroundColor : Ti.App.Color.red,
+		backgroundColor : Ti.App.Color.xanhnhat,
 		touchEnabled : false
 	});
-
-	sv.ui.LbNgayThang = Ti.UI.createLabel({
-		text : '23/04/2014',
-		top : Ti.App.size(145 - 120),
-		right : Ti.App.size(365),
-		left : Ti.App.size(245),
-		font : {
-			fontSize : Ti.App.size(20),
-			fontWeight : 'bold',
-			fontFamily : 'Aria',
-			textAlign : 'right'
-		},
-		color : Ti.App.Color.white,
+	sv.ui.IconTime = Ti.UI.createImageView({
+		image : '/assets/images/icon/icon-time.png',
+		height : Ti.App.size(25),
+		left : Ti.App.size(285),
+		width : Ti.App.size(25),
+		top : Ti.App.size(145 - 120)
 	});
-
 	sv.ui.LbGioPhut = Ti.UI.createLabel({
 		text : '19:00',
 		top : Ti.App.size(145 - 120),
-		left : Ti.App.size(405),
-		right : 0,
 		font : {
 			fontSize : Ti.App.size(20),
 			fontWeight : 'bold',
 			fontFamily : 'Aria',
 			textAlign : 'left'
 		},
-		color : Ti.App.Color.white,
+		color : Ti.App.Color.nauden,
+		left:Ti.App.size(320)
 	});
 
 	sv.ui.IconAddress = Ti.UI.createImageView({
 		image : '/assets/images/icon/icon-address.png/',
 		height : Ti.App.size(30),
-		right : Ti.App.size(510),
-		left : Ti.App.size(190),
-		top : Ti.App.size(185 - 120)
+		top : Ti.App.size(185 - 120),
+		width : Ti.App.size(20),
+		left : Ti.App.size(280)
 	});
 
 	sv.ui.LbSan = Ti.UI.createLabel({
 		text : 'Sân Oftrafox',
 		top : Ti.App.size(185 - 120),
-		right : Ti.App.size(355),
-		left : Ti.App.size(220),
+		left : Ti.App.size(310),
 		font : {
 			fontSize : Ti.App.size(20),
 			fontWeight : 'bold',
 			fontFamily : 'Aria',
 			textAlign : 'right'
 		},
-		color : Ti.App.Color.white,
-	});
-
-	sv.ui.IconTime = Ti.UI.createImageView({
-		image : '/assets/images/icon/icon-time.png',
-		height : Ti.App.size(25),
-		left : Ti.App.size(400),
-		width : Ti.App.size(25),
-		top : Ti.App.size(185 - 120)
-	});
-
-	sv.ui.LbThoiGian = Ti.UI.createLabel({
-		text : 'Còn 45p',
-		top : Ti.App.size(185 - 120),
-		right : Ti.App.size(0),
-		left : Ti.App.size(435),
-		font : {
-			fontSize : Ti.App.size(20),
-			fontWeight : 'bold',
-			fontFamily : 'Aria',
-			textAlign : 'left'
-		},
-		color : Ti.App.Color.white,
+		color : Ti.App.Color.nauden,
 	});
 
 	sv.ui.IconDoiChuNha = Ti.UI.createImageView({
 		image : '/assets/images/1/Manchester-United.png',
-		height : Ti.App.size(180),
-		width : Ti.App.size(180),
-		top : Ti.App.size(160),
+		height : Ti.App.size(115),
+		width : Ti.App.size(115),
+		top : Ti.App.size(50),
 		left : Ti.App.size(50),
 	});
 
 	sv.ui.IconDoiKhach = Ti.UI.createImageView({
 		image : '/assets/images/1/Chelsea_FC.png',
-		height : Ti.App.size(180),
-		width : Ti.App.size(180),
-		top : Ti.App.size(160),
+		height : Ti.App.size(115),
+		width : Ti.App.size(115),
+		top : Ti.App.size(50),
 		right : Ti.App.size(50),
 	});
 
 	sv.ui.LbVS = Ti.UI.createLabel({
 		text : 'VS',
-		top : Ti.App.size(335 - 120),
+		top : Ti.App.size(100),
 		//right : Ti.App.size(0),
 		//left : Ti.App.size(0),
 		font : {
@@ -176,17 +144,17 @@ function createUI(sv) {
 			fontFamily : 'Aria',
 			textAlign : 'center'
 		},
-		color : Ti.App.Color.xanhnhat,
+		color : Ti.App.Color.nauden,
 	});
 
 	sv.ui.ViewTenDoiChuNha = Ti.UI.createView({
-		top : Ti.App.size(460 - 120),
+		top : Ti.App.size(200),
 		width : Ti.App.size(200),
 		left : Ti.App.size(40),
 	});
 
 	sv.ui.ViewTenDoiKhach = Ti.UI.createView({
-		top : Ti.App.size(460 - 120),
+		top : Ti.App.size(200),
 		width : Ti.App.size(200),
 		right : Ti.App.size(40),
 	});
@@ -199,7 +167,7 @@ function createUI(sv) {
 			fontFamily : 'Aria',
 			textAlign : 'center'
 		},
-		color : Ti.App.Color.white,
+		color : Ti.App.Color.nauden,
 	});
 
 	sv.ui.LbTenDoiKhach = Ti.UI.createLabel({
@@ -210,7 +178,7 @@ function createUI(sv) {
 			fontFamily : 'Aria',
 			textAlign : 'center'
 		},
-		color : Ti.App.Color.white,
+		color : Ti.App.Color.nauden,
 	});
 
 	sv.ui.LbThongTinKeo = Ti.UI.createLabel({
@@ -620,12 +588,10 @@ function createUI(sv) {
 	sv.ui.ViewChua.add(sv.ui.ViewTyLeAn);
 	sv.ui.ViewChua.add(sv.ui.ViewCaCuocTySo);
 
-	sv.ui.BGHeader.add(sv.ui.LbNgayThang);
 	sv.ui.BGHeader.add(sv.ui.LbGioPhut);
 	sv.ui.BGHeader.add(sv.ui.IconAddress);
 	sv.ui.BGHeader.add(sv.ui.LbSan);
 	sv.ui.BGHeader.add(sv.ui.IconTime);
-	sv.ui.BGHeader.add(sv.ui.LbThoiGian);
 	sv.ui.BGHeader.add(sv.ui.IconDoiChuNha);
 	sv.ui.BGHeader.add(sv.ui.IconDoiKhach);
 	sv.ui.BGHeader.add(sv.ui.LbVS);
