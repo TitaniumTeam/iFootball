@@ -33,10 +33,10 @@ function taobien(sv) {
 	// sv.vari.TTTD = require('/ui_bongda/thongtin_old');
 	sv.vari.tuvan_bongda = require('/ui_bongda/tuvan_old');
 
-	sv.vari.TTTD = require('/ui_bongda/thongtin_old');
+	//sv.vari.TTTD = require('/ui_bongda/thongtin_old');
 	// sv.vari.tuvan_bongda = require('/ui_bongda/tuvan_old');
 
-	sv.vari.TTTD = require('/ui_bongda/thongtin_old');
+	sv.vari.TTTD = require('/ui_bongda/ThongTinTranDau');
 	// sv.vari.tuvan_bongda = require('/ui_bongda/tuvan_old');
 	// sv.vari.TTTD = require('/ui_bongda/thongtin_old');
 	// sv.vari.tuvan_bongda = require('/ui_bongda/tuvan_old');
