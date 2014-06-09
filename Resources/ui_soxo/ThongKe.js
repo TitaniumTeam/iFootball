@@ -13,8 +13,8 @@ module.exports = function() {
 
 function taobien(sv) {
 	sv.vari.combobox = require('/ui_soxo/ComboBox');
-	sv.vari.indicator = require('/ui-controller/vIndicatorWindow');
-	sv.vari.vIndicatorWindow = sv.vari.indicator.createIndicatorWindow();
+	// sv.vari.indicator = require('/ui-controller/vIndicatorWindow');
+	// sv.vari.vIndicatorWindow = sv.vari.indicator.createIndicatorWindow();
 	sv.vari.flag = false;
 	sv.arr.datarow = [];
 	sv.arr.height = [Ti.App.size(120), Ti.App.size(200)];

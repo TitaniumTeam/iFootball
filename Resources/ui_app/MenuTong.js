@@ -13,10 +13,10 @@ module.exports = function(dichvu) {
 
 };
 function taobien(sv) {
+	sv.vari.indicator = require('/ui-controller/vIndicatorWindow');
+	sv.vari.vIndicatorWindow = sv.vari.indicator.createIndicatorWindow();
 	////
-	// sv.vari.indicator = require('/ui-controller/vIndicatorWindow');
-	// sv.vari.vIndicatorWindow = sv.vari.indicator.createIndicatorWindow();
-	sv.vari.intelval;
+	sv.vari.intelval
 	sv.vari.dem = 0;
 	sv.vari.popup = require('/ui_user/PopUpDangNhap');
 	////
@@ -301,15 +301,11 @@ function taoui(sv, dichvu) {
 		sv.arr.view_iconheader[i].addEventListener('click', sv.arr.evt_header[i]);
 	}
 	sv.ui.ViewTong.addEventListener('postlayout', sv.fu.event_loadview);
-	sv.ui.win.addEventListener('postlayout', sv.fu.event_loadview);
 	sv.ui.win.addEventListener('open', sv.fu.evt_win_open);
 	sv.ui.win.addEventListener('close', sv.fu.evt_win_close);
 };
 
 function taosukien(sv, dichvu) {
-	sv.fu.event_loadview = function(e) {
-		// Ti.API.info('post lay out');
-	};
 
 	/**
 	 * footer
@@ -320,6 +316,10 @@ function taosukien(sv, dichvu) {
 			sv.arr.evt_chucnangsoxo[i] = function(e) {
 				clearInterval(sv.vari.intelval);
 				ktmang(sv, 2, dichvu);
+				if (Ti.Platform.osname == 'android') {
+					sv.ui.ViewTong.visible = false;
+					sv.vari.vIndicatorWindow.openIndicator();
+				}
 				for (var j = 0; j < 4; j++) {
 					if (j == 0) {
 						sv.arr.viewchucnangsoxo[j].backgroundColor = Ti.App.Color.superwhite;
@@ -464,7 +464,7 @@ function taosukien(sv, dichvu) {
 					}
 
 				}
-				sv.ui.view_tuvan = new sv.vari.tuvan_bongda();
+				sv.ui.view_tuvan = new sv.vari.tuvan_bongda(dichvu);
 				sv.ui.ViewTong.removeAllChildren();
 				sv.ui.ViewTong.add(sv.ui.view_tuvan.ui.ViewTong);
 			};
@@ -593,12 +593,15 @@ function taosukien(sv, dichvu) {
 
 					}
 				}
-				sv.vari.flag_updatekq = true;
 			};
 		}
 
 	}
-
+	sv.fu.event_loadview = function(e) {
+		Ti.API.info('post layout');
+		sv.ui.ViewTong.visible = true;
+		sv.vari.vIndicatorWindow.closeIndicator();
+	};
 	/**su kien cua window
 	 * **/
 	sv.fu.evt_win_open = function(e) {
@@ -651,8 +654,6 @@ function taosukien(sv, dichvu) {
 		for (var i = 0; i < 3; i++) {
 			sv.arr.view_iconheader[i].removeEventListener('click', sv.arr.evt_header[i]);
 		}
-		sv.ui.ViewTong.addEventListener('postlayout', sv.fu.event_loadview);
-		sv.ui.win.removeEventListener('postlayout', sv.fu.event_loadview);
 		sv.ui.win.removeEventListener('open', sv.fu.evt_win_open);
 		sv.ui.win.removeEventListener('close', sv.fu.evt_win_close);
 		sv.ui = null;
@@ -742,7 +743,7 @@ function currMin() {
 
 function ktmang(sv, _loai, dichvu) {
 	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
-		var kqoff = new (require('/ui_app/kq_offline'))(_loai);
+		var kqoff = new (require('/ui_app/kq_offline'))(_loai, dichvu);
 		kqoff.open({
 			modal : Ti.Platform.osname == 'android' ? true : false
 		});

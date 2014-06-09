@@ -1,4 +1,4 @@
-module.exports = function(_loai,dichvu) {
+module.exports = function(_loai, dichvu) {
 	var sv = {};
 	sv.vari = {};
 	sv.arr = {};
@@ -8,7 +8,7 @@ module.exports = function(_loai,dichvu) {
 
 	(function() {
 		createVariable(sv);
-		createUI(sv, _loai,dichvu);
+		createUI(sv, _loai, dichvu);
 	})();
 
 	return sv.ui.Window;
@@ -17,12 +17,11 @@ module.exports = function(_loai,dichvu) {
 function createVariable(sv) {
 	sv.vari.db = Ti.Database.open("userinfo");
 	sv.vari.dichvu_user = sv.vari.db.execute("SELECT * FROM DichVu");
-	sv.vari.dichvu_free = sv.vari.db.execute("SELECT * FROM Dv_free");
 	sv.vari.smsdialog = require('/ui-controller/showSmsDialog');
 
 }
 
-function createUI(sv, _loai,dichvu) {
+function createUI(sv, _loai, dichvu) {
 	sv.ui.Window = Ti.UI.createWindow({
 		//backgroundColor : Ti.App.Color.nauden,
 		navBarHidden : true,
@@ -97,7 +96,7 @@ function createUI(sv, _loai,dichvu) {
 		backgroundSelectedColor : Ti.App.Color.xanhnhat
 	});
 
-	createUI_Event(sv, _loai,dichvu);
+	createUI_Event(sv, _loai, dichvu);
 
 	sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
 	sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
@@ -116,10 +115,10 @@ function createUI(sv, _loai,dichvu) {
 
 }
 
-function createUI_Event(sv, _loai,dichvu) {
+function createUI_Event(sv, _loai, dichvu) {
 	sv.fu.evt_sms = function(e) {
 		if (_loai == 1) {
-			if (sv.vari.sql.isValidRow()) {
+			if (sv.vari.dichvu_user.isValidRow()) {
 				sv.vari.dichvu_db = sv.vari.db.execute("SELECT dauso,servicenumber FROM DichVu WHERE tendv=?", "Dich vu bong da");
 				sv.vari.dauso = sv.vari.dichvu_user.fieldByName("servicenumber");
 				sv.vari.noidung = sv.vari.dichvu_user.fieldByName("servicenumber");
@@ -132,7 +131,7 @@ function createUI_Event(sv, _loai,dichvu) {
 				sv.ui.Window.close();
 			}
 		} else {
-			if (sv.vari.sql.isValidRow()) {
+			if (sv.vari.dichvu_user.isValidRow()) {
 				sv.vari.dichvu_db = sv.vari.db.execute("SELECT dauso,servicenumber FROM DichVu WHERE tendv=?", "Dich vu kqxs");
 				sv.vari.dauso = sv.vari.dichvu_user.fieldByName("servicenumber");
 				sv.vari.noidung = sv.vari.dichvu_user.fieldByName("servicenumber");
@@ -159,7 +158,7 @@ function createUI_Event(sv, _loai,dichvu) {
 
 	sv.fu.eventCloseWindow = function(e) {
 		sv.vari.db.close();
-		sv.vari.sql.close();
+		sv.vari.dichvu_user.close();
 		sv.ui.Window.removeEventListener('open', sv.fu.eventOpenWindow);
 		sv.ui.Window.removeEventListener('close', sv.fu.eventCloseWindow);
 		sv.ui.Icon.removeEventListener('click', sv.fu.eventClickIcon);
