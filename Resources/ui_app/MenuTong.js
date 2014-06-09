@@ -29,7 +29,6 @@ function taobien(sv) {
 	sv.vari.tintuc = require('/ui_bongda/News');
 	sv.vari.tuvan_bongda = require('/ui_bongda/TuVan');
 	///version old
-<<<<<<< HEAD
 
 	// sv.vari.TTTD = require('/ui_bongda/thongtin_old');
 	sv.vari.tuvan_bongda = require('/ui_bongda/tuvan_old');
@@ -37,12 +36,11 @@ function taobien(sv) {
 	sv.vari.TTTD = require('/ui_bongda/thongtin_old');
 	// sv.vari.tuvan_bongda = require('/ui_bongda/tuvan_old');
 
-=======
 	sv.vari.TTTD = require('/ui_bongda/thongtin_old');
 	// sv.vari.tuvan_bongda = require('/ui_bongda/tuvan_old');
 	// sv.vari.TTTD = require('/ui_bongda/thongtin_old');
 	// sv.vari.tuvan_bongda = require('/ui_bongda/tuvan_old');
->>>>>>> c6a203455a3fe495eadc10f4b07d530199bca6c6
+
 	//////view header
 	sv.arr.view_iconheader = [];
 	sv.arr.iconheader = [];
