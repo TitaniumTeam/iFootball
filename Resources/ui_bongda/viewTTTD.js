@@ -110,17 +110,17 @@ function tao_ui(sv) {
 
 function setParam(sv) {
 	sv.setParam = function(_top, param) {
-		if (param.date===""||param.date===undefined) {
+		if (param == null) {
 			sv.ui.Vcontent.top = _top;
 			sv.ui.lbl_thoigian.text = "Khong co du lieu";
 		} else {
 			sv.ui.Vcontent.top = _top;
 			sv.ui.lbl_thoigian.text = param.date;
 			sv.ui.lbl_tendoi.text = param.ownerName + ' VS ' + param.guestName;
-			if(param.result){
+			if (param.result) {
 				sv.ui.tiso.text = param.result;
 			}
-			
+
 		}
 
 	};

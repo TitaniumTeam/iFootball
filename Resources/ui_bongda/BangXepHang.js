@@ -1,4 +1,4 @@
-module.exports = function() {
+module.exports = function(tourid) {
 	var sv = {};
 	sv.vari = {};
 	sv.arr = {};
@@ -7,16 +7,17 @@ module.exports = function() {
 	sv.test = {};
 
 	(function() {
-		createVariable(sv);
-		createUI(sv);
+		createVariable(sv, tourid);
+		createUI(sv, tourid);
 	})();
 
 	return sv;
 };
 
-function createVariable(sv) {
+function createVariable(sv, tourid) {
+	Ti.API.info('tourid : ', tourid);
 	GetLeagueRate(sv, "getleaguerate", {
-		"tourid" : "NHA",
+		"tourid" : tourid,
 		"season" : "2013-2014"
 	});
 	sv.vari.STTDoiBong = 1;
@@ -42,11 +43,11 @@ function createVariable(sv) {
 	sv.arr.TenDoi = ['Manchester United', 'Manchester City', 'Chelsea'];
 }
 
-function createUI(sv) {
+function createUI(sv, tourid) {
 
 	var jsonResuilt;
 	var data = {
-		"tourid" : "NHA",
+		"tourid" : tourid,
 		"season" : "2013-2014"
 	};
 
