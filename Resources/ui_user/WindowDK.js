@@ -193,9 +193,7 @@ function tao_ui(sv) {
 
 function tao_event(sv) {
 	sv.fu.openMenuTong=function(e){
-		sv.vari.menutong=new sv.vari.wd_home();
-		sv.vari.menutong.ui.win.open();
-		sv.ui.WindowDK.close();
+		back_home(sv);
 	};
 	
 	sv.fu.openWindow = function(e) {
@@ -262,3 +260,56 @@ function fn_updateImage2Server(_cmd, data, sv) {
 		};
 	}
 };
+function back_home(){
+	var menutong = require('/ui_app/MenuTong');
+	var xhr = Titanium.Network.createHTTPClient();
+		data = {
+			"username" : ""
+		};
+		xhr.onsendstream = function(e) {
+			//ind.value = e.progress;
+			Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
+		};
+		// open the client
+		xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=getmenu');
+		xhr.setRequestHeader("Content-Type", "application/json-rpc");
+		Ti.API.info(JSON.stringify(data));
+		xhr.send(JSON.stringify(data));
+		xhr.onerror = function(e) {
+			// Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
+			// var home = new menutong();
+			// home.ui.win.open();
+
+		};
+		xhr.onload = function() {
+			Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
+			var dl = JSON.parse(this.responseText);
+			Ti.API.info('du lieu' + dl);
+			var jsonResuilt = JSON.parse(dl);
+			var dichvu = {};
+			dichvu.param = [];
+			dichvu.tendv = [];
+			dichvu.dauso = [];
+			dichvu.servicenumber = [];
+			dichvu.gia = [];
+			for (var i = 0; i < (jsonResuilt.menus.length); i++) {
+				if (jsonResuilt.menus[i].params) {
+					dichvu.tendv.push(jsonResuilt.menus[i].name);
+					dichvu.dauso.push(jsonResuilt.menus[i].action);
+					dichvu.servicenumber.push(jsonResuilt.menus[i].servicenumber);
+					dichvu.param.push(jsonResuilt.menus[i].params);
+					dichvu.gia.push(jsonResuilt.menus[i].price);
+				} else {
+					dichvu.tendv.push(jsonResuilt.menus[i].name);
+					dichvu.dauso.push(jsonResuilt.menus[i].action);
+					dichvu.servicenumber.push(jsonResuilt.menus[i].servicenumber);
+					dichvu.param.push("");
+					dichvu.gia.push(jsonResuilt.menus[i].price);
+				}
+			}
+
+			var home = new menutong(dichvu);
+			home.ui.win.open();
+			sv.ui.WindowDK.close();
+		};
+}

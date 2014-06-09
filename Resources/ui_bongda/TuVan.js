@@ -1,4 +1,4 @@
-module.exports = function() {
+module.exports = function(dichvu) {
 	var sv = {};
 	sv.fu = {};
 	sv.ui = {};
@@ -6,17 +6,16 @@ module.exports = function() {
 	sv.vari = {};
 	(function() {
 		taobien(sv);
-		taoui(sv);
+		taoui(sv, dichvu);
 	})();
 
 	return sv;
 };
-function taobien(sv) {
+function taobien(sv, dichvu) {
 	sv.vari.soluongmenu = 3;
 	sv.arr.rows = [];
 	sv.vari.db = Ti.Database.open("userinfo");
 	sv.vari.dichvu_db = sv.vari.db.execute("SELECT * FROM DichVu");
-	sv.vari.dichvu_free = sv.vari.db.execute("SELECT * FROM Dv_free");
 	sv.arr.cacdichvu = {};
 	sv.arr.cacdichvu.tendv = [];
 	sv.arr.cacdichvu.thamso = [];
@@ -24,7 +23,7 @@ function taobien(sv) {
 	sv.arr.cacdichvu.dauso = [];
 	sv.arr.cacdichvu.id = [];
 };
-function taoui(sv) {
+function taoui(sv, dichvu) {
 	sv.ui.ViewTong = Ti.UI.createView({
 		top : 0,
 		left : 0,
@@ -32,7 +31,7 @@ function taoui(sv) {
 		height : Ti.UI.FILL,
 	});
 	while (sv.vari.dichvu_db.isValidRow()) {
-		Ti.API.info('nhay vao day*******');
+		Ti.API.info('nhay vao day dich vu dangnhap*******');
 		sv.arr.cacdichvu.tendv.push(sv.vari.dichvu_db.fieldByName("tendv"));
 		sv.arr.cacdichvu.thamso.push(sv.vari.dichvu_db.fieldByName("thamso"));
 		sv.arr.cacdichvu.gia.push(sv.vari.dichvu_db.fieldByName("gia"));
@@ -41,44 +40,41 @@ function taoui(sv) {
 		// // if (sv.vari.dichvu_db.fieldByName("tendv") == "Dich vu kqxs") {
 		sv.vari.dichvu_db.next();
 	}
-	while (sv.vari.dichvu_free.isValidRow()) {
-		Ti.API.info('nhay vao day dich vu free*******');
-		sv.arr.cacdichvu.tendv.push(sv.vari.dichvu_free.fieldByName("tendv"));
-		sv.arr.cacdichvu.thamso.push("");
-		sv.arr.cacdichvu.gia.push(sv.vari.dichvu_free.fieldByName("gia"));
-		sv.arr.cacdichvu.dauso.push(sv.vari.dichvu_free.fieldByName("dauso"));
-		sv.arr.cacdichvu.id.push(sv.vari.dichvu_free.fieldByName("servicenumber"));
-		// // if (sv.vari.dichvu_db.fieldByName("tendv") == "Dich vu kqxs") {
-		sv.vari.dichvu_free.next();
-	}
 	sv.vari.dichvu_db.close();
-	sv.vari.dichvu_free.close();
 	sv.vari.db.close();
-	for (var i = 0; i < (sv.arr.cacdichvu.tendv).length; i++) {
+	if (dichvu) {
+		Ti.API.info('**** dich vu free');
+		for (var i = 0; i < (dichvu.tendv.length); i++) {
+			sv.arr.cacdichvu.tendv.push(dichvu.tendv[i]);
+			sv.arr.cacdichvu.thamso.push(dichvu.param[i]);
+			sv.arr.cacdichvu.gia.push(dichvu.gia[i]);
+			sv.arr.cacdichvu.dauso.push(dichvu.dauso[i]);
+			sv.arr.cacdichvu.id.push(dichvu.servicenumber[i]);
+		}
+	}
+	for (var i = 0; i < ((sv.arr.cacdichvu.tendv).length)/2; i++) {
 		Ti.API.info('ten dichvu:' + sv.arr.cacdichvu.tendv[i]);
 		Ti.API.info('dauso:' + sv.arr.cacdichvu.dauso[i]);
 		Ti.API.info('thamso:' + sv.arr.cacdichvu.thamso[i]);
 		Ti.API.info('gia:' + sv.arr.cacdichvu.gia[i]);
 		Ti.API.info('noi dung:' + sv.arr.cacdichvu.id[i]);
-		if (i == 0) {
-			sv.ui.row = Ti.UI.createTableViewRow({
-				width : Ti.App.size(640),
-				left : Ti.App.size(20),
-				backgroundColor : Ti.App.Color.magenta,
-				height : Ti.App.size(90),
-				color : Ti.App.Color.nauden,
-				font : {
-					fontSize : Ti.App.size(30)
-				},
-				title : sv.arr.cacdichvu.tendv[i],
-				thamso : sv.arr.cacdichvu.thamso[i],
-				tendauso : sv.arr.cacdichvu.dauso[i],
-				price : sv.arr.cacdichvu.gia[i],
-				borderColor : Ti.App.Color.blue
-				// hasChild : true
-			});
-			sv.arr.rows.push(sv.ui.row);
-		}
+		// sv.ui.webview.hide();
+		sv.ui.row = Ti.UI.createTableViewRow({
+			width : Ti.App.size(640),
+			left : Ti.App.size(20),
+			backgroundColor : Ti.App.Color.magenta,
+			height : Ti.App.size(90),
+			color : Ti.App.Color.nauden,
+			font : {
+				fontSize : Ti.App.size(30)
+			},
+			title : sv.arr.cacdichvu.tendv[i],
+			thamso : sv.arr.cacdichvu.thamso[i],
+			tendauso : sv.arr.cacdichvu.dauso[i],
+			price : sv.arr.cacdichvu.gia[i],
+			// hasChild : true
+		});
+		sv.arr.rows.push(sv.ui.row);
 
 	}
 	sv.ui.webview = Ti.UI.createWebView({
@@ -92,10 +88,10 @@ function taoui(sv) {
 	// }
 	sv.ui.tbl1 = Ti.UI.createTableView({
 		width : Ti.App.size(720),
-		height : Ti.UI.FILL,
+		height : Ti.UI.SIZE,
 		data : sv.arr.rows,
 		top : 0,
-		separatorColor : 'transparent',
+		separatorColor : Ti.App.Color.xanhnhat,
 		left : 0,
 		backgroundColor : 'transparent'
 	});

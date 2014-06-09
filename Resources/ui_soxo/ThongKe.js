@@ -20,11 +20,9 @@ function taobien(sv) {
 	sv.arr.height = [Ti.App.size(120), Ti.App.size(200)];
 	////view day so lau ve
 	sv.arr.line1 = [];
-	sv.arr.view_solauve = [];
-	sv.arr.solauve1 = [];
-	sv.arr.tansuat_solauve1 = [];
-	sv.arr.solauve2 = [];
-	sv.arr.tansuat_solauve2 = [];
+	sv.arr.view_solauve1 = [];
+	sv.arr.view_solauve2 = [];
+	sv.arr.linebottom1 = [];
 	///view day so hay ve
 	sv.arr.line = [];
 	sv.arr.view_sohayve = [];
@@ -33,11 +31,10 @@ function taobien(sv) {
 	sv.arr.tile_sohayve = [];
 	///view cap so ra lien tiepp
 	sv.arr.view_capsolt = [];
+	sv.arr.view_capsolt1 = [];
 	sv.arr.capso1 = [];
 	sv.arr.ngay1 = [];
-	sv.arr.ngay2 = [];
-	sv.arr.capso2 = [];
-	sv.arr.line2 = [];
+	sv.arr.linebottom = [];
 }
 
 /*
@@ -174,26 +171,17 @@ function thongke(_cmd, data, sv) {
 					textAlign : 'left'
 				});
 				sv.ui.scrollView.add(sv.ui.lbl_dsve_saudau);
-				for (var i = 0; i < (jsonResuilt.thongke.lauchuara.length) / 2; i++) {
-					sv.arr.view_solauve[i] = Ti.UI.createTableViewRow({
-						width : Ti.App.size(670),
+
+				for (var i = 0; i < (jsonResuilt.thongke.lauchuara.length / 2 ); i++) {
+					sv.arr.view_solauve1[i] = Ti.UI.createTableViewRow({
+						width : Ti.App.size(335),
 						height : Ti.App.size(65),
 						left : 0,
-						borderColor : Ti.App.Color.magenta,
-						borderWidth : Ti.App.size(2),
 						backgroundColor : 'transparent',
 						touchEnabled : false,
-						top : Ti.App.size(65 * i),
-						touchEnabled : false
+						touchEnabled : false,
 					});
-					sv.arr.line1[j] = Ti.UI.createView({
-						left : Ti.App.size(345),
-						width : Ti.App.size(1),
-						height : Ti.App.size(40),
-						backgroundColor : Ti.App.Color.magenta
-					});
-
-					sv.arr.solauve1[i] = Ti.UI.createLabel({
+					sv.arr.capso1[i] = Ti.UI.createLabel({
 						left : Ti.App.size(20),
 						textAlign : 'center',
 						width : Ti.UI.SIZE,
@@ -202,12 +190,11 @@ function thongke(_cmd, data, sv) {
 						},
 						color : Ti.App.Color.nauden,
 						touchEnabled : false,
-						text : jsonResuilt.thongke.lauchuara[i].dayso,
-
+						text : jsonResuilt.thongke.lauchuara[i].dayso
 					});
-					sv.arr.tansuat_solauve1[i] = Ti.UI.createLabel({
+					sv.arr.ngay1[i] = Ti.UI.createLabel({
 						left : Ti.App.size(145),
-						textAlign : 'left',
+						textAlign : 'center',
 						width : Ti.UI.SIZE,
 						font : {
 							fontSize : Ti.App.size(30)
@@ -216,8 +203,21 @@ function thongke(_cmd, data, sv) {
 						touchEnabled : false,
 						text : jsonResuilt.thongke.lauchuara[i].songay + ' ngày'
 					});
-					sv.arr.solauve2[i] = Ti.UI.createLabel({
-						left : Ti.App.size(365),
+					sv.arr.view_solauve1[i].add(sv.arr.ngay1[i]);
+					sv.arr.view_solauve1[i].add(sv.arr.capso1[i]);
+				};
+				for (var i = jsonResuilt.thongke.ralientiep.length / 2; i < (jsonResuilt.thongke.ralientiep.length); i++) {
+					sv.arr.view_solauve2[i] = Ti.UI.createTableViewRow({
+						width : Ti.App.size(335),
+						height : Ti.App.size(65),
+						left : Ti.App.size(0),
+						backgroundColor : 'transparent',
+						touchEnabled : false,
+						top : Ti.App.size(67 * i),
+						touchEnabled : false,
+					});
+					sv.arr.capso1[i] = Ti.UI.createLabel({
+						left : Ti.App.size(20),
 						textAlign : 'center',
 						width : Ti.UI.SIZE,
 						font : {
@@ -225,38 +225,75 @@ function thongke(_cmd, data, sv) {
 						},
 						color : Ti.App.Color.nauden,
 						touchEnabled : false,
-						text : jsonResuilt.thongke.lauchuara[i + 1].dayso,
-
+						text : jsonResuilt.thongke.lauchuara[i].dayso
 					});
-					sv.arr.tansuat_solauve2[i] = Ti.UI.createLabel({
-						left : Ti.App.size(490),
-						textAlign : 'left',
+					sv.arr.ngay1[i] = Ti.UI.createLabel({
+						left : Ti.App.size(145),
+						textAlign : 'center',
 						width : Ti.UI.SIZE,
 						font : {
 							fontSize : Ti.App.size(30)
 						},
 						color : Ti.App.Color.nauden,
 						touchEnabled : false,
-						text : jsonResuilt.thongke.lauchuara[i + 1].songay + ' ngày'
+						text : jsonResuilt.thongke.lauchuara[i].songay + ' ngày'
 					});
-					sv.arr.view_solauve[i].add(sv.arr.line1[j]);
-					sv.arr.view_solauve[i].add(sv.arr.tansuat_solauve1[i]);
-					sv.arr.view_solauve[i].add(sv.arr.solauve1[i]);
-					sv.arr.view_solauve[i].add(sv.arr.tansuat_solauve2[i]);
-					sv.arr.view_solauve[i].add(sv.arr.solauve2[i]);
+					sv.arr.view_solauve2[i].add(sv.arr.ngay1[i]);
+					sv.arr.view_solauve2[i].add(sv.arr.capso1[i]);
+
 				};
-				sv.ui.viewTongsolauve = Ti.UI.createTableView({
+				sv.ui.viewTongcapso_lauve = Ti.UI.createTableView({
+					width : Ti.App.size(335),
+					height : Ti.UI.SIZE,
+					left : Ti.App.size(0),
+					backgroundColor : 'transparent',
+					touchEnabled : false,
+					data : sv.arr.view_solauve1,
+					separatorColor : 'transparent',
+					zIndex : 1
+				});
+				sv.ui.viewTongcapso_lauve2 = Ti.UI.createTableView({
+					width : Ti.App.size(335),
+					height : Ti.UI.SIZE,
+					left : Ti.App.size(335),
+					backgroundColor : 'transparent',
+					touchEnabled : false,
+					data : sv.arr.view_solauve2,
+					separatorColor : 'transparent',
+					zIndex : 1
+				});
+				sv.ui.viewchua_solauve = Titanium.UI.createView({
 					width : Ti.App.size(670),
 					height : Ti.UI.SIZE,
 					left : Ti.App.size(25),
-					backgroundColor : 'transparent',
-					touchEnabled : false,
 					borderColor : Ti.App.Color.magenta,
 					borderWidth : Ti.App.size(2),
-					separatorColor : Ti.App.Color.magenta,
-					data : sv.arr.view_solauve,
 				});
-				sv.ui.scrollView.add(sv.ui.viewTongsolauve);
+				sv.ui.linedoc_lauve = Titanium.UI.createView({
+					width : Ti.App.size(2),
+					height : Ti.App.size(65*(jsonResuilt.thongke.lauchuara.length/2)),
+					backgroundColor : Ti.App.Color.magenta,
+					left : Ti.App.size(336),
+					top : 0,
+					zIndex : 10
+				});
+				for (var i = 0; i < (jsonResuilt.thongke.ralientiep.length / 2 ); i++) {
+					sv.arr.linebottom1[i] = Ti.UI.createView({
+						width : Ti.App.size(670),
+						height : Ti.App.size(2),
+						backgroundColor : Ti.App.Color.magenta,
+						left : 0,
+						top : Ti.App.size(65 * i),
+						zIndex : 10
+					});
+					sv.ui.viewchua_solauve.add(sv.arr.linebottom1[i]);
+				}
+				sv.ui.viewchua_solauve.add(sv.ui.linedoc_lauve);
+				sv.ui.viewchua_solauve.add(sv.ui.viewTongcapso_lauve2);
+				sv.ui.viewchua_solauve.add(sv.ui.viewTongcapso_lauve);
+				sv.ui.scrollView.add(sv.ui.viewchua_solauve);
+				
+				
 				///day so hay ve
 				sv.ui.lbl_header_hayve = Ti.UI.createLabel({
 					width : Ti.App.size(670),
@@ -282,15 +319,13 @@ function thongke(_cmd, data, sv) {
 						touchEnabled : false,
 						// top : Ti.App.size(65 * i)
 					});
-					for (var j = 0; j < (jsonResuilt.thongke.xuathiennhieu.length) / 2; j++) {
-						sv.arr.line[j] = Ti.UI.createView({
-							left : set_left(j),
-							width : Ti.App.size(1),
+						sv.arr.line[i] = Ti.UI.createView({
+							left :Ti.App.size(130),
+							width : Ti.App.size(2),
 							height : Ti.App.size(40),
 							backgroundColor : Ti.App.Color.magenta
 						});
-						sv.arr.view_sohayve[i].add(sv.arr.line[j]);
-					}
+						sv.arr.view_sohayve[i].add(sv.arr.line[i]);
 					sv.arr.sohayve[i] = Ti.UI.createLabel({
 						width : Ti.App.size(76),
 						left : 0,
@@ -364,23 +399,14 @@ function thongke(_cmd, data, sv) {
 				});
 				sv.ui.scrollView.add(sv.ui.lbl_capsolientiep);
 
-				for (var i = 0; i < (jsonResuilt.thongke.ralientiep.length) / 2; i++) {
+				for (var i = 0; i < (jsonResuilt.thongke.ralientiep.length / 2 ); i++) {
 					sv.arr.view_capsolt[i] = Ti.UI.createTableViewRow({
-						width : Ti.App.size(670),
+						width : Ti.App.size(335),
 						height : Ti.App.size(65),
 						left : 0,
-						borderColor : Ti.App.Color.magenta,
-						borderWidth : Ti.App.size(2),
 						backgroundColor : 'transparent',
 						touchEnabled : false,
-						top : Ti.App.size(65 * i),
-						touchEnabled : false
-					});
-					sv.arr.line2[i] = Ti.UI.createView({
-						left : Ti.App.size(345),
-						width : Ti.App.size(1),
-						height : Ti.App.size(40),
-						backgroundColor : Ti.App.Color.magenta
+						touchEnabled : false,
 					});
 					sv.arr.capso1[i] = Ti.UI.createLabel({
 						left : Ti.App.size(20),
@@ -395,7 +421,7 @@ function thongke(_cmd, data, sv) {
 					});
 					sv.arr.ngay1[i] = Ti.UI.createLabel({
 						left : Ti.App.size(145),
-						textAlign : 'left',
+						textAlign : 'center',
 						width : Ti.UI.SIZE,
 						font : {
 							fontSize : Ti.App.size(30)
@@ -406,9 +432,19 @@ function thongke(_cmd, data, sv) {
 					});
 					sv.arr.view_capsolt[i].add(sv.arr.ngay1[i]);
 					sv.arr.view_capsolt[i].add(sv.arr.capso1[i]);
-
-					sv.arr.capso2[i] = Ti.UI.createLabel({
-						left : Ti.App.size(365),
+				};
+				for (var i = jsonResuilt.thongke.ralientiep.length / 2; i < (jsonResuilt.thongke.ralientiep.length); i++) {
+					sv.arr.view_capsolt1[i] = Ti.UI.createTableViewRow({
+						width : Ti.App.size(335),
+						height : Ti.App.size(65),
+						left : Ti.App.size(0),
+						backgroundColor : 'transparent',
+						touchEnabled : false,
+						top : Ti.App.size(67 * i),
+						touchEnabled : false,
+					});
+					sv.arr.capso1[i] = Ti.UI.createLabel({
+						left : Ti.App.size(20),
 						textAlign : 'center',
 						width : Ti.UI.SIZE,
 						font : {
@@ -416,37 +452,73 @@ function thongke(_cmd, data, sv) {
 						},
 						color : Ti.App.Color.nauden,
 						touchEnabled : false,
-						text : jsonResuilt.thongke.ralientiep[i + 1].dayso
+						text : jsonResuilt.thongke.ralientiep[i].dayso
 					});
-					sv.arr.ngay2[i] = Ti.UI.createLabel({
-						left : Ti.App.size(490),
-						textAlign : 'left',
+					sv.arr.ngay1[i] = Ti.UI.createLabel({
+						left : Ti.App.size(145),
+						textAlign : 'center',
 						width : Ti.UI.SIZE,
 						font : {
 							fontSize : Ti.App.size(30)
 						},
 						color : Ti.App.Color.nauden,
 						touchEnabled : false,
-						text : jsonResuilt.thongke.ralientiep[i + 1].solan + ' lần'
+						text : jsonResuilt.thongke.ralientiep[i].solan + ' lần'
 					});
-					sv.arr.view_capsolt[i].add(sv.arr.ngay2[i]);
-					sv.arr.view_capsolt[i].add(sv.arr.capso2[i]);
-
-					sv.arr.view_capsolt[i].add(sv.arr.line2[i]);
+					sv.arr.view_capsolt1[i].add(sv.arr.ngay1[i]);
+					sv.arr.view_capsolt1[i].add(sv.arr.capso1[i]);
 
 				};
 				sv.ui.viewTongcapso = Ti.UI.createTableView({
-					width : Ti.App.size(670),
+					width : Ti.App.size(335),
 					height : Ti.UI.SIZE,
-					left : Ti.App.size(25),
+					left : Ti.App.size(0),
 					backgroundColor : 'transparent',
 					touchEnabled : false,
 					data : sv.arr.view_capsolt,
+					separatorColor : 'transparent',
+					zIndex : 1
+				});
+				sv.ui.viewTongcapso2 = Ti.UI.createTableView({
+					width : Ti.App.size(335),
+					height : Ti.UI.SIZE,
+					left : Ti.App.size(335),
+					backgroundColor : 'transparent',
+					touchEnabled : false,
+					data : sv.arr.view_capsolt1,
+					separatorColor : 'transparent',
+					zIndex : 1
+				});
+				sv.ui.viewchua = Titanium.UI.createView({
+					width : Ti.App.size(670),
+					height : Ti.UI.SIZE,
+					left : Ti.App.size(25),
 					borderColor : Ti.App.Color.magenta,
 					borderWidth : Ti.App.size(2),
-					separatorColor : Ti.App.Color.magenta,
 				});
-				sv.ui.scrollView.add(sv.ui.viewTongcapso);
+				sv.ui.linedoc = Titanium.UI.createView({
+					width : Ti.App.size(2),
+					height : Ti.App.size(65*(jsonResuilt.thongke.ralientiep.length/2)),
+					backgroundColor : Ti.App.Color.magenta,
+					left : Ti.App.size(336),
+					top : 0,
+					zIndex : 10
+				});
+				for (var i = 0; i < (jsonResuilt.thongke.ralientiep.length / 2 ); i++) {
+					sv.arr.linebottom[i] = Ti.UI.createView({
+						width : Ti.App.size(670),
+						height : Ti.App.size(2),
+						backgroundColor : Ti.App.Color.magenta,
+						left : 0,
+						top : Ti.App.size(65 * i),
+						zIndex : 10
+					});
+					sv.ui.viewchua.add(sv.arr.linebottom[i]);
+				}
+				sv.ui.viewchua.add(sv.ui.linedoc);
+				sv.ui.viewchua.add(sv.ui.viewTongcapso);
+				sv.ui.viewchua.add(sv.ui.viewTongcapso2);
+				sv.ui.scrollView.add(sv.ui.viewchua);
 			} else {
 				if (_cmd == "getprovide") {
 					var ketqua;
@@ -490,9 +562,9 @@ function set_top(i) {
 };
 function set_left(i) {
 	if (i == 0) {
-		return Ti.App.size(80);
+		return Ti.App.size(135);
 	} else {
-		return Ti.App.size(210);
+		return Ti.App.size(180);
 	}
 };
 function currDate() {

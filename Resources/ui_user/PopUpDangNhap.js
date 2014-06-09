@@ -132,8 +132,10 @@ function createUI_Event(sv, _currWin) {
 	sv.fu.evt_dangki = function(e) {
 		sv.vari.wd_dk = new sv.vari.dangki();
 		sv.vari.wd_dk.open();
+		
 		sv.ui.Window.close();
-		_currWin.close();
+		_currWin.close(); 
+
 	};
 	sv.fu.evt_dangnhap = function(e) {
 		sv.vari.wd_dangnhap = new sv.vari.wd_dn();

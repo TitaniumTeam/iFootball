@@ -1,4 +1,4 @@
-module.exports = function(_loai) {
+module.exports = function(_loai,dichvu) {
 	var sv = {};
 	sv.vari = {};
 	sv.arr = {};
@@ -8,7 +8,7 @@ module.exports = function(_loai) {
 
 	(function() {
 		createVariable(sv);
-		createUI(sv, _loai);
+		createUI(sv, _loai,dichvu);
 	})();
 
 	return sv.ui.Window;
@@ -22,7 +22,7 @@ function createVariable(sv) {
 
 }
 
-function createUI(sv, _loai) {
+function createUI(sv, _loai,dichvu) {
 	sv.ui.Window = Ti.UI.createWindow({
 		//backgroundColor : Ti.App.Color.nauden,
 		navBarHidden : true,
@@ -97,7 +97,7 @@ function createUI(sv, _loai) {
 		backgroundSelectedColor : Ti.App.Color.xanhnhat
 	});
 
-	createUI_Event(sv, _loai);
+	createUI_Event(sv, _loai,dichvu);
 
 	sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
 	sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
@@ -116,7 +116,7 @@ function createUI(sv, _loai) {
 
 }
 
-function createUI_Event(sv, _loai) {
+function createUI_Event(sv, _loai,dichvu) {
 	sv.fu.evt_sms = function(e) {
 		if (_loai == 1) {
 			if (sv.vari.sql.isValidRow()) {
@@ -126,9 +126,8 @@ function createUI_Event(sv, _loai) {
 				sv.vari.showSmsDialog = new sv.vari.smsdialog(sv.vari.dauso, sv.vari.noidung);
 				sv.ui.Window.close();
 			} else {
-				sv.vari.dichvu_db = sv.vari.db.execute("SELECT dauso,servicenumber FROM Dv_free WHERE tendv=?", "Dich vu bong da");
-				sv.vari.dauso = sv.vari.dichvu_free.fieldByName("servicenumber");
-				sv.vari.noidung = sv.vari.dichvu_free.fieldByName("servicenumber");
+				sv.vari.dauso = dichvu.servicenumber[0];
+				sv.vari.noidung = dichvu.servicenumber[0];
 				sv.vari.showSmsDialog = new sv.vari.smsdialog(sv.vari.dauso, sv.vari.noidung);
 				sv.ui.Window.close();
 			}
@@ -140,9 +139,8 @@ function createUI_Event(sv, _loai) {
 				sv.vari.showSmsDialog = new sv.vari.smsdialog(sv.vari.dauso, sv.vari.noidung);
 				sv.ui.Window.close();
 			} else {
-				sv.vari.dichvu_db = sv.vari.db.execute("SELECT dauso,servicenumber FROM Dv_free WHERE tendv=?", "Dich vu kqxs");
-				sv.vari.dauso = sv.vari.dichvu_free.fieldByName("servicenumber");
-				sv.vari.noidung = sv.vari.dichvu_free.fieldByName("servicenumber");
+				sv.vari.dauso = dichvu.servicenumber[1];
+				sv.vari.noidung = dichvu.servicenumber[1];
 				sv.vari.showSmsDialog = new sv.vari.smsdialog(sv.vari.dauso, sv.vari.noidung);
 				sv.ui.Window.close();
 			}

@@ -34,7 +34,7 @@ function createVariable(sv) {
 
 function createUI(sv) {
 	var data = {
-		"matchid" : "2",
+		"matchid" : "2"
 	};
 
 	createUI_Event(sv);

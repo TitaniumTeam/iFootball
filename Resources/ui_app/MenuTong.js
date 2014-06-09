@@ -1,4 +1,4 @@
-module.exports = function() {
+module.exports = function(dichvu) {
 	var sv = {};
 	sv.fu = {};
 	sv.ui = {};
@@ -6,7 +6,7 @@ module.exports = function() {
 	sv.vari = {};
 	(function() {
 		taobien(sv);
-		taoui(sv);
+		taoui(sv, dichvu);
 	})();
 
 	return sv;
@@ -95,7 +95,7 @@ function taobien(sv) {
 	//////
 
 };
-function taoui(sv) {
+function taoui(sv, dichvu) {
 	sv.ui.win = Ti.UI.createWindow({
 		backgroundColor : Ti.App.Color.superwhite,
 		navBarHidden : true,
@@ -289,7 +289,7 @@ function taoui(sv) {
 
 	//sv.ui.ViewFooter.add(sv.ui.footer_soxo);
 	/////
-	taosukien(sv);
+	taosukien(sv, dichvu);
 
 	for (var i = 0; i < 4; i++) {
 		sv.arr.viewchucnangsoxo[i].addEventListener('click', sv.arr.evt_chucnangsoxo[i]);
@@ -306,12 +306,9 @@ function taoui(sv) {
 	sv.ui.win.addEventListener('close', sv.fu.evt_win_close);
 };
 
-function taosukien(sv) {
+function taosukien(sv, dichvu) {
 	sv.fu.event_loadview = function(e) {
-		// // setTimeout(function() {
-		// sv.vari.vIndicatorWindow.closeIndicator();
-		// }, 2000);
-
+		// Ti.API.info('post lay out');
 	};
 
 	/**
@@ -322,7 +319,7 @@ function taosukien(sv) {
 		if (i == 0) {
 			sv.arr.evt_chucnangsoxo[i] = function(e) {
 				clearInterval(sv.vari.intelval);
-				ktmang(sv,2);
+				ktmang(sv, 2, dichvu);
 				for (var j = 0; j < 4; j++) {
 					if (j == 0) {
 						sv.arr.viewchucnangsoxo[j].backgroundColor = Ti.App.Color.superwhite;
@@ -356,7 +353,7 @@ function taosukien(sv) {
 		if (i == 1) {
 			sv.arr.evt_chucnangsoxo[i] = function(e) {
 				clearInterval(sv.vari.intelval);
-				ktmang(sv,2);
+				ktmang(sv, 2, dichvu);
 				for (var j = 0; j < 4; j++) {
 					if (j == 1) {
 						sv.arr.viewchucnangsoxo[j].backgroundColor = Ti.App.Color.superwhite;
@@ -375,7 +372,7 @@ function taosukien(sv) {
 		}
 		if (i == 2) {
 			sv.arr.evt_chucnangsoxo[i] = function(e) {
-				ktmang(sv,2);
+				ktmang(sv, 2, dichvu);
 				clearInterval(sv.vari.intelval);
 				for (var j = 0; j < 4; j++) {
 					if (j == 2) {
@@ -388,7 +385,7 @@ function taosukien(sv) {
 
 				}
 				sv.ui.ViewTong.removeAllChildren();
-				sv.vari.view_tuvan = new sv.vari.tuvan_soxo();
+				sv.vari.view_tuvan = new sv.vari.tuvan_soxo(dichvu);
 				sv.ui.ViewTong.add(sv.vari.view_tuvan.ui.ViewTong);
 			};
 		}
@@ -415,7 +412,7 @@ function taosukien(sv) {
 	for (var i = 0; i < 4; i++) {
 		if (i == 0) {
 			sv.arr.evt_chucnangbongda[0] = function(e) {
-				ktmang(sv,1);
+				ktmang(sv, 1, dichvu);
 				clearInterval(sv.vari.intelval);
 				for (var j = 0; j < 4; j++) {
 					if (j == 0) {
@@ -435,7 +432,7 @@ function taosukien(sv) {
 		}
 		if (i == 1) {
 			sv.arr.evt_chucnangbongda[1] = function(e) {
-				ktmang(sv,1);
+				ktmang(sv, 1, dichvu);
 				clearInterval(sv.vari.intelval);
 				for (var j = 0; j < 4; j++) {
 					if (j == 1) {
@@ -455,7 +452,7 @@ function taosukien(sv) {
 		}
 		if (i == 2) {
 			sv.arr.evt_chucnangbongda[2] = function(e) {
-				ktmang(sv,1);
+				ktmang(sv, 1, dichvu);
 				clearInterval(sv.vari.intelval);
 				for (var j = 0; j < 4; j++) {
 					if (j == 2) {
@@ -499,7 +496,7 @@ function taosukien(sv) {
 		if (j == 0) {
 			sv.arr.evt_header[0] = function(e) {
 				clearInterval(sv.vari.intelval);
-				ktmang(sv,1);
+				ktmang(sv, 1, dichvu);
 				sv.arr.view_iconheader[0].backgroundColor = Ti.App.Color.superwhite;
 				sv.arr.iconheader[0].image = sv.arr.img_header[0].press;
 				sv.arr.view_iconheader[1].backgroundColor = Ti.App.Color.red;
@@ -527,10 +524,11 @@ function taosukien(sv) {
 		}
 		if (j == 1) {
 			sv.arr.evt_header[1] = function(e) {
+				clearInterval(sv.vari.intelval);
 				///database
+
 				sv.vari.db = Ti.Database.open('userinfo');
 				sv.vari.sql = sv.vari.db.execute("SELECT * FROM SaveInfo");
-				clearInterval(sv.vari.intelval);
 				if (sv.vari.sql.isValidRow()) {
 					sv.arr.view_iconheader[1].backgroundColor = Ti.App.Color.superwhite;
 					sv.arr.iconheader[1].image = sv.arr.img_header[1].press;
@@ -557,7 +555,7 @@ function taosukien(sv) {
 		if (j == 2) {
 			sv.arr.evt_header[2] = function(e) {
 				clearInterval(sv.vari.intelval);
-				ktmang(sv,2);
+				ktmang(sv, 2, dichvu);
 				sv.arr.view_iconheader[2].backgroundColor = Ti.App.Color.superwhite;
 				sv.arr.iconheader[2].image = sv.arr.img_header[2].press;
 				sv.arr.iconheader[0].image = sv.arr.img_header[0].bg;
@@ -605,25 +603,22 @@ function taosukien(sv) {
 	 * **/
 	sv.fu.evt_win_open = function(e) {
 		Ti.API.info('win open');
-		ktmang(sv,1);
-		sv.vari.db_open = Ti.Database.open('userinfo');
-		sv.vari.dichvu_open = sv.vari.db_open.execute("SELECT * FROM DichVu");
-		sv.vari.dichvu_free = sv.vari.db_open.execute("SELECT * FROM Dv_free");
-		Ti.API.info('row count saveinfo:' + sv.vari.dichvu_open.getRowCount());
-		Ti.API.info('row count dichvu free:'+sv.vari.dichvu_free.getRowCount());
+		ktmang(sv, 1, dichvu);
+		// sv.vari.db_open = Ti.Database.open('userinfo');
+		// sv.vari.dichvu_open = sv.vari.db_open.execute("SELECT * FROM DichVu");
+		// Ti.API.info('row count saveinfo:' + sv.vari.dichvu_open.getRowCount());
 		sv.arr.view_iconheader[2].backgroundColor = Ti.App.Color.superwhite;
 		sv.arr.iconheader[2].image = sv.arr.img_header[2].press;
 		sv.arr.iconheader[0].image = sv.arr.img_header[0].bg;
 		sv.arr.view_iconheader[0].backgroundColor = Ti.App.Color.red;
 		sv.arr.iconheader[1].image = sv.arr.img_header[1].bg;
 		sv.arr.view_iconheader[1].backgroundColor = Ti.App.Color.red;
-		while (sv.vari.dichvu_open.isValidRow()) {
-			Ti.API.info('ten dich vu' + sv.vari.dichvu_open.fieldByName("tendv") + ':' + sv.vari.dichvu_open.fieldByName("dauso") + ':' + sv.vari.dichvu_open.fieldByName("thamso") + ':' + sv.vari.dichvu_open.fieldByName("gia"));
-			sv.vari.dichvu_open.next();
-		};
-		sv.vari.dichvu_free.close();
-		sv.vari.dichvu_open.close();
-		sv.vari.db_open.close();
+		// while (sv.vari.dichvu_open.isValidRow()) {
+		// Ti.API.info('ten dich vu' + sv.vari.dichvu_open.fieldByName("tendv") + ':' + sv.vari.dichvu_open.fieldByName("dauso") + ':' + sv.vari.dichvu_open.fieldByName("thamso") + ':' + sv.vari.dichvu_open.fieldByName("gia"));
+		// sv.vari.dichvu_open.next();
+		// };
+		// sv.vari.dichvu_open.close();
+		// sv.vari.db_open.close();
 		push_notification();
 		sv.vari.intelval = setInterval(function() {
 			layketqua("searchlottery", {
@@ -745,7 +740,7 @@ function currMin() {
 	return currmin;
 };
 
-function ktmang(sv,_loai) {
+function ktmang(sv, _loai, dichvu) {
 	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
 		var kqoff = new (require('/ui_app/kq_offline'))(_loai);
 		kqoff.open({
@@ -832,4 +827,5 @@ function push_notification() {
 			}
 		});
 	}
+
 };

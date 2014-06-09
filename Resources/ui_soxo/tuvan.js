@@ -1,4 +1,4 @@
-module.exports = function() {
+module.exports = function(dichvu) {
 	var sv = {};
 	sv.fu = {};
 	sv.ui = {};
@@ -6,17 +6,16 @@ module.exports = function() {
 	sv.vari = {};
 	(function() {
 		taobien(sv);
-		taoui(sv);
+		taoui(sv, dichvu);
 	})();
 
 	return sv;
 };
-function taobien(sv) {
+function taobien(sv, dichvu) {
 	sv.vari.soluongmenu = 3;
 	sv.arr.rows = [];
 	sv.vari.db = Ti.Database.open("userinfo");
 	sv.vari.dichvu_db = sv.vari.db.execute("SELECT * FROM DichVu");
-	sv.vari.dichvu_free = sv.vari.db.execute("SELECT * FROM Dv_free");
 	sv.arr.cacdichvu = {};
 	sv.arr.cacdichvu.tendv = [];
 	sv.arr.cacdichvu.thamso = [];
@@ -24,7 +23,7 @@ function taobien(sv) {
 	sv.arr.cacdichvu.dauso = [];
 	sv.arr.cacdichvu.id = [];
 };
-function taoui(sv) {
+function taoui(sv, dichvu) {
 	sv.ui.ViewTong = Ti.UI.createView({
 		top : 0,
 		left : 0,
@@ -41,19 +40,18 @@ function taoui(sv) {
 		// // if (sv.vari.dichvu_db.fieldByName("tendv") == "Dich vu kqxs") {
 		sv.vari.dichvu_db.next();
 	}
-	while (sv.vari.dichvu_free.isValidRow()) {
-		Ti.API.info('nhay vao day dich vu free*******');
-		sv.arr.cacdichvu.tendv.push(sv.vari.dichvu_free.fieldByName("tendv"));
-		sv.arr.cacdichvu.thamso.push("");
-		sv.arr.cacdichvu.gia.push(sv.vari.dichvu_free.fieldByName("gia"));
-		sv.arr.cacdichvu.dauso.push(sv.vari.dichvu_free.fieldByName("dauso"));
-		sv.arr.cacdichvu.id.push(sv.vari.dichvu_free.fieldByName("servicenumber"));
-		// // if (sv.vari.dichvu_db.fieldByName("tendv") == "Dich vu kqxs") {
-		sv.vari.dichvu_free.next();
-	}
 	sv.vari.dichvu_db.close();
-	sv.vari.dichvu_free.close();
 	sv.vari.db.close();
+	if (dichvu) {
+		Ti.API.info('**** dich vu free');
+		for (var i = 0; i < (dichvu.tendv.length); i++) {
+			sv.arr.cacdichvu.tendv.push(dichvu.tendv[i]);
+			sv.arr.cacdichvu.thamso.push(dichvu.param[i]);
+			sv.arr.cacdichvu.gia.push(dichvu.gia[i]);
+			sv.arr.cacdichvu.dauso.push(dichvu.dauso[i]);
+			sv.arr.cacdichvu.id.push(dichvu.servicenumber[i]);
+		}
+	}
 	for (var i = 1; i < (sv.arr.cacdichvu.tendv).length; i++) {
 		Ti.API.info('ten dichvu:' + sv.arr.cacdichvu.tendv[i]);
 		Ti.API.info('dauso:' + sv.arr.cacdichvu.dauso[i]);
