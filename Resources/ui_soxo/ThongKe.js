@@ -34,6 +34,8 @@ function taobien(sv) {
 	sv.arr.view_capsolt1 = [];
 	sv.arr.capso1 = [];
 	sv.arr.ngay1 = [];
+	sv.arr.capso2 = [];
+	sv.arr.ngay2 = [];
 	sv.arr.linebottom = [];
 }
 
@@ -88,7 +90,7 @@ function tao_ui(sv) {
 	sv.ui.ViewTong.add(sv.ui.scrollView);
 	thongke("getlotterystat", {
 		"provideid" : "MB",
-		"startdate" : currDate()
+		"startdate" : "1/5/2014"
 	}, sv);
 	////
 	////
@@ -148,7 +150,7 @@ function thongke(_cmd, data, sv) {
 		Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
 		var dl = JSON.parse(this.responseText);
 		var jsonResuilt = JSON.parse(dl);
-		if (jsonResuilt != null) {
+		if ((jsonResuilt != null)||(jsonResuilt!=undefined)) {
 			if (_cmd == "getlotterystat") {
 				if (Ti.Platform.osname == 'android') {
 					sv.ui.scrollView.visible = false;
@@ -201,12 +203,12 @@ function thongke(_cmd, data, sv) {
 						},
 						color : Ti.App.Color.nauden,
 						touchEnabled : false,
-						text : jsonResuilt.thongke.lauchuara[i].songay + ' ngày'
+						text : jsonResuilt.thongke.lauchuara[i].solan + ' lần'
 					});
 					sv.arr.view_solauve1[i].add(sv.arr.ngay1[i]);
 					sv.arr.view_solauve1[i].add(sv.arr.capso1[i]);
 				};
-				for (var i = jsonResuilt.thongke.ralientiep.length / 2; i < (jsonResuilt.thongke.ralientiep.length); i++) {
+				for (var i = Math.floor(jsonResuilt.thongke.lauchuara.length / 2); i < (jsonResuilt.thongke.lauchuara.length); i++) {
 					sv.arr.view_solauve2[i] = Ti.UI.createTableViewRow({
 						width : Ti.App.size(335),
 						height : Ti.App.size(65),
@@ -236,7 +238,7 @@ function thongke(_cmd, data, sv) {
 						},
 						color : Ti.App.Color.nauden,
 						touchEnabled : false,
-						text : jsonResuilt.thongke.lauchuara[i].songay + ' ngày'
+						text : jsonResuilt.thongke.lauchuara[i].solan + ' lần'
 					});
 					sv.arr.view_solauve2[i].add(sv.arr.ngay1[i]);
 					sv.arr.view_solauve2[i].add(sv.arr.capso1[i]);
@@ -271,7 +273,7 @@ function thongke(_cmd, data, sv) {
 				});
 				sv.ui.linedoc_lauve = Titanium.UI.createView({
 					width : Ti.App.size(2),
-					height : Ti.App.size(65*(jsonResuilt.thongke.lauchuara.length/2)),
+					height : Ti.App.size(65*Math.floor(jsonResuilt.thongke.lauchuara.length/2)),
 					backgroundColor : Ti.App.Color.magenta,
 					left : Ti.App.size(336),
 					top : 0,
@@ -352,20 +354,20 @@ function thongke(_cmd, data, sv) {
 						color : Ti.App.Color.nauden,
 						text : jsonResuilt.thongke.xuathiennhieu[i].solan + ' lần'
 					});
-					sv.arr.tile_sohayve[i] = Ti.UI.createLabel({
-						left : Ti.App.size(200),
-						width : Ti.App.size(570),
-						backgroundColor : 'transparent',
-						touchEnabled : false,
-						font : {
-							fontSize : Ti.App.size(30),
-							fontWidth : 'bold'
-						},
-						textAlign : 'center',
-						color : Ti.App.Color.nauden,
-						text : jsonResuilt.thongke.xuathiennhieu[i].songay + ' ngày'
-					});
-					sv.arr.view_sohayve[i].add(sv.arr.tile_sohayve[i]);
+					// sv.arr.tile_sohayve[i] = Ti.UI.createLabel({
+						// left : Ti.App.size(200),
+						// width : Ti.App.size(570),
+						// backgroundColor : 'transparent',
+						// touchEnabled : false,
+						// font : {
+							// fontSize : Ti.App.size(30),
+							// fontWidth : 'bold'
+						// },
+						// textAlign : 'center',
+						// color : Ti.App.Color.nauden,
+						// text : jsonResuilt.thongke.xuathiennhieu[i].songay + ' ngày'
+					// });
+					// sv.arr.view_sohayve[i].add(sv.arr.tile_sohayve[i]);
 					sv.arr.view_sohayve[i].add(sv.arr.tansuat_sohayve[i]);
 					sv.arr.view_sohayve[i].add(sv.arr.sohayve[i]);
 				};
@@ -433,7 +435,7 @@ function thongke(_cmd, data, sv) {
 					sv.arr.view_capsolt[i].add(sv.arr.ngay1[i]);
 					sv.arr.view_capsolt[i].add(sv.arr.capso1[i]);
 				};
-				for (var i = jsonResuilt.thongke.ralientiep.length / 2; i < (jsonResuilt.thongke.ralientiep.length); i++) {
+				for (var i = Math.floor((jsonResuilt.thongke.ralientiep.length) / 2); i < (jsonResuilt.thongke.ralientiep.length); i++) {
 					sv.arr.view_capsolt1[i] = Ti.UI.createTableViewRow({
 						width : Ti.App.size(335),
 						height : Ti.App.size(65),
@@ -443,7 +445,7 @@ function thongke(_cmd, data, sv) {
 						top : Ti.App.size(67 * i),
 						touchEnabled : false,
 					});
-					sv.arr.capso1[i] = Ti.UI.createLabel({
+					sv.arr.capso2[i] = Ti.UI.createLabel({
 						left : Ti.App.size(20),
 						textAlign : 'center',
 						width : Ti.UI.SIZE,
@@ -454,7 +456,7 @@ function thongke(_cmd, data, sv) {
 						touchEnabled : false,
 						text : jsonResuilt.thongke.ralientiep[i].dayso
 					});
-					sv.arr.ngay1[i] = Ti.UI.createLabel({
+					sv.arr.ngay2[i] = Ti.UI.createLabel({
 						left : Ti.App.size(145),
 						textAlign : 'center',
 						width : Ti.UI.SIZE,
@@ -465,10 +467,10 @@ function thongke(_cmd, data, sv) {
 						touchEnabled : false,
 						text : jsonResuilt.thongke.ralientiep[i].solan + ' lần'
 					});
-					sv.arr.view_capsolt1[i].add(sv.arr.ngay1[i]);
-					sv.arr.view_capsolt1[i].add(sv.arr.capso1[i]);
+					sv.arr.view_capsolt1[i].add(sv.arr.ngay2[i]);
+					sv.arr.view_capsolt1[i].add(sv.arr.capso2[i]);
 
-				};
+				}
 				sv.ui.viewTongcapso = Ti.UI.createTableView({
 					width : Ti.App.size(335),
 					height : Ti.UI.SIZE,
@@ -498,7 +500,7 @@ function thongke(_cmd, data, sv) {
 				});
 				sv.ui.linedoc = Titanium.UI.createView({
 					width : Ti.App.size(2),
-					height : Ti.App.size(65*(jsonResuilt.thongke.ralientiep.length/2)),
+					height : Ti.App.size(65*Math.floor(jsonResuilt.thongke.ralientiep.length/2)),
 					backgroundColor : Ti.App.Color.magenta,
 					left : Ti.App.size(336),
 					top : 0,

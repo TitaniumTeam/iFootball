@@ -13,11 +13,7 @@ module.exports = function(dichvu) {
 
 };
 function taobien(sv) {
-	sv.vari.indicator = require('/ui-controller/vIndicatorWindow');
-	sv.vari.vIndicatorWindow = sv.vari.indicator.createIndicatorWindow();
 	////
-	// sv.vari.indicator = require('/ui-controller/vIndicatorWindow');
-	// sv.vari.vIndicatorWindow = sv.vari.indicator.createIndicatorWindow();
 	sv.vari.intelval;
 	sv.vari.dem = 0;
 	sv.vari.popup = require('/ui_user/PopUpDangNhap');
@@ -27,21 +23,12 @@ function taobien(sv) {
 	sv.vari.tuvan_soxo = require('/ui_soxo/TuVan');
 	sv.vari.thongke = require('/ui_soxo/ThongKe');
 	////////
-	// sv.vari.TTTD = require('/ui_bongda/ThongTinTranDau');
 	sv.vari.tintuc = require('/ui_bongda/News');
 	sv.vari.tuvan_bongda = require('/ui_bongda/TuVan');
-	///version old
 
-	// sv.vari.TTTD = require('/ui_bongda/thongtin_old');
-	sv.vari.tuvan_bongda = require('/ui_bongda/tuvan_old');
-
-	//sv.vari.TTTD = require('/ui_bongda/thongtin_old');
-	// sv.vari.tuvan_bongda = require('/ui_bongda/tuvan_old');
+	sv.vari.tuvan_bongda = require('/ui_bongda/TuVan');
 
 	sv.vari.TTTD = require('/ui_bongda/ThongTinTranDau');
-	// sv.vari.tuvan_bongda = require('/ui_bongda/tuvan_old');
-	// sv.vari.TTTD = require('/ui_bongda/thongtin_old');
-	// sv.vari.tuvan_bongda = require('/ui_bongda/tuvan_old');
 
 	//////view header
 	sv.arr.view_iconheader = [];
@@ -310,7 +297,6 @@ function taoui(sv, dichvu) {
 	for (var i = 0; i < 3; i++) {
 		sv.arr.view_iconheader[i].addEventListener('click', sv.arr.evt_header[i]);
 	}
-	sv.ui.ViewTong.addEventListener('postlayout', sv.fu.event_loadview);
 	sv.ui.win.addEventListener('open', sv.fu.evt_win_open);
 	sv.ui.win.addEventListener('close', sv.fu.evt_win_close);
 };
@@ -326,10 +312,6 @@ function taosukien(sv, dichvu) {
 			sv.arr.evt_chucnangsoxo[i] = function(e) {
 				clearInterval(sv.vari.intelval);
 				ktmang(sv, 2, dichvu);
-				if (Ti.Platform.osname == 'android') {
-					sv.ui.ViewTong.visible = false;
-					sv.vari.vIndicatorWindow.openIndicator();
-				}
 				for (var j = 0; j < 4; j++) {
 					if (j == 0) {
 						sv.arr.viewchucnangsoxo[j].backgroundColor = Ti.App.Color.superwhite;
@@ -607,11 +589,6 @@ function taosukien(sv, dichvu) {
 		}
 
 	}
-	sv.fu.event_loadview = function(e) {
-		Ti.API.info('post layout');
-		sv.ui.ViewTong.visible = true;
-		sv.vari.vIndicatorWindow.closeIndicator();
-	};
 	/**su kien cua window
 	 * **/
 	sv.fu.evt_win_open = function(e) {
@@ -622,9 +599,7 @@ function taosukien(sv, dichvu) {
 		// Ti.API.info('row count saveinfo:' + sv.vari.dichvu_open.getRowCount());
 		sv.vari.db_open = Ti.Database.open('userinfo');
 		sv.vari.dichvu_open = sv.vari.db_open.execute("SELECT * FROM DichVu");
-		sv.vari.dichvu_free = sv.vari.db_open.execute("SELECT * FROM Dv_free");
 		Ti.API.info('row count saveinfo:' + sv.vari.dichvu_open.getRowCount());
-		Ti.API.info('row count dichvu free:' + sv.vari.dichvu_free.getRowCount());
 		sv.arr.view_iconheader[2].backgroundColor = Ti.App.Color.superwhite;
 		sv.arr.iconheader[2].image = sv.arr.img_header[2].press;
 		sv.arr.iconheader[0].image = sv.arr.img_header[0].bg;
@@ -764,9 +739,6 @@ function ktmang(sv, _loai, dichvu) {
 		});
 
 	}
-	// else {
-	// sv.vari.vIndicatorWindow.openIndicator();
-	// }
 }
 
 function push_notification() {
