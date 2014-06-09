@@ -36,7 +36,7 @@ function taoui(sv) {
 		sv.arr.cacdichvu.thamso.push(sv.vari.dichvu_db.fieldByName("thamso"));
 		sv.arr.cacdichvu.gia.push(sv.vari.dichvu_db.fieldByName("gia"));
 		sv.arr.cacdichvu.dauso.push(sv.vari.dichvu_db.fieldByName("dauso"));
-		sv.arr.cacdichvu.id.push(sv.vari.dichvu_db.fieldByName("noidung"));
+		sv.arr.cacdichvu.id.push(sv.vari.dichvu_db.fieldByName("servicenumber"));
 		// // if (sv.vari.dichvu_db.fieldByName("tendv") == "Dich vu kqxs") {
 		sv.vari.dichvu_db.next();
 	}

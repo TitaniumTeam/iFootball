@@ -3,7 +3,7 @@ function home_control() {
 	new (require('/ui-controller/AllData'));
 	var db = Ti.Database.open('userinfo');
 	db.execute('CREATE TABLE IF NOT EXISTS SaveInfo(username TEXT PRIMARY KEY, password TEXT,type INTERGER,balance INTERGER);');
-	db.execute('CREATE TABLE IF NOT EXISTS DichVu(tendv TEXT PRIMARY KEY,dauso TEXT,noidung TEXT,thamso TEXT,gia INTERGER)');
+	db.execute('CREATE TABLE IF NOT EXISTS DichVu(tendv TEXT PRIMARY KEY,dauso TEXT,servicenumber TEXT,thamso TEXT,gia INTERGER)');
 	var sql = db.execute("SELECT * FROM SaveInfo");
 	var dichvu = db.execute("SELECT * FROM DichVu");
 	Ti.API.info('du lieu' + sql.getRowCount());
@@ -43,9 +43,9 @@ function home_control() {
 						Ti.API.info('name' + jsonResuilt.menus[i].name);
 						Ti.API.info('gia' + jsonResuilt.menus[i].price);
 						Ti.API.info('param' + jsonResuilt.menus[i].params);
-						db.execute('INSERT INTO DichVu(tendv,dauso,noidung,thamso,gia) VALUES(?,?,?,?,?)', jsonResuilt.menus[i].name, jsonResuilt.menus[i].action, jsonResuilt.menus[i].servicenumber, jsonResuilt.menus[i].params, jsonResuilt.menus[i].price);
+						db.execute('INSERT INTO DichVu(tendv,dauso,servicenumber,thamso,gia) VALUES(?,?,?,?,?)', jsonResuilt.menus[i].name, jsonResuilt.menus[i].action, jsonResuilt.menus[i].servicenumber, jsonResuilt.menus[i].params, jsonResuilt.menus[i].price);
 					} else {
-						db.execute('INSERT INTO DichVu(tendv,dauso,noidung,thamso,gia) VALUES(?,?,?,?,?)', jsonResuilt.menus[i].name, jsonResuilt.menus[i].action, jsonResuilt.menus[i].servicenumber, "", jsonResuilt.menus[i].price);
+						db.execute('INSERT INTO DichVu(tendv,dauso,servicenumber,thamso,gia) VALUES(?,?,?,?,?)', jsonResuilt.menus[i].name, jsonResuilt.menus[i].action, jsonResuilt.menus[i].servicenumber, "", jsonResuilt.menus[i].price);
 					}
 
 				}
@@ -54,6 +54,57 @@ function home_control() {
 			home.ui.win.open();
 		};
 	} else {
+		data = {
+			"username" : ""
+		};
+		xhr.onsendstream = function(e) {
+			//ind.value = e.progress;
+			Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
+		};
+		// open the client
+		xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=getmenu');
+		xhr.setRequestHeader("Content-Type", "application/json-rpc");
+		Ti.API.info(JSON.stringify(data));
+		xhr.send(JSON.stringify(data));
+		xhr.onerror = function(e) {
+			// Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
+			var home = new menutong();
+			home.ui.win.open();
+
+		};
+		xhr.onload = function() {
+			Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
+			var dl = JSON.parse(this.responseText);
+			Ti.API.info('du lieu' + dl);
+			var jsonResuilt = JSON.parse(dl);
+			var mangdichvu={};
+			mangdichvu.tendv=[];
+			mangdichvu.dauso=[];
+			mangdichvu.gia=[];
+			mangdichvu.thamso=[];
+			mangdichvu.servicenumber=[];
+				for (var i = 0; i < (jsonResuilt.menus.length); i++) {
+					if (jsonResuilt.menus[i].params) {
+						Ti.API.info('dauso' + jsonResuilt.menus[i].action);
+						Ti.API.info('tendv' + jsonResuilt.menus[i].name);
+						Ti.API.info('gia' + jsonResuilt.menus[i].price);
+						Ti.API.info('param' + jsonResuilt.menus[i].params);
+						Ti.API.info('gia' + jsonResuilt.menus[i].servicenumber);
+						mangdichvu.tendv=jsonResuilt.menus[i].name;
+						mangdichvu.dauso=jsonResuilt.menus[i].action;
+						mangdichvu.gia=jsonResuilt.menus[i].price;
+						mangdichvu.thamso=jsonResuilt.menus[i].params;
+						mangdichvu.servicenumber=jsonResuilt.menus[i].servicenumber;
+					} else {
+						mangdichvu.tendv=jsonResuilt.menus[i].name;
+						mangdichvu.dauso=jsonResuilt.menus[i].action;
+						mangdichvu.gia=jsonResuilt.menus[i].price;
+						mangdichvu.thamso="";
+						mangdichvu.servicenumber=jsonResuilt.menus[i].servicenumber;
+					}
+
+			}
+		
 		var home = new menutong();
 		home.ui.win.open();
 	}

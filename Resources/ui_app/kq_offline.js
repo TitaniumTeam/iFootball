@@ -119,9 +119,9 @@ function createUI_Event(sv, _loai) {
 	sv.fu.evt_sms = function(e) {
 		if (_loai == 1) {
 			if (sv.vari.sql.isValidRow()) {
-				sv.vari.dichvu_db = sv.vari.db.execute("SELECT dauso,noidung FROM DichVu WHERE tendv=?", "Dich vu bong da");
-				sv.vari.dauso = sv.vari.dichvu_db.fieldByName("noidung");
-				sv.vari.noidung = sv.vari.dichvu_db.fieldByName("noidung");
+				sv.vari.dichvu_db = sv.vari.db.execute("SELECT dauso,servicenumber FROM DichVu WHERE tendv=?", "Dich vu bong da");
+				sv.vari.dauso = sv.vari.dichvu_db.fieldByName("servicenumber");
+				sv.vari.noidung = sv.vari.dichvu_db.fieldByName("servicenumber");
 				sv.vari.showSmsDialog = new sv.vari.smsdialog(sv.vari.dauso, sv.vari.noidung);
 				sv.ui.Window.close();
 			} else {
@@ -130,9 +130,9 @@ function createUI_Event(sv, _loai) {
 			}
 		} else {
 			if (sv.vari.sql.isValidRow()) {
-				sv.vari.dichvu_db = sv.vari.db.execute("SELECT dauso,noidung FROM DichVu WHERE tendv=?", "Dich vu kqxs");
-				sv.vari.dauso = sv.vari.dichvu_db.fieldByName("noidung");
-				sv.vari.noidung = sv.vari.dichvu_db.fieldByName("noidung");
+				sv.vari.dichvu_db = sv.vari.db.execute("SELECT dauso,servicenumber FROM DichVu WHERE tendv=?", "Dich vu kqxs");
+				sv.vari.dauso = sv.vari.dichvu_db.fieldByName("servicenumber");
+				sv.vari.noidung = sv.vari.dichvu_db.fieldByName("servicenumber");
 				sv.vari.showSmsDialog = new sv.vari.smsdialog(sv.vari.dauso, sv.vari.noidung);
 				sv.ui.Window.close();
 			} else {
