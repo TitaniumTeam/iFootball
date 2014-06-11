@@ -171,7 +171,7 @@ function createUI(sv) {
 				left : Ti.App.size(320),
 				right : Ti.App.size(40),
 				top : Ti.App.size(145),
-				bottom : Ti.App.size(0)
+				bottom : Ti.App.size(10)
 			});
 
 			// sv.ui.ViewListTinTuc.add(sv.arr.ViewTinTuc[i]);

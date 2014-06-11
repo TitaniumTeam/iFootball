@@ -64,7 +64,7 @@ function tao_ui(sv) {
 		top : Ti.App.size(60)
 	});
 	sv.ui.icon_timkiem = Titanium.UI.createImageView({
-		image : '/assets/images/icon/icon-search.png',
+		image : '/assets/images/icon/icon-timkiem.png',
 		touchEnabled : false,
 		width : Ti.App.size(64),
 		height : Ti.App.size(64)

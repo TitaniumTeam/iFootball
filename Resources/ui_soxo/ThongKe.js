@@ -172,7 +172,7 @@ function thongke(_cmd, data, sv) {
 					textAlign : 'left'
 				});
 				sv.ui.scrollView.add(sv.ui.lbl_dsve_saudau);
-				sv.ui.viewTonglaura = bang_kq(jsonResuilt.thongke.lauchuara);
+				sv.ui.viewTonglaura = bang_kq(jsonResuilt.thongke.lauchuara,' ngày');
 				sv.ui.scrollView.add(sv.ui.viewTonglaura);
 				///day so hay ve
 				sv.ui.lbl_header_hayve = Ti.UI.createLabel({
@@ -190,7 +190,7 @@ function thongke(_cmd, data, sv) {
 					top : Ti.App.size(20)
 				});
 				sv.ui.scrollView.add(sv.ui.lbl_header_hayve);
-				sv.ui.viewTongxuathiennhieu = bang_kq(jsonResuilt.thongke.xuathiennhieu);
+				sv.ui.viewTongxuathiennhieu = bang_kq(jsonResuilt.thongke.xuathiennhieu,' lần');
 				sv.ui.scrollView.add(sv.ui.viewTongxuathiennhieu);
 				////view cac cap so ra lien tiep
 				sv.ui.lbl_capsolientiep = Ti.UI.createLabel({
@@ -208,7 +208,7 @@ function thongke(_cmd, data, sv) {
 					top : Ti.App.size(20)
 				});
 				sv.ui.scrollView.add(sv.ui.lbl_capsolientiep);
-				sv.ui.viewTonglientiep = bang_kq(jsonResuilt.thongke.ralientiep);
+				sv.ui.viewTonglientiep = bang_kq(jsonResuilt.thongke.ralientiep,' ngày');
 				sv.ui.scrollView.add(sv.ui.viewTonglientiep);
 			} else {
 				if (jsonResuilt.thongke.xuathiennhieu.length == 0 || jsonResuilt.thongke.xuathiennhieu == undefined) {
@@ -266,7 +266,7 @@ function currDate() {
 	return currdate;
 }
 
-function bang_kq(param) {
+function bang_kq(param,_loai) {
 	var viewchua = Ti.UI.createView({
 		width : Ti.App.size(670),
 		height : Ti.UI.SIZE,
@@ -310,7 +310,7 @@ function bang_kq(param) {
 				color : Ti.App.Color.nauden,
 			});
 			var l2 = Ti.UI.createLabel({
-				text : param[i].solan + ' lần',
+				text : param[i].solan +(_loai),
 				left : Ti.App.size(200),
 				width : Ti.UI.SIZE,
 				font : {
@@ -356,7 +356,7 @@ function bang_kq(param) {
 					color : Ti.App.Color.nauden,
 				});
 				var l22 = Ti.UI.createLabel({
-					text : param[i].solan + ' lần',
+					text : param[i].solan +(_loai),
 					left : Ti.App.size(200),
 					width : Ti.UI.SIZE,
 					font : {
