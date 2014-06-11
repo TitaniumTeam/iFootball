@@ -21,9 +21,9 @@ function createVariable(sv) {
 	sv.arr = {};
 
 	//sv.vari.SoTinTuc = 7;
+	sv.arr.linkbai = [];
 	sv.vari.TopView = Ti.App.size(235);
 	sv.vari.HeightView = Ti.App.size(235);
-
 	sv.arr.ViewTinTuc = [];
 	sv.arr.AnhTinTuc = [];
 	sv.arr.TenTinTuc = [];
@@ -34,7 +34,7 @@ function createVariable(sv) {
 
 function createUI(sv) {
 	var data = {
-		"matchid" : "2"
+		"matchid" : "3"
 	};
 
 	createUI_Event(sv);
@@ -46,7 +46,14 @@ function createUI(sv) {
 		top : 0,
 		left : 0
 	});
-
+	sv.ui.webview = Titanium.UI.createWebView({
+		width : Ti.UI.FILL,
+		height : Ti.UI.FILL,
+		showScrollbars : false,
+		scalesPageToFit : true,
+		touchEnabled : true,
+		enableZoomControls : false,
+	});
 	var xhr = Titanium.Network.createHTTPClient();
 	xhr.onsendstream = function(e) {
 		//ind.value = e.progress;
@@ -73,22 +80,12 @@ function createUI(sv) {
 			right : Ti.App.size(120)
 		});
 
-		sv.ui.LabelHeader = Ti.UI.createLabel({
-			text : 'TIN TỨC',
-			font : {
-				fontSize : Ti.App.size(40),
-				fontWeight : 'bold',
-				fontFamily : 'Aria'
-			},
-			color : Ti.App.Color.white,
-		});
-
 		sv.ui.BGHeader = Ti.UI.createView({
-			backgroundImage : '/assets/images/1/BGHeader.jpeg',
+			backgroundImage : jsonResuilt.news[0].image.toString(),
 			right : Ti.App.size(0),
 			height : Ti.App.size(285),
 			top : Ti.App.size(0),
-			left : 0
+			left : 0,
 		});
 
 		sv.ui.ViewTinHot = Ti.UI.createView({
@@ -113,26 +110,21 @@ function createUI(sv) {
 			right : Ti.App.size(40)
 		});
 
-		sv.ui.ViewListTinTuc = Ti.UI.createScrollView({
-			backgroundColor : Ti.App.Color.magenta,
-			top : Ti.App.size(285),
-			left : 0,
-			right : 0
-		});
-
 		for (var i = 0; i < sv.vari.SoTinTuc; i++) {
-			sv.arr.ViewTinTuc[i] = Ti.UI.createView({
+			sv.arr.linkbai.push(jsonResuilt.news[i].content);
+			sv.arr.ViewTinTuc[i] = Ti.UI.createTableViewRow({
 				backgroundColor : Ti.App.Color.magenta,
 				height : sv.vari.HeightView,
 				left : 0,
 				right : 0,
 				top : Ti.App.size(235 * i),
 				borderWidth : Ti.App.size(1),
-				borderColor : Ti.App.Color.nauden
+				borderColor : Ti.App.Color.nauden,
+				id : i
 			});
 
 			sv.arr.AnhTinTuc[i] = Ti.UI.createImageView({
-				image : '/assets/images/1/BGHeader.jpeg',
+				image : jsonResuilt.news[i].image,
 				top : Ti.App.size(30),
 				left : Ti.App.size(40),
 				right : Ti.App.size(420),
@@ -155,7 +147,7 @@ function createUI(sv) {
 			});
 
 			sv.arr.ThoiGianTinTuc[i] = Ti.UI.createLabel({
-				text : '20/03 14/04/2014',
+				text : jsonResuilt.news[i].time,
 				font : {
 					fontSize : Ti.App.size(14),
 					fontFamily : 'Aria',
@@ -169,9 +161,9 @@ function createUI(sv) {
 			});
 
 			sv.arr.TTTinTuc[i] = Ti.UI.createLabel({
-				text : jsonResuilt.news[i].content.toString(),
+				text : jsonResuilt.news[i].intro.toString(),
 				font : {
-					fontSize : Ti.App.size(18),
+					fontSize : Ti.App.size(20),
 					fontFamily : 'Aria',
 					textAlign : 'left'
 				},
@@ -179,21 +171,37 @@ function createUI(sv) {
 				left : Ti.App.size(320),
 				right : Ti.App.size(40),
 				top : Ti.App.size(145),
-				bottom : Ti.App.size(30)
+				bottom : Ti.App.size(0)
 			});
 
-			sv.ui.ViewListTinTuc.add(sv.arr.ViewTinTuc[i]);
+			// sv.ui.ViewListTinTuc.add(sv.arr.ViewTinTuc[i]);
 
 			sv.arr.ViewTinTuc[i].add(sv.arr.AnhTinTuc[i]);
 			sv.arr.ViewTinTuc[i].add(sv.arr.TenTinTuc[i]);
 			sv.arr.ViewTinTuc[i].add(sv.arr.ThoiGianTinTuc[i]);
 			sv.arr.ViewTinTuc[i].add(sv.arr.TTTinTuc[i]);
-			//sv.arr.ViewTinTuc[i].addEventListener('click', sv.arr.eventClickViewTinTuc[i]);
 		}
-
-		Ti.API.info('SoTinTuc : ', sv.vari.SoLuongTinTuc);
-
-		sv.ui.ViewLabelHeader.add(sv.ui.LabelHeader);
+		sv.ui.ViewListTinTuc = Ti.UI.createTableView({
+			backgroundColor : Ti.App.Color.magenta,
+			top : Ti.App.size(285),
+			left : 0,
+			right : 0,
+			data : sv.arr.ViewTinTuc,
+			separatorColor : Ti.App.Color.nauden,
+			width : Ti.App.size(720),
+			showVerticalScrollIndicator : 'true'
+		});
+		for (var i = 0; i < sv.arr.linkbai.length; i++) {
+			sv.arr.eventClickViewTinTuc[i] = function(e) {
+				Ti.API.info('link bai:' + sv.arr.linkbai[e.row.id]);
+				sv.ui.ViewTong.removeAllChildren();
+				sv.ui.webview.setUrl(sv.arr.linkbai[e.row.id]);
+				sv.ui.ViewTong.add(sv.ui.webview);
+			};
+		}
+		for (var i = 0; i < sv.arr.linkbai.length; i++) {
+			sv.arr.ViewTinTuc[i].addEventListener('click',sv.arr.eventClickViewTinTuc[i]);
+		}
 
 		sv.ui.ViewTong.add(sv.ui.BGHeader);
 		sv.ui.ViewTong.add(sv.ui.ViewListTinTuc);
@@ -202,24 +210,26 @@ function createUI(sv) {
 
 		sv.ui.ViewTinHot.add(sv.ui.LabelTinHot);
 
-		for (var i = 0; i < sv.vari.SoTinTuc; i++) {
-			sv.arr.eventClickViewTinTuc[i] = function() {
-				var newWindow = new (require('/ui_bongda/NewsContent'))();
-				sv.ui.ViewTong.removeAllChildren();
-				sv.ui.ViewTong.add(newWindow.ui.ViewTong);
-			};
-		}
+		// for (var i = 0; i < sv.vari.SoTinTuc; i++) {
+		// sv.arr.eventClickViewTinTuc[i] = function() {
+		// sv.ui.ViewTong.removeAllChildren();
+		// sv.ui.webview.setUrl(jsonResuilt.news[i].intro);
+		// sv.ui.ViewTong.add(sv.ui.webview);
+		// Ti.API.info('link:'+jsonResuilt.news[i].intro);
+		// // var newWindow = new (require('/ui_bongda/NewsContent'))();
+		// // sv.ui.ViewTong.removeAllChildren();
+		// // sv.ui.ViewTong.add(newWindow.ui.ViewTong);
+		// };
+		// }
 
-		for (var i = 0; i < sv.vari.SoTinTuc; i++) {
-			sv.arr.ViewTinTuc[i].addEventListener('click', sv.arr.eventClickViewTinTuc[i]);
-		}
+		// for (var i = 0; i < sv.vari.SoTinTuc; i++) {
+		// }
 
 	};
 
 }
 
 function createUI_Event(sv) {
-	sv.fu = {};
 
 	sv.fu.eventClickIconLeft = function(e) {
 		sv.ui.Window.close();

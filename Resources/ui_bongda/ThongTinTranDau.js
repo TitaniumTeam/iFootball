@@ -14,15 +14,15 @@ module.exports = function() {
 	return sv;
 };
 function tao_bien(sv) {
-	sv.vari.indicator = require('/ui-controller/vIndicatorWindow');
-	sv.vari.vIndicatorWindow = sv.vari.indicator.createIndicatorWindow();
+	// sv.vari.indicator = require('/ui-controller/vIndicatorWindow');
+	// sv.vari.vIndicatorWindow = sv.vari.indicator.createIndicatorWindow();
 	sv.vari.viewTTTD = require('/ui_bongda/viewTTTD');
 	sv.vari.bxh = require('/ui_bongda/BangXepHang');
 	sv.vari.TTTD_cuthe = require('/ui_bongda/ThongTinTranDau_CuThe');
 
 	sv.vari.SoLuongGiaiDau = 0;
 	sv.vari.SoTran = 0;
-
+	sv.vari.timeout;
 	//////////
 	sv.arr.MangMatchId = [];
 	sv.arr.rows = [];
@@ -63,10 +63,11 @@ function tao_ui(sv) {
 	});
 
 	GetTour(sv, "gettour", {
+		"season" : "2014"
 		//"matchid" : "1"
 	});
 
-	setTimeout(function() {
+	sv.vari.timeout = setTimeout(function() {
 		for (var i = 0; i < sv.vari.SoLuongGiaiDau; i++) {
 			sv.arr.rows[i] = Ti.UI.createTableViewRow({
 				height : sv.vari.row_height,
@@ -135,7 +136,7 @@ function tao_ui(sv) {
 				height : Ti.App.size(24),
 				// image : '/assets/images/icon/arrow-left.png',
 				touchEnabled : false,
-				backgroundImage:'/assets/images/icon/arrow-top.png'
+				backgroundImage : '/assets/images/icon/arrow-top.png'
 			});
 
 			// sv.ui.row.add(sv.arr.ViewChua[i]);
@@ -203,16 +204,16 @@ function tao_ui(sv) {
 						top : sv.vari.row_height,
 						width : Ti.App.size(720),
 						backgroundGradient : {
-						type : 'linear',
-						colors : [{
-						color : Ti.App.Color.superwhite,
-						position : 0.5
-						}, {
-						color : Ti.App.Color.superwhite,
-						position : 0.5
-						}]
+							type : 'linear',
+							colors : [{
+								color : Ti.App.Color.superwhite,
+								position : 0.5
+							}, {
+								color : Ti.App.Color.superwhite,
+								position : 0.5
+							}]
 						},
-						bottom:1
+						bottom : 1
 					});
 
 					for ( j = 0; j < jsonResuilt1.matchs.length; j++) {
@@ -271,21 +272,22 @@ function tao_ui(sv) {
 		}
 		sv.ui.tbl = Ti.UI.createTableView({
 			data : sv.arr.rows,
-			// height : Ti.UI.FILL,
+			height : Ti.UI.FILL,
 			width : Ti.App.size(720),
 			top : 0,
 			separatorColor : 'transparent',
 			backgroundColor : Ti.App.Color.magenta,
 		});
 		sv.ui.ViewTong.add(sv.ui.tbl);
-		sv.vari.vIndicatorWindow.closeIndicator();
-	}, 3000);
+		// sv.vari.vIndicatorWindow.closeIndicator();
+		clearTimeout(sv.vari.timeout);
+	}, 100);
 
 };
 
 function set_border(i, sv) {
-	if (i == 0 || i % 2 == 0 || i == (sv.arr.data.length - 1)) {
-		return 1;
+	if (i == 0 || i % 2 == 0 || i == (sv.vari.SoLuongGiaiDau.length - 1)) {
+		return Ti.App.size(2);
 	} else {
 		return 0;
 	}
@@ -305,7 +307,10 @@ function GetTour(sv, _cmd, data) {
 		Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
 	};
 	xhr.onload = function() {
-		sv.vari.vIndicatorWindow.openIndicator();
+		// if (Ti.Platform.osname == 'android') {
+			// sv.vari.vIndicatorWindow.openIndicator();
+		// }
+
 		Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
 		var dl = JSON.parse(this.responseText);
 		var jsonResuilt = JSON.parse(dl);
