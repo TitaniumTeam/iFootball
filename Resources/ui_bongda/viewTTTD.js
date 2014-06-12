@@ -117,9 +117,12 @@ function setParam(sv) {
 		} else {
 			sv.ui.Vcontent.top = _top;
 			sv.ui.lbl_thoigian.text = param.date;
-			sv.ui.lbl_tendoi.text = param.ownerName + ' VS ' + param.guestName;
+			sv.ui.lbl_tendoi.text = param.ownerID + ' VS ' + param.guestID;
 			if (param.result) {
 				sv.ui.tiso.text = param.result;
+			}
+			else{
+				sv.ui.tiso="-:-";
 			}
 
 		}

@@ -24,7 +24,12 @@ function tao_bien(sv) {
 	sv.vari.SoTran = 0;
 	// sv.vari.timeout;
 	//////////
-	sv.arr.MangMatchId = [];
+	sv.arr.MangDL = {};
+	sv.arr.MangDL.id = [];
+	sv.arr.MangDL.khach = [];
+	sv.arr.MangDL.chunha = [];
+	sv.arr.MangDL.date = [];
+	///////////
 	sv.arr.rows = [];
 	sv.arr.viewArow = [];
 	sv.arr.viewRow = [];
@@ -73,9 +78,9 @@ function tao_ui(sv) {
 			fontSize : Ti.App.size(30),
 			fontWeight : 'bold'
 		},
-		color:Ti.App.Color.superwhite,
-		backgroundColor:Ti.App.Color.brown,
-		textAlign:'center'
+		color : Ti.App.Color.superwhite,
+		backgroundColor : Ti.App.Color.brown,
+		textAlign : 'center'
 	});
 	sv.ui.ViewTong.add(sv.ui.lbl_muagiai);
 	sv.ui.view_choose = new sv.vari.combobox(0, "2013-2014", Ti.App.size(220), Ti.App.size(500), Ti.App.size(100));
@@ -94,7 +99,7 @@ function tao_ui(sv) {
 	});
 	sv.ui.ViewTong.add(sv.ui.ViewChua);
 	GetTour(sv, "gettour", {
-		"season" : "2013-2014"
+		"season" : "2012"
 		//"matchid" : "1"
 	});
 	tao_event(sv);
@@ -290,7 +295,11 @@ function GetTour(sv, _cmd, data) {
 
 				xhr1.onload = function() {
 					var sotran = [];
-					var MangMatchId = [];
+					var Mangdl = {};
+					Mangdl.id = [];
+					Mangdl.khach = [];
+					Mangdl.chunha = [];
+					Mangdl.date = [];
 					var dl1 = JSON.parse(this.responseText);
 					var jsonResuilt1 = JSON.parse(dl1);
 					Ti.API.info('du lieu la : ', jsonResuilt1.matchs);
@@ -300,9 +309,16 @@ function GetTour(sv, _cmd, data) {
 					} else {
 						for (var j = 0; j < (jsonResuilt1.matchs).length; j++) {
 							sotran[j] = jsonResuilt1.matchs[j];
-							MangMatchId[j] = jsonResuilt1.matchs[j].id;
+							Mangdl.id[j] = jsonResuilt1.matchs[j].id;
+							Mangdl.khach[j] = jsonResuilt1.matchs[j].guestID;
+							Mangdl.chunha[j] = jsonResuilt1.matchs[j].ownerID;
+							Mangdl.date[j] = jsonResuilt1.matchs[j].date;
 						}
-						sv.arr.MangMatchId = MangMatchId;
+						sv.arr.MangDL.id = Mangdl.id;
+						sv.arr.MangDL.khach = Mangdl.khach;
+						sv.arr.MangDL.chunha = Mangdl.chunha;
+						sv.arr.MangDL.date = Mangdl.date;
+						Ti.API.info('mang du lieu ket qua tran dau:********' + Mangdl.length);
 					}
 
 					sv.vari.SoTran = sotran.length;
@@ -337,8 +353,8 @@ function GetTour(sv, _cmd, data) {
 
 					for (var j = 0; j < sv.vari.SoTran; j++) {
 						sv.arr.trandau[j].addEventListener('click', function(e) {
-							Ti.API.info('length' + sv.arr.MangMatchId[e.source.id]);
-							sv.ui.TTTD = new sv.vari.TTTD_cuthe(sv.arr.MangMatchId[e.source.id]);
+							Ti.API.info('id tran dau:' + sv.arr.MangDL.id[e.source.id]);
+							sv.ui.TTTD = new sv.vari.TTTD_cuthe(sv.arr.MangDL.id[e.source.id], sv.arr.MangDL.chunha[e.source.id], sv.arr.MangDL.khach[e.source.id], sv.arr.MangDL.date[e.source.id]);
 							sv.ui.ViewTong.removeAllChildren();
 							sv.ui.ViewTong.add(sv.ui.TTTD.ui.ViewTong);
 						});
@@ -396,8 +412,9 @@ function GetTour(sv, _cmd, data) {
 
 }
 
-function GetMatchList(TourId, i, sv) {
-
+function season() {
+	var minyear = "2010";
+	var maxyear = new Date().getYear();
 }
 
 function height_viewback(sotran) {

@@ -1,4 +1,4 @@
-module.exports = function(matchid) {
+module.exports = function(matchid,chunha,khach,date) {
 	var sv = {};
 	sv.vari = {};
 	sv.arr = {};
@@ -8,7 +8,7 @@ module.exports = function(matchid) {
 
 	(function() {
 		createVariable(sv);
-		createUI(sv, matchid);
+		createUI(sv,matchid,chunha,khach,date);
 	})();
 	return sv;
 };
@@ -21,19 +21,19 @@ function createVariable(sv) {
 	sv.arr.LabelTyLeCuoc = [];
 	sv.arr.ParamTySo = ['2 - 1'];
 	sv.arr.ParamTyLeCuoc = ['3.8'];
-	sv.vari.LabelNameKeo1 = null;
+	sv.vari.LabelNameKeo1 = "Kèo Châu Á Online";
 	sv.vari.LabelThongTinKeo11 = null;
 	sv.vari.LabelThongTinKeo12 = null;
 	sv.vari.LabelThongTinKeo13 = null;
-	sv.vari.LabelNameKeo2 = '';
+	sv.vari.LabelNameKeo2 = "Kèo Châu Á";
 	sv.vari.LabelThongTinKeo21 = '';
 	sv.vari.LabelThongTinKeo22 = '';
 	sv.vari.LabelThongTinKeo23 = '';
-	sv.vari.LabelNameKeo3 = ' ';
+	sv.vari.LabelNameKeo3 ="Kèo Châu Âu";
 	sv.vari.LabelThongTinKeo31 = '';
 	sv.vari.LabelThongTinKeo32 = '';
 	sv.vari.LabelThongTinKeo33 = '';
-	sv.vari.LabelNameKeo4 = '';
+	sv.vari.LabelNameKeo4 ='';
 	sv.vari.LabelThongTinKeo41 = '';
 	sv.vari.LabelThongTinKeo42 = '';
 	sv.vari.LabelThongTinKeo43 = '';
@@ -43,7 +43,7 @@ function createVariable(sv) {
 	sv.vari.SoLuongParamResultBet = 0;
 
 };
-function createUI(sv, matchid) {
+function createUI(sv,matchid,chunha,khach,date) {
 	sv.ui.ViewTong = Ti.UI.createView({
 		width : Ti.UI.FILL,
 		height : Ti.UI.FILL,
@@ -70,7 +70,7 @@ function createUI(sv, matchid) {
 	sv.ui.ViewTong.add(sv.ui.ViewChua);
 	sv.ui.BGHeader = Ti.UI.createView({
 		right : Ti.App.size(0),
-		height : Ti.App.size(288),
+		height : Ti.App.size(200),
 		// top : Ti.App.size(0),
 		left : 0,
 		backgroundColor : Ti.App.Color.xanhnhat,
@@ -79,12 +79,12 @@ function createUI(sv, matchid) {
 	sv.ui.IconTime = Ti.UI.createImageView({
 		image : '/assets/images/icon/icon-time.png',
 		height : Ti.App.size(25),
-		left : Ti.App.size(285),
+		left : Ti.App.size(250),
 		width : Ti.App.size(25),
 		top : Ti.App.size(145 - 120)
 	});
 	sv.ui.LbGioPhut = Ti.UI.createLabel({
-		text : '19:00',
+		text : date,
 		top : Ti.App.size(145 - 120),
 		font : {
 			fontSize : Ti.App.size(20),
@@ -93,7 +93,7 @@ function createUI(sv, matchid) {
 			textAlign : 'left'
 		},
 		color : Ti.App.Color.nauden,
-		left : Ti.App.size(320)
+		left : Ti.App.size(290)
 	});
 
 	sv.ui.IconAddress = Ti.UI.createImageView({
@@ -117,21 +117,21 @@ function createUI(sv, matchid) {
 		color : Ti.App.Color.nauden,
 	});
 
-	sv.ui.IconDoiChuNha = Ti.UI.createImageView({
-		image : '/assets/images/1/Manchester-United.png',
-		height : Ti.App.size(115),
-		width : Ti.App.size(115),
-		top : Ti.App.size(50),
-		left : Ti.App.size(50),
-	});
-
-	sv.ui.IconDoiKhach = Ti.UI.createImageView({
-		image : '/assets/images/1/Chelsea_FC.png',
-		height : Ti.App.size(115),
-		width : Ti.App.size(115),
-		top : Ti.App.size(50),
-		right : Ti.App.size(50),
-	});
+	// sv.ui.IconDoiChuNha = Ti.UI.createImageView({
+		// image : '/assets/images/1/Manchester-United.png',
+		// height : Ti.App.size(115),
+		// width : Ti.App.size(115),
+		// top : Ti.App.size(50),
+		// left : Ti.App.size(50),
+	// });
+// 
+	// sv.ui.IconDoiKhach = Ti.UI.createImageView({
+		// image : '/assets/images/1/Chelsea_FC.png',
+		// height : Ti.App.size(115),
+		// width : Ti.App.size(115),
+		// top : Ti.App.size(50),
+		// right : Ti.App.size(50),
+	// });
 
 	sv.ui.LbVS = Ti.UI.createLabel({
 		text : 'VS',
@@ -148,21 +148,21 @@ function createUI(sv, matchid) {
 	});
 
 	sv.ui.ViewTenDoiChuNha = Ti.UI.createView({
-		top : Ti.App.size(200),
-		width : Ti.App.size(200),
-		left : Ti.App.size(40),
+		top : Ti.App.size(100),
+		width : Ti.App.size(240),
+		left : Ti.App.size(0),
 	});
 
 	sv.ui.ViewTenDoiKhach = Ti.UI.createView({
-		top : Ti.App.size(200),
-		width : Ti.App.size(200),
-		right : Ti.App.size(40),
+		top : Ti.App.size(100),
+		width : Ti.App.size(240),
+		right : Ti.App.size(0),
 	});
 
 	sv.ui.LbTenDoiChuNha = Ti.UI.createLabel({
-		text : 'Manchester United',
+		text : chunha,
 		font : {
-			fontSize : Ti.App.size(18),
+			fontSize : Ti.App.size(30),
 			fontWeight : 'bold',
 			fontFamily : 'Aria',
 			textAlign : 'center'
@@ -171,9 +171,9 @@ function createUI(sv, matchid) {
 	});
 
 	sv.ui.LbTenDoiKhach = Ti.UI.createLabel({
-		text : 'Chelsea',
+		text : khach,
 		font : {
-			fontSize : Ti.App.size(18),
+			fontSize : Ti.App.size(30),
 			fontWeight : 'bold',
 			fontFamily : 'Aria',
 			textAlign : 'center'
@@ -571,7 +571,7 @@ function createUI(sv, matchid) {
 	});
 
 	GetMatchRatio(sv, "getmatchratio", {
-		"matchid" : matchid.toString()
+		"matchid" : matchid
 	});
 	Ti.API.info('SoLuongParamResultBet : ', sv.vari.SoLuongParamResultBet);
 	Ti.API.info('than xuan son');
@@ -589,11 +589,11 @@ function createUI(sv, matchid) {
 	sv.ui.ViewChua.add(sv.ui.ViewCaCuocTySo);
 
 	sv.ui.BGHeader.add(sv.ui.LbGioPhut);
-	sv.ui.BGHeader.add(sv.ui.IconAddress);
-	sv.ui.BGHeader.add(sv.ui.LbSan);
+	// sv.ui.BGHeader.add(sv.ui.IconAddress);
+	// sv.ui.BGHeader.add(sv.ui.LbSan);
 	sv.ui.BGHeader.add(sv.ui.IconTime);
-	sv.ui.BGHeader.add(sv.ui.IconDoiChuNha);
-	sv.ui.BGHeader.add(sv.ui.IconDoiKhach);
+	// sv.ui.BGHeader.add(sv.ui.IconDoiChuNha);
+	// sv.ui.BGHeader.add(sv.ui.IconDoiKhach);
 	sv.ui.BGHeader.add(sv.ui.LbVS);
 	sv.ui.BGHeader.add(sv.ui.ViewTenDoiChuNha);
 	sv.ui.BGHeader.add(sv.ui.ViewTenDoiKhach);
@@ -658,21 +658,21 @@ function GetMatchRatio(sv, _cmd, data) {
 		var jsonResuilt = JSON.parse(dl);
 		Ti.API.info('du lieu la : ', jsonResuilt.match);
 		if (jsonResuilt.match.aisia_onl_betting.length != 0) {
-			sv.ui.LabelHeaderKeoChauA.text = jsonResuilt.match.aisia_onl_betting[0].betname.toString();
+			// sv.ui.LabelHeaderKeoChauA.text = jsonResuilt.match.aisia_onl_betting[0].betname.toString();
 			sv.ui.LabelThongTinKeoChauA1.text = jsonResuilt.match.aisia_onl_betting[0].guest.toString();
 			sv.ui.LabelThongTinKeoChauA2.text = jsonResuilt.match.aisia_onl_betting[0].owner.toString();
 			sv.ui.LabelThongTinKeoChauA3.text = jsonResuilt.match.aisia_onl_betting[0].ratio.toString();
 		}
 
 		if (jsonResuilt.match.aisiabe_betting.length != 0) {
-			sv.ui.LabelHeaderTongSoBanThang.text = jsonResuilt.match.aisiabe_betting[0].betname.toString();
+			// sv.ui.LabelHeaderTongSoBanThang.text = jsonResuilt.match.aisiabe_betting[0].betname.toString();
 			sv.ui.LabelThongTinTongSoBanThang1.text = jsonResuilt.match.aisiabe_betting[0].guest.toString();
 			sv.ui.LabelThongTinTongSoBanThang2.text = jsonResuilt.match.aisiabe_betting[0].owner.toString();
 			sv.ui.LabelThongTinTongSoBanThang3.text = jsonResuilt.match.aisiabe_betting[0].ratio.toString();
 		}
 
 		if (jsonResuilt.match.euro_betting.length != 0) {
-			sv.ui.LabelHeaderTyLeChauAu.text = jsonResuilt.match.euro_betting[0].betname.toString();
+			// sv.ui.LabelHeaderTyLeChauAu.text = jsonResuilt.match.euro_betting[0].betname.toString();
 			sv.ui.LabelThongTinKeoChauAu1.text = jsonResuilt.match.euro_betting[0].guest.toString();
 			sv.ui.LabelThongTinKeoChauAu2.text = jsonResuilt.match.euro_betting[0].owner.toString();
 			sv.ui.LabelThongTinKeoChauAu3.text = jsonResuilt.match.euro_betting[0].ratio.toString();
@@ -716,7 +716,7 @@ function GetMatchRatio(sv, _cmd, data) {
 			row.add(sv.arr.ViewLabelTySo[i]);
 
 			sv.arr.LabelTySo[i] = Ti.UI.createLabel({
-				text : sv.arr.ParamTySo[0],
+				text : sv.arr.ParamTySo[i],
 				font : {
 					fontSize : Ti.App.size(26),
 					fontWeight : 'bold',
@@ -737,7 +737,7 @@ function GetMatchRatio(sv, _cmd, data) {
 			row.add(sv.arr.ViewLabelTyLeCuoc[i]);
 
 			sv.arr.LabelTyLeCuoc[i] = Ti.UI.createLabel({
-				text : sv.arr.ParamTyLeCuoc[0],
+				text : sv.arr.ParamTyLeCuoc[i],
 				font : {
 					fontSize : Ti.App.size(26),
 					fontWeight : 'bold',
