@@ -14,15 +14,15 @@ module.exports = function() {
 	return sv;
 };
 function tao_bien(sv) {
-	sv.vari.indicator = require('/ui-controller/vIndicatorWindow');
-	sv.vari.vIndicatorWindow = sv.vari.indicator.createIndicatorWindow();
+	// sv.vari.indicator = require('/ui-controller/vIndicatorWindow');
+	// sv.vari.vIndicatorWindow = sv.vari.indicator.createIndicatorWindow();
 	sv.vari.viewTTTD = require('/ui_bongda/viewTTTD');
 	sv.vari.bxh = require('/ui_bongda/BangXepHang');
 	sv.vari.TTTD_cuthe = require('/ui_bongda/ThongTinTranDau_CuThe');
-
+	sv.vari.combobox = require('/ui_soxo/ComboBox');
 	sv.vari.SoLuongGiaiDau = 0;
 	sv.vari.SoTran = 0;
-	sv.vari.timeout;
+	// sv.vari.timeout;
 	//////////
 	sv.arr.MangMatchId = [];
 	sv.arr.rows = [];
@@ -37,13 +37,19 @@ function tao_bien(sv) {
 	sv.arr.lbl_tennc = [];
 	sv.arr.lbl_co = [];
 	sv.arr.TourId = [];
-
+	/////cac mua giai
+	sv.arr.muagiai = [{
+		name : "2012-2013"
+	}, {
+		name : "2013-2014"
+	}];
+	sv.vari.flag = false;
 	//////////
 	sv.arr.SoTran = [];
 	sv.vari.row_height = Ti.App.size(100);
-	sv.vari.trans = Titanium.UI.create2DMatrix();
-	sv.vari.trans1 = sv.vari.trans.rotate(90);
-	sv.vari.trans2 = sv.vari.trans.rotate(270);
+	// sv.vari.trans = Titanium.UI.create2DMatrix();
+	// sv.vari.trans1 = sv.vari.trans.rotate(90);
+	// sv.vari.trans2 = sv.vari.trans.rotate(270);
 
 	///event
 	sv.arr.event_clickrow = [];
@@ -52,22 +58,125 @@ function tao_bien(sv) {
 
 };
 function tao_ui(sv) {
-
-	sv.ui.ViewTong = Ti.UI.createScrollView({
-		backgroundColor : 'transparent',
+	sv.ui.ViewTong = Titanium.UI.createView({
+		width : Ti.App.size(720),
+		height : Ti.UI.FILL,
+		backgroundColor : 'transparent'
+	});
+	sv.ui.lbl_muagiai = Titanium.UI.createLabel({
+		left : 0,
+		width : Ti.App.size(220),
+		height : Ti.App.size(100),
 		top : 0,
+		text : 'Mùa giải',
+		font : {
+			fontSize : Ti.App.size(30),
+			fontWeight : 'bold'
+		},
+		color:Ti.App.Color.superwhite,
+		backgroundColor:Ti.App.Color.brown,
+		textAlign:'center'
+	});
+	sv.ui.ViewTong.add(sv.ui.lbl_muagiai);
+	sv.ui.view_choose = new sv.vari.combobox(0, "2013-2014", Ti.App.size(220), Ti.App.size(500), Ti.App.size(100));
+	sv.ui.lblfirst = sv.ui.view_choose.getLblFirst();
+	sv.ui.table_view = sv.ui.view_choose.getTableView();
+	sv.ui.view_choose.setTable(sv.arr.muagiai);
+	sv.ui.ViewTong.add(sv.ui.view_choose);
+	sv.ui.ViewTong.add(sv.ui.table_view);
+	sv.ui.ViewChua = Ti.UI.createScrollView({
+		backgroundColor : 'transparent',
+		top : Ti.App.size(100),
 		left : 0,
 		showVerticalScrollIndicator : 'true',
 		contentHeight : Ti.UI.FILL,
 		height : Ti.UI.FILL
 	});
-
+	sv.ui.ViewTong.add(sv.ui.ViewChua);
 	GetTour(sv, "gettour", {
 		"season" : "2013-2014"
 		//"matchid" : "1"
 	});
+	tao_event(sv);
+	sv.ui.view_choose.addEventListener('click', sv.fu.event_click_view);
+	sv.ui.table_view.addEventListener('click', sv.fu.event_clicktbl);
+	sv.ui.ViewChua.addEventListener('click', sv.fu.event_clickscrollview);
+};
+function tao_event(sv) {
+	sv.fu.event_clickscrollview = function(e) {
+		sv.vari.flag = false;
+		if (sv.vari.flag == false) {
+			sv.ui.table_view.visible = false;
+		};
+	};
+	sv.fu.event_click_view = function(e) {
+		sv.vari.flag = true;
+		sv.ui.table_view.visible = true;
+	};
+	sv.fu.event_clicktbl = function(e) {
+		sv.vari.flag = true;
+		tbl_click(e, sv.ui.lblfirst, sv.ui.table_view, sv);
+		GetTour(sv, "gettour", {
+			"season" : sv.ui.lblfirst.text
+			//"matchid" : "1"
+		});
+	};
+}
 
-	sv.vari.timeout = setTimeout(function() {
+function tbl_click(e, _lbl, _tbl, sv) {
+	if (sv.vari.flag == true) {
+		_lbl.text = e.row.tenrow;
+		_tbl.visible = false;
+	}
+}
+
+function set_border(i, sv) {
+	if (i == 0 || i % 2 == 0 || i == (sv.vari.SoLuongGiaiDau.length - 1)) {
+		return Ti.App.size(2);
+	} else {
+		return 0;
+	}
+};
+
+function GetTour(sv, _cmd, data) {
+	// sv.vari.vIndicatorWindow.openIndicator();
+	var xhr = Titanium.Network.createHTTPClient();
+	xhr.onsendstream = function(e) {
+		//ind.value = e.progress;
+		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
+	};
+	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=' + _cmd);
+	xhr.setRequestHeader("Content-Type", "application/json-rpc");
+	Ti.API.info(JSON.stringify(data));
+	xhr.send(JSON.stringify(data));
+	xhr.onerror = function(e) {
+		Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
+	};
+	xhr.onload = function() {
+		// if (Ti.Platform.osname == 'android') {
+		// }
+
+		Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
+		var dl = JSON.parse(this.responseText);
+		var jsonResuilt = JSON.parse(dl);
+		Ti.API.info('cac giai dau  : ', jsonResuilt.tournaments);
+		sv.arr.data = [];
+		sv.arr.logo = [];
+		for (var i = 0; i < (jsonResuilt.tournaments).length; i++) {
+
+			sv.vari.SoLuongGiaiDau = (jsonResuilt.tournaments).length;
+			sv.arr.data.push(jsonResuilt.tournaments[i].name);
+			if (jsonResuilt.tournaments[i].logo) {
+				sv.arr.logo.push(jsonResuilt.tournaments[i].logo);
+			} else {
+				sv.arr.logo.push("");
+			}
+			sv.arr.TourId[i] = jsonResuilt.tournaments[i].id.toString();
+
+		}
+		/////////do du lieu vao tableview
+		sv.ui.ViewChua.removeAllChildren();
+		// sv.vari.timeout = setTimeout(function() {
 		for (var i = 0; i < sv.vari.SoLuongGiaiDau; i++) {
 			sv.arr.rows[i] = Ti.UI.createTableViewRow({
 				height : sv.vari.row_height,
@@ -114,7 +223,7 @@ function tao_ui(sv) {
 			sv.arr.lbl_co[i] = Titanium.UI.createImageView({
 				width : Ti.App.size(65),
 				height : Ti.App.size(45),
-				image : "http://img3.wikia.nocookie.net/__cb20131212202719/football/en/images/7/7c/Bundesliga_logo.svg.png",
+				image : "/assets/images/1/Chelsea_FC.png",
 				left : Ti.App.size(20),
 				touchEnabled : false,
 			});
@@ -159,11 +268,11 @@ function tao_ui(sv) {
 			});
 
 			sv.arr.viewArow[i].addEventListener('click', function(e) {
-				GetMatchList(sv.arr.TourId[e.source.id], e.source.id, sv);
+				// GetMatchList(sv.arr.TourId[e.source.id], e.source.id, sv);
 
 				data1 = {
 					"tourid" : sv.arr.TourId[e.source.id],
-					"startdate" : "30/05/2014",
+					"startdate" : "01/06/2014",
 					"enddate" : "12/06/2014"
 				};
 				var xhr1 = Titanium.Network.createHTTPClient();
@@ -278,60 +387,11 @@ function tao_ui(sv) {
 			separatorColor : 'transparent',
 			backgroundColor : Ti.App.Color.magenta,
 		});
-		sv.ui.ViewTong.add(sv.ui.tbl);
-		sv.vari.vIndicatorWindow.closeIndicator();
-		clearTimeout(sv.vari.timeout);
-	}, 1000);
+		sv.ui.ViewChua.add(sv.ui.tbl);
+		// sv.vari.vIndicatorWindow.closeIndicator();
+		// clearTimeout(sv.vari.timeout);
+		// }, 1000);
 
-};
-
-function set_border(i, sv) {
-	if (i == 0 || i % 2 == 0 || i == (sv.vari.SoLuongGiaiDau.length - 1)) {
-		return Ti.App.size(2);
-	} else {
-		return 0;
-	}
-};
-
-function GetTour(sv, _cmd, data) {
-	sv.vari.vIndicatorWindow.openIndicator();
-	var xhr = Titanium.Network.createHTTPClient();
-	xhr.onsendstream = function(e) {
-		//ind.value = e.progress;
-		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
-	};
-	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=' + _cmd);
-	xhr.setRequestHeader("Content-Type", "application/json-rpc");
-	Ti.API.info(JSON.stringify(data));
-	xhr.send(JSON.stringify(data));
-	xhr.onerror = function(e) {
-		Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
-	};
-	xhr.onload = function() {
-		// if (Ti.Platform.osname == 'android') {
-		// }
-
-		Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
-		var dl = JSON.parse(this.responseText);
-		var jsonResuilt = JSON.parse(dl);
-		Ti.API.info('cac giai dau  : ', jsonResuilt.tournaments);
-		sv.arr.data = [];
-		sv.arr.logo = [];
-		for (var i = 0; i < (jsonResuilt.tournaments).length; i++) {
-
-			sv.vari.SoLuongGiaiDau = (jsonResuilt.tournaments).length;
-			sv.arr.data.push(jsonResuilt.tournaments[i].name);
-			if(jsonResuilt.tournaments[i].logo){
-				// Ti.API.info('logo:'+jsonResuilt.tournaments[i].logo);
-				sv.arr.logo.push(jsonResuilt.tournaments[i].logo);
-			}
-			else{
-				// Ti.API.info('logo null:'+jsonResuilt.tournaments[i].logo);
-				sv.arr.logo.push("");
-			}
-			sv.arr.TourId[i] = jsonResuilt.tournaments[i].id.toString();
-
-		}
 	};
 
 }

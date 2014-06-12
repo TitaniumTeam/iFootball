@@ -155,66 +155,67 @@ function thongke(_cmd, data, sv) {
 					sv.ui.scrollView.visible = false;
 					sv.vari.vIndicatorWindow.openIndicator();
 				}
-				sv.ui.scrollView.removeAllChildren();
-				sv.ui.scrollView.scrollTo(0, 0);
-				sv.ui.lbl_dsve_saudau = Ti.UI.createLabel({
-					width : Ti.App.size(670),
-					// height : Ti.App.size(65),
-					left : Ti.App.size(30),
-					backgroundColor : 'transparent',
-					touchEnabled : false,
-					font : {
-						fontSize : Ti.App.size(30)
-					},
-					color : Ti.App.Color.nauden,
-					text : 'Dãy số ít về trong 10 ngày qua',
-					top : Ti.App.size(30),
-					textAlign : 'left'
-				});
-				sv.ui.scrollView.add(sv.ui.lbl_dsve_saudau);
-				sv.ui.viewTonglaura = bang_kq(jsonResuilt.thongke.lauchuara,' ngày');
-				sv.ui.scrollView.add(sv.ui.viewTonglaura);
-				///day so hay ve
-				sv.ui.lbl_header_hayve = Ti.UI.createLabel({
-					width : Ti.App.size(670),
-					height : Ti.App.size(65),
-					left : Ti.App.size(25),
-					backgroundColor : Ti.App.Color.brown,
-					touchEnabled : false,
-					font : {
-						fontSize : Ti.App.size(25)
-					},
-					color : Ti.App.Color.superwhite,
-					text : '8 cặp số xuất hiện nhiều nhất trong vòng 10 ngày qua',
-					textAlign : 'center',
-					top : Ti.App.size(20)
-				});
-				sv.ui.scrollView.add(sv.ui.lbl_header_hayve);
-				sv.ui.viewTongxuathiennhieu = bang_kq(jsonResuilt.thongke.xuathiennhieu,' lần');
-				sv.ui.scrollView.add(sv.ui.viewTongxuathiennhieu);
-				////view cac cap so ra lien tiep
-				sv.ui.lbl_capsolientiep = Ti.UI.createLabel({
-					width : Ti.App.size(670),
-					height : Ti.App.size(65),
-					left : Ti.App.size(25),
-					backgroundColor : Ti.App.Color.brown,
-					touchEnabled : false,
-					font : {
-						fontSize : Ti.App.size(25)
-					},
-					color : Ti.App.Color.superwhite,
-					text : 'Các cặp số ra liên tiếp',
-					textAlign : 'center',
-					top : Ti.App.size(20)
-				});
-				sv.ui.scrollView.add(sv.ui.lbl_capsolientiep);
-				sv.ui.viewTonglientiep = bang_kq(jsonResuilt.thongke.ralientiep,' ngày');
-				sv.ui.scrollView.add(sv.ui.viewTonglientiep);
-			} else {
-				if (jsonResuilt.thongke.xuathiennhieu.length == 0 || jsonResuilt.thongke.xuathiennhieu == undefined) {
-					Ti.API.info('khong co du lieu');
+				if (jsonResuilt.thongke.lauchuara.length == 0) {
+					sv.ui.scrollView.scrollTo(0, 0);
 					sv.ui.scrollView.removeAllChildren();
+				} else {
+					sv.ui.scrollView.scrollTo(0, 0);
+					sv.ui.scrollView.removeAllChildren();
+					sv.ui.lbl_dsve_saudau = Ti.UI.createLabel({
+						width : Ti.App.size(670),
+						// height : Ti.App.size(65),
+						left : Ti.App.size(30),
+						backgroundColor : 'transparent',
+						touchEnabled : false,
+						font : {
+							fontSize : Ti.App.size(30)
+						},
+						color : Ti.App.Color.nauden,
+						text : 'Dãy số ít về trong 10 ngày qua',
+						top : Ti.App.size(30),
+						textAlign : 'left'
+					});
+					sv.ui.scrollView.add(sv.ui.lbl_dsve_saudau);
+					sv.ui.viewTonglaura = bang_kq(jsonResuilt.thongke.lauchuara, ' ngày');
+					sv.ui.scrollView.add(sv.ui.viewTonglaura);
+					///day so hay ve
+					sv.ui.lbl_header_hayve = Ti.UI.createLabel({
+						width : Ti.App.size(670),
+						height : Ti.App.size(65),
+						left : Ti.App.size(25),
+						backgroundColor : Ti.App.Color.brown,
+						touchEnabled : false,
+						font : {
+							fontSize : Ti.App.size(25)
+						},
+						color : Ti.App.Color.superwhite,
+						text : '8 cặp số xuất hiện nhiều nhất trong vòng 10 ngày qua',
+						textAlign : 'center',
+						top : Ti.App.size(20)
+					});
+					sv.ui.scrollView.add(sv.ui.lbl_header_hayve);
+					sv.ui.viewTongxuathiennhieu = bang_kq(jsonResuilt.thongke.xuathiennhieu, ' lần');
+					sv.ui.scrollView.add(sv.ui.viewTongxuathiennhieu);
+					////view cac cap so ra lien tiep
+					sv.ui.lbl_capsolientiep = Ti.UI.createLabel({
+						width : Ti.App.size(670),
+						height : Ti.App.size(65),
+						left : Ti.App.size(25),
+						backgroundColor : Ti.App.Color.brown,
+						touchEnabled : false,
+						font : {
+							fontSize : Ti.App.size(25)
+						},
+						color : Ti.App.Color.superwhite,
+						text : 'Các cặp số ra liên tiếp',
+						textAlign : 'center',
+						top : Ti.App.size(20)
+					});
+					sv.ui.scrollView.add(sv.ui.lbl_capsolientiep);
+					sv.ui.viewTonglientiep = bang_kq(jsonResuilt.thongke.ralientiep, ' ngày');
+					sv.ui.scrollView.add(sv.ui.viewTonglientiep);
 				}
+
 			}
 
 		} else {
@@ -266,7 +267,7 @@ function currDate() {
 	return currdate;
 }
 
-function bang_kq(param,_loai) {
+function bang_kq(param, _loai) {
 	var viewchua = Ti.UI.createView({
 		width : Ti.App.size(670),
 		height : Ti.UI.SIZE,
@@ -310,7 +311,7 @@ function bang_kq(param,_loai) {
 				color : Ti.App.Color.nauden,
 			});
 			var l2 = Ti.UI.createLabel({
-				text : param[i].solan +(_loai),
+				text : param[i].solan + (_loai),
 				left : Ti.App.size(200),
 				width : Ti.UI.SIZE,
 				font : {
@@ -356,7 +357,7 @@ function bang_kq(param,_loai) {
 					color : Ti.App.Color.nauden,
 				});
 				var l22 = Ti.UI.createLabel({
-					text : param[i].solan +(_loai),
+					text : param[i].solan + (_loai),
 					left : Ti.App.size(200),
 					width : Ti.UI.SIZE,
 					font : {

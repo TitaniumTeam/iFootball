@@ -2,8 +2,8 @@ module.exports = function(_loai) {
 	if (_loai == 1) {
 		var h1 = Ti.App.size(120);
 		var h2 = Ti.App.size(200);
-		var w1 = Ti.App.size(680);
-		var l1 = Ti.App.size(20);
+		var w1 = Ti.App.size(700);
+		var l1 = Ti.App.size(10);
 		var l2 = Ti.App.size(10);
 		var t1 = Ti.App.size(20);
 		var t2 = Ti.App.size(105);
@@ -19,7 +19,7 @@ module.exports = function(_loai) {
 			left : 0,
 			backgroundColor : Ti.App.Color.superwhite,
 			zIndex : 10,
-			width : Ti.App.size(30),
+			width : Ti.App.size(20),
 			height : Ti.App.size(1160),
 		});
 		viewchua.add(viewche1);
@@ -27,7 +27,7 @@ module.exports = function(_loai) {
 			right : 0,
 			backgroundColor : Ti.App.Color.superwhite,
 			zIndex : 10,
-			width : Ti.App.size(30),
+			width : Ti.App.size(20),
 			height : Ti.App.size(1160),
 		});
 		viewchua.add(viewche2);
@@ -336,8 +336,8 @@ module.exports = function(_loai) {
 		if (_loai == 2) {
 			var h1 = Ti.App.size(120);
 			var h2 = Ti.App.size(200);
-			var w1 = Ti.App.size(680);
-			var l1 = Ti.App.size(20);
+			var w1 = Ti.App.size(700);
+			var l1 = Ti.App.size(10);
 			var l2 = Ti.App.size(10);
 			var t1 = Ti.App.size(20);
 			var t2 = Ti.App.size(105);
@@ -353,7 +353,7 @@ module.exports = function(_loai) {
 				left : 0,
 				backgroundColor : Ti.App.Color.superwhite,
 				zIndex : 10,
-				width : Ti.App.size(30),
+				width : Ti.App.size(20),
 				height : Ti.App.size(1160),
 			});
 			viewchua.add(viewche1);
@@ -361,7 +361,7 @@ module.exports = function(_loai) {
 				right : 0,
 				backgroundColor : Ti.App.Color.superwhite,
 				zIndex : 10,
-				width : Ti.App.size(30),
+				width : Ti.App.size(20),
 				height : Ti.App.size(1160),
 			});
 			viewchua.add(viewche2);
@@ -379,7 +379,8 @@ module.exports = function(_loai) {
 				text : 'Đặc biệt',
 				color : Ti.App.Color.red,
 				font : {
-					fontSize : Ti.App.size(40)
+					fontSize : Ti.App.size(40),
+					fontWeight:'bold'
 				},
 				width : Ti.UI.SIZE,
 				textAlign : 'left'
@@ -503,19 +504,19 @@ module.exports = function(_loai) {
 			});
 			view5.add(lblgiai5);
 
-			view5.add(line(t1, Ti.App.size(250)));
-			view5.add(line(t1, Ti.App.size(390)));
-			view5.add(line(t1, Ti.App.size(520)));
-			view5.add(line(t2, Ti.App.size(340)));
-			view5.add(line(t2, Ti.App.size(515)));
+			view5.add(line(t2, Ti.App.size(260)));
+			view5.add(line(t2, Ti.App.size(400)));
+			view5.add(line(t2, Ti.App.size(540)));
+			view5.add(line(t1, Ti.App.size(340)));
+			view5.add(line(t1, Ti.App.size(515)));
 
-			data_lbl.push(lblketqua(Ti.App.size(120), t1));
-			data_lbl.push(lblketqua(Ti.App.size(260), t1));
-			data_lbl.push(lblketqua(Ti.App.size(400), t1));
+			data_lbl.push(lblketqua(Ti.App.size(130), t2));
+			data_lbl.push(lblketqua(Ti.App.size(270), t2));
+			data_lbl.push(lblketqua(Ti.App.size(410), t2));
+			data_lbl.push(lblketqua(Ti.App.size(550), t2));
+			data_lbl.push(lblketqua(Ti.App.size(190), t1));
+			data_lbl.push(lblketqua(Ti.App.size(370), t1));
 			data_lbl.push(lblketqua(Ti.App.size(530), t1));
-			data_lbl.push(lblketqua(Ti.App.size(190), t2));
-			data_lbl.push(lblketqua(Ti.App.size(370), t2));
-			data_lbl.push(lblketqua(Ti.App.size(530), t2));
 
 			view5.add(data_lbl[5]);
 			view5.add(data_lbl[6]);
@@ -571,8 +572,8 @@ module.exports = function(_loai) {
 			view7.add(line(t1, Ti.App.size(515)));
 
 			data_lbl.push(lblketqua(Ti.App.size(200), t1));
-			data_lbl.push(lblketqua(Ti.App.size(370), t1));
-			data_lbl.push(lblketqua(Ti.App.size(540), t1));
+			data_lbl.push(lblketqua(Ti.App.size(380), t1));
+			data_lbl.push(lblketqua(Ti.App.size(550), t1));
 			view7.add(data_lbl[13]);
 			view7.add(data_lbl[14]);
 			view7.add(data_lbl[15]);

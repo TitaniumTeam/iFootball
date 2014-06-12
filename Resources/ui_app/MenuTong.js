@@ -329,7 +329,8 @@ function taosukien(sv, dichvu) {
 					sv.vari.view_kqsx.ui.View_header.text = "KẾT QUẢ SỔ XỐ MIỀN BẮC " + getYesterdaysDate();
 					layketqua("searchlottery", {
 						"provideid" : "MB",
-						"startdate" : getYesterdaysDate()
+						// "startdate" : getYesterdaysDate()
+						"startdate" : "8/6/2014"
 					}, sv.vari.view_kqsx);
 				} else {
 					if (currHour() >= 18) {
@@ -566,10 +567,14 @@ function taosukien(sv, dichvu) {
 				sv.ui.ViewTong.removeAllChildren();
 				sv.vari.wdKQSX = new sv.vari.ketqua_tructiep();
 				sv.ui.ViewTong.add(sv.vari.wdKQSX.ui.ViewTong);
+				layketqua("searchlottery", {
+					"provideid" : "MB",
+					"startdate" : "8/6/2014"
+				}, sv.vari.wdKQSX);
 				sv.vari.intelval = setInterval(function() {
 					layketqua("searchlottery", {
 						"provideid" : "MB",
-						"startdate" : currDate()
+						"startdate" : "8/6/2014"
 					}, sv.vari.wdKQSX);
 				}, 15000);
 				if (currHour() < 18) {
@@ -594,9 +599,6 @@ function taosukien(sv, dichvu) {
 	sv.fu.evt_win_open = function(e) {
 		Ti.API.info('win open');
 		ktmang(sv, 1, dichvu);
-		// sv.vari.db_open = Ti.Database.open('userinfo');
-		// sv.vari.dichvu_open = sv.vari.db_open.execute("SELECT * FROM DichVu");
-		// Ti.API.info('row count saveinfo:' + sv.vari.dichvu_open.getRowCount());
 		sv.vari.db_open = Ti.Database.open('userinfo');
 		sv.vari.dichvu_open = sv.vari.db_open.execute("SELECT * FROM DichVu");
 		Ti.API.info('row count saveinfo:' + sv.vari.dichvu_open.getRowCount());
@@ -606,13 +608,11 @@ function taosukien(sv, dichvu) {
 		sv.arr.view_iconheader[0].backgroundColor = Ti.App.Color.red;
 		sv.arr.iconheader[1].image = sv.arr.img_header[1].bg;
 		sv.arr.view_iconheader[1].backgroundColor = Ti.App.Color.red;
-		// while (sv.vari.dichvu_open.isValidRow()) {
-		// Ti.API.info('ten dich vu' + sv.vari.dichvu_open.fieldByName("tendv") + ':' + sv.vari.dichvu_open.fieldByName("dauso") + ':' + sv.vari.dichvu_open.fieldByName("thamso") + ':' + sv.vari.dichvu_open.fieldByName("gia"));
-		// sv.vari.dichvu_open.next();
-		// };
-		// sv.vari.dichvu_open.close();
-		// sv.vari.db_open.close();
 		push_notification();
+		layketqua("searchlottery", {
+			"provideid" : "MB",
+			"startdate" : "8/6/2014"
+		}, sv.vari.wdKQSX);
 		sv.vari.intelval = setInterval(function() {
 			layketqua("searchlottery", {
 				"provideid" : "MB",
@@ -694,14 +694,6 @@ function layketqua(_cmd, data, sv) {
 			}
 		}
 		sv.ui.bangkq.setKQ_tructiep(mangkq);
-		/*
-		 if(_choose==1){
-		 sv.vari.view_kqsx.ui.bangkq.setKQ_tructiep(mangkq);
-		 }
-		 else{
-		 sv.vari.wdKQSX.ui.bangkq.setKQ_tructiep(mangkq);
-		 }
-		 */
 	};
 
 };

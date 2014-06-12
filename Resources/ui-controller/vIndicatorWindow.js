@@ -18,9 +18,14 @@ function createIndicatorWindow(args) {
 		touchEnabled : false,
 		backgroundColor : 'transparent',
 		navBarHidden:true,
-		tabBarHidden:true
+		tabBarHidden:true,
 	});
-
+	win.add(Ti.UI.createView({
+		backgroundColor:'black',
+		opacity:0.5,
+		width:"100%",
+		height:"100%"
+	}));
 	var view = Ti.UI.createView({
 		height : height,
 		width : width,
@@ -28,7 +33,8 @@ function createIndicatorWindow(args) {
 			x : (width / 2),
 			y : (height / 2)
 		},
-		layout : 'horizontal'
+		layout : 'horizontal',
+		zIndex:2
 	});
 
 	function osIndicatorStyle() {
