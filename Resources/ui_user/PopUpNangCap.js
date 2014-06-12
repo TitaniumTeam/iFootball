@@ -66,7 +66,7 @@ function createUI(sv) {
 			fontWeight : 'bold',
 		},
 		textAlign : 'center',
-		color : Ti.App.Color.nauden,
+		color : Ti.App.Color.superwhite,
 	});
 
 	sv.ui.button_nangcap = Ti.UI.createLabel({
