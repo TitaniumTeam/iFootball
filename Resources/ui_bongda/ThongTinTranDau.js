@@ -14,8 +14,8 @@ module.exports = function() {
 	return sv;
 };
 function tao_bien(sv) {
-	// sv.vari.indicator = require('/ui-controller/vIndicatorWindow');
-	// sv.vari.vIndicatorWindow = sv.vari.indicator.createIndicatorWindow();
+	sv.vari.indicator = require('/ui-controller/vIndicatorWindow');
+	sv.vari.vIndicatorWindow = sv.vari.indicator.createIndicatorWindow();
 	sv.vari.viewTTTD = require('/ui_bongda/viewTTTD');
 	sv.vari.bxh = require('/ui_bongda/BangXepHang');
 	sv.vari.TTTD_cuthe = require('/ui_bongda/ThongTinTranDau_CuThe');
@@ -63,7 +63,7 @@ function tao_ui(sv) {
 	});
 
 	GetTour(sv, "gettour", {
-		"season" : "2014"
+		"season" : "2013-2014"
 		//"matchid" : "1"
 	});
 
@@ -100,7 +100,7 @@ function tao_ui(sv) {
 			});
 
 			sv.arr.lbl_tennc[i] = Ti.UI.createLabel({
-				left : Ti.App.size(20),
+				left : Ti.App.size(100),
 				text : sv.arr.data[i],
 				width : Ti.App.size(720),
 				font : {
@@ -111,13 +111,13 @@ function tao_ui(sv) {
 				touchEnabled : false
 			});
 			//
-			// sv.arr.lbl_co[i] = Titanium.UI.createImageView({
-			// width : Ti.App.size(65),
-			// height : Ti.App.size(45),
-			// image : '/assets/images/icon/0' + (i + 1) + '.png',
-			// left : Ti.App.size(40),
-			// touchEnabled : false
-			// });
+			sv.arr.lbl_co[i] = Titanium.UI.createImageView({
+				width : Ti.App.size(65),
+				height : Ti.App.size(45),
+				image : "http://img3.wikia.nocookie.net/__cb20131212202719/football/en/images/7/7c/Bundesliga_logo.svg.png",
+				left : Ti.App.size(20),
+				touchEnabled : false,
+			});
 
 			sv.arr.viewArow[i] = Titanium.UI.createView({
 				width : Ti.App.size(110),
@@ -143,7 +143,7 @@ function tao_ui(sv) {
 			sv.arr.rows[i].add(sv.arr.viewRow[i]);
 
 			sv.arr.viewGD[i].add(sv.arr.lbl_tennc[i]);
-			// sv.arr.viewGD[i].add(sv.arr.lbl_co[i]);
+			sv.arr.viewGD[i].add(sv.arr.lbl_co[i]);
 
 			sv.arr.viewArow[i].add(sv.arr.arrow[i]);
 			sv.arr.viewRow[i].add(sv.arr.viewGD[i]);
@@ -163,8 +163,8 @@ function tao_ui(sv) {
 
 				data1 = {
 					"tourid" : sv.arr.TourId[e.source.id],
-					"startdate" : "10/04/2014",
-					"enddate" : "30/05/2014"
+					"startdate" : "30/05/2014",
+					"enddate" : "12/06/2014"
 				};
 				var xhr1 = Titanium.Network.createHTTPClient();
 				xhr1.onsendstream = function(e) {
@@ -279,9 +279,9 @@ function tao_ui(sv) {
 			backgroundColor : Ti.App.Color.magenta,
 		});
 		sv.ui.ViewTong.add(sv.ui.tbl);
-		// sv.vari.vIndicatorWindow.closeIndicator();
+		sv.vari.vIndicatorWindow.closeIndicator();
 		clearTimeout(sv.vari.timeout);
-	}, 100);
+	}, 1000);
 
 };
 
@@ -294,6 +294,7 @@ function set_border(i, sv) {
 };
 
 function GetTour(sv, _cmd, data) {
+	sv.vari.vIndicatorWindow.openIndicator();
 	var xhr = Titanium.Network.createHTTPClient();
 	xhr.onsendstream = function(e) {
 		//ind.value = e.progress;
@@ -308,7 +309,6 @@ function GetTour(sv, _cmd, data) {
 	};
 	xhr.onload = function() {
 		// if (Ti.Platform.osname == 'android') {
-			// sv.vari.vIndicatorWindow.openIndicator();
 		// }
 
 		Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
@@ -316,11 +316,19 @@ function GetTour(sv, _cmd, data) {
 		var jsonResuilt = JSON.parse(dl);
 		Ti.API.info('cac giai dau  : ', jsonResuilt.tournaments);
 		sv.arr.data = [];
-
+		sv.arr.logo = [];
 		for (var i = 0; i < (jsonResuilt.tournaments).length; i++) {
 
 			sv.vari.SoLuongGiaiDau = (jsonResuilt.tournaments).length;
 			sv.arr.data.push(jsonResuilt.tournaments[i].name);
+			if(jsonResuilt.tournaments[i].logo){
+				// Ti.API.info('logo:'+jsonResuilt.tournaments[i].logo);
+				sv.arr.logo.push(jsonResuilt.tournaments[i].logo);
+			}
+			else{
+				// Ti.API.info('logo null:'+jsonResuilt.tournaments[i].logo);
+				sv.arr.logo.push("");
+			}
 			sv.arr.TourId[i] = jsonResuilt.tournaments[i].id.toString();
 
 		}

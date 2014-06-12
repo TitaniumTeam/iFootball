@@ -94,9 +94,14 @@ function createUI(sv) {
 			left : Ti.App.size(0),
 			height : Ti.App.size(120),
 			bottom : Ti.App.size(0),
-			opacity : 0.8
+			opacity : 0.8,
+			backgroundSelectedColor : Ti.App.Color.xanhnhat
 		});
-
+		sv.ui.ViewTinHot.addEventListener('click', function(e) {
+			sv.ui.ViewTong.removeAllChildren();
+				sv.ui.webview.setUrl(jsonResuilt.news[0].content);
+				sv.ui.ViewTong.add(sv.ui.webview);
+		});
 		sv.ui.LabelTinHot = Ti.UI.createLabel({
 			text : jsonResuilt.news[0].title.toString(),
 			font : {
@@ -143,7 +148,8 @@ function createUI(sv) {
 				left : Ti.App.size(320),
 				right : Ti.App.size(40),
 				top : Ti.App.size(30),
-				bottom : Ti.App.size(130)
+				height:Ti.UI.SIZE
+				// bottom : Ti.App.size(130)
 			});
 
 			sv.arr.ThoiGianTinTuc[i] = Ti.UI.createLabel({
@@ -156,8 +162,8 @@ function createUI(sv) {
 				color : Ti.App.Color.nauden,
 				left : Ti.App.size(320),
 				right : Ti.App.size(40),
-				top : Ti.App.size(110),
-				bottom : Ti.App.size(100)
+				top : Ti.App.size(100),
+				bottom : Ti.App.size(110)
 			});
 
 			sv.arr.TTTinTuc[i] = Ti.UI.createLabel({
@@ -170,7 +176,7 @@ function createUI(sv) {
 				color : Ti.App.Color.nauden,
 				left : Ti.App.size(320),
 				right : Ti.App.size(40),
-				top : Ti.App.size(145),
+				top : Ti.App.size(135),
 				bottom : Ti.App.size(10)
 			});
 
@@ -200,7 +206,7 @@ function createUI(sv) {
 			};
 		}
 		for (var i = 0; i < sv.arr.linkbai.length; i++) {
-			sv.arr.ViewTinTuc[i].addEventListener('click',sv.arr.eventClickViewTinTuc[i]);
+			sv.arr.ViewTinTuc[i].addEventListener('click', sv.arr.eventClickViewTinTuc[i]);
 		}
 
 		sv.ui.ViewTong.add(sv.ui.BGHeader);

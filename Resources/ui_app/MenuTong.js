@@ -656,7 +656,7 @@ function taosukien(sv, dichvu) {
 };
 
 /////cmd:ten ham, data: param,sv,_choose:1-view quay truc tiep- 2- view so ket qua
-function layketqua(_cmd, data, sv, _choose) {
+function layketqua(_cmd, data, sv) {
 	var xhr = Titanium.Network.createHTTPClient();
 	xhr.onsendstream = function(e) {
 		//ind.value = e.progress;

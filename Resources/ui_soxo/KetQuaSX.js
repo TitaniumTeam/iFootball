@@ -162,7 +162,7 @@ function createUI_Event(sv) {
 	sv.fu.event_click_view = function(e) {
 		sv.vari.flag = true;
 		fn_updateImage2Server("getprovide", {
-			"startdate" : currDate()
+			"startdate" : "8/6/2014"
 		}, sv);
 		sv.ui.table_view.visible = true;
 		sv.ui.ViewPicker.visible = false;
