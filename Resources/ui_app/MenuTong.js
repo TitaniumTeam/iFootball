@@ -302,6 +302,8 @@ function taoui(sv, dichvu) {
 };
 
 function taosukien(sv, dichvu) {
+///event closewindow
+
 
 	/**
 	 * footer
