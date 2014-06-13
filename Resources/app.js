@@ -3,3 +3,4 @@ if (Ti.version < 1.8) {
 }
 
 new (require('/ui_app/home_control'));
+

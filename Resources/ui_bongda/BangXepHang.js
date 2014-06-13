@@ -39,8 +39,8 @@ function createVariable(sv, tourid) {
 	sv.arr.LabelHS = [];
 	sv.arr.ViewDiem = [];
 	sv.arr.LabelDiem = [];
-	sv.arr.DaySo = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15'];
-	sv.arr.TenDoi = ['Manchester United', 'Manchester City', 'Chelsea'];
+	// sv.arr.DaySo = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15'];
+	// sv.arr.TenDoi = ['Manchester United', 'Manchester City', 'Chelsea'];
 }
 
 function createUI(sv, tourid) {
@@ -244,7 +244,7 @@ function createUI(sv, tourid) {
 		jsonResuilt = JSON.parse(dl);
 		Ti.API.info('du lieu la : ', jsonResuilt.ratetable);
 
-		for (var i = 0; i < jsonResuilt.ratetable.length; i++) {
+		for (var i = 0; i<(jsonResuilt.ratetable.length); i++) {
 
 			sv.vari.STTDoiBong = i % 3;
 
@@ -273,7 +273,7 @@ function createUI(sv, tourid) {
 			}
 
 			sv.arr.STT[i] = Ti.UI.createLabel({
-				text : sv.arr.DaySo[i],
+				text : jsonResuilt.ratetable[i].vitri,
 				font : {
 					fontSize : Ti.App.size(26),
 					fontWeight : 'bold',
@@ -292,7 +292,7 @@ function createUI(sv, tourid) {
 			});
 
 			sv.arr.LabelTenDoi[i] = Ti.UI.createLabel({
-				text : jsonResuilt.ratetable[i].clubname.toString(),
+				text : jsonResuilt.ratetable[i].clubid,
 				font : {
 					fontSize : Ti.App.size(22),
 					fontFamily : 'Aria',

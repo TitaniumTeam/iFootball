@@ -42,6 +42,7 @@ function tao_bien(sv) {
 	sv.arr.lbl_tennc = [];
 	sv.arr.lbl_co = [];
 	sv.arr.TourId = [];
+	sv.arr.TourName=[];
 	/////cac mua giai
 	sv.arr.muagiai = [{
 		name : "2012-2013"
@@ -99,7 +100,7 @@ function tao_ui(sv) {
 	});
 	sv.ui.ViewTong.add(sv.ui.ViewChua);
 	GetTour(sv, "gettour", {
-		"season" : "2012"
+		"season" : "2013-2014"
 		//"matchid" : "1"
 	});
 	tao_event(sv);
@@ -177,6 +178,7 @@ function GetTour(sv, _cmd, data) {
 				sv.arr.logo.push("");
 			}
 			sv.arr.TourId[i] = jsonResuilt.tournaments[i].id.toString();
+			sv.arr.TourName[i]=jsonResuilt.tournaments[i].name.toString();
 
 		}
 		/////////do du lieu vao tableview
@@ -228,7 +230,7 @@ function GetTour(sv, _cmd, data) {
 			sv.arr.lbl_co[i] = Titanium.UI.createImageView({
 				width : Ti.App.size(65),
 				height : Ti.App.size(45),
-				image : "/assets/images/1/Chelsea_FC.png",
+				image : sv.arr.logo[i],
 				left : Ti.App.size(20),
 				touchEnabled : false,
 			});
@@ -266,8 +268,8 @@ function GetTour(sv, _cmd, data) {
 
 			sv.arr.viewGD[i].addEventListener('click', function(e) {
 				Ti.API.info('thu tu ' + e.source.idGD);
-				Ti.API.info('tourid : ', i, ' ', sv.arr.TourId[e.source.idGD]);
-				sv.vari.view_bxh = new sv.vari.bxh(sv.arr.TourId[e.source.idGD]);
+				Ti.API.info('tourid : ', i, ' ', sv.arr.TourName[e.source.idGD]);
+				sv.vari.view_bxh = new sv.vari.bxh(sv.arr.TourName[e.source.idGD]);
 				sv.ui.ViewTong.removeAllChildren();
 				sv.ui.ViewTong.add(sv.vari.view_bxh.ui.ViewTong);
 			});
@@ -407,14 +409,8 @@ function GetTour(sv, _cmd, data) {
 		// sv.vari.vIndicatorWindow.closeIndicator();
 		// clearTimeout(sv.vari.timeout);
 		// }, 1000);
-
 	};
 
-}
-
-function season() {
-	var minyear = "2010";
-	var maxyear = new Date().getYear();
 }
 
 function height_viewback(sotran) {
