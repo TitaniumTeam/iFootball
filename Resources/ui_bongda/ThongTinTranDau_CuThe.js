@@ -1,4 +1,4 @@
-module.exports = function(matchid,chunha,khach,date) {
+module.exports = function(matchid, chunha, khach, date) {
 	var sv = {};
 	sv.vari = {};
 	sv.arr = {};
@@ -8,9 +8,9 @@ module.exports = function(matchid,chunha,khach,date) {
 
 	(function() {
 		createVariable(sv);
-		createUI(sv,matchid,chunha,khach,date);
+		createUI(sv, matchid, chunha, khach, date);
 	})();
-	return sv;
+	return sv.ui.winBXH;
 };
 function createVariable(sv) {
 
@@ -29,11 +29,11 @@ function createVariable(sv) {
 	sv.vari.LabelThongTinKeo21 = '';
 	sv.vari.LabelThongTinKeo22 = '';
 	sv.vari.LabelThongTinKeo23 = '';
-	sv.vari.LabelNameKeo3 ="Kèo Châu Âu";
+	sv.vari.LabelNameKeo3 = "Kèo Châu Âu";
 	sv.vari.LabelThongTinKeo31 = '';
 	sv.vari.LabelThongTinKeo32 = '';
 	sv.vari.LabelThongTinKeo33 = '';
-	sv.vari.LabelNameKeo4 ='';
+	sv.vari.LabelNameKeo4 = '';
 	sv.vari.LabelThongTinKeo41 = '';
 	sv.vari.LabelThongTinKeo42 = '';
 	sv.vari.LabelThongTinKeo43 = '';
@@ -43,31 +43,79 @@ function createVariable(sv) {
 	sv.vari.SoLuongParamResultBet = 0;
 
 };
-function createUI(sv,matchid,chunha,khach,date) {
+function createUI(sv, matchid, chunha, khach, date) {
+	sv.ui.winBXH = Titanium.UI.createWindow({
+		backgroundColor : Ti.App.Color.superwhite,
+		navBarHidden : true,
+		// exitOnClose : true,
+		orientationModes : [Ti.UI.PORTRAIT],
+		keepScreenOn : true,
+	});
+	sv.ui.ViewHeader = Ti.UI.createView({
+		width : Ti.App.size(720),
+		height : Ti.App.size(100),
+		backgroundColor : Ti.App.Color.red,
+		top : 0,
+		left : 0
+	});
+	sv.ui.winBXH.add(sv.ui.ViewHeader);
+	sv.ui.lbl_Header = Titanium.UI.createLabel({
+		width : Ti.UI.SIZE,
+		height : Ti.UI.SIZE,
+		color : Ti.App.Color.superwhite,
+		text : "THÔNG TIN KÈO ",
+		textAlign : 'center',
+		font : {
+			fontSize : Ti.App.size(30),
+			fontWeight : 'bold'
+		},
+	});
+	sv.ui.ViewHeader.add(sv.ui.lbl_Header);
+
+	/////
+	sv.ui.View_Back = Titanium.UI.createView({
+		width : Ti.App.size(100),
+		height : Ti.App.size(100),
+		top : 0,
+		left : 0,
+		backgroundColor : 'transparent',
+		backgroundSelectedColor : Ti.App.Color.xanhnhat,
+	});
+	sv.ui.ViewHeader.add(sv.ui.View_Back);
+	sv.ui.btn_Back = Titanium.UI.createImageView({
+		image : "/assets/images/icon/arrow.png",
+		width : Ti.App.size(22),
+		height : Ti.App.size(42),
+		// selectedColor : Ti.App.Color.superwhite,
+		touchEnabled : false
+	});
+	sv.ui.View_Back.add(sv.ui.btn_Back);
+	///////
 	sv.ui.ViewTong = Ti.UI.createView({
 		width : Ti.UI.FILL,
 		height : Ti.UI.FILL,
 		backgroundColor : 'transparent',
-		top : 0,
+		top : Ti.App.size(100),
 		left : 0
 	});
+	sv.ui.winBXH.add(sv.ui.ViewTong);
 	sv.ui.ViewChua = Ti.UI.createScrollView({
-		top : 0,
+		// top : 0,
 		width : Ti.App.size(720),
-		left : 0,
-		right : 0,
+		// left : 0,
+		// right : 0,
 		layout : 'vertical',
-		horizontalWrap : false,
+		// horizontalWrap : false,
 		scrollType : 'vertical',
 		backgroundColor : Ti.App.Color.magenta,
 		showHorizontalScrollIndicator : false,
 		showVerticalScrollIndicator : true,
-		disableBounce : true,
-		horizontalBounce : true,
+		// disableBounce : true,
+		// horizontalBounce : true,
 		height : Ti.UI.FILL,
-
 	});
 	sv.ui.ViewTong.add(sv.ui.ViewChua);
+	sv.ui.ViewChua.scrollTo(0, 0);
 	sv.ui.BGHeader = Ti.UI.createView({
 		right : Ti.App.size(0),
 		height : Ti.App.size(200),
@@ -118,19 +166,19 @@ function createUI(sv,matchid,chunha,khach,date) {
 	});
 
 	// sv.ui.IconDoiChuNha = Ti.UI.createImageView({
-		// image : '/assets/images/1/Manchester-United.png',
-		// height : Ti.App.size(115),
-		// width : Ti.App.size(115),
-		// top : Ti.App.size(50),
-		// left : Ti.App.size(50),
+	// image : '/assets/images/1/Manchester-United.png',
+	// height : Ti.App.size(115),
+	// width : Ti.App.size(115),
+	// top : Ti.App.size(50),
+	// left : Ti.App.size(50),
 	// });
-// 
+	//
 	// sv.ui.IconDoiKhach = Ti.UI.createImageView({
-		// image : '/assets/images/1/Chelsea_FC.png',
-		// height : Ti.App.size(115),
-		// width : Ti.App.size(115),
-		// top : Ti.App.size(50),
-		// right : Ti.App.size(50),
+	// image : '/assets/images/1/Chelsea_FC.png',
+	// height : Ti.App.size(115),
+	// width : Ti.App.size(115),
+	// top : Ti.App.size(50),
+	// right : Ti.App.size(50),
 	// });
 
 	sv.ui.LbVS = Ti.UI.createLabel({
@@ -566,8 +614,11 @@ function createUI(sv,matchid,chunha,khach,date) {
 		backgroundColor : Ti.App.Color.white,
 		top : Ti.App.size(60),
 		left : 0,
-		height : Ti.UI.FILL,
-		width : Ti.App.size(720),
+		height : Ti.UI.SIZE,
+		width : Ti.App.size(640),
+		separatorColor : Ti.App.Color.magenta,
+		scrollable : true,
+		// left : Ti.App.size(40),
 	});
 
 	GetMatchRatio(sv, "getmatchratio", {
@@ -579,14 +630,12 @@ function createUI(sv,matchid,chunha,khach,date) {
 	/*
 	 *
 	 */
-
-	sv.ui.ViewChua.add(sv.ui.BGHeader);
-	sv.ui.ViewChua.add(sv.ui.LbThongTinKeo);
-	sv.ui.ViewChua.add(sv.ui.ViewKeoChauA);
-	sv.ui.ViewChua.add(sv.ui.ViewTongSoBanThang);
-	sv.ui.ViewChua.add(sv.ui.ViewKeoChauAu);
-	sv.ui.ViewChua.add(sv.ui.ViewTyLeAn);
-	sv.ui.ViewChua.add(sv.ui.ViewCaCuocTySo);
+	tao_event(sv);
+	sv.ui.View_Back.addEventListener('click', sv.fu.eventClickIconLeft);
+	sv.ui.winBXH.addEventListener('open', sv.fu.eventOpenWindow);
+	sv.ui.winBXH.addEventListener('close', sv.fu.eventCloseWindow);
+	sv.ui.winBXH.addEventListener('android:back', sv.fu.event_androidback);
+	///////////
 
 	sv.ui.BGHeader.add(sv.ui.LbGioPhut);
 	// sv.ui.BGHeader.add(sv.ui.IconAddress);
@@ -632,11 +681,48 @@ function createUI(sv,matchid,chunha,khach,date) {
 	sv.ui.ViewThongTinTyLeAn.add(sv.ui.LabelThongTinTyLeAn3);
 
 	sv.ui.ViewCaCuocTySo.add(sv.ui.ViewHeaderCaCuocTySo);
-	sv.ui.ViewCaCuocTySo.add(sv.ui.TableViewThongTinCaCuocTySo);
+sv.ui.ViewCaCuocTySo.add(sv.ui.TableViewThongTinCaCuocTySo);
 	sv.ui.ViewHeaderCaCuocTySo.add(sv.ui.ViewLabelHeaderCacCuocTySo1);
 	sv.ui.ViewHeaderCaCuocTySo.add(sv.ui.ViewLabelHeaderCacCuocTySo2);
 	sv.ui.ViewLabelHeaderCacCuocTySo1.add(sv.ui.LabelHeaderCacCuocTySo1);
 	sv.ui.ViewLabelHeaderCacCuocTySo2.add(sv.ui.LabelHeaderCacCuocTySo2);
+	/////////
+	sv.ui.ViewChua.add(sv.ui.BGHeader);
+	sv.ui.ViewChua.add(sv.ui.LbThongTinKeo);
+	sv.ui.ViewChua.add(sv.ui.ViewKeoChauA);
+	sv.ui.ViewChua.add(sv.ui.ViewTongSoBanThang);
+	sv.ui.ViewChua.add(sv.ui.ViewKeoChauAu);
+	sv.ui.ViewChua.add(sv.ui.ViewTyLeAn);
+	sv.ui.ViewChua.add(sv.ui.ViewCaCuocTySo);
+	
+}
+
+function tao_event(sv) {
+	sv.fu.event_androidback = function(e) {
+		sv.ui.winBXH.close();
+	};
+	sv.fu.eventClickIconLeft = function(e) {
+		sv.ui.winBXH.close();
+	};
+
+	sv.fu.eventOpenWindow = function() {
+		Ti.API.info('Opened window');
+	};
+
+	sv.fu.eventCloseWindow = function(e) {
+		sv.ui.winBXH.removeEventListener('open', sv.fu.eventOpenWindow);
+		sv.ui.winBXH.removeEventListener('close', sv.fu.eventCloseWindow);
+		sv.ui.btn_Back.removeEventListener('click', sv.fu.eventClickIconLeft);
+		sv.ui.winBXH.removeEventListener('android:back', sv.fu.event_androidback);
+		sv.vari = null;
+		sv.arr = null;
+		sv.ui = null;
+		sv.fu = null;
+		sv.test = null;
+		sv = null;
+
+		Ti.API.info('Closed window, sv=' + sv);
+	};
 }
 
 function GetMatchRatio(sv, _cmd, data) {

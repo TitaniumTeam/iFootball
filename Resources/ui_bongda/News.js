@@ -19,7 +19,7 @@ module.exports = function() {
 function createVariable(sv) {
 	sv.vari = {};
 	sv.arr = {};
-
+	sv.vari.wdnew = require('/ui_bongda/NewsContent');
 	//sv.vari.SoTinTuc = 7;
 	sv.arr.linkbai = [];
 	sv.vari.TopView = Ti.App.size(235);
@@ -46,14 +46,7 @@ function createUI(sv) {
 		top : 0,
 		left : 0
 	});
-	sv.ui.webview = Titanium.UI.createWebView({
-		width : Ti.UI.FILL,
-		height : Ti.UI.FILL,
-		showScrollbars : false,
-		scalesPageToFit : true,
-		touchEnabled : true,
-		enableZoomControls : false,
-	});
+
 	var xhr = Titanium.Network.createHTTPClient();
 	xhr.onsendstream = function(e) {
 		//ind.value = e.progress;
@@ -98,9 +91,11 @@ function createUI(sv) {
 			backgroundSelectedColor : Ti.App.Color.xanhnhat
 		});
 		sv.ui.ViewTinHot.addEventListener('click', function(e) {
-			sv.ui.ViewTong.removeAllChildren();
-				sv.ui.webview.setUrl(jsonResuilt.news[0].content);
-				sv.ui.ViewTong.add(sv.ui.webview);
+			sv.vari.wdtintuc = new sv.vari.wdnew(jsonResuilt.news[0].content);
+			sv.vari.wdtintuc.open();
+			// sv.ui.ViewTong.removeAllChildren();
+			// sv.ui.webview.setUrl(jsonResuilt.news[0].content);
+			// sv.ui.ViewTong.add(sv.ui.webview);
 		});
 		sv.ui.LabelTinHot = Ti.UI.createLabel({
 			text : jsonResuilt.news[0].title.toString(),
@@ -148,7 +143,7 @@ function createUI(sv) {
 				left : Ti.App.size(320),
 				right : Ti.App.size(40),
 				top : Ti.App.size(30),
-				height:Ti.UI.SIZE
+				height : Ti.UI.SIZE
 				// bottom : Ti.App.size(130)
 			});
 
@@ -200,9 +195,11 @@ function createUI(sv) {
 		for (var i = 0; i < sv.arr.linkbai.length; i++) {
 			sv.arr.eventClickViewTinTuc[i] = function(e) {
 				Ti.API.info('link bai:' + sv.arr.linkbai[e.row.id]);
-				sv.ui.ViewTong.removeAllChildren();
-				sv.ui.webview.setUrl(sv.arr.linkbai[e.row.id]);
-				sv.ui.ViewTong.add(sv.ui.webview);
+				sv.vari.wdtintuc = new sv.vari.wdnew(sv.arr.linkbai[e.row.id]);
+				sv.vari.wdtintuc.open();
+				// sv.ui.ViewTong.removeAllChildren();
+				// sv.ui.webview.setUrl(sv.arr.linkbai[e.row.id]);
+				// sv.ui.ViewTong.add(sv.ui.webview);
 			};
 		}
 		for (var i = 0; i < sv.arr.linkbai.length; i++) {

@@ -96,7 +96,7 @@ function taoui(sv, dichvu) {
 	sv.ui.win = Ti.UI.createWindow({
 		backgroundColor : Ti.App.Color.superwhite,
 		navBarHidden : true,
-		exitOnClose : true,
+		// exitOnClose : true,
 		orientationModes : [Ti.UI.PORTRAIT],
 		keepScreenOn : true,
 	});
@@ -616,7 +616,7 @@ function taosukien(sv, dichvu) {
 		sv.vari.intelval = setInterval(function() {
 			layketqua("searchlottery", {
 				"provideid" : "MB",
-				"startdate" : currDate()
+				"startdate" : "8/6/2014"
 			}, sv.vari.wdKQSX);
 		}, 15000);
 

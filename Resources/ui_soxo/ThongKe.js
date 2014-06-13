@@ -13,8 +13,8 @@ module.exports = function() {
 
 function taobien(sv) {
 	sv.vari.combobox = require('/ui_soxo/ComboBox');
-	sv.vari.indicator = require('/ui-controller/vIndicatorWindow');
-	sv.vari.vIndicatorWindow = sv.vari.indicator.createIndicatorWindow();
+	// sv.vari.indicator = require('/ui-controller/vIndicatorWindow');
+	// sv.vari.vIndicatorWindow = sv.vari.indicator.createIndicatorWindow();
 	sv.vari.flag = false;
 	sv.arr.datarow = [];
 	sv.arr.height = [Ti.App.size(120), Ti.App.size(200)];
@@ -98,16 +98,16 @@ function tao_ui(sv) {
 
 	////
 	createUI_Event(sv);
-	sv.ui.scrollView.addEventListener('postlayout', sv.fu.event_loadview);
+	// sv.ui.scrollView.addEventListener('postlayout', sv.fu.event_loadview);
 	sv.ui.view_choose.addEventListener('click', sv.fu.event_click_view);
 	sv.ui.table_view.addEventListener('click', sv.fu.event_clicktbl);
 	sv.ui.scrollView.addEventListener('click', sv.fu.event_clickscrollview);
 };
 function createUI_Event(sv) {
-	sv.fu.event_loadview = function(e) {
-		sv.ui.scrollView.visible = true;
-		sv.vari.vIndicatorWindow.closeIndicator();
-	};
+	// sv.fu.event_loadview = function(e) {
+		// sv.ui.scrollView.visible = true;
+		// sv.vari.vIndicatorWindow.closeIndicator();
+	// };
 	sv.fu.event_clickscrollview = function(e) {
 		sv.vari.flag = false;
 		if (sv.vari.flag == false) {
@@ -151,10 +151,10 @@ function thongke(_cmd, data, sv) {
 		var jsonResuilt = JSON.parse(dl);
 		if (_cmd == "getlotterystat") {
 			if ((jsonResuilt.thongke != null) || (jsonResuilt.thongke != undefined)) {
-				if (Ti.Platform.osname == 'android' && Ti.Network.networkType != Ti.Network.NETWORK_NONE) {
-					sv.ui.scrollView.visible = false;
-					sv.vari.vIndicatorWindow.openIndicator();
-				}
+				// if (Ti.Platform.osname == 'android' && Ti.Network.networkType != Ti.Network.NETWORK_NONE) {
+					// sv.ui.scrollView.visible = false;
+					// sv.vari.vIndicatorWindow.openIndicator();
+				// }
 				if (jsonResuilt.thongke.lauchuara.length == 0) {
 					sv.ui.scrollView.scrollTo(0, 0);
 					sv.ui.scrollView.removeAllChildren();

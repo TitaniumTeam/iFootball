@@ -42,10 +42,14 @@ function tao_bien(sv) {
 	sv.arr.lbl_tennc = [];
 	sv.arr.lbl_co = [];
 	sv.arr.TourId = [];
-	sv.arr.TourName=[];
+	sv.arr.TourName = [];
 	/////cac mua giai
 	sv.arr.muagiai = [{
+		name : "2012"
+	}, {
 		name : "2012-2013"
+	}, {
+		name : "2013"
 	}, {
 		name : "2013-2014"
 	}];
@@ -77,7 +81,6 @@ function tao_ui(sv) {
 		text : 'Mùa giải',
 		font : {
 			fontSize : Ti.App.size(30),
-			fontWeight : 'bold'
 		},
 		color : Ti.App.Color.superwhite,
 		backgroundColor : Ti.App.Color.brown,
@@ -178,7 +181,7 @@ function GetTour(sv, _cmd, data) {
 				sv.arr.logo.push("");
 			}
 			sv.arr.TourId[i] = jsonResuilt.tournaments[i].id.toString();
-			sv.arr.TourName[i]=jsonResuilt.tournaments[i].name.toString();
+			sv.arr.TourName[i] = jsonResuilt.tournaments[i].name.toString();
 
 		}
 		/////////do du lieu vao tableview
@@ -269,9 +272,10 @@ function GetTour(sv, _cmd, data) {
 			sv.arr.viewGD[i].addEventListener('click', function(e) {
 				Ti.API.info('thu tu ' + e.source.idGD);
 				Ti.API.info('tourid : ', i, ' ', sv.arr.TourName[e.source.idGD]);
-				sv.vari.view_bxh = new sv.vari.bxh(sv.arr.TourName[e.source.idGD]);
-				sv.ui.ViewTong.removeAllChildren();
-				sv.ui.ViewTong.add(sv.vari.view_bxh.ui.ViewTong);
+				sv.vari.view_bxh = new sv.vari.bxh(sv.arr.TourName[e.source.idGD], sv.ui.lblfirst.text);
+				sv.vari.view_bxh.open();
+				// sv.ui.ViewTong.removeAllChildren();
+				// sv.ui.ViewTong.add(sv.vari.view_bxh.ui.ViewTong);
 			});
 
 			sv.arr.viewArow[i].addEventListener('click', function(e) {
@@ -357,20 +361,22 @@ function GetTour(sv, _cmd, data) {
 						sv.arr.trandau[j].addEventListener('click', function(e) {
 							Ti.API.info('id tran dau:' + sv.arr.MangDL.id[e.source.id]);
 							sv.ui.TTTD = new sv.vari.TTTD_cuthe(sv.arr.MangDL.id[e.source.id], sv.arr.MangDL.chunha[e.source.id], sv.arr.MangDL.khach[e.source.id], sv.arr.MangDL.date[e.source.id]);
-							sv.ui.ViewTong.removeAllChildren();
-							sv.ui.ViewTong.add(sv.ui.TTTD.ui.ViewTong);
+							sv.ui.TTTD.open();
+							// sv.ui.ViewTong.removeAllChildren();
+							// sv.ui.ViewTong.add(sv.ui.TTTD.ui.ViewTong);
 						});
 					}
 
+					// for (var i = 0; i < sv.vari.SoTran; i++) {
 					if (e.source.expanded) {
 						e.source.expanded = false;
-						sv.arr.rows[e.source.id].setHeight(sv.vari.row_height);
+						sv.arr.rows[e.source.id].setHeight(Ti.App.size(100));
 						// sv.arr.viewArow[e.source.id].transform = sv.vari.trans2;
 						sv.arr.arrow[e.source.id].setBackgroundImage('/assets/images/icon/arrow-top.png');
-						for (var j = 0; j < sv.arr.data.length; j++) {
+						for (var j = 0; j < sv.vari.SoLuongGiaiDau; j++) {
 							if (j != (e.source.id)) {
 								sv.arr.rows[j].expanded = false;
-								sv.arr.rows[j].setHeight(sv.vari.row_height);
+								sv.arr.rows[j].setHeight(Ti.App.size(100));
 								sv.arr.arrow[j].setBackgroundImage('/assets/images/icon/arrow-top.png');
 								// sv.arr.viewArow[j].transform = sv.vari.trans2;
 								// sv.arr.arrow[j].top = Ti.App.size(25);
@@ -382,16 +388,17 @@ function GetTour(sv, _cmd, data) {
 						sv.arr.arrow[e.source.id].setBackgroundImage('/assets/images/icon/arrow-bottom.png');
 						// sv.arr.viewArow[e.source.id].transform = sv.vari.trans1;
 						// sv.arr.arrow[e.source.id].top = Ti.App.size(20);
-						for (var j = 0; j < sv.arr.data.length; j++) {
+						for (var j = 0; j < sv.vari.SoLuongGiaiDau; j++) {
 							if (j != (e.source.id)) {
 								sv.arr.rows[j].expanded = false;
 								// sv.arr.viewArow[j].transform = sv.vari.trans2;
 								// sv.arr.arrow[j].top = Ti.App.size(25);
-								sv.arr.rows[j].setHeight(sv.vari.row_height);
+								sv.arr.rows[j].setHeight(Ti.App.size(100));
 								sv.arr.arrow[j].setBackgroundImage('/assets/images/icon/arrow-top.png');
 							}
 						}
 					}
+					// }
 
 				};
 

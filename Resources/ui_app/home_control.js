@@ -26,8 +26,8 @@ function home_control() {
 		xhr.send(JSON.stringify(data));
 		xhr.onerror = function(e) {
 			// Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
-			// var home = new menutong();
-			// home.ui.win.open();
+			var home = new menutong();
+			home.ui.win.open();
 
 		};
 		xhr.onload = function() {

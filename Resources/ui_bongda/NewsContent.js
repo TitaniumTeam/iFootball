@@ -1,4 +1,4 @@
-module.exports = function() {
+module.exports = function(url) {
 	var sv = {};
 	sv.vari = {};
 	sv.arr = {};
@@ -8,104 +8,104 @@ module.exports = function() {
 
 	(function() {
 		createVariable(sv);
-		createUI(sv);
+		createUI(sv, url);
 	})();
 
-	return sv;
+	return sv.ui.winBXH;
 };
 
 function createVariable(sv) {
 	sv.vari.SoDoi = 20;
 }
 
-function createUI(sv) {
+function createUI(sv, url) {
 
-	sv.ui.ViewTong = Ti.UI.createView({
-		backgroundColor : Ti.App.Color.magenta,
+	sv.ui.winBXH = Titanium.UI.createWindow({
+		backgroundColor : Ti.App.Color.superwhite,
+		navBarHidden : true,
+		// exitOnClose : true,
+		orientationModes : [Ti.UI.PORTRAIT],
+		keepScreenOn : true,
+	});
+	sv.ui.ViewHeader = Ti.UI.createView({
+		width : Ti.App.size(720),
+		height : Ti.App.size(100),
+		backgroundColor : Ti.App.Color.red,
 		top : 0,
 		left : 0
 	});
-	sv.ui.ViewLabelHeader = Ti.UI.createView({
-		height : Ti.App.size(120),
-		top : Ti.App.size(0),
-		left : Ti.App.size(120),
-		right : Ti.App.size(120)
-	});
-
-	sv.ui.LabelHeader = Ti.UI.createLabel({
-		text : 'TIN TỨC',
+	sv.ui.winBXH.add(sv.ui.ViewHeader);
+	sv.ui.lbl_Header = Titanium.UI.createLabel({
+		width : Ti.UI.SIZE,
+		height : Ti.UI.SIZE,
+		color : Ti.App.Color.superwhite,
+		text : "TIN TỨC ",
+		textAlign : 'center',
 		font : {
-			fontSize : Ti.App.size(40),
-			fontWeight : 'bold',
-			fontFamily : 'Aria'
+			fontSize : Ti.App.size(30),
+			fontWeight : 'bold'
 		},
-		color : Ti.App.Color.white,
 	});
+	sv.ui.ViewHeader.add(sv.ui.lbl_Header);
 
-	sv.ui.BGHeader = Ti.UI.createView({
-		backgroundImage : '/assets/images/1/BGHeader.jpeg',
-		right : Ti.App.size(0),
-		height : Ti.App.size(405),
-		top : Ti.App.size(0),
-		left : 0
+	/////
+	sv.ui.View_Back = Titanium.UI.createView({
+		width : Ti.App.size(100),
+		height : Ti.App.size(100),
+		top : 0,
+		left : 0,
+		backgroundColor : 'transparent',
+		backgroundSelectedColor : Ti.App.Color.xanhnhat,
 	});
-
-	sv.ui.ViewTinHot = Ti.UI.createView({
-		backgroundColor : Ti.App.Color.nauden,
-		right : Ti.App.size(0),
-		left : Ti.App.size(0),
-		height : Ti.App.size(120),
-		bottom : Ti.App.size(0),
-		opacity : 0.8
+	sv.ui.ViewHeader.add(sv.ui.View_Back);
+	sv.ui.btn_Back = Titanium.UI.createImageView({
+		image : "/assets/images/icon/arrow.png",
+		width : Ti.App.size(22),
+		height : Ti.App.size(42),
+		// selectedColor : Ti.App.Color.superwhite,
+		touchEnabled : false
 	});
-
-	sv.ui.LabelTinHot = Ti.UI.createLabel({
-		//text : 'Juventus vừa thông báo rằng chỉ sau một lượt đấu nữa sẽ là vô địch',
-		font : {
-			fontSize : Ti.App.size(24),
-			fontFamily : 'Aria',
-			fontWeight : 'bold',
-			textAlign : 'center'
-		},
-		color : Ti.App.Color.white,
-		left : Ti.App.size(40),
-		right : Ti.App.size(40)
-	});
-
-	sv.ui.ViewDocBao = Ti.UI.createScrollView({
-		backgroundColor : Ti.App.Color.magenta,
-		top : Ti.App.size(405),
-		width : Ti.App.size(720)
-	});
-
-	sv.ui.webview = Ti.UI.createWebView({
+	sv.ui.View_Back.add(sv.ui.btn_Back);
+	sv.ui.webview = Titanium.UI.createWebView({
 		width : Ti.UI.FILL,
 		height : Ti.UI.FILL,
 		showScrollbars : false,
 		scalesPageToFit : true,
 		touchEnabled : true,
 		enableZoomControls : false,
+		top : Ti.App.size(100),
+		url : url
 	});
+
+	sv.ui.winBXH.add(sv.ui.webview);
+
 	createUI_Event(sv);
-
-	sv.ui.ViewLabelHeader.add(sv.ui.LabelHeader);
-
-	sv.ui.ViewTong.add(sv.ui.BGHeader);
-	sv.ui.ViewTong.add(sv.ui.ViewDocBao);
-
-	sv.ui.BGHeader.add(sv.ui.ViewTinHot);
-
-	sv.ui.ViewTinHot.add(sv.ui.LabelTinHot);
-
+	sv.ui.View_Back.addEventListener('click', sv.fu.eventClickIconLeft);
+	sv.ui.winBXH.addEventListener('open', sv.fu.eventOpenWindow);
+	sv.ui.winBXH.addEventListener('close', sv.fu.eventCloseWindow);
+	sv.ui.winBXH.addEventListener('android:back', sv.fu.event_androidback);
+	// sv.ui.ViewTong.add(sv.ui.ViewToolBar);
+	// sv.ui.ViewTong.add(sv.ui.ViewListTeam);
 }
 
 function createUI_Event(sv) {
 
-	sv.fu.eventCloseWindow = function(e) {
-		sv.ui.Window.removeEventListener('open', sv.fu.eventOpenWindow);
-		sv.ui.Window.removeEventListener('close', sv.fu.eventCloseWindow);
-		sv.ui.ViewIconLeft.removeEventListener('click', sv.fu.eventClickIconLeft);
+	sv.fu.event_androidback = function(e) {
+		sv.ui.winBXH.close();
+	};
+	sv.fu.eventClickIconLeft = function(e) {
+		sv.ui.winBXH.close();
+	};
 
+	sv.fu.eventOpenWindow = function() {
+		Ti.API.info('Opened window');
+	};
+
+	sv.fu.eventCloseWindow = function(e) {
+		sv.ui.winBXH.removeEventListener('open', sv.fu.eventOpenWindow);
+		sv.ui.winBXH.removeEventListener('close', sv.fu.eventCloseWindow);
+		sv.ui.btn_Back.removeEventListener('click', sv.fu.eventClickIconLeft);
+		sv.ui.winBXH.removeEventListener('android:back', sv.fu.event_androidback);
 		sv.vari = null;
 		sv.arr = null;
 		sv.ui = null;
