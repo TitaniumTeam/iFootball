@@ -16,6 +16,8 @@ function taobien(sv, dichvu) {
 	sv.arr.rows = [];
 	sv.vari.db = Ti.Database.open("userinfo");
 	sv.vari.dichvu_db = sv.vari.db.execute("SELECT * FROM DichVu");
+	sv.vari.dichvu=sv.vari.db.execute("SELECT * FROM DV");
+	Ti.API.info('dich vu free:'+sv.vari.dichvu.getRowCount());
 	sv.arr.cacdichvu = {};
 	sv.arr.cacdichvu.tendv = [];
 	sv.arr.cacdichvu.thamso = [];
@@ -42,6 +44,7 @@ function taoui(sv, dichvu) {
 	}
 	sv.vari.dichvu_db.close();
 	sv.vari.db.close();
+	sv.vari.dichvu.close();
 	if (dichvu) {
 		Ti.API.info('**** dich vu free');
 		for (var i = 0; i < (dichvu.tendv.length); i++) {

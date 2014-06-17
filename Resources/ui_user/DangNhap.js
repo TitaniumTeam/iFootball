@@ -1,4 +1,4 @@
-module.exports = function() {
+module.exports = function(_currWin) {
 	var sv = {};
 	sv.vari = {};
 	sv.arr = {};
@@ -8,7 +8,7 @@ module.exports = function() {
 
 	(function() {
 		createVariable(sv);
-		createUI(sv);
+		createUI(sv, _currWin);
 	})();
 
 	return sv.ui.Window;
@@ -21,11 +21,11 @@ function createVariable(sv) {
 	sv.vari.windk = require('/ui_user/WindowDK');
 }
 
-function createUI(sv) {
+function createUI(sv, _currWin) {
 	sv.ui.Window = Ti.UI.createWindow({
 		backgroundColor : Ti.App.Color.white,
 		navBarHidden : true,
-		exitOnClose : true,
+		// exitOnClose : true,
 		orientationModes : [Ti.UI.PORTRAIT],
 		keepScreenOn : true,
 	});
@@ -283,7 +283,7 @@ function createUI(sv) {
 		textAlign : 'center'
 	});
 
-	createUI_Event(sv);
+	createUI_Event(sv, _currWin);
 
 	sv.ui.viewdnface.addEventListener('click', sv.fu.eventClickviewdnface);
 	sv.ui.viewdngmail.addEventListener('click', sv.fu.eventClickviewdngmail);
@@ -291,6 +291,7 @@ function createUI(sv) {
 	sv.ui.viewdangky.addEventListener('click', sv.fu.eventClickviewdangky);
 	sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
 	sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
+	sv.ui.Window.addEventListener('android:back', sv.fu.fn_BackDevicePress);
 	sv.ui.ViewBack.addEventListener('click', sv.fu.openMenuTong);
 	sv.ui.Window.add(sv.ui.viewtong);
 
@@ -322,9 +323,13 @@ function createUI(sv) {
 	sv.ui.viewquenpass.add(sv.ui.lablequenpass);
 }
 
-function createUI_Event(sv) {
+function createUI_Event(sv, _currWin) {
+	sv.fu.fn_BackDevicePress = function() {
+		sv.ui.Window.close();
+	};
 	sv.fu.openMenuTong = function(e) {
-			back_home(sv);
+		sv.ui.Window.close();
+		// back_home(sv);
 	};
 	sv.fu.eventClickviewdnface = function(e) {
 	};
@@ -339,13 +344,13 @@ function createUI_Event(sv) {
 			dangnhap({
 				"username" : sv.ui.tfid.value,
 				"password" : sv.ui.tfpass.value
-			}, sv);
+			}, sv, _currWin);
 		}
 
 	};
 
 	sv.fu.eventClickviewdangky = function(e) {
-		sv.vari.windangki = new sv.vari.windk();
+		sv.vari.windangki = new sv.vari.windk(_currWin);
 		sv.vari.windangki.open();
 		sv.ui.Window.close();
 	};
@@ -374,7 +379,7 @@ function createUI_Event(sv) {
 	};
 }
 
-function dangnhap(data, sv) {
+function dangnhap(data, sv, _currWin) {
 
 	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
 		alert('Kiểm tra kết nối mạng');
@@ -400,6 +405,7 @@ function dangnhap(data, sv) {
 			Ti.API.info('ket qua' + dl);
 			Ti.API.info('json' + jsonResuilt.result.code);
 			if (jsonResuilt.result.code == "0") {
+				_currWin.close();
 				var db = Ti.Database.open('userinfo');
 				var sql = db.execute("SELECT * FROM SaveInfo");
 
@@ -514,7 +520,7 @@ function back_home(sv) {
 		}
 		var home = new menutong(dichvu);
 		home.ui.win.open();
-		
+
 		if (Ti.Platform.osname == 'android') {
 
 		} else {

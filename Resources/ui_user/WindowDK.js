@@ -1,4 +1,4 @@
-module.exports = function() {
+module.exports = function(_currWin) {
 	var sv = {};
 	sv.vari = {};
 	sv.arr = {};
@@ -6,7 +6,7 @@ module.exports = function() {
 	sv.fu = {};
 	(function() {
 		tao_bien(sv);
-		tao_ui(sv);
+		tao_ui(sv,_currWin);
 	})();
 	return sv.ui.WindowDK;
 };
@@ -20,11 +20,11 @@ function tao_bien(sv) {
 
 /*khoi tao UI
  */
-function tao_ui(sv) {
+function tao_ui(sv,_currWin) {
 	sv.ui.WindowDK = Ti.UI.createWindow({
 		backgroundColor : Ti.App.Color.red,
 		navBarHidden : true,
-		exitOnClose : true,
+		// exitOnClose : true,
 		orientationModes : [Ti.UI.PORTRAIT],
 		keepScreenOn : true,
 
@@ -183,19 +183,22 @@ function tao_ui(sv) {
 	});
 	sv.ui.scrollView.add(sv.ui.btn_dangki);
 	/////////////
-	tao_event(sv);
+	tao_event(sv,_currWin);
 	sv.ui.btn_dangki.addEventListener('click', sv.fu.event_dk);
 	sv.ui.WindowDK.addEventListener('open', sv.fu.openWindow);
 	sv.ui.WindowDK.addEventListener('close', sv.fu.closeWindow);
 	sv.ui.ViewBack.addEventListener('click', sv.fu.openMenuTong);
+	sv.ui.WindowDK.addEventListener('android:back',sv.fu.fn_BackDevicePress);
 	////////////////
 }
 
-function tao_event(sv) {
+function tao_event(sv,_currWin) {
+	sv.fu.fn_BackDevicePress = function() {
+		sv.ui.WindowDK.close();
+	};
 	sv.fu.openMenuTong = function(e) {
-		
-			back_home(sv);
-
+		sv.ui.WindowDK.close();
+			// back_home(sv);
 	};
 
 	sv.fu.openWindow = function(e) {
@@ -210,7 +213,7 @@ function tao_event(sv) {
 				"password" : sv.ui.txtPassword.value,
 				"email" : sv.ui.txtEmail.value,
 				"mobile" : sv.ui.txtMobile.value
-			}, sv);
+			}, sv,_currWin);
 		}
 
 	};
@@ -228,7 +231,7 @@ function tao_event(sv) {
 	};
 }
 
-function fn_updateImage2Server(_cmd, data, sv) {
+function fn_updateImage2Server(_cmd, data, sv,_currWin) {
 	var xhr = Titanium.Network.createHTTPClient();
 	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
 		alert('Kiểm tra kết nối mạng');
@@ -252,7 +255,7 @@ function fn_updateImage2Server(_cmd, data, sv) {
 			Ti.API.info('ket qua' + dl);
 			Ti.API.info('json' + jsonResuilt.code);
 			if (jsonResuilt.code == "0") {
-				sv.vari.wd_dangnhap = new sv.vari.wd_dn();
+				sv.vari.wd_dangnhap = new sv.vari.wd_dn(_currWin);
 				sv.vari.wd_dangnhap.open();
 				sv.ui.WindowDK.close();
 				Ti.API.info('dang ki thanh cong');

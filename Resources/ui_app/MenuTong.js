@@ -299,11 +299,30 @@ function taoui(sv, dichvu) {
 	}
 	sv.ui.win.addEventListener('open', sv.fu.evt_win_open);
 	sv.ui.win.addEventListener('close', sv.fu.evt_win_close);
+	sv.ui.win.addEventListener('android:back', sv.fu.fn_BackDevicePress);
 };
 
 function taosukien(sv, dichvu) {
 ///event closewindow
-
+sv.fu.fn_BackDevicePress = function() {
+		var dialog = Ti.UI.createAlertDialog({
+			cancel : 1,
+			buttonNames : ['Có', 'Không'],
+			message : 'Bạn thực sự muốn thoát ứng dụng?',
+			title : 'Thoát ứng dụng'
+		});
+		dialog.addEventListener('click', function(e) {
+			if (e.index === e.source.cancel) {
+				Ti.API.info('The cancel button was clicked');
+			} else {
+				sv.ui.win.close();
+				var activity = Titanium.Android.currentActivity;
+				activity.finish();
+			}
+		});
+		dialog.show();
+		return false;
+	};
 
 	/**
 	 * footer

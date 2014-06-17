@@ -52,7 +52,7 @@ function taoui(sv, dichvu) {
 			sv.arr.cacdichvu.id.push(dichvu.servicenumber[i]);
 		}
 	}
-	for (var i = 1; i < (sv.arr.cacdichvu.tendv).length; i++) {
+	for (var i = 0; i < (sv.arr.cacdichvu.tendv).length; i++) {
 		Ti.API.info('ten dichvu:' + sv.arr.cacdichvu.tendv[i]);
 		Ti.API.info('dauso:' + sv.arr.cacdichvu.dauso[i]);
 		Ti.API.info('thamso:' + sv.arr.cacdichvu.thamso[i]);
@@ -160,7 +160,7 @@ function fn_updateImage2Server(_cmd, data, sv) {
 				// sv.ui.webview.show();
 				sv.ui.ViewTong.removeAllChildren();
 				sv.ui.ViewTong.add(sv.ui.webview);
-				sv.ui.webview.url = jsonResuilt.advisor;
+				sv.ui.webview.html = jsonResuilt.advisor;
 			} else {
 				Ti.API.info('khong co link');
 			}
